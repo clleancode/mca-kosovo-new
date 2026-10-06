@@ -1,0 +1,10 @@
+{
+    "name": "acf/compact",
+    "title": "MCA - Compact",
+    "description": "Compact investment, milestones and countdown.",
+    "category": "formatting",
+    "icon": "chart-bar",
+    "keywords": ["compact", "investment", "timeline"],
+    "acf": {"mode": "preview", "renderTemplate": "compact.php"},
+    "supports": {"align": true, "anchor": true, "customClassName": true}
+}

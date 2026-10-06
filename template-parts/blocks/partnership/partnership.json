@@ -1,0 +1,21 @@
+{
+  "name": "acf/partnership",
+  "title": "MCA - Partnership",
+  "description": "Compact funding and implementing partners.",
+  "category": "formatting",
+  "icon": "groups",
+  "keywords": [
+    "partnership",
+    "compact",
+    "funding"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "partnership.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

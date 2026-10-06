@@ -1,0 +1,29 @@
+.o-not-found {
+    padding-top: 120px;
+    min-height: 100vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .m-content {
+        .a-heading {
+            margin-bottom: 15px !important;
+        }
+       
+    }
+
+    @media(min-width: 768px) {
+        .container {
+            max-width: 800px;
+        }
+    }
+}

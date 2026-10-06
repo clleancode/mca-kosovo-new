@@ -1,0 +1,232 @@
+.a-btn {
+    border: none;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 65px;
+    min-height: 45px;
+    padding: 0 20px;
+    font-family: var(--red-hat-display);
+    font-size: clamp(13px, 2.8vw, 16px);
+    transition: color 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    font-weight: 600;
+
+    i {
+        font-size: clamp(10px, 2vw, 12px);
+        transition: transform 0.3s ease-in-out;
+        transform-origin: left center;
+      }
+
+      span {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        position: relative;
+        z-index: 2;
+      }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--dark-blue);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease-in-out;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            color: var(--white);
+            &::after {
+                transform: scaleX(1);
+            }
+
+            i {
+                transform: scale(1.25) translateX(1px) rotate(45deg) translateY(-5px);
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        min-height: 60px;
+        padding: 0 35px;
+    }
+}
+
+.a-btn--border {
+    background-color: transparent;
+    border: 1px solid var(--white);
+    color: var(--white);
+}
+
+.a-btn--smaller {
+    min-height: 40px;
+    padding: 0 15px;
+    font-size: clamp(12.5px, 2.4vw, 16px);
+    
+    i {font-size: clamp(9.5px, 2vw, 12px);}
+
+    @media (min-width: 768px) {
+        min-height: 50px;
+        padding: 0 24px;
+    }
+}
+
+.a-btn--smallest {
+    min-height: 34px;
+    padding: 0 8px;
+    font-size: clamp(10px, 2.4vw, 12px);
+    
+    i {font-size: clamp(8px, 2vw, 10px);}
+
+    @media (min-width: 768px) {
+        min-height: 40px;
+        padding: 0 18px;
+    }
+}
+
+.a-btn--link {
+    min-height: auto;
+    padding: unset;
+    background-color: transparent;
+    padding-left: 0 !important;
+    padding-right: 15px;
+
+   &::after {
+        display: none;
+   }
+
+   @media(hover: hover) {
+        &:hover {
+            color: var(--dark-blue);
+        }
+   }
+}
+
+.a-btn--filter {
+    min-height: 35px;
+    padding: 0 20px;
+    font-size: 14px;
+    
+    i {font-size: 8px;}
+}
+
+.a-btn--white {
+    background-color: var(--white);
+    color: var(--dark-blue);
+}
+
+.a-btn--grey {
+    background-color: var(--grey);
+}
+
+.a-btn--blue {
+    background-color: var(--dark-blue);
+    color: var(--white);
+}
+
+.a-btn--border-blue {
+    background-color: transparent;
+    border: 1px solid var(--dark-blue);
+}
+
+.a-btn--border-white {
+    background-color: transparent;
+    border: 1px solid var(--white);
+
+    &::after {
+        background-color: var(--white);
+    }
+
+    @media(hover: hover) {
+        &:hover {
+           color: var(--dark-blue);
+        }
+    }
+}
+
+.a-btn--pdf {
+    i {
+        font-size: 16px;
+    }
+
+    @media(hover: hover) {
+        &:hover {
+            i {
+                transform: scale(1) translateX(0) rotate(0deg) translateY(0);
+            }
+        }
+    }
+
+    @media(min-width: 992px) {
+        i {
+            font-size: 18px;
+        }
+    }
+}
+
+.a-btn--fixed-left {
+    background-color: var(--pink);
+    overflow: hidden;
+    transition: transform 0.5s ease;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    padding: 12px !important;
+    font-size: 14px;
+    justify-content: space-between;
+    bottom: -12px;
+    left: 0;
+    transform: translate(-70%, -50%);
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    max-width: 230px;
+    border-radius: 0 10px 0 0;
+    border: 1px solid var(--pink);
+
+    &::after {
+        background-color: var(--white);
+    }
+    
+    svg {
+        color: var(--pink);
+        width: 18px;
+    }
+
+    .a-icon {
+        background-color: var(--white);
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(0deg) !important;
+        aspect-ratio: 1/1;
+        border: 2px solid var(--pink);
+    }
+
+    @media(hover: hover) {
+        &:hover {
+            color: var(--dark-blue);
+            transform: translate(0, 0%);
+        }
+    }
+
+    @media(min-width: 992px) {
+        bottom: 0;
+        transform: translate(-70%, 0%);
+    }
+}

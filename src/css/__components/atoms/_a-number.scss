@@ -1,0 +1,13 @@
+.a-number {
+    //font-family: var(--neue);
+    font-weight: 600;
+    line-height: 1;
+}
+
+.a-number--l {
+    font-size: clamp(80px, 13.9vw, 200px);
+}
+
+.a-number--m {
+    font-size: clamp(48px, 6.95vw, 65px);
+}

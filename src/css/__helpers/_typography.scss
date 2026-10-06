@@ -1,0 +1,53 @@
+//
+// ----------------------------------------
+// TYPOGRAPHY
+//
+// Beware using global styles!
+// http://cssspecificity.com/
+//
+
+a {
+	color: inherit;
+	text-decoration: none; 
+
+	&:hover { text-decoration: none; }
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-family-base);
+}
+
+h1 {
+	font-size: var(--font-size-h1);
+	font-weight: var(--font-weight-h1);
+}
+
+h2 {
+	font-size: var(--font-size-h2);
+	font-weight: var(--font-weight-h2);
+}
+
+h3 {
+	font-size: var(--font-size-h3);
+	font-weight: var(--font-weight-h3);
+}
+
+h4 {
+	font-size: var(--font-size-h4);
+	font-weight: var(--font-weight-h4);
+}
+
+h5 {
+	font-size: var(--font-size-h5);
+	font-weight: var(--font-weight-h5);
+}
+
+h6 {
+	font-size: var(--font-size-h6);
+	font-weight: var(--font-weight-h6);
+}
+
+p {
+	font-size: var(--font-base);
+	line-height: var(--line-height-base);
+}

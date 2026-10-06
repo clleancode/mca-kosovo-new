@@ -1,0 +1,40 @@
+.m-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid #B3B3B3;
+
+    .a-input {
+        border: none;
+    }
+}
+
+.m-input--search {
+    border: 1px solid #E7E7E7;
+    border-radius: 50px;
+    height: 55px;
+    padding: 0 15px;
+
+    .a-input {
+        border: none;
+        padding: 0;
+        width: calc(100% - 30px);
+        height: 100%;
+        font-size: 16px;
+        color: var(--dark-blue);
+        font-family: var(--gellix-semibold);
+        
+        &::placeholder {
+            font-size: 16px ;
+            color: var(--dark-blue);
+            font-family: var(--gellix-semibold);
+        }
+
+    }
+
+    .a-icon {
+        background-color: transparent;
+        outline: none;
+    }
+}

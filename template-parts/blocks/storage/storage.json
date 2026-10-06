@@ -1,0 +1,17 @@
+{
+  "name": "acf/storage",
+  "title": "MCA - Energy Storage",
+  "description": "Energy storage capacity and locations across Kosovo.",
+  "category": "formatting",
+  "icon": "chart-area",
+  "keywords": ["energy", "storage", "battery", "Kosovo"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "storage.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "acf/overview",
+  "title": "MCA - Overview",
+  "description": "Project navigation, overview and key benefits.",
+  "category": "formatting",
+  "icon": "info",
+  "keywords": [
+    "overview",
+    "project",
+    "benefits"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "overview.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

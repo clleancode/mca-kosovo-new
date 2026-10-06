@@ -1,0 +1,16 @@
+.m-apply {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    justify-content: space-between;
+    margin-top: 45px;
+
+    p { margin-bottom: 0; }
+
+    @media(min-width: 992px) {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+}

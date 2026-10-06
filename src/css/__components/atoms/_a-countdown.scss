@@ -1,0 +1,16 @@
+#a-countdown {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background-color: #CF1E4B;
+    text-align: center;
+    font-size: 16px;
+    color: var(--white);
+    padding: 7px 15px;
+    font-family: var(--gellix-semibold);
+    border-top-left-radius: 5px;
+    z-index: 4;
+    width: max-content;
+    font-weight: 400;
+}

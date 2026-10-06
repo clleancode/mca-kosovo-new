@@ -1,0 +1,21 @@
+{
+  "name": "acf/opportunities",
+  "title": "MCA - Opportunities",
+  "description": "Opportunity cards and latest procurements.",
+  "category": "formatting",
+  "icon": "megaphone",
+  "keywords": [
+    "opportunities",
+    "procurement",
+    "careers"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "opportunities.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

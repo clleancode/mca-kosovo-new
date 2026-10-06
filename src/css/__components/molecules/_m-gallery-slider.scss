@@ -1,0 +1,114 @@
+.m-gallery-slider__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+}
+
+.m-gallery-slider__heading {
+    min-width: 0;
+}
+
+.m-gallery-slider__heading>.a-heading {
+    margin: 0;
+}
+
+.m-gallery-slider__navigation {
+    margin-left: auto;
+    display: flex;
+    flex-shrink: 0;
+    gap: 10px;
+}
+
+.m-gallery-slider__navigation>button {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--dark-blue);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--dark-blue);
+    cursor: pointer;
+}
+
+.m-gallery-slider__navigation>.m-gallery-slider__next {
+    background: var(--dark-blue);
+    color: var(--white);
+}
+
+.m-gallery-slider__navigation>button:disabled {
+    opacity: .4;
+    cursor: default;
+}
+
+.m-gallery-slider__navigation>button:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 4px;
+}
+
+.m-gallery-slider__swiper {
+    width: 100%;
+    max-height: 550px;
+    overflow: visible;
+}
+
+.m-gallery-slider__swiper>.swiper-wrapper {
+    align-items: end;
+}
+
+.m-gallery-slider__slide {
+    width: 78vw;
+    height: auto;
+}
+
+.m-gallery-slider__slide--portrait {
+    width: 58vw;
+}
+
+.m-gallery-slider__figure {
+    margin: 0;
+}
+
+.m-gallery-slider__image {
+    max-height: 514px;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+
+.m-gallery-slider__image>img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 514px;
+    object-fit: cover;
+}
+
+.m-gallery-slider__figure>figcaption {
+    min-height: 24px;
+    padding-top: 12px;
+    color: #59647d;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+@media (min-width: 768px) {
+    .m-gallery-slider__slide {
+        width: 29.3vw;
+    }
+
+    .m-gallery-slider__slide--portrait {
+        width: 20vw;
+    }
+
+    .m-gallery-slider__slide:nth-child(4n + 3) {
+        width: 25.3vw;
+    }
+
+    .m-gallery-slider__slide:nth-child(4n + 3) .m-gallery-slider__image {
+        aspect-ratio: 1.15;
+    }
+}

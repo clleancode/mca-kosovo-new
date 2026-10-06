@@ -1,0 +1,138 @@
+.o-content {
+    position: relative;
+    z-index: 0;
+
+    .m-list {
+        margin-bottom: 45px;
+
+        &:last-child {margin-bottom: 0;}
+    }
+
+    svg {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: auto;
+        bottom: -300px;
+    }
+
+    @media (min-width:992px) {
+        .m-content {
+            margin-bottom: 60px;
+
+            .a-heading {width: 60%;}
+
+            &:last-child {margin-bottom: 0;}
+        }
+    }
+}
+
+.o-content--line {
+    overflow: hidden;
+
+    .container {gap: 0;}
+
+    .m-content {
+        position: relative;
+        padding: 21px 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 21px 6.25vw;
+
+        &:last-child {
+            &::after {display: none;}
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: -8%;
+            bottom: 0;
+            width: calc(100% + 16%);
+            height: 1px;
+            background-color: #00509E;
+        }
+
+        .a-text {
+            &:last-child {margin-bottom: 0;}
+        }
+
+        .a-heading {
+            width: 100%;
+            margin-bottom: 0;
+        }
+
+        .m-content {
+            gap: 0;
+
+            &::after {display: none;}
+        }
+
+        
+        @media (min-width: 768px) {
+            .m-content{ 
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                gap: 45px 6.25vw;
+            }
+        }
+
+        @media (min-width: 992px) {
+            display: flex;
+            gap: 45px 6.25vw;
+            flex-wrap: wrap;
+
+            >.m-content{
+                width: 26.154vw;
+                gap: 0;
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+}
+
+.o-content--blue {
+    background-color: var(--dark-blue);
+    color: var(--white);
+
+    .a-text {
+        p {
+            margin-bottom: 15px;
+
+            &:last-child {margin-bottom: 0;}
+        }
+    }
+
+    @media (min-width: 992px) {
+        .m-content .a-heading {
+            width: 100%;
+        }
+    }
+}
+
+.o-content--top {
+   margin-top: -250px;
+    z-index: -1;
+
+    @media (min-width: 1200px) {
+        .m-content {
+            >.a-heading {
+                width: 54%;
+            }
+
+            .a-text {
+                width: 80%;
+            }
+        }
+    }
+}
+
+
+.o-content--line .container  > .m-content {
+   margin-bottom: 0 !important;
+   padding: 45px 0;
+   width: 100%;
+}

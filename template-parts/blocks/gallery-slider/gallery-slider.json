@@ -1,0 +1,21 @@
+{
+  "name": "acf/gallery-slider",
+  "title": "MCA - Gallery Slider",
+  "description": "A draggable gallery of Compact images.",
+  "category": "formatting",
+  "icon": "format-gallery",
+  "keywords": [
+    "gallery",
+    "slider",
+    "photos"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "gallery-slider.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

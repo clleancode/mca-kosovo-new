@@ -1,0 +1,110 @@
+.m-header__wrapper {
+    position: relative;
+    width: calc(100% - 30px);
+    margin: 0 auto;
+    transition: width .3s var(--ease);
+
+    @media(min-width: 992px) {
+        width: 88%;
+    }
+}
+
+.m-header__inner {
+    height: 60px;
+    padding: 21px;
+    border-radius: 100px;
+    background-color: var(--grey);
+    transition: border-radius 0.35s ease;
+    display: flex;
+    justify-content: space-between;
+    gap: 21px;
+    align-items: center;
+
+    >i,
+    .m-menu {display: none;}
+
+    .a-logo {
+        .a-img { height: 30px; }
+    }
+
+    .icon-search {
+        transform-origin: center center;
+        transition: transform .3s var(--ease);
+        color: var(--dark-blue);
+        font-size: 22px;
+
+        @media (hover: hover) {
+            &:hover {
+                transform: scale(1.15);
+            }
+        }
+    }
+
+    @media(max-width: 767px) {
+        .a-logo {
+            .a-img { width: auto; }
+        }
+    }
+
+    @media (min-width: 768px) {
+        height: 80px;
+        padding: 15px 3.125vw;
+
+        .a-logo {
+            max-width: 120px;
+
+            .a-img { height: auto; }
+        }
+    }
+
+
+    @media (min-width:1200px) {
+        >i,
+        .m-menu {display: block;}
+    }
+}
+
+.m-search--form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px 15px 40px;
+    background-color: var(--grey);
+    border-radius: 100px;
+    gap: 15px;
+    z-index: 6 !important;
+    //display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s var(--ease), visibility .3s var(--ease), z-index .3s var(--ease);
+
+    input {
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        font-size: 16px;
+    }
+
+    .icon-close {
+        position: absolute;
+        top: 51%;
+        left: 20px;
+        transform: translateY(-50%);
+        font-size: 16px;
+        cursor: pointer;
+        color: var(--dark-blue);
+    }
+
+    @media(min-width: 768px) {
+        input { font-size: 20px; }
+    }
+}
+
+.m-header__actions {
+    display: flex;
+    gap: 15px;
+}

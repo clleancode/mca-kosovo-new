@@ -1,0 +1,20 @@
+{
+  "name": "rapture/surfcamps-theme",
+  "description": "WordPress theme for Rapture Surfcamps",
+  "type": "wordpress-theme",
+  "license": "MIT",
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "doctrine/inflector": "^2.0",
+    "mobiledetect/mobiledetectlib": "^4.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "MCA\\": "inc/"
+    }
+  },
+  "config": {
+    "vendor-dir": "vendor",
+    "optimize-autoloader": true
+  }
+}

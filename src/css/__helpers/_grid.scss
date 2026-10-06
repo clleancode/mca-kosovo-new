@@ -1,0 +1,118 @@
+.wrap {
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	overflow: hidden;
+	padding-left: var(--wrap-space);
+	padding-right: var(--wrap-space);
+	width: var(--wrap-width-xs);
+
+	@include media('>=sm') {
+		padding-left: 0;
+		padding-right: 0;
+		max-width: var(--wrap-width-sm);
+	}
+
+	@include media('>=md') {
+		max-width: var(--wrap-width-md);
+	}
+
+	@include media('>=lg') {
+		max-width: var(--wrap-width-lg);
+	}
+
+	@include media('>=xl') {
+		max-width: var(--wrap-width-xl);
+	}
+}
+
+.wrap-fluid {
+	position: relative;
+	width: 100%;
+	padding-left: var(--wrap-space);
+	padding-right: var(--wrap-space);
+	flex-basis: 100% !important;
+	max-width: 100% !important;
+}
+
+.wrap.remove-gutter-left .cll-col {
+	margin-left: 0 !important
+}
+
+@media only screen and (min-width: 1640px) {
+	.wrap.remove-gutter-left {
+		padding: 0;
+		max-width: none;
+		width: calc(50% + 720px);
+		left: 0
+	}
+	
+	.wrap.remove-gutter-left .cll-col {
+		margin-left: 0 !important;
+		max-width: 100% !important;
+		flex-basis: 100% !important
+	}
+}
+
+.flex {
+	box-sizing: border-box;
+	display: flex;
+	flex: 0 1 auto;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 768px) {
+	.flex.wrap .cll-col {
+		flex-basis: 100% !important;
+		max-width: 100% !important
+	}
+}
+
+.flex .cll-col {
+	box-sizing: border-box;
+	flex: 0 0 auto;
+	margin: 0 0 0 var(--col-space);
+	z-index: 2
+}
+
+.flex .cll-col:first-of-type {
+	margin-left: 0px
+}
+
+@media only screen and (max-width: 768px) {
+	.flex .cll-col {
+		flex-basis: 100% !important;
+		max-width: 100% !important;
+		margin-left: 0 !important
+	}
+}
+
+@for $i from 1 through 12 {
+	@if $i == 12 {
+		.flex .cll-col.w#{$i} {
+				flex-basis: 100%;
+				max-width: 100%;
+				margin: 0;
+		}
+	} @else {
+		.flex .cll-col.w#{$i} {
+			flex-basis: calc(100% * #{$i}/12 - ((var(--col-space) * (12 - #{$i}))  / 12));
+			max-width: calc(100% * #{$i}/12 - ((var(--col-space) * (12 - #{$i}))  / 12));
+		}
+
+		.flex .cll-col.o#{$i} {
+			margin-left: calc(100% * #{$i}/12 + ((var(--col-space) * #{$i}) / 12))
+		}
+	}
+}
+
+.remove-gutter-left {
+	margin-left: 0;
+	padding-left: 0
+}
+
+.remove-gutter-right {
+	margin-right: 0;
+	padding-right: 0
+}

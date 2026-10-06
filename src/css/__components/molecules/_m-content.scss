@@ -1,0 +1,11 @@
+.m-content {
+    .a-tag,
+    .a-text,
+    .a-heading {margin-bottom: 15px;}
+
+    @media (min-width: 768px) {
+        .a-tag,
+        .a-text,
+        .a-heading {margin-bottom: 30px;}
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "name": "hero-banner",
+    "title": "MCA - Hero Banner",
+    "description": "A custom MCA theme hero banner block with swiper slider.",
+    "category": "formatting",
+    "icon": "format-image",
+    "keywords": ["hero", "banner", "slider", "swiper"],
+    "supports": {
+        "align": true,
+        "anchor": true,
+        "htmlAnchor": true,
+        "customClassName": true
+    },
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "template-parts/blocks/hero/hero-banner.php"
+    }
+}

@@ -1,0 +1,33 @@
+@charset 'utf-8';
+
+// ----------------------------------------
+//         STYLES COMPILED WITH SASS
+//      Naming conceptions of the files:
+//            BEM CSS METHODOLOGY:
+//            http://en.bem.info/
+// ----------------------------------------
+//
+// @devs:
+// 		Please keep current comments convention
+// 		/* CSS comments */ only for clients
+//
+
+// -------------------------------- Vendors
+@use '__vendors/normalize' ; 
+
+@use '__vendors/swiper' ; 
+@use '__vendors/fancybox' ; 
+@use '__vendors/aos' ; 
+
+// -------------------------------- Helpers
+@use '__helpers/variables' as *; 
+@use '__helpers/fonts' as *; 
+@use '__helpers/icons' as *; 
+@use '__helpers/reset' as *; 
+@use '__helpers/general' as *; 
+@use '__helpers/typography' as *; 
+
+// ----------------------------- Components
+
+@use '__components/index' as *;
+@use '__helpers/spacing' as *;

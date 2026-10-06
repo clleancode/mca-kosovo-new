@@ -1,0 +1,13 @@
+.m-tag {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .a-tag {margin-bottom: 0;}
+
+    &.m-tag--center {
+        justify-content: center;
+    }
+}

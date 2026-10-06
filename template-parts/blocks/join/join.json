@@ -1,0 +1,21 @@
+{
+  "name": "acf/join",
+  "title": "MCA - Join",
+  "description": "Image banner with contact and subscription links.",
+  "category": "formatting",
+  "icon": "megaphone",
+  "keywords": [
+    "join",
+    "contact",
+    "subscribe"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "join.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

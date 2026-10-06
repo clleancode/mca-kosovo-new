@@ -1,0 +1,21 @@
+//
+// ----------------------------------------
+// FONTS
+
+@mixin font-face($font-name, $file-name, $font-weight: normal, $font-style: normal) {
+    @font-face {
+        font-family: '#{$font-name}';
+        src: url('../fonts/#{$file-name}.eot?#iefix') format('embedded-opentype'),
+            url('../fonts/#{$file-name}.woff2') format('woff2'),
+            url('../fonts/#{$file-name}.woff') format('woff'),
+            url('../fonts/#{$file-name}.ttf') format('truetype');
+        font-weight: $font-weight;
+        font-style: $font-style;
+        font-display: swap;
+    }
+}
+
+@include font-face('Gellix', 'Gellix-Regular');
+@include font-face('Gellix-Semibold', 'Gellix-SemiBold', 600);
+@include font-face('Britanica', 'Britanica-BlackExpanded', 900);
+@include font-face('PP Neue Montreal', 'PPNeueMontreal-Bold', bold);

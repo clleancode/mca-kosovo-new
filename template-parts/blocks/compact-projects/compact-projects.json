@@ -1,0 +1,17 @@
+{
+  "name": "acf/compact-projects",
+  "title": "MCA - Compact Projects",
+  "description": "Showcase the three projects included in the MCC-Kosovo Compact.",
+  "category": "formatting",
+  "icon": "screenoptions",
+  "keywords": ["compact", "projects", "energy"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "compact-projects.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

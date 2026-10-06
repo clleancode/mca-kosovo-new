@@ -1,0 +1,21 @@
+{
+  "name": "acf/news",
+  "title": "MCA - News",
+  "description": "Latest WordPress news with category filters.",
+  "category": "formatting",
+  "icon": "admin-post",
+  "keywords": [
+    "news",
+    "newsroom",
+    "posts"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "news.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

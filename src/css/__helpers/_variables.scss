@@ -1,0 +1,108 @@
+:root {
+	//
+	// ----------------------------------------
+	// COLORS
+
+	--brand-main: 		#000000;
+	--brand-secondary:  #ffffff;
+
+	--dark: 			#000000;
+	--light: 			#ffffff;
+
+	--black: 			#000000;
+	--white: 			#ffffff;
+	--dark-blue: 		#001f54;
+	--light-blue: 		#243E7C;
+	--blue: 			#4297D1;
+	--pink: 			#CF1E4B;
+	--dark-pink: 		#D11242;
+	--purple: 			#6313F8;
+	--light-green: 		#6DBE6B;
+	--dark-green: 		#1C585A;
+	--green: 			#5E811C;
+	--red: 				#d8154b;
+	--grey: 			#F4F5F8;
+	--slate:            #59647D;
+
+	//
+	// ----------------------------------------
+	// FONTS
+
+	--red-hat-display: 	'Red Hat Display';
+	--gellix: 			'Gellix';
+	--gellix-semibold: 	'Gellix-Semibold';
+	--neue: 			'PP Neue Montreal';
+
+	--font-base: 16px;
+	--line-height-base: 1.5rem;
+
+	--font-size-h1: 2.5rem;
+	--font-size-h2: 2rem;
+	--font-size-h3: 1.75rem;
+	--font-size-h4: 1.5rem;
+	--font-size-h5: 1.25rem;
+	--font-size-h6: 1rem;
+
+	--font-weight-h1: 500;
+	--font-weight-h2: 500;
+	--font-weight-h3: 500;
+	--font-weight-h4: 500;
+	--font-weight-h5: 500;
+	--font-weight-h6: 500;
+
+	--text-base-size: 1em;
+	--text-scale-ratio: 1.2;
+	--text-xs: calc((1em / var(--text-scale-ratio)) / var(--text-scale-ratio));
+	--text-sm: calc(var(--text-xs) * var(--text-scale-ratio));
+	--text-md: calc(var(--text-sm) * var(--text-scale-ratio) * var(--text-scale-ratio));
+	--text-lg: calc(var(--text-md) * var(--text-scale-ratio));
+	--text-xl: calc(var(--text-lg) * var(--text-scale-ratio));
+
+	//
+	// ----------------------------------------
+	// BREAKPOINTS
+
+	--breakpoint-xs: 375px;
+	--breakpoint-sm: 576px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 992px;
+	--breakpoint-xl: 1200px;
+	--breakpoint-xxl: 1440px;
+
+	//
+	// ----------------------------------------
+	// GRID
+
+	--wrap-space: 15px;
+
+	--wrap-width-xs: 100%;
+	--wrap-width-sm: 540px;
+	--wrap-width-md: 720px;
+	--wrap-width-lg: 960px;
+	--wrap-width-xl: 1140px;
+
+	--col-space: 30px;
+
+	//
+	// ----------------------------------------
+	// BORDER RADIUS
+
+	--border-radius: 0;
+
+
+	//
+	// ----------------------------------------
+	// SPACING
+
+	--spacer: 20px;
+
+	//
+	// ----------------------------------------
+	// TRANSITIONS
+
+	--cubic-bezier: cubic-bezier(.3,.86,.36,.95);
+	--cubic-bezier2: cubic-bezier(.4,0,0,1);
+	--ease: ease;
+
+	--mobile-height: 100vh;
+}

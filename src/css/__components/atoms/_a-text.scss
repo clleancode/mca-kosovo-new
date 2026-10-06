@@ -1,0 +1,27 @@
+.a-text {
+    line-height: 1.4;
+}
+
+.a-text--xs {
+  font-size: clamp(12px, 2.25vw, 12px);
+}
+
+.a-text--s {
+    font-size: clamp(12px, 2.5vw, 14px);
+  }
+  
+  .a-text--m {
+    font-size: clamp(16px, 2.8vw, 16px);
+  }
+  
+  .a-text--l {
+    font-size: clamp(14px, 3vw, 18px);
+  }
+  
+  .a-text--xl {
+    font-size: clamp(16px, 3.2vw, 20px);
+  }
+  
+  .a-text--xxl {
+    font-size: clamp(18px, 3.8vw, 24px);
+  }

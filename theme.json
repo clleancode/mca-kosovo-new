@@ -1,0 +1,105 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 2,
+	"title": "Medical Averitas",
+	"settings": {
+		"blocks": {
+			"core/column": {
+                "color": {
+                    "defaultPalette": false,
+                    "defaultGradients": false,
+                    "palette": [
+                        {
+                            "slug": "h-black",
+                            "color": "#000000",
+                            "name": "Black"
+                        },
+                        {
+                            "slug": "h-white",
+                            "color": "#ffffff",
+                            "name": "White"
+                        },
+                        {
+                            "slug": "h-green-cyan",
+                            "color": "#f2f7f8",
+                            "name": "Green Cyan"
+                        },
+                        {
+                            "slug": "h-blue",
+                            "color": "#005A69",
+                            "name": "Blue"
+                        }, 
+                        {
+                            "slug": "h-dark-blue",
+                            "color": "#002D34",
+                            "name": "Dark Blue"
+                        },
+                        {
+                            "slug": "h-green",
+                            "color": "#00A059",
+                            "name": "Green"
+                        },
+                        {
+                            "slug": "h-dark-green",
+                            "color": "#00502C",
+                            "name": "Dark Green"
+                        },
+                        {
+                            "slug": "h-dark-blue-100",
+                            "color": "#F2F7F8",
+                            "name": "Dark Blue 100"
+                        }
+                    ]
+                }
+            },
+            "core/columns": {
+                "color": {
+                    "defaultPalette": false,
+                    "defaultGradients": false,
+                    "palette": [
+                        {
+                            "slug": "h-black",
+                            "color": "#000000",
+                            "name": "Black"
+                        },
+                        {
+                            "slug": "h-white",
+                            "color": "#ffffff",
+                            "name": "White"
+                        },
+                        {
+                            "slug": "h-green-cyan",
+                            "color": "#f2f7f8",
+                            "name": "Green Cyan"
+                        },
+                        {
+                            "slug": "h-blue",
+                            "color": "#005A69",
+                            "name": "Blue"
+                        }, 
+                        {
+                            "slug": "h-dark-blue",
+                            "color": "#002D34",
+                            "name": "Dark Blue"
+                        },
+                        {
+                            "slug": "h-green",
+                            "color": "#00A059",
+                            "name": "Green"
+                        },
+                        {
+                            "slug": "h-dark-green",
+                            "color": "#00502C",
+                            "name": "Dark Green"
+                        },
+                        {
+                            "slug": "h-dark-blue-100",
+                            "color": "#F2F7F8",
+                            "name": "Dark Blue 100"
+                        }
+                    ]
+                }
+            }
+		}
+	}
+}

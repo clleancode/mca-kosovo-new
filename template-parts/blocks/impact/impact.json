@@ -1,0 +1,21 @@
+{
+  "name": "acf/impact",
+  "title": "MCA - Impact",
+  "description": "Four ways the Compact benefits Kosovo.",
+  "category": "formatting",
+  "icon": "chart-bar",
+  "keywords": [
+    "impact",
+    "energy",
+    "Kosovo"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "impact.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

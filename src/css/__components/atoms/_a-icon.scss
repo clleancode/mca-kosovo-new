@@ -1,0 +1,88 @@
+.a-icon {
+    &.icon-arrow-left-down, 
+    &.icon-arrow-right-up,
+    &.icon-arrow-right {
+        transition: transform 0.3s var(--ease);
+
+        @media (hover: hover) {
+            &:hover {
+            }
+        }
+    }
+ }
+
+.a-icon--xs {
+    font-size: clamp(14px, 1.25vw, 18px); 
+}
+
+.a-icon--s {
+    font-size: clamp(18px, 1.8vw, 26px); 
+}
+
+.a-icon--m {
+    font-size: clamp(22px, 2.5vw, 30px); 
+}
+
+.a-icon--l {
+    font-size: clamp(28px, 3.2vw, 46px);
+}
+
+.a-icon--circle {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: clamp(24px, 2.78vw, 32px);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: 768px) {
+        width: 72px;
+        height: 72px;
+    }
+}
+
+.a-icon--square {
+    border-radius: 15px;
+    width: 70px;
+    height: 65px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.a-icon--bg-blue {
+    background-color: var(--dark-blue);
+    color: var(--white);
+}
+
+.a-icon--bg-purple {
+    background-color: var(--purple);
+    color: var(--white);
+}
+
+.a-icon--bg-blue-light {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.a-icon--bg-green {
+    background-color: var(--dark-green);
+    color: var(--white);
+}
+
+.a-icon--fixed {
+    position: fixed;
+    bottom: 65px;
+    z-index: 4;
+    right: 13px;
+    color: var(--white);
+    font-size: 30px;
+    filter: drop-shadow(0px 108px 129px rgba(0, 0, 0, 0.32)) drop-shadow(0px 13.5233px 16.1528px rgba(0, 0, 0, 0.16));
+
+    @media (min-width: 768px) {
+        font-size: 30px;
+        width: 64px;
+        height: 64px;
+    }
+}

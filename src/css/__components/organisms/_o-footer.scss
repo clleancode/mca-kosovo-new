@@ -1,0 +1,7 @@
+.o-footer {
+    padding: clamp(48px, 6vw, 88px) 0 32px;
+    background: var(--white);
+    color: var(--dark-blue);
+
+    > .container { display: block; }
+}

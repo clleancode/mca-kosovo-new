@@ -1,0 +1,19 @@
+.m-navigation {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    .a-icon {
+        @media (hover: hover) {
+            &:hover {
+                transform: rotate(45deg) scale(1.2);
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        display: flex;
+        align-items: center;
+        gap: 48px;
+    }
+}

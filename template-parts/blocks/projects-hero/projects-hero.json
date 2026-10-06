@@ -1,0 +1,21 @@
+{
+  "name": "acf/projects-hero",
+  "title": "MCA - Projects Hero",
+  "description": "Project hero with links and statistics.",
+  "category": "formatting",
+  "icon": "cover-image",
+  "keywords": [
+    "hero",
+    "project",
+    "statistics"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "projects-hero.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

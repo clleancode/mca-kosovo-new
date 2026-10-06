@@ -1,0 +1,18 @@
+.a-list-item {
+    font-family: var(--red-hat-display);
+    font-size: 18px;
+    line-height: 3.25;
+    white-space: nowrap;
+}
+
+.a-list-item--m {
+    font-size: 16px;
+
+    @media (min-width: 992px) {
+        font-size: 18px;
+    }
+}
+
+.a-list-item--s {
+    font-size: 16px;
+}

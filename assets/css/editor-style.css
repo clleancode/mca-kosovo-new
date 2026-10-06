@@ -1,0 +1,33 @@
+html :where(.editor-styles-wrapper) {
+    font-family: var(--inter);
+}
+
+.container,
+.wp-block-columns,
+.wp-block-group { 
+    padding: 0 10% !important;
+}
+
+.wp-block-column .container,
+.wp-block-group .container { padding: 0 !important; }
+
+.block-editor-block-list__block > div{
+    width: 100%;
+}
+
+.header_radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 0 3px;
+    position: relative;
+    top: 1px;
+    margin-left: 5px;
+}
+
+.header_radio i {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.5);
+}

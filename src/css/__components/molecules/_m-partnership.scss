@@ -1,0 +1,223 @@
+.m-partnership__intro {
+    display: grid;
+    align-items: end;
+    gap: 24px;
+}
+
+.m-partnership__images {
+    display: grid;
+    gap: 15px;
+}
+
+.m-partnership__main-image,
+.m-partnership__side-image {
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    border-radius: 24px;
+    aspect-ratio: 1.6;
+}
+
+.m-partnership__main-image>img,
+.m-partnership__side-image>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.m-partnership__main-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0, 12, 38, .88), transparent 65%);
+    pointer-events: none;
+}
+
+.m-partnership__caption {
+    position: absolute;
+    z-index: 1;
+    right: 24px;
+    bottom: 28px;
+    left: 24px;
+    max-width: 560px;
+}
+
+.m-partnership__funding {
+    display: grid;
+    align-items: center;
+    gap: 32px;
+}
+
+.m-partnership__partner {
+    min-width: 0;
+    padding-top: 24px;
+    border-top: 2px solid var(--red);
+}
+
+.m-partnership__partner--government {
+    border-color: var(--blue);
+}
+
+.m-partnership__partner>.a-text:first-child,
+.m-partnership__institution>.a-text:first-child,
+.m-partnership__partners>.a-text {
+    margin: 0 0 20px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.m-partnership__partner>.a-heading {
+    margin: 0 0 20px;
+}
+
+.m-partnership__partner>.a-text {
+    margin: 0 0 20px;
+}
+
+.m-partnership__partner>.a-heading:last-child {
+    margin: 0;
+}
+
+.m-partnership__total {
+    text-align: center;
+}
+
+.m-partnership__total>.a-text {
+    margin: 12px 0 10px;
+}
+
+.m-partnership__total>.a-text:first-of-type {
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.m-partnership__connector {
+    position: relative;
+    height: 1px;
+    background: #6c778e;
+}
+
+.m-partnership__connector::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--blue);
+    transform: translate(-50%, -50%);
+}
+
+.m-partnership__implementation {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    padding-top: 40px;
+    border-top: 1px solid #6c778e;
+}
+
+.m-partnership__logo {
+    flex-shrink: 0;
+    max-width: 190px;
+    width: 100%;
+}
+
+.m-partnership__logo>img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.m-partnership__institution {
+    max-width: 760px;
+    min-width: 0;
+
+    h3 {
+        padding-bottom: 10px;
+    }
+}
+
+.m-partnership__partners {
+    width: 100%;
+}
+
+.m-partnership__partners-list {
+    display: grid;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border-top: 1px solid #6c778e;
+    border-bottom: 1px solid #6c778e;
+}
+
+.m-partnership__partners-list>li {
+    min-width: 0;
+    padding: 20px 0;
+    border-bottom: 1px solid #6c778e;
+}
+
+.m-partnership__partners-list>li:last-child {
+    border-bottom: 0;
+}
+
+
+@media (min-width: 768px) {
+    .m-partnership__images {
+        grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+    }
+
+    .m-partnership__main-image {
+        aspect-ratio: 2.05;
+    }
+
+    .m-partnership__side-image {
+        aspect-ratio: auto;
+    }
+
+    .m-partnership__side-image>img {
+        position: absolute;
+        inset: 0;
+    }
+
+    .m-partnership__implementation {
+        flex-direction: row;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .m-partnership__partners-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .m-partnership__partners-list>li {
+        padding: 25px;
+        border-bottom: 0;
+        border-left: 1px solid #6c778e;
+    }
+
+    .m-partnership__partners-list>li:first-child {
+        border-left: 0;
+        padding-left: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .m-partnership__intro {
+        grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+    }
+
+    .m-partnership__funding {
+        grid-template-columns: minmax(0, 1fr) minmax(0, .88fr) minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .m-partnership__caption {
+        left: 32px;
+        right: 32px;
+        bottom: 32px;
+    }
+}

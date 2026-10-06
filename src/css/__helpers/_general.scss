@@ -1,0 +1,224 @@
+//
+// ----------------------------------------
+// GENERAL
+//
+// The most general styles for
+// <html>, <body> and .container
+//
+html, body { }
+
+body {
+    font-family: var(--red-hat-display);
+    color: var(--dark-blue);
+ }
+
+::selection { }
+
+::-moz-selection { }
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    /* prevent line breaks */
+    border: 0;
+}
+
+@mixin flex($direction: row, $justify: unset, $align: unset, $wrap: nowrap, $gap : 0) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    flex-wrap: $wrap;
+    gap: $gap;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px 15px;
+
+    &--column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px 15px;
+    }
+
+    @media (min-width: 992px) {
+        padding-left: 6%;
+        padding-right: 6%;
+
+        &--smaller {
+            padding-left: 15%;
+            padding-right: 15%;
+        }
+    }
+}
+
+.h-underline {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.h-link {
+    position: relative;
+
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        border-radius: 25%;
+        background-color: var(--dark-blue);
+        transition: transform .3s var(--ease);
+        transform: scaleX(0);
+        transform-origin: right center;
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            &:after {
+                transform: scaleX(1);
+                transform-origin: left center;
+            }
+        }
+    }
+}
+
+.h-italic { font-style: italic;}
+
+.h-text-center { text-align: center; }
+
+.h-text-right { text-align: right; }
+
+.h-align-start { align-items:  start;}
+
+.h-justify-start { justify-content:  start;}
+
+.h-align-center { align-items:  center;}
+
+.h-justify-center { justify-content:  center;}
+
+.h-align-end { align-items:  end;}
+
+.h-justify-end { justify-content:  end;}
+
+.h-light { font-weight: 300;}
+
+.h-regular { font-weight: 400;}
+
+.h-medium { font-weight: 500;}
+
+.h-semibold { font-weight: 600;}
+
+.h-bold { font-weight: 700;}
+
+//.h-bold { font-family: var(--gellix-semibold);}
+
+// .h-bold.a-heading { 
+//     font-family: var(--gellix-semibold);
+
+//     .m-percentage__box & { font-family: var(--red-hat-display); }
+// }
+
+.h-britanica {font-family: var(--red-hat-display);}
+
+.h-uppercase { text-transform: uppercase; }
+
+.h-black { color: var(--black);}
+
+.h-white { color: var(--white);}
+
+.h-dark-blue { color: var(--dark-blue);}
+
+.h-light-blue { color: var(--light-blue);}
+
+.h-highlight { color: #001F5440; }
+
+.h-blue { color: var(--blue);}
+
+.h-pink { color: var(--pink);}
+
+.h-dark-pink { color: var(--dark-pink);}
+
+.h-red { color: var(--red);}
+
+.h-purple { color: var(--purple);}
+
+.h-light-green { color: var(--light-green);}
+
+.h-green { color: var(--green);}
+
+.h-dark-green { color: var(--dark-green);}
+
+.h-quicksand { color: var(--quicksand);}
+
+.h-opacity-50 { opacity: 0.5;}
+
+.h-no-margin { margin: 0 !important; }
+
+.h-full {
+    width: 100%;
+    // text-align: center;
+}
+
+.h-center {
+    display: flex;
+    margin: 0 auto;
+    width: max-content;
+}
+
+.h-flex-center { justify-content: center; }
+
+.h-right {
+    display: flex;
+    margin-left:auto;
+    width: max-content;
+}
+
+.gm-style-iw-chr {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.gm-style-iw-d {
+    padding: 30px 15px 15px 15px;
+}
+
+.gm-style-iw-d img {
+    margin-bottom: 15px;
+    display: none;
+
+    @media (min-width: 992px) {
+        display: block;
+    }
+}
+
+.gm-style div {
+	overflow: unset !important;
+}
+
+.gm-style div img {
+	width: auto !important;
+	left: -27px !important;
+}
