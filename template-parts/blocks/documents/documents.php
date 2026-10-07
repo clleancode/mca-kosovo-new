@@ -70,6 +70,7 @@ $description = get_field('project_documents_description');
                         }
 
                         $row_prefix = 'project_documents_' . (get_row_index() - 1) . '_';
+                        $document_type = get_sub_field('document_type') === 'xls' ? 'xls' : 'pdf';
 
                         $document_title = $block['data'][$row_prefix . 'project_documents_title']
                             ?? $block['data'][$row_prefix . 'title']
@@ -80,7 +81,7 @@ $description = get_field('project_documents_description');
                             ?? get_sub_field('project_documents_description');
                         ?>
                         <li>
-                            <img class="a-documents-pdf" src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/pdf.svg')); ?>" alt="" aria-hidden="true">
+                            <img class="a-documents-pdf" src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/' . $document_type . '.svg')); ?>" alt="" aria-hidden="true">
 
                             <div class="m-documents__document-copy">
                                 <h3 class="a-text a-text--xxl h-semibold h-dark-blue"><?php echo esc_html($document_title); ?></h3>

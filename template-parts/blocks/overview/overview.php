@@ -42,6 +42,7 @@ $main_image = get_field('overview_main_image');
 $detail_image = get_field('overview_detail_image');
 $description = get_field('overview_description');
 $statistic = get_field('overview_statistic');
+$statistic_color = Helpers\get_field_choice('overview_statistic_color', ['blue', 'purple', 'green'], 'blue');
 ?>
 <section
     <?php if (!empty($block['anchor'])) : ?>id="<?php echo esc_attr($block['anchor']); ?>"<?php endif; ?>
@@ -132,7 +133,7 @@ $statistic = get_field('overview_statistic');
                 <?php endif; ?>
 
                 <?php if ($statistic !== '' && $statistic !== null && $statistic !== false) : ?>
-                    <div class="m-overview__statistic">
+                    <div class="m-overview__statistic m-overview__statistic--<?php echo esc_attr($statistic_color); ?>">
                         <div class="m-overview__value">
                             <span class="h-medium a-heading a-heading--h3 h-white"><?php echo esc_html($statistic); ?></span>
                             <span class="h-medium a-heading a-heading--h6"><?php echo esc_html(get_field('overview_unit')); ?></span>

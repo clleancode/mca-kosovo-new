@@ -138,6 +138,14 @@
     background: var(--dark-blue);
 }
 
+.m-overview__statistic--purple {
+    background: var(--purple);
+}
+
+.m-overview__statistic--green {
+    background: var(--dark-green);
+}
+
 .m-overview__value {
     display: flex;
     flex-wrap: wrap;

@@ -36,6 +36,11 @@ if (class_exists(FieldsBuilder::class)) {
             'label' => 'Section description',
             'rows'  => 3,
         ])
+        ->addButtonGroup('activities_arrows', [
+            'label' => 'Arrows between cards',
+            'choices' => ['show' => 'Show arrows', 'hide' => 'Hide arrows'],
+            'default_value' => 'hide',
+        ])
         ->addTab('Activity cards')
         ->addRepeater('activities_items', [
             'label'        => 'Activities',

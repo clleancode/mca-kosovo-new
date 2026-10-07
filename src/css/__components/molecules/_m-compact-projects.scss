@@ -515,3 +515,9 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
+
+.m-compact-projects__grid--two .m-compact-projects__card--blue .m-compact-projects__overlay {
+    background:
+        linear-gradient(0deg, rgba(0, 31, 84, .95) 0%, rgba(0, 31, 84, .55) 30%, rgba(0, 31, 84, .12) 65%, transparent 100%),
+        linear-gradient(90deg, rgba(0, 13, 41, .25), transparent 75%);
+}

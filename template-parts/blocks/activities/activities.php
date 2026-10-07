@@ -34,6 +34,7 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
 ] = Helpers\get_block_typography();
 
 $layout = get_field('activities_layout') === 'two' ? 'two' : 'three';
+$show_arrows = get_field('activities_arrows') === 'show';
 $items = array_slice(get_field('activities_items') ?: [], 0, $layout === 'two' ? 2 : 3);
 $title = get_field('activities_title');
 $description = get_field('activities_description');
@@ -58,8 +59,8 @@ $description = get_field('activities_description');
         </div>
 
         <?php if ($items) : ?>
-            <div class="m-activities__grid m-activities__grid--<?php echo esc_attr($layout); ?>">
-                <?php foreach ($items as $item) : ?>
+            <div class="m-activities__grid m-activities__grid--<?php echo esc_attr($layout); ?><?php echo $show_arrows ? ' m-activities__grid--arrows' : ''; ?>">
+                <?php foreach ($items as $index => $item) : ?>
                     <?php
                     $tone = in_array($item['tone'] ?? '', ['blue', 'green', 'red', 'purple', 'white'], true) ? $item['tone'] : 'blue';
                     $unit = $item['unit'] ?? '';
@@ -67,6 +68,9 @@ $description = get_field('activities_description');
                     ?>
                     <article class="m-activities__card">
                         <div class="m-activities__image">
+                            <?php if ($show_arrows && $index < count($items) - 1): ?>
+                                <span class="a-activities-arrow" aria-hidden="true"><img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/right.svg')); ?>" alt=""></span>
+                            <?php endif; ?>
                             <?php if (!empty($item['image'])) : ?>
                                 <?php echo wp_get_attachment_image($item['image'], 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                             <?php endif; ?>

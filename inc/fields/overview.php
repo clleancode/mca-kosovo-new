@@ -77,6 +77,11 @@ if (class_exists(FieldsBuilder::class)) {
         ->addText('overview_statistic', [
             'label' => 'Statistic value',
         ])
+        ->addButtonGroup('overview_statistic_color', [
+            'label' => 'Statistic background color',
+            'choices' => ['blue' => 'Blue', 'purple' => 'Purple', 'green' => 'Green'],
+            'default_value' => 'blue',
+        ])
         ->addText('overview_unit', [
             'label' => 'Statistic unit',
         ])
