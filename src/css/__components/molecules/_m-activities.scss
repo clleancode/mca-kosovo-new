@@ -26,9 +26,13 @@
 
 .m-activities__image {
     position: relative;
+    flex-shrink: 0;
+    aspect-ratio: 1.8;
 }
 
 .m-activities__image>img {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
     height: 100%;

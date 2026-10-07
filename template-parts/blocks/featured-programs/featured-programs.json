@@ -1,0 +1,21 @@
+{
+  "name": "acf/featured-programs",
+  "title": "MCA - Featured Programs",
+  "description": "Featured story and four program cards.",
+  "category": "formatting",
+  "icon": "screenoptions",
+  "keywords": [
+    "programs",
+    "women",
+    "workforce"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "featured-programs.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
