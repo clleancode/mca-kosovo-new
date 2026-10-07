@@ -1,0 +1,21 @@
+{
+  "name": "acf/spotlight",
+  "title": "MCA - Spotlight",
+  "description": "Purple or green spotlight banner with image and links.",
+  "category": "formatting",
+  "icon": "star-filled",
+  "keywords": [
+    "spotlight",
+    "announcement",
+    "questionnaire"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "spotlight.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

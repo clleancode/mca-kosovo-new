@@ -1,0 +1,124 @@
+.m-spotlight {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 32px;
+    background: var(--purple);
+}
+
+.m-spotlight--green {
+    background: var(--dark-green);
+}
+
+.m-spotlight__image {
+    position: relative;
+}
+
+.m-spotlight__image>img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.m-spotlight__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px 24px;
+}
+
+.a-spotlight-pill {
+    display: inline-flex;
+    padding: 5px 10px;
+    border-radius: 99px;
+    background: var(--white);
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.m-spotlight--green .a-spotlight-pill {
+    color: var(--dark-green);
+}
+
+.m-spotlight__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+}
+
+.m-spotlight__tags>li {
+    padding: 4px 8px;
+    border: 1px solid #ffffff60;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.m-spotlight__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.a-spotlight-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 28px;
+    border: 1px solid var(--white);
+    border-radius: 99px;
+    color: var(--purple);
+    background: var(--white);
+    text-decoration: none;
+}
+
+.m-spotlight--green .a-spotlight-button {
+    color: var(--dark-green);
+}
+
+.a-spotlight-button--secondary,
+.m-spotlight--green .a-spotlight-button--secondary {
+    background: transparent;
+    color: var(--white);
+    border-color: #ffffff80;
+}
+
+.a-spotlight-button:focus-visible {
+    outline: 2px solid var(--white);
+    outline-offset: 4px;
+}
+
+@media (min-width: 768px) {
+    .m-spotlight {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+        min-height: 440px;
+    }
+
+    .m-spotlight__image {
+        aspect-ratio: auto;
+    }
+
+    .m-spotlight__content {
+        padding: 70px;
+    }
+
+    .m-spotlight--green {
+        grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    }
+
+    .m-spotlight--green .m-spotlight__content {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .m-spotlight--green .m-spotlight__image {
+        grid-column: 2;
+        grid-row: 1;
+    }
+}
