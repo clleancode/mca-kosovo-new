@@ -111,7 +111,7 @@ $links = [
                             <?php endif; ?>
                         >
                             <?php echo esc_html($link['title'] ?? ''); ?>
-                            <?php if ($type === 'primary') : ?>
+                            <?php if ($type === 'primary' && $layout !== 'green') : ?>
                                 <span aria-hidden="true">→</span>
                             <?php endif; ?>
                         </a>

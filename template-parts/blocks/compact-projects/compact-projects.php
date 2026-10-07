@@ -80,7 +80,7 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                             <div class="m-compact-projects__pair-label"><span class="a-text a-text--xs h-semibold"><?php echo esc_html(($project['category'] ?? '') ?: 'Project ' . sprintf('%02d', $index + 2)); ?></span></div>
                             <div class="m-compact-projects__pair-content">
                                 <h3 class="a-heading a-heading--h3 h-white"><?php echo esc_html($project_title); ?></h3>
-                                <?php if (!empty($project['short_description'])): ?><p class="a-text a-text--xs h-white h-semibold"><?php echo esc_html($project['short_description']); ?></p><?php endif; ?>
+                                <?php if (!empty($project['short_description'])): ?><p class="a-compact-projects-caption a-text a-text--xxl h-white h-regular"><?php echo esc_html($project['short_description']); ?></p><?php endif; ?>
                                 <?php if (!empty($project['description'])): ?><p class="a-text a-text--l h-regular h-white"><?php echo nl2br(esc_html($project['description'])); ?></p><?php endif; ?>
                             </div>
                             <?php if (!empty($project_link['url'])): ?><a class="a-compact-projects-pair-link" href="<?php echo esc_url($project_link['url']); ?>" target="<?php echo esc_attr(($project_link['target'] ?? '') ?: '_self'); ?>" aria-label="<?php echo esc_attr('Explore ' . $project_title); ?>"<?php if (($project_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><i class="icon-arrow-right-up a-icon" aria-hidden="true"></i></a><?php endif; ?>

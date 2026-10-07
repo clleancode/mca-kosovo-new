@@ -44,7 +44,7 @@ $items = array_slice(get_field('expected_items') ?: [], 0, 4);
     <?php endif; ?>
     <div class="container">
         <div class="m-expected__content">
-            <div class="m-expected__heading">
+            <div class="m-expected__heading s-m-b-m">
                 <p class="a-badge h-blue h-semibold"><?php echo esc_html(get_field('expected_label')); ?></p>
                 <<?php echo tag_escape($tag); ?> class="s-d-t-xs a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
                     <?php echo nl2br(esc_html(get_field('expected_title'))); ?>

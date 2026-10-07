@@ -91,7 +91,7 @@ $links = [
                 </div>
             <?php endif; ?>
 
-            <div class="m-projects-hero__buttons s-d-b-2xl s-m-b-m">
+            <div class="m-projects-hero__buttons s-d-b-xl s-m-b-m">
                 <?php foreach ($links as $type => $link) : ?>
                     <?php
                     if (empty($link['url'])) {

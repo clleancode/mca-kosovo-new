@@ -41,7 +41,9 @@ $benefits = array_slice(get_field('overview_benefits') ?: [], 0, 3);
 $main_image = get_field('overview_main_image');
 $detail_image = get_field('overview_detail_image');
 $description = get_field('overview_description');
-$statistic = get_field('overview_statistic');
+$statistic = trim((string) get_field('overview_statistic'));
+$statistic_unit = trim((string) get_field('overview_unit'));
+$statistic_label = trim((string) get_field('overview_statistic_label'));
 $statistic_color = Helpers\get_field_choice('overview_statistic_color', ['blue', 'purple', 'green'], 'blue');
 ?>
 <section
@@ -132,13 +134,15 @@ $statistic_color = Helpers\get_field_choice('overview_statistic_color', ['blue',
                     </div>
                 <?php endif; ?>
 
-                <?php if ($statistic !== '' && $statistic !== null && $statistic !== false) : ?>
+                <?php if ($statistic !== '' || $statistic_unit !== '' || $statistic_label !== '') : ?>
                     <div class="m-overview__statistic m-overview__statistic--<?php echo esc_attr($statistic_color); ?>">
-                        <div class="m-overview__value">
-                            <span class="h-medium a-heading a-heading--h3 h-white"><?php echo esc_html($statistic); ?></span>
-                            <span class="h-medium a-heading a-heading--h6"><?php echo esc_html(get_field('overview_unit')); ?></span>
-                        </div>
-                        <p class="a-text a-text--xs"><?php echo esc_html(get_field('overview_statistic_label')); ?></p>
+                        <?php if ($statistic !== '' || $statistic_unit !== ''): ?>
+                            <div class="m-overview__value">
+                                <?php if ($statistic !== ''): ?><span class="h-medium a-heading a-heading--h3 h-white"><?php echo esc_html($statistic); ?></span><?php endif; ?>
+                                <?php if ($statistic_unit !== ''): ?><span class="h-medium a-heading a-heading--h6"><?php echo esc_html($statistic_unit); ?></span><?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($statistic_label !== ''): ?><p class="a-text a-text--xs"><?php echo esc_html($statistic_label); ?></p><?php endif; ?>
                     </div>
                 <?php endif; ?>
             </div>

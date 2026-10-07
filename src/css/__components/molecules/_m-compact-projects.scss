@@ -1,4 +1,6 @@
 .m-compact-projects__intro {
+    width: 100%;
+    min-width: 0;
     display: grid;
     grid-template-columns: 1fr;
     align-items: end;
@@ -9,6 +11,7 @@
 }
 
 .m-compact-projects__grid {
+    min-width: 0;
     display: grid;
     width: 100%;
     grid-template-columns: minmax(0, 1fr) 64px 64px;
@@ -17,13 +20,11 @@
 }
 
 .m-compact-projects__card {
+    min-width: 0;
     position: relative;
     isolation: isolate;
-    min-width: 0;
-    min-height: 0;
     overflow: hidden;
     border-radius: 24px;
-    background: var(--light-blue);
     color: var(--white);
 }
 
@@ -73,7 +74,7 @@
 }
 
 .m-compact-projects__card--purple .m-compact-projects__overlay {
-    background: linear-gradient(180deg, rgba(99, 19, 248, .28) 0%, rgba(99, 19, 248, .9) 100%);
+    background: linear-gradient(180deg, rgba(99, 19, 248, .06) 0%, rgba(99, 19, 248, .16) 30%, rgba(99, 19, 248, .58) 65%, rgba(99, 19, 248, .96) 100%);
 }
 
 .m-compact-projects__card--green .m-compact-projects__overlay {
@@ -447,7 +448,7 @@
 
 .m-compact-projects__grid--two>.m-compact-projects__card {
     min-height: 320px;
-    aspect-ratio: 1.6;
+    aspect-ratio: auto;
 }
 
 .m-compact-projects__pair-label {
@@ -459,7 +460,7 @@
 
 .m-compact-projects__pair-label>span {
     display: inline-flex;
-    padding: 4px 10px;
+    padding: 6px 14px;
     border-radius: 99px;
     background: var(--white);
     color: var(--dark-blue);
@@ -467,11 +468,11 @@
 }
 
 .m-compact-projects__pair-content {
-    position: absolute;
+    position: relative;
     z-index: 2;
-    left: 36px;
-    right: 76px;
-    bottom: 36px;
+    margin: 120px 20px 88px;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .m-compact-projects__pair-content>.a-heading {
@@ -482,15 +483,16 @@
     margin: 8px 0 0;
 }
 
-.m-compact-projects__pair-content>.a-text--xs {
+.m-compact-projects__pair-content>.a-compact-projects-caption {
     text-transform: uppercase;
+    letter-spacing: .1em;
 }
 
 .a-compact-projects-pair-link {
     position: absolute;
     z-index: 3;
-    right: 36px;
-    bottom: 36px;
+    right: 20px;
+    bottom: 20px;
     display: grid;
     place-items: center;
     width: 46px;
@@ -514,6 +516,16 @@
     .m-compact-projects .m-compact-projects__grid--two {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+    .m-compact-projects__grid--two > .m-compact-projects__card { aspect-ratio: 1.6; }
+    .m-compact-projects__pair-label { top: 40px; left: 40px; }
+    .m-compact-projects__pair-content {
+        position: absolute;
+        left: 36px;
+        right: 76px;
+        bottom: 36px;
+        margin: 0;
+    }
+    .a-compact-projects-pair-link { right: 36px; bottom: 36px; }
 }
 
 .m-compact-projects__grid--two .m-compact-projects__card--blue .m-compact-projects__overlay {
