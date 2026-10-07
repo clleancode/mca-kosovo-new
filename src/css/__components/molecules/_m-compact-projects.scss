@@ -469,9 +469,9 @@
 .m-compact-projects__pair-content {
     position: absolute;
     z-index: 2;
-    left: 24px;
+    left: 36px;
     right: 76px;
-    bottom: 24px;
+    bottom: 36px;
 }
 
 .m-compact-projects__pair-content>.a-heading {
@@ -489,12 +489,12 @@
 .a-compact-projects-pair-link {
     position: absolute;
     z-index: 3;
-    right: 24px;
-    bottom: 24px;
+    right: 36px;
+    bottom: 36px;
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
     background: var(--white);
     color: var(--dark-blue);

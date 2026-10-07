@@ -1,0 +1,16 @@
+.o-expected {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #000d26;
+    color: var(--white);
+
+    &::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(0deg, rgba(0, 13, 38, .94) 0%, rgba(0, 31, 84, .28) 55%, rgba(0, 13, 38, .65) 100%), linear-gradient(90deg, rgba(0, 13, 38, .2), rgba(0, 31, 84, .35));
+    }
+}

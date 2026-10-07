@@ -1,0 +1,21 @@
+{
+  "name": "acf/expected",
+  "title": "MCA - Expected Impact",
+  "description": "Expected project impact with a background image and four cards.",
+  "category": "formatting",
+  "icon": "chart-area",
+  "keywords": [
+    "expected",
+    "impact",
+    "project"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "expected.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
