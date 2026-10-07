@@ -1,5 +1,6 @@
 const compactProjects = () => {
     document.querySelectorAll('.m-compact-projects__grid').forEach(grid => {
+        if (grid.classList.contains('m-compact-projects__grid--two')) return;
         if (grid.dataset.initialized) return;
         grid.dataset.initialized = 'true';
         const cards = [...grid.querySelectorAll('.m-compact-projects__card')];

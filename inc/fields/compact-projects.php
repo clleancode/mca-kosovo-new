@@ -26,6 +26,12 @@ if (class_exists(FieldsBuilder::class)) {
         ->setLocation('block', '==', 'acf/compact-projects')
 
         ->addTab('Content')
+            ->addButtonGroup('compact_projects_layout', [
+                'label' => 'Number of cards',
+                'choices' => ['two' => '2 cards', 'three' => '3 cards'],
+                'default_value' => 'three',
+                'instructions' => 'Two cards stay expanded. Three cards expand when clicked.',
+            ])
             ->addText('compact_projects_label', [
                 'label' => 'Eyebrow label',
             ])
