@@ -61,9 +61,7 @@ if (!in_array($text_line_height, ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl'], true
 ?>
 
 <section
-    <?php if (!empty($block['anchor'])): ?>
-        id="<?php echo esc_attr($block['anchor']); ?>"
-    <?php endif; ?>
+    id="sites"
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
 >
     <div class="container">

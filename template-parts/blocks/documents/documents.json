@@ -1,0 +1,21 @@
+{
+  "name": "acf/documents",
+  "title": "MCA - Documents",
+  "description": "Downloadable project documents.",
+  "category": "formatting",
+  "icon": "media-document",
+  "keywords": [
+    "documents",
+    "pdf",
+    "downloads"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "documents.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

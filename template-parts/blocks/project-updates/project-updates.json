@@ -1,0 +1,21 @@
+{
+  "name": "acf/project-updates",
+  "title": "MCA - Project Updates",
+  "description": "Project procurement updates and downloadable documents.",
+  "category": "formatting",
+  "icon": "media-document",
+  "keywords": [
+    "updates",
+    "procurement",
+    "documents"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "project-updates.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "acf/progress",
+  "title": "MCA - Progress",
+  "description": "Project phase and milestone progress.",
+  "category": "formatting",
+  "icon": "chart-bar",
+  "keywords": [
+    "progress",
+    "milestones",
+    "project"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "progress.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

@@ -1,0 +1,154 @@
+.m-progress__intro {
+    display: grid;
+    align-items: end;
+    gap: 32px;
+}
+
+
+.m-progress__phase {
+    width: 100%;
+    max-width: 380px;
+}
+
+.m-progress__phase-labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+    color: #59647d;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.a-progress-bar {
+    display: block;
+    appearance: none;
+    width: 100%;
+    height: 7px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 99px;
+    background: #dce1ec;
+    color: var(--blue);
+}
+
+.a-progress-bar::-webkit-progress-bar {
+    background: #dce1ec;
+    border-radius: 99px;
+}
+
+.a-progress-bar::-webkit-progress-value {
+    background: var(--blue);
+    border-radius: 99px;
+}
+
+.a-progress-bar::-moz-progress-bar {
+    background: var(--blue);
+    border-radius: 99px;
+}
+
+.m-progress__milestones {
+    display: grid;
+    gap: 16px;
+    padding: 0;
+}
+
+.m-progress__milestone {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 28px 24px;
+    border: 1px solid transparent;
+    border-radius: 18px;
+    background: var(--white);
+}
+
+.m-progress__milestone--upcoming {
+    background: transparent;
+    border: 2px dashed #dce1ec;
+}
+
+.m-progress__milestone--active {
+    background: var(--dark-blue);
+    color: var(--white);
+}
+
+.m-progress__card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    color: #59647d;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.m-progress__milestone--active .m-progress__card-top {
+    color: var(--blue);
+}
+
+.a-progress-status {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #59647d;
+    border-radius: 50%;
+}
+
+.m-progress__milestone--complete .a-progress-status {
+    border-color: #65bc6b;
+    background: #65bc6b;
+    color: var(--white);
+}
+
+.m-progress__milestone--active .a-progress-status {
+    background: var(--red);
+    border-color: var(--red);
+}
+
+.m-progress__milestone--active .a-progress-status::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--white);
+}
+
+.a-progress-pill {
+    display: inline-flex;
+    padding: 4px 10px;
+    border-radius: 99px;
+    color: var(--white);
+    background: var(--red);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+@media (min-width: 600px) {
+    .m-progress__milestones {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 900px) {
+    .m-progress__intro {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        gap: 48px;
+    }
+
+    .m-progress__phase {
+        justify-self: end;
+    }
+
+    .m-progress__milestones {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1200px) {
+    .m-progress__milestones {
+        grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    }
+}

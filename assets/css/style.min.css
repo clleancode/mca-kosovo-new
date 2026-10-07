@@ -6990,6 +6990,300 @@ p {
     justify-self: end;
   }
 }
+.m-progress__intro {
+  display: grid;
+  align-items: end;
+  gap: 32px;
+}
+
+.m-progress__phase {
+  width: 100%;
+  max-width: 380px;
+}
+
+.m-progress__phase-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  color: #59647d;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.a-progress-bar {
+  display: block;
+  appearance: none;
+  width: 100%;
+  height: 7px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 99px;
+  background: #dce1ec;
+  color: var(--blue);
+}
+
+.a-progress-bar::-webkit-progress-bar {
+  background: #dce1ec;
+  border-radius: 99px;
+}
+
+.a-progress-bar::-webkit-progress-value {
+  background: var(--blue);
+  border-radius: 99px;
+}
+
+.a-progress-bar::-moz-progress-bar {
+  background: var(--blue);
+  border-radius: 99px;
+}
+
+.m-progress__milestones {
+  display: grid;
+  gap: 16px;
+  padding: 0;
+}
+
+.m-progress__milestone {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 28px 24px;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  background: var(--white);
+}
+
+.m-progress__milestone--upcoming {
+  background: transparent;
+  border: 2px dashed #dce1ec;
+}
+
+.m-progress__milestone--active {
+  background: var(--dark-blue);
+  color: var(--white);
+}
+
+.m-progress__card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: #59647d;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.m-progress__milestone--active .m-progress__card-top {
+  color: var(--blue);
+}
+
+.a-progress-status {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #59647d;
+  border-radius: 50%;
+}
+
+.m-progress__milestone--complete .a-progress-status {
+  border-color: #65bc6b;
+  background: #65bc6b;
+  color: var(--white);
+}
+
+.m-progress__milestone--active .a-progress-status {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.m-progress__milestone--active .a-progress-status::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+.a-progress-pill {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 99px;
+  color: var(--white);
+  background: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 600px) {
+  .m-progress__milestones {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 900px) {
+  .m-progress__intro {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 48px;
+  }
+  .m-progress__phase {
+    justify-self: end;
+  }
+  .m-progress__milestones {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1200px) {
+  .m-progress__milestones {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  }
+}
+.m-project-updates__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  width: 100%;
+  gap: 24px;
+}
+
+.m-project-updates__card h3 {
+  max-width: 500px;
+}
+
+.a-project-updates-all {
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--navy);
+  color: var(--dark-blue);
+  display: flex;
+  gap: 5px;
+}
+
+.m-project-updates__grid {
+  display: grid;
+  gap: 32px 24px;
+}
+
+.a-project-updates-image {
+  display: block;
+  aspect-ratio: 1.6;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f3f4f7;
+}
+
+.a-project-updates-image > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.m-project-updates__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #59647d;
+}
+
+.a-project-updates-pill {
+  padding: 3px 8px;
+  border-radius: 99px;
+  color: #2f358b;
+  background: #f3f4f7;
+}
+
+.a-project-updates-title:hover {
+  text-decoration: underline;
+}
+
+.a-project-updates-all:focus-visible,
+.a-project-updates-title:focus-visible,
+.a-project-updates-image:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+@media (min-width: 768px) {
+  .m-project-updates__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.m-documents__documents {
+  display: grid;
+  align-items: start;
+  gap: 32px;
+  width: 100%;
+}
+
+.m-documents__documents-description {
+  max-width: 400px;
+}
+
+.m-documents__document-list {
+  display: grid;
+  gap: 12px;
+}
+
+.m-documents__document-list > li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 24px;
+  border-radius: 20px;
+  background: var(--grey);
+}
+
+.a-documents-pdf {
+  width: 52px;
+  height: 64px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.m-documents__document-copy {
+  flex: 1;
+  min-width: 120px;
+}
+
+.m-documents__document-copy > p {
+  margin-top: 6px;
+  color: var(--slate);
+}
+
+.a-documents-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 99px;
+  color: var(--white);
+  background: var(--dark-blue);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.a-documents-download > img {
+  width: 12px;
+  height: 14px;
+}
+
+.a-documents-download:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+@media (min-width: 768px) {
+  .m-documents__documents {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr);
+    gap: 48px;
+  }
+}
 .o-header {
   top: 0;
   z-index: 5;
@@ -7395,6 +7689,24 @@ p {
 .o-activities {
   background: var(--navy);
   color: var(--white);
+}
+
+.o-progress {
+  background: var(--grey);
+  color: var(--dark-blue);
+}
+.o-progress .container {
+  display: block;
+}
+
+.o-project-updates {
+  background: var(--white);
+  color: var(--dark-blue);
+}
+
+.o-documents {
+  background: var(--white);
+  color: var(--dark-blue);
 }
 
 @media (max-width: 991px) {

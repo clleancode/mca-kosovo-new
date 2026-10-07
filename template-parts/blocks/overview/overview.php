@@ -64,7 +64,7 @@ $statistic = get_field('overview_statistic');
                         if (empty($link['url'])) continue;
                         $target = ($link['target'] ?? '') ?: '_self';
                         ?>
-                        <a class="a-overview-link a-text a-text--s" href="<?php echo esc_url($link['url']); ?>" data-overview-link target="<?php echo esc_attr($target); ?>"<?php if ($target === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($link['title'] ?? ''); ?></a>
+                        <a class="a-overview-link a-text a-text--l" href="<?php echo esc_url($link['url']); ?>" data-overview-link target="<?php echo esc_attr($target); ?>"<?php if ($target === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($link['title'] ?? ''); ?></a>
                     <?php endforeach; ?>
                 </nav>
 
