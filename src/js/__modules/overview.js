@@ -21,17 +21,7 @@ const overview = () => {
             window.scrollTo({ top: Math.max(0, window.scrollY + target.getBoundingClientRect().top - offset()), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
             activate(link);
         }));
-        let pending = false;
-        const update = () => {
-            const ordered = entries.map(entry => ({ ...entry, top: entry.target.getBoundingClientRect().top })).sort((a, b) => a.top - b.top);
-            const reached = ordered.filter(entry => entry.top <= offset() + 24);
-            activate((reached.at(-1) ?? ordered[0]).link);
-            pending = false;
-        };
-        window.addEventListener('scroll', () => {
-            if (!pending) { pending = true; requestAnimationFrame(update); }
-        }, { passive: true });
-        update();
+        activate(entries[0].link);
     });
 };
 export default overview;

@@ -8,6 +8,38 @@
 namespace MCA\Helpers;
 use WP_Query;
 use Detection\MobileDetect;
+
+/** Return an ACF choice only when it is one of the supported values. */
+function get_field_choice($name, array $allowed, $default) {
+    $value = get_field($name);
+    return in_array($value, $allowed, true) ? $value : $default;
+}
+
+/** Shared heading and text settings; blocks may override their defaults. */
+function get_block_typography(array $defaults = []) {
+    $colors = ['h-white', 'h-dark-blue', 'h-blue', 'h-purple', 'h-dark-green'];
+    $headings = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+    $choices = [
+        'header_tag' => array_merge($headings, ['p']),
+        'header_size' => $headings,
+        'header_color' => $colors,
+        'header_line_height' => ['3xs', '2xs', 'xs', 's', 'm', 'ls', 'l', 'xl'],
+        'text_type' => ['xs', 's', 'm', 'l', 'xl', 'xxl'],
+        'text_color' => $colors,
+        'text_line_height' => ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl'],
+    ];
+    $defaults = array_replace([
+        'header_tag' => 'h2', 'header_size' => 'h4', 'header_color' => 'h-white',
+        'header_line_height' => 's', 'text_type' => 'm', 'text_color' => 'h-white',
+        'text_line_height' => 'l',
+    ], $defaults);
+    $settings = [];
+    foreach ($choices as $field => $allowed) {
+        $settings[$field] = get_field_choice($field, $allowed, $defaults[$field]);
+    }
+    return $settings;
+}
+
 /**
  * Get child count for FAQ post
  */

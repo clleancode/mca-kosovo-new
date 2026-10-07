@@ -124,8 +124,8 @@ if (!in_array($text_line_height, ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl'], true
                 <?php endif; ?>
 
                 <ul class="m-storage__legend" aria-label="Map legend">
-                    <li class="m-storage__legend-site">Storage site</li>
-                    <li class="m-storage__legend-capacity">Ring sized by capacity</li>
+                    <li class="a-storage__legend-site a-text--xs h-semibold">Storage site</li>
+                    <li class="a-storage__legend-capacity a-text--xs h-semibold">Ring sized by capacity</li>
                 </ul>
             </div>
         </div>

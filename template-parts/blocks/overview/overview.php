@@ -23,21 +23,15 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     }
 }
 
-$setting = static function ($name, $allowed, $default) {
-    $value = get_field($name);
-
-    return in_array($value, $allowed, true) ? $value : $default;
-};
-
-$colors = ['h-white', 'h-dark-blue', 'h-blue', 'h-purple', 'h-dark-green'];
-
-$tag = $setting('header_tag', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'], 'h2');
-$size = $setting('header_size', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], 'h4');
-$color = $setting('header_color', $colors, 'h-dark-blue');
-$height = $setting('header_line_height', ['3xs', '2xs', 'xs', 's', 'm', 'ls', 'l', 'xl'], 's');
-$text_size = $setting('text_type', ['xs', 's', 'm', 'l', 'xl', 'xxl'], 'l');
-$text_color = $setting('text_color', $colors, 'h-dark-blue');
-$text_height = $setting('text_line_height', ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl'], 'l');
+[
+    'header_tag' => $tag,
+    'header_size' => $size,
+    'header_color' => $color,
+    'header_line_height' => $height,
+    'text_type' => $text_size,
+    'text_color' => $text_color,
+    'text_line_height' => $text_height,
+] = Helpers\get_block_typography(['header_color' => 'h-dark-blue', 'text_type' => 'l', 'text_color' => 'h-dark-blue']);
 
 $content_id = sanitize_html_class(($block['id'] ?? 'overview') . '-content');
 $links = get_field('overview_navigation') ?: [];
@@ -58,11 +52,11 @@ $statistic = get_field('overview_statistic');
         <div class="container">
             <div class="m-overview__bar">
                 <div class="m-overview__project">
-                    <span class="a-text a-text--s"><?php echo esc_html(get_field('overview_project_name')); ?></span>
+                    <span class="a-text a-text--m h-semibold"><?php echo esc_html(get_field('overview_project_name')); ?></span>
                 </div>
 
                 <nav class="m-overview__links" aria-label="Project sections">
-                    <a class="a-overview-link a-text a-text--s" href="#<?php echo esc_attr($content_id); ?>" data-overview-link aria-current="location">
+                    <a class="a-overview-link a-text a-text--l" href="#<?php echo esc_attr($content_id); ?>" data-overview-link aria-current="location">
                         <?php echo esc_html(get_field('overview_navigation_label')); ?>
                     </a>
                     <?php foreach ($links as $row):
@@ -76,7 +70,7 @@ $statistic = get_field('overview_statistic');
 
                 <?php if (!empty($factsheet['url'])) : ?>
                     <a
-                        class="a-overview-factsheet a-text a-text--s"
+                        class="a-overview-factsheet a-text a-text--m h-semibold"
                         href="<?php echo esc_url($factsheet['url']); ?>"
                         target="<?php echo esc_attr($factsheet_target); ?>"
                         <?php if ($factsheet_target === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>
@@ -91,14 +85,14 @@ $statistic = get_field('overview_statistic');
     <div class="container">
         <div id="<?php echo esc_attr($content_id); ?>" class="m-overview__content">
             <div class="m-overview__copy">
-                <p class="a-badge h-dark-blue"><?php echo esc_html(get_field('overview_label')); ?></p>
+                <p class="a-badge h-dark-blue s-d-b-xs"><?php echo esc_html(get_field('overview_label')); ?></p>
 
                 <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
                     <?php echo nl2br(esc_html(get_field('overview_title'))); ?>
                 </<?php echo tag_escape($tag); ?>>
 
                 <?php if ($description) : ?>
-                    <div class="m-overview__description">
+                    <div class="m-overview__description s-d-t-s s-m-t-xs">
                         <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
                             <?php echo nl2br(esc_html($description)); ?>
                         </p>
@@ -110,12 +104,12 @@ $statistic = get_field('overview_statistic');
                         <?php foreach ($benefits as $index => $benefit) : ?>
                             <li>
                                 <div class="m-overview__number">
-                                    <span class="a-text a-text--xs"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
+                                    <span class="a-text a-text--s"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
                                 </div>
                                 <div class="m-overview__benefit-copy">
-                                    <h3 class="a-text a-text--xl h-dark-blue"><?php echo esc_html($benefit['title'] ?? ''); ?></h3>
+                                    <h3 class="a-text a-text--xxl h-semibold h-dark-blue"><?php echo esc_html($benefit['title'] ?? ''); ?></h3>
                                     <?php if (!empty($benefit['description'])) : ?>
-                                        <p class="a-text a-text--s"><?php echo esc_html($benefit['description']); ?></p>
+                                        <p class="a-text a-text--l"><?php echo esc_html($benefit['description']); ?></p>
                                     <?php endif; ?>
                                 </div>
                             </li>
@@ -140,8 +134,8 @@ $statistic = get_field('overview_statistic');
                 <?php if ($statistic !== '' && $statistic !== null && $statistic !== false) : ?>
                     <div class="m-overview__statistic">
                         <div class="m-overview__value">
-                            <span class="a-heading a-heading--h5 h-white"><?php echo esc_html($statistic); ?></span>
-                            <span class="a-text a-text--xl"><?php echo esc_html(get_field('overview_unit')); ?></span>
+                            <span class="h-medium a-heading a-heading--h3 h-white"><?php echo esc_html($statistic); ?></span>
+                            <span class="h-medium a-heading a-heading--h6"><?php echo esc_html(get_field('overview_unit')); ?></span>
                         </div>
                         <p class="a-text a-text--xs"><?php echo esc_html(get_field('overview_statistic_label')); ?></p>
                     </div>

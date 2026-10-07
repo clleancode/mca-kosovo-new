@@ -23,16 +23,12 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     }
 }
 
-$setting = static function ($name, $allowed, $default) {
-    $value = get_field($name);
-
-    return in_array($value, $allowed, true) ? $value : $default;
-};
-
-$tag = $setting('header_tag', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'], 'h2');
-$size = $setting('header_size', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], 'h4');
-$color = $setting('header_color', ['h-white', 'h-dark-blue', 'h-blue', 'h-purple', 'h-dark-green'], 'h-white');
-$height = $setting('header_line_height', ['3xs', '2xs', 'xs', 's', 'm', 'ls', 'l', 'xl'], 's');
+[
+    'header_tag' => $tag,
+    'header_size' => $size,
+    'header_color' => $color,
+    'header_line_height' => $height,
+] = Helpers\get_block_typography();
 
 $image = get_field('join_image');
 

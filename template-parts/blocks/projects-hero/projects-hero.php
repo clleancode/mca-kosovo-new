@@ -23,22 +23,16 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     }
 }
 
-$setting = static function ($name, $allowed, $default) {
-    $value = get_field($name);
-
-    return in_array($value, $allowed, true) ? $value : $default;
-};
-
-$colors = ['h-white', 'h-dark-blue', 'h-blue', 'h-purple', 'h-dark-green'];
-
-$tag = $setting('header_tag', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'], 'h1');
-$size = $setting('header_size', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], 'h4');
-$color = $setting('header_color', $colors, 'h-white');
-$height = $setting('header_line_height', ['3xs', '2xs', 'xs', 's', 'm', 'ls', 'l', 'xl'], 's');
-$text_size = $setting('text_type', ['xs', 's', 'm', 'l', 'xl', 'xxl'], 'l');
-$text_color = $setting('text_color', $colors, 'h-white');
-$text_height = $setting('text_line_height', ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl'], 'l');
-$tone = $setting('projects_hero_tone', ['blue', 'purple', 'green'], 'blue');
+[
+    'header_tag' => $tag,
+    'header_size' => $size,
+    'header_color' => $color,
+    'header_line_height' => $height,
+    'text_type' => $text_size,
+    'text_color' => $text_color,
+    'text_line_height' => $text_height,
+] = Helpers\get_block_typography(['header_tag' => 'h1', 'text_type' => 'l']);
+$tone = Helpers\get_field_choice('projects_hero_tone', ['blue', 'purple', 'green'], 'blue');
 
 $image = get_field('small_hero_image');
 $title = get_field('small_hero_title');

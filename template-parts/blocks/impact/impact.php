@@ -17,21 +17,15 @@ $title = get_field('impact_title') ?: '';
 $description = get_field('impact_description') ?: '';
 $items = array_slice(get_field('impact_items') ?: [], 0, 4);
 
-$setting = static function ($field, $allowed, $default) {
-    $value = get_field($field);
-    return in_array($value, $allowed, true) ? $value : $default;
-};
-
-$colors = ['h-white', 'h-dark-blue', 'h-blue', 'h-purple', 'h-dark-green'];
-
-$heading_tag = $setting('header_tag', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'], 'h2');
-$heading_size = $setting('header_size', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], 'h4');
-$heading_color = $setting('header_color', $colors, 'h-dark-blue');
-$heading_height = $setting('header_line_height', ['3xs', '2xs', 'xs', 's', 'm', 'ls', 'l', 'xl'], 's');
-
-$text_type = $setting('text_type', ['xs', 's', 'm', 'l', 'xl', 'xxl'], 'm');
-$text_color = $setting('text_color', $colors, 'h-dark-blue');
-$text_height = $setting('text_line_height', ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl'], 'l');
+[
+    'header_tag' => $heading_tag,
+    'header_size' => $heading_size,
+    'header_color' => $heading_color,
+    'header_line_height' => $heading_height,
+    'text_type' => $text_type,
+    'text_color' => $text_color,
+    'text_line_height' => $text_height,
+] = Helpers\get_block_typography(['header_color' => 'h-dark-blue', 'text_color' => 'h-dark-blue']);
 ?>
 <section <?php if (!empty($block['anchor'])): ?>id="<?php echo esc_attr($block['anchor']); ?>" <?php endif; ?>class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>">
     <div class="container">

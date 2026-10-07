@@ -27,21 +27,15 @@ $value = static function ($name) {
     return get_field('partnership_' . $name);
 };
 
-$setting = static function ($name, $allowed, $default) {
-    $value = get_field($name);
-
-    return in_array($value, $allowed, true) ? $value : $default;
-};
-
-$colors = ['h-white', 'h-dark-blue', 'h-blue', 'h-purple', 'h-dark-green'];
-
-$tag = $setting('header_tag', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'], 'h2');
-$size = $setting('header_size', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], 'h4');
-$heading_color = $setting('header_color', $colors, 'h-white');
-$heading_height = $setting('header_line_height', ['3xs', '2xs', 'xs', 's', 'm', 'ls', 'l', 'xl'], 's');
-$text_size = $setting('text_type', ['xs', 's', 'm', 'l', 'xl', 'xxl'], 'm');
-$text_color = $setting('text_color', $colors, 'h-white');
-$text_height = $setting('text_line_height', ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl'], 'l');
+[
+    'header_tag' => $tag,
+    'header_size' => $size,
+    'header_color' => $heading_color,
+    'header_line_height' => $heading_height,
+    'text_type' => $text_size,
+    'text_color' => $text_color,
+    'text_line_height' => $text_height,
+] = Helpers\get_block_typography();
 
 $main_image = $value('main_image');
 $side_image = $value('side_image');

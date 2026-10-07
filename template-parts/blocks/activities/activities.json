@@ -1,0 +1,21 @@
+{
+  "name": "acf/activities",
+  "title": "MCA - Activities",
+  "description": "Two or three project activity cards.",
+  "category": "formatting",
+  "icon": "screenoptions",
+  "keywords": [
+    "activities",
+    "project",
+    "cards"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "activities.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
