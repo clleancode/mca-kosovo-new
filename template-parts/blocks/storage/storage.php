@@ -24,40 +24,20 @@ $map_image           = get_field('storage_map_image');
 $locations           = get_field('storage_locations') ?: [];
 $locations           = array_slice($locations, 0, 2);
 
-$heading_tag         = get_field('header_tag');
-if (!in_array($heading_tag, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'], true)) {
-    $heading_tag = 'h2';
-}
-
-$heading_size        = get_field('header_size');
-if (!in_array($heading_size, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], true)) {
-    $heading_size = 'h3';
-}
-
-$heading_color       = get_field('header_color');
-if (!in_array($heading_color, ['h-white', 'h-dark-blue', 'h-blue', 'h-purple', 'h-dark-green'], true)) {
-    $heading_color = 'h-dark-blue';
-}
-
-$heading_line_height = get_field('header_line_height');
-if (!in_array($heading_line_height, ['3xs', '2xs', 'xs', 's', 'm', 'ls', 'l', 'xl'], true)) {
-    $heading_line_height = 's';
-}
-
-$text_type           = get_field('text_type');
-if (!in_array($text_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) {
-    $text_type = 's';
-}
-
-$text_color          = get_field('text_color');
-if (!in_array($text_color, ['h-white', 'h-dark-blue', 'h-blue', 'h-purple', 'h-dark-green'], true)) {
-    $text_color = 'h-dark-blue';
-}
-
-$text_line_height    = get_field('text_line_height');
-if (!in_array($text_line_height, ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl'], true)) {
-    $text_line_height = 'l';
-}
+[
+    'header_tag' => $heading_tag,
+    'header_size' => $heading_size,
+    'header_color' => $heading_color,
+    'header_line_height' => $heading_line_height,
+    'text_type' => $text_type,
+    'text_color' => $text_color,
+    'text_line_height' => $text_line_height,
+] = Helpers\get_block_typography([
+    'header_size' => 'h3',
+    'header_color' => 'h-dark-blue',
+    'text_type' => 's',
+    'text_color' => 'h-dark-blue',
+]);
 ?>
 
 <section
@@ -68,7 +48,7 @@ if (!in_array($text_line_height, ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl'], true
         <div class="m-storage">
             <div class="m-storage__content">
                 <?php if ($label): ?>
-                    <p class="a-text a-text--s"><?php echo esc_html($label); ?></p>
+                    <p class="a-badge h-dark-blue h-semibold"><?php echo esc_html($label); ?></p>
                 <?php endif; ?>
 
                 <?php if ($capacity || $unit): ?>
@@ -96,18 +76,34 @@ if (!in_array($text_line_height, ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl'], true
                     </p>
                 <?php endif; ?>
 
-                <?php foreach ($locations as $index => $location): ?>
+                <?php foreach ($locations as $index => $location):
+                    $location_capacity = trim((string) ($location['capacity'] ?? ''));
+                    preg_match('/^([\d.,]+)\s*(.*)$/u', $location_capacity, $capacity_parts);
+                    $location_value = $capacity_parts[1] ?? $location_capacity;
+                    $location_unit = ($capacity_parts[2] ?? '') ?: ($unit ?: 'MWh');
+                    $numeric_capacity = (float) str_replace(',', '', $capacity_parts[1] ?? '0');
+                    $total_capacity = (float) str_replace(',', '', (string) $capacity);
+                    $percentage = $total_capacity > 0 ? max(0, min(100, round($numeric_capacity / $total_capacity * 100))) : 0;
+                    $filled_cells = (int) round($percentage * 34 / 100);
+                    ?>
                     <div class="m-storage__location">
                         <div class="m-storage__location-heading">
-                            <p class="a-text a-text--xl"><?php echo esc_html($location['name'] ?? ''); ?></p>
-                            <p class="a-text a-text--xl"><?php echo esc_html($location['capacity'] ?? ''); ?></p>
+                            <div class="m-storage__site">
+                                <span class="a-text a-text--xs h-pink h-semibold">Site <?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
+                                <h3 class="a-heading a-heading--h6 h-dark-blue"><?php echo esc_html($location['name'] ?? ''); ?></h3>
+                            </div>
+                            <div class="m-storage__location-capacity">
+                                <span class="a-heading a-heading--h4 h-dark-blue"><?php echo esc_html($location_value); ?></span>
+                                <span class="a-text a-text--m h-blue h-semibold"><?php echo esc_html($location_unit); ?></span>
+                            </div>
                         </div>
-                        <div class="m-storage__capacity-bar" aria-hidden="true">
-                            <span style="--storage-capacity: <?php echo esc_attr($index === 0 ? '74%' : '28%'); ?>"></span>
+                        <div class="m-storage__capacity-bar" role="img" aria-label="<?php echo esc_attr($percentage . '% of total storage capacity'); ?>">
+                            <?php for ($cell = 0; $cell < 34; $cell++): ?><span<?php if ($cell < $filled_cells): ?> class="a-storage-cell--filled" style="opacity: <?php echo esc_attr(.55 + .45 * $cell / max(1, $filled_cells - 1)); ?>;"<?php endif; ?> aria-hidden="true"></span><?php endfor; ?>
                         </div>
-                        <?php if (!empty($location['note'])): ?>
-                            <p class="a-text a-text--m s-d-b-xs"><?php echo esc_html($location['note']); ?></p>
-                        <?php endif; ?>
+                        <div class="m-storage__location-notes">
+                            <?php if (!empty($location['note'])): ?><p class="a-text a-text--m"><?php echo esc_html($location['note']); ?></p><?php endif; ?>
+                            <?php if ($total_capacity > 0): ?><span class="a-text a-text--xs h-semibold"><?php echo esc_html($percentage . '% of ' . $capacity . ' ' . ($unit ?: 'MWh')); ?></span><?php endif; ?>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>

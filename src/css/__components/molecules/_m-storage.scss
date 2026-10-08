@@ -14,22 +14,6 @@
     color: #09285f;
 }
 
-.m-storage__content>.a-text:first-child {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #2F358B;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-}
-
-.m-storage__content>.a-text:first-child::before {
-    width: 24px;
-    height: 2px;
-    background: var(--red);
-    content: '';
-}
-
 .m-storage__capacity {
     display: flex;
     align-items: baseline;
@@ -58,38 +42,73 @@
 }
 
 .m-storage__location {
-    padding: 20px 0 10px;
+    padding: 28px 0;
     border-top: 1px solid #e1e7ef;
-}
-
-.m-storage__location>.a-text {
-    margin: 5px 0 0;
-    color: #77849b;
-    line-height: 1.35;
 }
 
 .m-storage__location-heading {
     display: flex;
+    align-items: end;
     justify-content: space-between;
-    gap: 12px;
+    gap: 16px;
 }
 
-.m-storage__location-heading .a-text {
-    margin: 0;
-    color: #09285f;
+.m-storage__site {
+    min-width: 0;
+}
+
+.m-storage__site>span {
+    color: var(--pink);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.m-storage__site>h3 {
+    margin: 4px 0 0;
+}
+
+.m-storage__location-capacity {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    flex-shrink: 0;
 }
 
 .m-storage__capacity-bar {
-    height: 4px;
-    margin: 14px 0;
-    background: #dce3eb;
+    display: grid;
+    grid-template-columns: repeat(34, minmax(0, 1fr));
+    gap: 3px;
+    height: 12px;
+    margin: 18px 0;
 }
 
-.m-storage__capacity-bar span {
+.m-storage__capacity-bar>span {
     display: block;
-    width: var(--storage-capacity);
-    height: 100%;
-    background: #4297d1;
+    border-radius: 2px;
+    background: #dce1ec;
+}
+
+.m-storage__capacity-bar>.a-storage-cell--filled {
+    background: var(--blue);
+}
+
+.m-storage__location-notes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: space-between;
+    gap: 12px;
+    color: #77849b;
+}
+
+.m-storage__location-notes>p {
+    flex: 1;
+    min-width: 160px;
+    margin: 0;
+}
+
+.m-storage__location-notes>span {
+    flex-shrink: 0;
 }
 
 .m-storage__map {
