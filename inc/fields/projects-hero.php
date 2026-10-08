@@ -24,7 +24,6 @@ if (class_exists(FieldsBuilder::class)) {
 
     $hero
         ->setLocation('block', '==', 'acf/projects-hero')
-        ->or('block', '==', 'acf/small-hero')
 
         ->addTab('Content')
             ->addImage('small_hero_image', [

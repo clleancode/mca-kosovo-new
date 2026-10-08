@@ -5,16 +5,17 @@
 // The most general styles for
 // <html>, <body> and .container
 //
-html, body { }
+html,
+body {}
 
 body {
     font-family: var(--red-hat-display);
     color: var(--dark-blue);
- }
+}
 
-::selection { }
+::selection {}
 
-::-moz-selection { }
+::-moz-selection {}
 
 .sr-only {
     position: absolute;
@@ -104,33 +105,61 @@ button {
     }
 }
 
-.h-italic { font-style: italic;}
+.h-italic {
+    font-style: italic;
+}
 
-.h-text-center { text-align: center; }
+.h-text-center {
+    text-align: center;
+}
 
-.h-text-right { text-align: right; }
+.h-text-right {
+    text-align: right;
+}
 
-.h-align-start { align-items:  start;}
+.h-align-start {
+    align-items: start;
+}
 
-.h-justify-start { justify-content:  start;}
+.h-justify-start {
+    justify-content: start;
+}
 
-.h-align-center { align-items:  center;}
+.h-align-center {
+    align-items: center;
+}
 
-.h-justify-center { justify-content:  center;}
+.h-justify-center {
+    justify-content: center;
+}
 
-.h-align-end { align-items:  end;}
+.h-align-end {
+    align-items: end;
+}
 
-.h-justify-end { justify-content:  end;}
+.h-justify-end {
+    justify-content: end;
+}
 
-.h-light { font-weight: 300;}
+.h-light {
+    font-weight: 300;
+}
 
-.h-regular { font-weight: 400;}
+.h-regular {
+    font-weight: 400;
+}
 
-.h-medium { font-weight: 500;}
+.h-medium {
+    font-weight: 500;
+}
 
-.h-semibold { font-weight: 600;}
+.h-semibold {
+    font-weight: 600;
+}
 
-.h-bold { font-weight: 700;}
+.h-bold {
+    font-weight: 700;
+}
 
 //.h-bold { font-family: var(--gellix-semibold);}
 
@@ -140,43 +169,81 @@ button {
 //     .m-percentage__box & { font-family: var(--red-hat-display); }
 // }
 
-.h-britanica {font-family: var(--red-hat-display);}
+.h-britanica {
+    font-family: var(--red-hat-display);
+}
 
-.h-uppercase { text-transform: uppercase; }
+.h-uppercase {
+    text-transform: uppercase;
+}
 
-.h-black { color: var(--black);}
+.h-black {
+    color: var(--black);
+}
 
-.h-white { color: var(--white);}
+.h-white {
+    color: var(--white);
+}
 
-.h-navy { color: var(--navy);}
+.h-navy {
+    color: var(--navy);
+}
 
-.h-dark-blue { color: var(--dark-blue);}
+.h-dark-blue {
+    color: var(--dark-blue);
+}
 
-.h-light-blue { color: var(--light-blue);}
+.h-light-blue {
+    color: var(--light-blue);
+}
 
-.h-highlight { color: #001F5440; }
+.h-highlight {
+    color: #001F5440;
+}
 
-.h-blue { color: var(--blue);}
+.h-blue {
+    color: var(--blue);
+}
 
-.h-pink { color: var(--pink);}
+.h-pink {
+    color: var(--pink);
+}
 
-.h-dark-pink { color: var(--dark-pink);}
+.h-dark-pink {
+    color: var(--dark-pink);
+}
 
-.h-red { color: var(--red);}
+.h-red {
+    color: var(--red);
+}
 
-.h-purple { color: var(--purple);}
+.h-purple {
+    color: var(--purple);
+}
 
-.h-light-green { color: var(--light-green);}
+.h-light-green {
+    color: var(--light-green);
+}
 
-.h-green { color: var(--green);}
+.h-green {
+    color: var(--green);
+}
 
-.h-dark-green { color: var(--dark-green);}
+.h-dark-green {
+    color: var(--dark-green);
+}
 
-.h-quicksand { color: var(--quicksand);}
+.h-quicksand {
+    color: var(--quicksand);
+}
 
-.h-opacity-50 { opacity: 0.5;}
+.h-opacity-50 {
+    opacity: 0.5;
+}
 
-.h-no-margin { margin: 0 !important; }
+.h-no-margin {
+    margin: 0 !important;
+}
 
 .h-full {
     width: 100%;
@@ -189,11 +256,13 @@ button {
     width: max-content;
 }
 
-.h-flex-center { justify-content: center; }
+.h-flex-center {
+    justify-content: center;
+}
 
 .h-right {
     display: flex;
-    margin-left:auto;
+    margin-left: auto;
     width: max-content;
 }
 
@@ -217,10 +286,45 @@ button {
 }
 
 .gm-style div {
-	overflow: unset !important;
+    overflow: unset !important;
 }
 
 .gm-style div img {
-	width: auto !important;
-	left: -27px !important;
+    width: auto !important;
+    left: -27px !important;
+}
+
+.h-breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.h-breadcrumbs li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.h-breadcrumbs li+li::before {
+    content: '/';
+}
+
+.h-breadcrumbs a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.h-breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.h-breadcrumbs a:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 4px;
 }
