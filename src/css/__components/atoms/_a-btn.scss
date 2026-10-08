@@ -18,15 +18,15 @@
         font-size: clamp(10px, 2vw, 12px);
         transition: transform 0.3s ease-in-out;
         transform-origin: left center;
-      }
+    }
 
-      span {
+    span {
         display: inline-flex;
         align-items: center;
         gap: 12px;
         position: relative;
         z-index: 2;
-      }
+    }
 
     &::after {
         content: '';
@@ -46,6 +46,7 @@
     @media (hover: hover) {
         &:hover {
             color: var(--white);
+
             &::after {
                 transform: scaleX(1);
             }
@@ -72,8 +73,10 @@
     min-height: 40px;
     padding: 0 15px;
     font-size: clamp(12.5px, 2.4vw, 16px);
-    
-    i {font-size: clamp(9.5px, 2vw, 12px);}
+
+    i {
+        font-size: clamp(9.5px, 2vw, 12px);
+    }
 
     @media (min-width: 768px) {
         min-height: 50px;
@@ -85,8 +88,10 @@
     min-height: 34px;
     padding: 0 8px;
     font-size: clamp(10px, 2.4vw, 12px);
-    
-    i {font-size: clamp(8px, 2vw, 10px);}
+
+    i {
+        font-size: clamp(8px, 2vw, 10px);
+    }
 
     @media (min-width: 768px) {
         min-height: 40px;
@@ -101,28 +106,31 @@
     padding-left: 0 !important;
     padding-right: 15px;
 
-   &::after {
+    &::after {
         display: none;
-   }
-
-   @media(hover: hover) {
-        &:hover {
-            color: var(--dark-blue);
-        }
-   }
+    }
 }
 
 .a-btn--filter {
     min-height: 35px;
     padding: 0 20px;
     font-size: 14px;
-    
-    i {font-size: 8px;}
+
+    i {
+        font-size: 8px;
+    }
 }
 
 .a-btn--white {
     background-color: var(--white);
     color: var(--dark-blue);
+    min-height: 44px;
+    padding: 16px 28px;
+    text-decoration: none;
+
+    &::after {
+        display: none;
+    }
 }
 
 .a-btn--grey {
@@ -142,16 +150,8 @@
 .a-btn--border-white {
     background-color: transparent;
     border: 1px solid var(--white);
-
-    &::after {
-        background-color: var(--white);
-    }
-
-    @media(hover: hover) {
-        &:hover {
-           color: var(--dark-blue);
-        }
-    }
+    padding: 10px 20px;
+    border-radius: 99px;
 }
 
 .a-btn--pdf {
@@ -175,58 +175,47 @@
 }
 
 .a-btn--fixed-left {
-    background-color: var(--pink);
-    overflow: hidden;
-    transition: transform 0.5s ease;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    text-transform: uppercase;
-    padding: 12px !important;
-    font-size: 14px;
-    justify-content: space-between;
-    bottom: -12px;
-    left: 0;
-    transform: translate(-70%, -50%);
     position: fixed;
-    z-index: 3;
-    width: 100%;
-    max-width: 230px;
-    border-radius: 0 10px 0 0;
-    border: 1px solid var(--pink);
+    z-index: 6;
+    left: 0;
+    bottom: 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 38px;
+    padding: 20px;
+    border-radius: 0 18px 18px 0;
+    background: var(--pink);
+    color: var(--white);
+    text-decoration: none;
+    box-shadow: 0 4px 16px #00000020;
 
     &::after {
-        background-color: var(--white);
+        display: none;
     }
-    
-    svg {
+
+    >span {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        font-size: 13px;
+    }
+
+    >.a-icon {
+        display: grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        background: var(--white);
         color: var(--pink);
-        width: 18px;
-    }
-
-    .a-icon {
-        background-color: var(--white);
-        width: 45px;
-        height: 45px;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transform: rotate(0deg) !important;
-        aspect-ratio: 1/1;
-        border: 2px solid var(--pink);
+        transition: none;
     }
 
-    @media(hover: hover) {
-        &:hover {
-            color: var(--dark-blue);
-            transform: translate(0, 0%);
+    @media (hover: hover) {
+        &:hover>.a-icon {
+            transform: none;
         }
-    }
-
-    @media(min-width: 992px) {
-        bottom: 0;
-        transform: translate(-70%, 0%);
     }
 }

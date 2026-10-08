@@ -1,6 +1,5 @@
 .m-hero__inner {
     position: relative;
-    padding: 110px 0 100px;
     min-height: 100%;
     pointer-events: none;
     display: flex;
@@ -23,8 +22,8 @@
     .container {
         position: relative;
         z-index: 1;
-        justify-content: center;
-        text-align: center;
+        justify-content: flex-start;
+        text-align: left;
         gap: 45px;
     }
 
@@ -46,19 +45,18 @@
     }
 
     @media (min-width:992px) {
-        padding: 140px 0;
-      
-        .container{
+
+        .container {
             justify-content: space-between;
             text-align: left;
             gap: 21px;
 
             >.m-content {
-                width: 65%;
+                width: 62%;
+                max-width: 960px;
 
                 .a-text {
                     max-width: 60%;
-                    line-height: 1.5;
                 }
             }
         }

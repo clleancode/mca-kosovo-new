@@ -89,11 +89,8 @@ if (get_post_type($current_post_id) === 'project') {
 <a href="mailto:mcchotline@usaid.gov"
    class="a-btn a-btn--fixed-left"
    style="background-color: var(--<?php echo esc_attr($button_color); ?>); border-color: var(--<?php echo esc_attr($button_color); ?>)">
-    <span class="h-<?php echo esc_attr($button_color); ?>">Report Fraud and Corruption
-        <i class="a-icon a-icon--xs" style="border-color: var(--<?php echo esc_attr($button_color); ?>); ">
-            <svg enable-background="new 0 0 48 48" height="25px" id="Layer_1" version="1.1" viewBox="0 0 48 48" width="25px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Layer_3"><g><circle cx="24" cy="43.489" style="fill:var(--<?php echo esc_attr($button_color); ?>);" fill="var(--dark-green)" r="4.324"/><rect style="fill:var(--<?php echo esc_attr($button_color); ?>);" fill="var(--dark-green)" height="32.494" width="8.639" x="19.679" y="0.188"/></g></g></svg>
-        </i>
-    </span>
+    <i class="a-icon" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z"/><path d="M12 8v5m0 3v1"/></svg></i>
+    <span>Report fraud</span>
 </a>
 
 

@@ -1,10 +1,14 @@
 const countdown = () => {
+    const element = document.getElementById('a-countdown');
+    if (!element) return;
+    element.innerHTML = '<span class="a-countdown-label">Ends in</span><span class="a-countdown-value"></span>';
+    const value = element.querySelector('.a-countdown-value');
     function updateCountdown() {
         const endDate = new Date("2030-04-30T00:00:00");
         const now = new Date();
 
         if (endDate <= now) {
-            document.getElementById("a-countdown").innerHTML = "Countdown finished!";
+            value.textContent = "Countdown finished!";
             return;
         }
 
@@ -37,13 +41,13 @@ const countdown = () => {
             years--;
         }
 
-        document.getElementById("a-countdown").innerHTML =
+        value.textContent =
             years + "y " +
             months + "m " +
             days + "d " +
-            hours + "h " +
-            minutes + "m " +
-            seconds + "s";
+            String(hours).padStart(2, '0') + ":" +
+            String(minutes).padStart(2, '0') + ":" +
+            String(seconds).padStart(2, '0');
     }
 
     setInterval(updateCountdown, 1000);

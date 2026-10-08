@@ -39,8 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			rewind: true,
 			pagination: {
 				el: ".m-hero__pagination",
-				type: "bullets",
-				clickable: true,
+				type: "progressbar",
 			},
 			on: {
 				init(swiper) {
