@@ -1,5 +1,4 @@
 <?php
-
 namespace MCA\Fields\Blocks;
 
 use StoutLogic\AcfBuilder\FieldsBuilder;
@@ -10,68 +9,48 @@ require_once get_template_directory() . '/inc/fields/reusable/heading.php';
 require_once get_template_directory() . '/inc/fields/reusable/text.php';
 
 if (class_exists(FieldsBuilder::class)) {
-    $heading_fields = \MCA\Fields\Reusable\get_heading_fields();
-    $text_fields    = \MCA\Fields\Reusable\get_text_fields();
+    $heading_fields = \MCA\Fields\Reusable\get_heading_fields()
+        ->modifyField('header_size', ['default_value' => 'h3'])
+        ->modifyField('header_line_height', ['default_value' => 's'])
+        ->modifyField('header_color', ['default_value' => 'h-dark-blue']);
+    $text_fields = \MCA\Fields\Reusable\get_text_fields()
+        ->modifyField('text_type', ['default_value' => 's'])
+        ->modifyField('text_line_height', ['default_value' => 'l'])
+        ->modifyField('text_color', ['default_value' => 'h-dark-blue']);
 
     $storage = new FieldsBuilder('storage_fields');
-
     $storage
         ->setLocation('block', '==', 'acf/storage')
-
         ->addTab('Content')
-        ->addText('storage_label', [
-            'label' => 'Eyebrow label',
-        ])
-        ->addText('storage_capacity', [
-            'label' => 'Total capacity',
-        ])
-        ->addText('storage_unit', [
-            'label' => 'Capacity unit',
-        ])
-        ->addTextarea('storage_heading', [
-            'label' => 'Heading',
-            'rows'  => 2,
-        ])
-        ->addTextarea('storage_description', [
-            'label' => 'Description',
-            'rows'  => 3,
-        ])
-
+        ->addText('storage_label', ['label' => 'Eyebrow label', 'default_value' => 'Energy storage project'])
+        ->addText('storage_capacity', ['label' => 'Total capacity', 'default_value' => '340'])
+        ->addText('storage_unit', ['label' => 'Capacity unit', 'default_value' => 'MWh'])
+        ->addTextarea('storage_heading', ['label' => 'Heading', 'rows' => 2, 'default_value' => 'of battery storage, in two strategic locations'])
+        ->addTextarea('storage_description', ['label' => 'Description', 'rows' => 3, 'default_value' => 'Utility-scale battery systems connected to Kosovo’s transmission grid will provide reserves, absorb variability and keep power reliable when demand peaks.'])
         ->addTab('Heading')
         ->addFields($heading_fields)
-
         ->addTab('Text Settings')
         ->addFields($text_fields)
-
         ->addTab('Locations')
         ->addImage('storage_map_image', [
-            'label'         => 'Map image',
-            'instructions'  => 'Upload the complete map artwork, including its location labels.',
+            'label' => 'Map image',
+            'instructions' => 'Upload the complete map artwork, including its location labels.',
             'return_format' => 'id',
-            'preview_size'  => 'medium',
+            'preview_size' => 'medium',
         ])
         ->addRepeater('storage_locations', [
-            'label'        => 'Storage locations',
+            'label' => 'Storage locations',
             'instructions' => 'Add the two locations shown beside the map.',
-            'min'          => 2,
-            'max'          => 2,
-            'layout'       => 'block',
+            'min' => 2,
+            'max' => 2,
+            'layout' => 'block',
             'button_label' => 'Add location',
         ])
-            ->addText('name', [
-                'label'    => 'Location',
-                'required' => true,
-            ])
-            ->addText('capacity', [
-                'label'    => 'Capacity',
-                'required' => true,
-            ])
-            ->addText('note', [
-                'label' => 'Supporting note',
-            ])
+            ->addText('name', ['label' => 'Location', 'required' => true])
+            ->addText('capacity', ['label' => 'Capacity', 'required' => true])
+            ->addText('note', ['label' => 'Supporting note'])
         ->endRepeater()
         ->addFields(\MCA\Fields\Reusable\get_spacing_fields())
-
         ->addTab('Settings')
         ->addFields(\MCA\Fields\Reusable\get_device_fields());
 
