@@ -10,9 +10,5 @@ add_action('acf/init', function () {
         'mode' => 'preview', 'supports' => ['align' => true, 'anchor' => true, 'customClassName' => true],
     ];
     acf_register_block_type($args);
-    // Render previously saved Small Hero blocks with the renamed template.
-    $args['name'] = 'small-hero';
-    $args['title'] = __('MCA - Projects Hero (legacy)', 'MCA');
-    $args['supports']['inserter'] = false;
-    acf_register_block_type($args);
+
 });

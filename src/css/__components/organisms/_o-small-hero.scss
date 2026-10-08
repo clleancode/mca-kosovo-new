@@ -1,0 +1,19 @@
+.o-small-hero {
+    position: relative;
+    overflow: hidden;
+    background: #001f54;
+    color: var(--white);
+
+    &::after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(90deg, rgba(0, 31, 84, .96) 0%, rgba(0, 31, 84, .75) 45%, rgba(0, 31, 84, .35) 100%);
+    }
+
+    @media (min-width: 768px) {
+        padding: 200px 0 80px;
+    }
+}

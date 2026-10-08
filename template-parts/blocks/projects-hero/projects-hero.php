@@ -59,7 +59,7 @@ $links = [
 
     <div class="container">
         <div class="m-projects-hero__content">
-            <nav class="m-projects-hero__breadcrumbs s-d-b-s s-m-b-xs" aria-label="Breadcrumb">
+            <nav class="h-breadcrumbs s-d-b-s s-m-b-xs" aria-label="Breadcrumb">
                 <ol>
                     <?php foreach ($breadcrumbs as $breadcrumb) : ?>
                         <li>
