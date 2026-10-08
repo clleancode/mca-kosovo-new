@@ -9,10 +9,12 @@
     text-transform: uppercase;
 
     &::before {
-        flex: 0 0 24px;
-        width: 24px;
-        height: 2px;
-        background: var(--red);
+        flex: 0 0 40px;
+        width: 40px;
+        height: 3px;
+        background:
+            linear-gradient(var(--red), var(--red)) right center / 12px 100% no-repeat,
+            linear-gradient(90deg, transparent, var(--red)) left center / 28px 1px no-repeat;
         content: '';
     }
 }
