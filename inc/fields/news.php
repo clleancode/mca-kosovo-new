@@ -64,6 +64,26 @@ if ( class_exists( 'StoutLogic\AcfBuilder\FieldsBuilder' ) ) {
 				'label' => 'Newsletter link',
 				'instructions' => 'Used when no form shortcode is set.',
 			])
+			->addText( 'news_newsletter_item_1', [
+				'label' => 'Checklist item 1',
+				'instructions' => 'e.g. Procurement notices and award results',
+			])
+			->addText( 'news_newsletter_item_2', [
+				'label' => 'Checklist item 2',
+				'instructions' => 'e.g. Job vacancies at MCA Kosovo',
+			])
+			->addText( 'news_newsletter_item_3', [
+				'label' => 'Checklist item 3',
+				'instructions' => 'e.g. Project news, events and publications',
+			])
+			->addText( 'news_newsletter_placeholder', [
+				'label' => 'Email input placeholder',
+				'instructions' => 'e.g. Your email address',
+			])
+			->addText( 'news_newsletter_privacy', [
+				'label' => 'Privacy note',
+				'instructions' => 'e.g. We respect your privacy. Unsubscribe at any time.',
+			])
 		->addFields( $spacingFields )
 		->addTab( 'Heading' )
 		->addFields( $headingFields )

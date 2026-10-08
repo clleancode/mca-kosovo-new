@@ -208,19 +208,52 @@ $render_filters = static function () use ($base_url, $selected, $categories, $fi
                     </div>
 
                     <div class="m-news__newsletter">
-                        <p class="a-text a-text--xs h-semibold"><?php echo esc_html(get_field('news_newsletter_label')); ?></p>
+                        <div class="m-news__newsletter-header">
+                            <div class="m-news__newsletter-icon" aria-hidden="true">
+                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/pics/icons/message.svg'); ?>" alt="" width="24" height="24">
+                            </div>
 
-                        <div class="m-news__newsletter-title h-semibold">
-                            <h3 class="a-text a-text--xxl h-dark-blue"><?php echo esc_html(get_field('news_newsletter_title')); ?></h3>
+                            <div class="m-news__newsletter-header-text">
+                                <p class="m-news__newsletter-label a-text a-text--xs h-semibold"><?php echo esc_html(get_field('news_newsletter_label')); ?></p>
+                                <h3 class="m-news__newsletter-title a-text a-text--xxl h-dark-blue h-semibold"><?php echo esc_html(get_field('news_newsletter_title')); ?></h3>
+                            </div>
                         </div>
+
+                        <?php
+                        $newsletter_items = array_filter([
+                            get_field('news_newsletter_item_1'),
+                            get_field('news_newsletter_item_2'),
+                            get_field('news_newsletter_item_3'),
+                        ]);
+                        if ($newsletter_items) : ?>
+                            <ul class="m-news__newsletter-list">
+                                <?php foreach ($newsletter_items as $item) : ?>
+                                    <li class="m-news__newsletter-item a-text a-text--m">
+                                        <img class="m-news__newsletter-check" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/pics/icons/Check.svg'); ?>" alt="" aria-hidden="true" width="24" height="24">
+                                        <?php echo esc_html($item); ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
 
                         <?php if ($newsletter_shortcode) : ?>
                             <div class="m-news__form"><?php echo do_shortcode($newsletter_shortcode); ?></div>
                         <?php else : ?>
                             <form class="m-news__signup" action="<?php echo esc_url($newsletter_link['url'] ?? ''); ?>" method="get">
-                                <input class="a-text a-text--m h-regular" type="email" name="email" placeholder="Email address" aria-label="Email address" autocomplete="email" required>
-                                <button class="m-news__subscribe a-text a-text--s" type="submit"><?php echo esc_html($newsletter_link['title'] ?? ''); ?></button>
+                                <img class="m-news__signup-icon" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/pics/icons/message.svg'); ?>" alt="" aria-hidden="true" width="20" height="20">
+                                <input class="a-text a-text--l h-regular" type="email" name="email" placeholder="<?php echo esc_attr(get_field('news_newsletter_placeholder') ?: 'Your email address'); ?>" aria-label="Email address" autocomplete="email" required>
+                                <button class="m-news__subscribe a-text a-text--m" type="submit">
+                                    <?php echo esc_html($newsletter_link['title'] ?? 'Subscribe'); ?>
+                                    <i class="icon-arrow-right a-icon" aria-hidden="true"></i>
+                                </button>
                             </form>
+                        <?php endif; ?>
+
+                        <?php $newsletter_privacy = get_field('news_newsletter_privacy'); if ($newsletter_privacy) : ?>
+                            <p class="m-news__newsletter-privacy a-text a-text--m">
+                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/pics/icons/policy.svg'); ?>" alt="" aria-hidden="true" width="16" height="16">
+                                <?php echo esc_html($newsletter_privacy); ?>
+                            </p>
                         <?php endif; ?>
                     </div>
                 </div>
