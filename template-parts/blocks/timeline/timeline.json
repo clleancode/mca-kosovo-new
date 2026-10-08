@@ -1,0 +1,21 @@
+{
+  "name": "acf/timeline",
+  "title": "MCA - Compact Timeline",
+  "description": "Four milestones from Compact signature to handover.",
+  "category": "formatting",
+  "icon": "clock",
+  "keywords": [
+    "timeline",
+    "compact",
+    "milestones"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "timeline.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
