@@ -1,0 +1,21 @@
+{
+  "name": "acf/small-hero",
+  "title": "MCA - Small Hero",
+  "description": "Page hero with three useful links.",
+  "category": "formatting",
+  "icon": "cover-image",
+  "keywords": [
+    "hero",
+    "procurement",
+    "page"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "small-hero.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
