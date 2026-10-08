@@ -76,7 +76,7 @@ if (class_exists(FieldsBuilder::class)) {
         ->addFields($text)
         ->addFields(\MCA\Fields\Reusable\get_spacing_fields())
 
-        ->addTab('Settings')
+        
         ->addFields(\MCA\Fields\Reusable\get_device_fields());
 
     $details = new FieldsBuilder('opportunities_procurement_details');

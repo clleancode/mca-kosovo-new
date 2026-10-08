@@ -91,7 +91,7 @@ if (class_exists('StoutLogic\AcfBuilder\FieldsBuilder')) {
         ->addTab('Text Settings')
             ->addFields($textFields)
 
-        ->addTab('Settings')
+        
             ->addFields($deviceFields);
 
     add_action('acf/init', function () use ($heroBannerFields) {

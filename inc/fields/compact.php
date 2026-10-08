@@ -109,7 +109,7 @@ if (class_exists('StoutLogic\AcfBuilder\FieldsBuilder')) {
         ])
             ->addFields($textFields)
 
-        ->addTab('Settings')
+        
             ->addFields($deviceFields);
 
     add_action('acf/init', function () use ($compactFields) {
