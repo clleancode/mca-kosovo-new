@@ -219,3 +219,24 @@
         }
     }
 }
+
+.a-btn--icon-red {
+    gap: 16px;
+    padding: 6px 6px 6px 24px;
+}
+
+.a-btn--icon-red>.a-icon {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--white);
+    background: var(--pink);
+}
+
+.a-btn--icon-red:hover>.a-icon {
+    transform: none;
+}
