@@ -24,7 +24,19 @@ if (class_exists(FieldsBuilder::class)) {
             'choices' => [
                 'implementation' => 'Implementation - 2 cards',
                 'media'          => 'Media resources - 4 cards',
+                'five-cards'     => 'Featured - 5 cards',
             ],
+        ])
+        ->addTrueFalse('implementing_show_numbers', [
+            'label'             => 'Show card numbers',
+            'instructions'      => 'Turn on to show numbers on the four supporting cards, like the reference design.',
+            'default_value'     => 0,
+            'ui'                => 1,
+            'conditional_logic' => [[[
+                'field'    => 'implementing_layout',
+                'operator' => '==',
+                'value'    => 'five-cards',
+            ]]],
         ])
         ->addText('implementing_section_id', [
             'label'        => 'Section ID',
@@ -36,10 +48,10 @@ if (class_exists(FieldsBuilder::class)) {
         ->addRepeater('implementing_items', [
             'label'        => 'Cards',
             'min'          => 2,
-            'max'          => 4,
+            'max'          => 5,
             'layout'       => 'block',
             'button_label' => 'Add card',
-            'instructions' => 'Implementation displays the first two cards. Media displays: photo gallery, publications, logos, then press contact.',
+            'instructions' => 'Implementation displays the first two cards. Media displays up to four resource cards. Featured displays up to five cards: one large image card and four supporting cards.',
         ])
             ->addSelect('tone', [
                 'label'   => 'Card background',
@@ -47,6 +59,7 @@ if (class_exists(FieldsBuilder::class)) {
                     'white'  => 'White',
                     'blue'   => 'Dark blue',
                     'purple' => 'Purple',
+                    'violet' => 'Violet',
                 ],
             ])
             ->addImage('image', [
