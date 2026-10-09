@@ -1,0 +1,21 @@
+{
+  "name": "acf/mission",
+  "title": "MCA - Mission / News by Project",
+  "description": "Mission cards or compact project news links.",
+  "category": "formatting",
+  "icon": "screenoptions",
+  "keywords": [
+    "mission",
+    "projects",
+    "news"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "mission.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
