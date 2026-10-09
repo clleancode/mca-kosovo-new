@@ -24,6 +24,12 @@ if (class_exists('StoutLogic\AcfBuilder\FieldsBuilder')) {
         ->setLocation('block', '==', 'acf/hero-banner')
 
         ->addTab('Content')
+            ->addButtonGroup('hero_layout', [
+                'label' => 'Hero layout',
+                'choices' => ['slider' => 'Home slider', 'about' => 'About with statistics'],
+                'default_value' => 'slider',
+                'instructions' => 'About uses the image, title and description from the first slide.',
+            ])
             ->addRepeater('hero_slides', [
                 'label'        => 'Hero Slides',
                 'instructions' => 'Add hero slides for the swiper slider.',
@@ -59,6 +65,15 @@ if (class_exists('StoutLogic\AcfBuilder\FieldsBuilder')) {
                 ])
             ->endRepeater()
 
+        ->addTab('About statistics')
+            ->addRepeater('hero_about_statistics', [
+                'label' => 'Statistics', 'max' => 4, 'layout' => 'table',
+                'button_label' => 'Add statistic',
+                'conditional_logic' => [[['field' => 'hero_layout', 'operator' => '==', 'value' => 'about']]],
+            ])
+                ->addText('value', ['label' => 'Value', 'required' => 1])
+                ->addText('caption', ['label' => 'Caption'])
+            ->endRepeater()
         ->addTab('Hero Card')
             ->addTrueFalse('show_last_vacancy', [
                 'label'        => 'Show Last Vacancy Instead of News',
