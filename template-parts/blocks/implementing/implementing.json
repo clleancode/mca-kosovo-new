@@ -1,0 +1,21 @@
+{
+  "name": "acf/implementing",
+  "title": "MCA - Implementing",
+  "description": "Implementation panels or media resource cards.",
+  "category": "formatting",
+  "icon": "screenoptions",
+  "keywords": [
+    "implementing",
+    "media",
+    "resources"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "implementing.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

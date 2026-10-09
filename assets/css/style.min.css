@@ -9410,6 +9410,99 @@ p {
     aspect-ratio: 0.88;
   }
 }
+.m-implementing {
+  width: 100%;
+}
+
+.m-implementing__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+
+.m-implementing__card {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  overflow: hidden;
+  padding: 36px;
+  border-radius: 24px;
+  background: var(--white);
+}
+
+.m-implementing__card--blue {
+  background: var(--dark-blue);
+}
+
+.m-implementing__card--purple {
+  background: #2f358b;
+}
+
+.m-implementing__image {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+}
+
+.m-implementing__image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.m-implementing__card--image::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 31, 84, 0.92), rgba(0, 31, 84, 0.55)), linear-gradient(0deg, rgba(0, 13, 41, 0.55), transparent);
+}
+
+.m-implementing__action {
+  display: flex;
+}
+
+.m-implementing__action > .a-btn {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.m-implementing--media .m-implementing__card:first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  min-height: 340px;
+}
+
+@media (min-width: 768px) {
+  .m-implementing--implementation .m-implementing__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .m-implementing--implementation .m-implementing__card {
+    min-height: 280px;
+  }
+  .m-implementing--media .m-implementing__grid {
+    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+  }
+  .m-implementing--media .m-implementing__card:first-child {
+    grid-column: 1;
+    grid-row: span 2;
+  }
+  .m-implementing--media .m-implementing__card:last-child {
+    grid-column: 2/4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .m-implementing--media .m-implementing__card:last-child .m-implementing__action {
+    padding-top: 0;
+    flex-shrink: 0;
+  }
+  .m-implementing--media .m-implementing__card {
+    padding: 24px;
+  }
+}
 .o-header {
   top: 0;
   z-index: 5;
@@ -9895,6 +9988,11 @@ p {
 }
 
 .o-mission {
+  background: var(--grey);
+  color: var(--dark-blue);
+}
+
+.o-implementing {
   background: var(--grey);
   color: var(--dark-blue);
 }
