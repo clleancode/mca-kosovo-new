@@ -24,8 +24,7 @@ if (class_exists(FieldsBuilder::class)) {
 
         ->addTab('Content')
         ->addText('how_to_apply_title', [
-            'label'         => 'Section title',
-            'default_value' => 'How to apply',
+            'label' => 'Section title',
         ])
         ->addButtonGroup('how_to_apply_style', [
             'label'         => 'Section style',
@@ -66,7 +65,6 @@ if (class_exists(FieldsBuilder::class)) {
         ])
         ->addText('how_to_apply_contact_label', [
             'label'             => 'Contact label',
-            'default_value'     => 'Grants Team',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
                 'operator' => '==',
@@ -75,7 +73,6 @@ if (class_exists(FieldsBuilder::class)) {
         ])
         ->addText('how_to_apply_contact_name', [
             'label'             => 'Contact name',
-            'default_value'     => 'Arbene Myftari Abrashi',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
                 'operator' => '==',
@@ -84,7 +81,6 @@ if (class_exists(FieldsBuilder::class)) {
         ])
         ->addText('how_to_apply_contact_role', [
             'label'             => 'Contact role',
-            'default_value'     => 'Grants Director',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
                 'operator' => '==',
@@ -93,7 +89,6 @@ if (class_exists(FieldsBuilder::class)) {
         ])
         ->addEmail('how_to_apply_contact_email', [
             'label'             => 'Contact email',
-            'default_value'     => 'info@mcakosovo.org',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
                 'operator' => '==',
@@ -102,7 +97,6 @@ if (class_exists(FieldsBuilder::class)) {
         ])
         ->addText('how_to_apply_newsletter_title', [
             'label'             => 'Newsletter title',
-            'default_value'     => 'Be first to know',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
                 'operator' => '==',
@@ -111,7 +105,6 @@ if (class_exists(FieldsBuilder::class)) {
         ])
         ->addText('how_to_apply_newsletter_placeholder', [
             'label'             => 'Newsletter email placeholder',
-            'default_value'     => 'Email address',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
                 'operator' => '==',
