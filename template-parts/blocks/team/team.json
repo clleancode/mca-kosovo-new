@@ -1,0 +1,21 @@
+{
+  "name": "acf/team",
+  "title": "MCA - Team / Board",
+  "description": "Grouped board members or staff cards with tabs.",
+  "category": "formatting",
+  "icon": "groups",
+  "keywords": [
+    "team",
+    "board",
+    "people"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "team.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
