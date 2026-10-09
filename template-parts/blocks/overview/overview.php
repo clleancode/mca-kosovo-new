@@ -105,15 +105,30 @@ $statistic_color = Helpers\get_field_choice('overview_statistic_color', ['blue',
                 <?php if ($benefits) : ?>
                     <ol class="m-overview__benefits">
                         <?php foreach ($benefits as $index => $benefit) : ?>
-                            <li>
-                                <div class="m-overview__number">
-                                    <span class="a-text a-text--s"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
-                                </div>
-                                <div class="m-overview__benefit-copy">
-                                    <h3 class="a-text a-text--xxl h-semibold h-dark-blue"><?php echo esc_html($benefit['title'] ?? ''); ?></h3>
-                                    <?php if (!empty($benefit['description'])) : ?>
-                                        <p class="a-text a-text--l"><?php echo esc_html($benefit['description']); ?></p>
+                            <li class="m-overview__benefit">
+                                <div class="m-overview__benefit-inner a-underline">
+                                    <?php
+                                    $benefit_icon = $benefit['icon'] ?? null;
+                                    if (!empty($benefit_icon)) :
+                                        if (is_numeric($benefit_icon)) :
+                                            echo wp_get_attachment_image($benefit_icon, 'thumbnail', false, ['loading' => 'lazy', 'decoding' => 'async', 'aria-hidden' => 'true', 'alt' => '']);
+                                        elseif (is_array($benefit_icon) && !empty($benefit_icon['id'])) :
+                                            echo wp_get_attachment_image($benefit_icon['id'], 'thumbnail', false, ['loading' => 'lazy', 'decoding' => 'async', 'aria-hidden' => 'true', 'alt' => '']);
+                                        elseif (is_string($benefit_icon)) :
+                                            echo '<img src="' . esc_url($benefit_icon) . '" alt="" loading="lazy" decoding="async" aria-hidden="true">';
+                                        endif;
+                                    else : ?>
+                                        <i class="icon-star a-icon" aria-hidden="true"></i>
                                     <?php endif; ?>
+                                    <span>
+                                        <h3 class="a-text a-text--xxl h-semibold h-dark-blue"><?php echo esc_html($benefit['title'] ?? ''); ?></h3>
+                                        <?php if (!empty($benefit['description'])) : ?>
+                                            <p class="a-text a-text--l"><?php echo esc_html($benefit['description']); ?></p>
+                                        <?php endif; ?>
+                                    </span>
+                                </div>
+                                <div class="m-overview__number" aria-hidden="true">
+                                    <span><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
                                 </div>
                             </li>
                         <?php endforeach; ?>

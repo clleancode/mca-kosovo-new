@@ -51,10 +51,14 @@ if (class_exists(FieldsBuilder::class)) {
         ])
         ->addRepeater('overview_benefits', [
             'label'        => 'Benefits',
-            'max'          => 3,
             'layout'       => 'block',
             'button_label' => 'Add benefit',
         ])
+            ->addImage('icon', [
+                'label'         => 'Icon image',
+                'return_format' => 'id',
+                'preview_size'  => 'thumbnail',
+            ])
             ->addText('title', [
                 'label'    => 'Title',
                 'required' => 1,
