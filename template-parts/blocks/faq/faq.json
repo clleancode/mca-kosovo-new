@@ -1,0 +1,21 @@
+{
+  "name": "acf/faq",
+  "title": "MCA - FAQ",
+  "description": "Frequently asked questions with an accessible accordion.",
+  "category": "formatting",
+  "icon": "editor-help",
+  "keywords": [
+    "faq",
+    "questions",
+    "accordion"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "faq.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
