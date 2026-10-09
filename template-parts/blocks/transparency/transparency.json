@@ -1,0 +1,21 @@
+{
+  "name": "acf/transparency",
+  "title": "MCA - Transparency",
+  "description": "Governance and legal document collections.",
+  "category": "formatting",
+  "icon": "media-document",
+  "keywords": [
+    "transparency",
+    "governance",
+    "documents"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "transparency.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
