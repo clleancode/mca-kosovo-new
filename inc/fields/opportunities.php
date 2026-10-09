@@ -76,13 +76,15 @@ if (class_exists(FieldsBuilder::class)) {
         ->addFields($text)
         ->addFields(\MCA\Fields\Reusable\get_spacing_fields())
 
-        ->addTab('Settings')
+        
         ->addFields(\MCA\Fields\Reusable\get_device_fields());
 
     $details = new FieldsBuilder('opportunities_procurement_details');
 
     $details
         ->setLocation('post_type', '==', 'procurement')
+        ->addText('procurement_reference', ['label' => 'Reference number'])
+        ->addPostObject('procurement_project', ['label' => 'Related project', 'post_type' => ['project'], 'return_format' => 'id', 'allow_null' => 1])
         ->addText('procurement_award_phase', [
             'label'        => 'Award phase',
             'instructions' => 'Optional award status displayed in the featured procurement card.',

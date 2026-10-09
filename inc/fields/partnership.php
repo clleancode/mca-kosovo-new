@@ -132,7 +132,7 @@ if (class_exists(FieldsBuilder::class)) {
         ->addTab('Text Settings')
         ->addFields($text)
         ->addFields(\MCA\Fields\Reusable\get_spacing_fields())
-        ->addTab('Settings')
+        
         ->addFields(\MCA\Fields\Reusable\get_device_fields());
 
     add_action('acf/init', function () use ($partnership) {

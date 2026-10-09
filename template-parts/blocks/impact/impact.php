@@ -1,7 +1,7 @@
 <?php
 use MCA\Helpers;
 
-$visibility = Helpers\rapture_get_device_visibility();
+$visibility = Helpers\mca_get_device_visibility();
 if (!$visibility['show']) return;
 
 $classes = ['o-impact', $visibility['visibility_classes'], $block['className'] ?? ''];

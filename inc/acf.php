@@ -7,9 +7,9 @@ function my_acf_init() {
 	if( function_exists('acf_register_block') ) {
 		
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_gallery',
-		// 	'title'				=> __('Rapturecamps - Gallery'),
-		// 	'description'		=> __('A custom Rapturecamps gallery block.'),
+		// 	'name'				=> 'mcacamps_gallery',
+		// 	'title'				=> __('MCAcamps - Gallery'),
+		// 	'description'		=> __('A custom MCAcamps gallery block.'),
 		// 	'render_callback'	=> 'acf_gallery_block_render_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -17,9 +17,9 @@ function my_acf_init() {
 		// ));
 
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_video',
-		// 	'title'				=> __('Rapturecamps - Video'),
-		// 	'description'		=> __('A custom Rapturecamps video block.'),
+		// 	'name'				=> 'mcacamps_video',
+		// 	'title'				=> __('MCAcamps - Video'),
+		// 	'description'		=> __('A custom MCAcamps video block.'),
 		// 	'render_callback'	=> 'acf_video_block_render_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -27,9 +27,9 @@ function my_acf_init() {
 		// ));
 
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_image',
-		// 	'title'				=> __('Rapturecamps - Image'),
-		// 	'description'		=> __('A custom Rapturecamps image block.'),
+		// 	'name'				=> 'mcacamps_image',
+		// 	'title'				=> __('MCAcamps - Image'),
+		// 	'description'		=> __('A custom MCAcamps image block.'),
 		// 	'render_callback'	=> 'acf_image_block_render_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -37,9 +37,9 @@ function my_acf_init() {
 		// ));
 
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_campbox',
-		// 	'title'				=> __('Rapturecamps - Camp Box'),
-		// 	'description'		=> __('A custom Rapturecamps camp box block.'),
+		// 	'name'				=> 'mcacamps_campbox',
+		// 	'title'				=> __('MCAcamps - Camp Box'),
+		// 	'description'		=> __('A custom MCAcamps camp box block.'),
 		// 	'render_callback'	=> 'acf_campbox_block_render_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -47,9 +47,9 @@ function my_acf_init() {
 		// ));
 
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_faqbox',
-		// 	'title'				=> __('Rapturecamps - FAQ Box'),
-		// 	'description'		=> __('A custom Rapturecamps FAQ box block.'),
+		// 	'name'				=> 'mcacamps_faqbox',
+		// 	'title'				=> __('MCAcamps - FAQ Box'),
+		// 	'description'		=> __('A custom MCAcamps FAQ box block.'),
 		// 	'render_callback'	=> 'acf_faqbox_block_render_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -57,9 +57,9 @@ function my_acf_init() {
 		// ));
 
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_accordion',
-		// 	'title'				=> __('Rapturecamps - Accordion'),
-		// 	'description'		=> __('A custom Rapturecamps accordion.'),
+		// 	'name'				=> 'mcacamps_accordion',
+		// 	'title'				=> __('MCAcamps - Accordion'),
+		// 	'description'		=> __('A custom MCAcamps accordion.'),
 		// 	'render_callback'	=> 'acf_accordion_render_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -67,9 +67,9 @@ function my_acf_init() {
 		// ));
 
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_book_meeting',
-		// 	'title'				=> __('Rapturecamps - Book Meeting'),
-		// 	'description'		=> __('A custom Rapturecamps book meeting section.'),
+		// 	'name'				=> 'mcacamps_book_meeting',
+		// 	'title'				=> __('MCAcamps - Book Meeting'),
+		// 	'description'		=> __('A custom MCAcamps book meeting section.'),
 		// 	'render_callback'	=> 'acf_book_meeting_render_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -77,9 +77,9 @@ function my_acf_init() {
 		// ));
 
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_flexible_form',
-		// 	'title'				=> __('Rapturecamps - Flexible Form'),
-		// 	'description'		=> __('A custom Rapturecamps flexible form section.'),
+		// 	'name'				=> 'mcacamps_flexible_form',
+		// 	'title'				=> __('MCAcamps - Flexible Form'),
+		// 	'description'		=> __('A custom MCAcamps flexible form section.'),
 		// 	'render_callback'	=> 'acf_flexible_form_render_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -87,9 +87,9 @@ function my_acf_init() {
 		// ));
 		
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_surfcamp_box',
-		// 	'title'				=> __('Rapturecamps - Surfcamp box'),
-		// 	'description'		=> __('A custom Rapturecamps Surfcamp box.'),
+		// 	'name'				=> 'mcacamps_surfcamp_box',
+		// 	'title'				=> __('MCAcamps - Surfcamp box'),
+		// 	'description'		=> __('A custom MCAcamps Surfcamp box.'),
 		// 	'render_callback'	=> 'acf_surfcamp_box_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -97,9 +97,9 @@ function my_acf_init() {
 		// ));	
 		
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_info_box',
-		// 	'title'				=> __('Rapturecamps - Info box'),
-		// 	'description'		=> __('A custom Rapturecamps Surfcamp Info box.'),
+		// 	'name'				=> 'mcacamps_info_box',
+		// 	'title'				=> __('MCAcamps - Info box'),
+		// 	'description'		=> __('A custom MCAcamps Surfcamp Info box.'),
 		// 	'render_callback'	=> 'acf_surfcamp_info_box_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -107,9 +107,9 @@ function my_acf_init() {
 		// ));	
 
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_review',
-		// 	'title'				=> __('Rapturecamps - Review'),
-		// 	'description'		=> __('A custom Rapturecamps Surfcamp review box.'),
+		// 	'name'				=> 'mcacamps_review',
+		// 	'title'				=> __('MCAcamps - Review'),
+		// 	'description'		=> __('A custom MCAcamps Surfcamp review box.'),
 		// 	'render_callback'	=> 'acf_surfcamp_review_box_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -118,9 +118,9 @@ function my_acf_init() {
 		
 
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_social',
-		// 	'title'				=> __('Rapturecamps - Social Media'),
-		// 	'description'		=> __('A custom Rapturecamps Surfcamp social media box.'),
+		// 	'name'				=> 'mcacamps_social',
+		// 	'title'				=> __('MCAcamps - Social Media'),
+		// 	'description'		=> __('A custom MCAcamps Surfcamp social media box.'),
 		// 	'render_callback'	=> 'acf_surfcamp_social_box_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',
@@ -128,9 +128,9 @@ function my_acf_init() {
 		// ));	
 
 		// acf_register_block(array(
-		// 	'name'				=> 'rapturecamps_guide',
-		// 	'title'				=> __('Rapturecamps - Guide'),
-		// 	'description'		=> __('A custom Rapturecamps Surfcamp guide block.'),
+		// 	'name'				=> 'mcacamps_guide',
+		// 	'title'				=> __('MCAcamps - Guide'),
+		// 	'description'		=> __('A custom MCAcamps Surfcamp guide block.'),
 		// 	'render_callback'	=> 'acf_surfcamp_guide_callback',
 		// 	'category'			=> 'formatting',
 		// 	'icon'				=> 'admin-comments',

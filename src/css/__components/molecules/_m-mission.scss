@@ -1,0 +1,123 @@
+.m-mission {
+    width: 100%;
+}
+
+.m-mission__intro {
+    display: grid;
+    align-items: end;
+    gap: 24px;
+}
+
+.m-mission__description {
+    max-width: 440px;
+}
+
+.m-mission__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+}
+
+.m-mission__card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    min-height: 420px;
+    overflow: hidden;
+    padding: 24px;
+    border-radius: 28px;
+    background: #102744;
+}
+
+.m-mission__image {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+}
+
+.m-mission__image>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.m-mission__card::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(66, 151, 209, .98), rgba(66, 151, 209, .45) 45%, rgba(0, 31, 84, .1));
+    pointer-events: none;
+}
+
+.m-mission__card--purple::after {
+    background: linear-gradient(0deg, rgba(99, 19, 248, .98), rgba(99, 19, 248, .55) 45%, rgba(99, 19, 248, .06));
+}
+
+.m-mission__card--green::after {
+    background: linear-gradient(0deg, rgba(28, 88, 90, .98), rgba(28, 88, 90, .55) 45%, rgba(28, 88, 90, .06));
+}
+
+.m-mission__label {
+    padding-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.m-mission--mission .m-mission__label>span {
+    display: inline-flex;
+    padding: 4px 10px;
+    border-radius: 99px;
+    background: var(--white);
+}
+
+.m-mission__link {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+}
+
+.m-mission__link>a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--dark-blue);
+    background: var(--white);
+    text-decoration: none;
+}
+
+.m-mission__link>a:focus-visible {
+    outline: 2px solid var(--white);
+    outline-offset: 4px;
+}
+
+.m-mission--news .m-mission__card {
+    min-height: 260px;
+    aspect-ratio: 1.8;
+    justify-content: flex-start;
+    gap: 0;
+}
+
+@media (min-width: 1024px) {
+    .m-mission__card {
+        padding: 36px;
+    }
+
+    .m-mission__intro {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        gap: 64px;
+    }
+
+    .m-mission__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .m-mission--mission .m-mission__card {
+        aspect-ratio: .88;
+    }
+}

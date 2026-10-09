@@ -1,6 +1,6 @@
 {
-  "name": "rapture/surfcamps-theme",
-  "description": "WordPress theme for Rapture Surfcamps",
+  "name": "mca/kosovo-theme",
+  "description": "WordPress theme for MCA Kosovo",
   "type": "wordpress-theme",
   "license": "MIT",
   "require": {

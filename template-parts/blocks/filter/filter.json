@@ -1,0 +1,21 @@
+{
+  "name": "acf/filter",
+  "title": "MCA - Procurement Filter",
+  "description": "Search and filter controls for procurement notices.",
+  "category": "formatting",
+  "icon": "filter",
+  "keywords": [
+    "filter",
+    "procurement",
+    "search"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "filter.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

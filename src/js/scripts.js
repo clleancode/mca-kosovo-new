@@ -8,6 +8,8 @@ import compactProjects from "./__modules/compact-projects";
 import news from "./__modules/news";
 import gallerySlider from "./__modules/gallery-slider";
 import overview from "./__modules/overview";
+import filter from "./__modules/filter";
+import notices from "./__modules/notices";
 
 const updateHeroFraction = (swiper) => {
 	const current = swiper.el.querySelector(".m-hero__current");
@@ -25,6 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
     news();
     gallerySlider();
     overview();
+    filter();
+    notices();
 
 	if (document.querySelector(".o-header")) {
 		header();

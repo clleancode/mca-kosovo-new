@@ -1,7 +1,7 @@
 <?php
 use MCA\Helpers;
 
-$visibility = Helpers\rapture_get_device_visibility();
+$visibility = Helpers\mca_get_device_visibility();
 
 if (!$visibility['show']) {
     return;
@@ -33,10 +33,15 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     'text_line_height'   => $text_height,
 ] = Helpers\get_block_typography();
 
-$layout      = Helpers\get_field_choice('spotlight_layout', ['purple', 'green'], 'purple');
+$layout      = Helpers\get_field_choice('spotlight_layout', ['purple', 'green', 'white'], 'purple');
+if ($layout === 'white') {
+    $color = 'h-dark-blue';
+    $text_color = 'h-dark-blue';
+}
 $image       = get_field('spotlight_image');
 $label       = get_field('spotlight_label');
 $description = get_field('spotlight_description');
+$section_id = sanitize_title(get_field('spotlight_section_id') ?: ($block['anchor'] ?? ''));
 $tags        = array_slice(get_field('spotlight_tags') ?: [], 0, 3);
 
 $links = [
@@ -45,8 +50,8 @@ $links = [
 ];
 ?>
 <section
-    <?php if (!empty($block['anchor'])) : ?>
-        id="<?php echo esc_attr($block['anchor']); ?>"
+    <?php if ($section_id !== '') : ?>
+        id="<?php echo esc_attr($section_id); ?>"
     <?php endif; ?>
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
 >
@@ -68,9 +73,13 @@ $links = [
 
                 <?php if ($label) : ?>
                     <div class="m-spotlight__label s-d-b-s s-m-b-xs">
+                        <?php if ($layout === 'white'): ?>
+                            <p class="a-badge h-dark-blue h-semibold"><?php echo esc_html($label); ?></p>
+                        <?php else: ?>
                         <span class="a-spotlight-pill a-text a-text--xs h-semibold">
                             <?php echo esc_html($label); ?>
                         </span>
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
 
@@ -86,6 +95,9 @@ $links = [
                     </div>
                 <?php endif; ?>
 
+                <?php if ($layout === 'white' && get_field('spotlight_mission')): ?>
+                    <div class="m-spotlight__mission"><p class="h-semibold a-text a-text--<?php echo esc_attr($text_size); ?> h--<?php echo esc_attr($text_height); ?>"><?php echo nl2br(esc_html(get_field('spotlight_mission'))); ?></p></div>
+                <?php endif; ?>
                 <?php if ($tags) : ?>
                     <ul class="m-spotlight__tags s-d-b-s s-m-b-xs">
                         <?php foreach ($tags as $row) : ?>

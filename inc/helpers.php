@@ -43,7 +43,7 @@ function get_block_typography(array $defaults = []) {
 /**
  * Get child count for FAQ post
  */
-// function rapture_get_child_count($post_id) {
+// function mca_get_child_count($post_id) {
 // 	$args = array(
 // 		'post_type' => 'faq',
 // 		'posts_per_page' => -1,
@@ -56,16 +56,16 @@ function get_block_typography(array $defaults = []) {
 /**
  * FAQ Category sidebar listing
  */
-function rapture_faq_category_sidebar($parent = 0, $current_term = '') {
+function mca_faq_category_sidebar($parent = 0, $current_term = '') {
 	global $wpdb;
 
-	$cats = rapture_get_saved_cat_ids(true, $parent);
+	$cats = mca_get_saved_cat_ids(true, $parent);
 
 	if (!empty($cats)) {
 ?>
 		<nav class="m-menu m-menu--categories">
 			<p class="a-text a-text--m a-categories">
-				<?php _e('Category', 'rapture'); ?> <i class="icon-arrow-down a-icon a-icon--xs a-icon--nospace h-white-700"></i>
+				<?php _e('Category', 'mca'); ?> <i class="icon-arrow-down a-icon a-icon--xs a-icon--nospace h-white-700"></i>
 			</p>
 			<ul>
 				<?php
@@ -73,7 +73,7 @@ function rapture_faq_category_sidebar($parent = 0, $current_term = '') {
 						$class = $current_term == $post_id ? 'faq-active open' : '';
 						$url = esc_url(get_the_permalink($post_id));
 						$name = ucwords(get_the_title($post_id));
-						$count = rapture_get_child_count($post_id);
+						$count = mca_get_child_count($post_id);
 						$get_count_query = "SELECT ID from {$wpdb->prefix}posts where post_parent='{$post_id}'";
 						$get_count_query_result = $wpdb->get_results($get_count_query,OBJECT);
 						$category_count = 0;
@@ -133,8 +133,8 @@ function rapture_faq_category_sidebar($parent = 0, $current_term = '') {
 /**
  * FAQ Category Topbar
  */
-function rapture_faq_category_topbar($current = 0) {
-	$cats = rapture_get_saved_cat_ids(true);
+function mca_faq_category_topbar($current = 0) {
+	$cats = mca_get_saved_cat_ids(true);
 	$ids = array();
 
 	if ($cats) {
@@ -159,8 +159,8 @@ function rapture_faq_category_topbar($current = 0) {
 /**
  * FAQ Category Boxes
  */
-function rapture_faq_category_boxes($current = 0) {
-	$cats = rapture_get_saved_cat_ids(true);
+function mca_faq_category_boxes($current = 0) {
+	$cats = mca_get_saved_cat_ids(true);
 	$ids = array();
 	if ($cats) {
 		echo '<ul class="faq_category_boxes">';
@@ -179,7 +179,7 @@ function rapture_faq_category_boxes($current = 0) {
 /**
  * Function to get saved categories from database
  */
-function rapture_get_saved_cat_ids($associative = false, $parent = 0, $all = false) {
+function mca_get_saved_cat_ids($associative = false, $parent = 0, $all = false) {
     $args = array(
         'post_type' => 'faq',
         'posts_per_page' => -1,
@@ -213,14 +213,14 @@ function rapture_get_saved_cat_ids($associative = false, $parent = 0, $all = fal
 
 
 /**
- * Get Rapture Locations based on posts
+ * Get MCA Locations based on posts
  */
 
 
 /**
  * Format recipe text
  */
-function rapture_format_recipe_text($text, $textColorClass = 'h-dune', $textTypeClass = 'a-text--m', $textLineHeightClass = 'h-text-l h--l') {
+function mca_format_recipe_text($text, $textColorClass = 'h-dune', $textTypeClass = 'a-text--m', $textLineHeightClass = 'h-text-l h--l') {
 	if (strpos($text, '<ul') !== false) {
 		$dom = new \DOMDocument();
 		@$dom->loadHTML('<?xml encoding="UTF-8"><div>' . $text . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
@@ -295,7 +295,7 @@ function apply_paragraph_classes($html, $classAttr) {
 /**
  * Format text with preserved line breaks
  */
-function rapture_format_text_with_breaks($text, $class = 'a-text a-text--m') {
+function mca_format_text_with_breaks($text, $class = 'a-text a-text--m') {
 	if (empty($text)) return $text;
 
 	// Convert line breaks to <br> tags
@@ -320,7 +320,7 @@ function rapture_format_text_with_breaks($text, $class = 'a-text a-text--m') {
 /**
  * Format inline text with preserved line breaks (no paragraph wrapping)
  */
-function rapture_format_inline_text($text, $class = '') {
+function mca_format_inline_text($text, $class = '') {
 	if (empty($text)) return $text;
 
 	// Convert line breaks to <br> tags
@@ -343,7 +343,7 @@ function rapture_format_inline_text($text, $class = '') {
  * 
  */
 
-function rapture_blog_content($content, $class = 'a-text a-text--m') {
+function mca_blog_content($content, $class = 'a-text a-text--m') {
 	if (empty($content)) return $content;
 
 	$dom = new \DOMDocument();
@@ -426,7 +426,7 @@ function rapture_blog_content($content, $class = 'a-text a-text--m') {
 /**
  * Build the current request URL with the site's trailing-slash setting.
  */
-function rapture_get_current_request_url($query_args = []) {
+function mca_get_current_request_url($query_args = []) {
 	$request_path = '';
 
 	if (!empty($GLOBALS['wp']) && isset($GLOBALS['wp']->request)) {
@@ -446,7 +446,7 @@ function rapture_get_current_request_url($query_args = []) {
  * @param string $mobile_field ACF field name for mobile visibility (default: 'mobile')
  * @return array Returns array with 'show' boolean and 'visibility_classes' string
  */
-function rapture_get_device_visibility($desktop_field = 'desktop', $tablet_field = 'tablet', $mobile_field = 'mobile') {
+function mca_get_device_visibility($desktop_field = 'desktop', $tablet_field = 'tablet', $mobile_field = 'mobile') {
 	$desktop = get_field($desktop_field);
 	$tablet = get_field($tablet_field);
 	$mobile = get_field($mobile_field);
@@ -487,7 +487,7 @@ function rapture_get_device_visibility($desktop_field = 'desktop', $tablet_field
 /**
  * Get notification visibility
  */
-function rapture_get_notification_visibility() {
+function mca_get_notification_visibility() {
 	$current_slug = trim($_SERVER['REQUEST_URI'], '/');
     $notification_locations = get_field('notification_locations', 'option');
 

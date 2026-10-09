@@ -1,0 +1,21 @@
+{
+  "name": "acf/procurement-resources",
+  "title": "MCA - Procurement Resources",
+  "description": "Procurement resource cards and newsletter signup.",
+  "category": "formatting",
+  "icon": "media-document",
+  "keywords": [
+    "procurement",
+    "resources",
+    "newsletter"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "procurement-resources.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

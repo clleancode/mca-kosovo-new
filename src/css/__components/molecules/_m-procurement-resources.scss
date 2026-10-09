@@ -1,0 +1,124 @@
+.m-procurement-resources {
+    width: 100%;
+}
+
+.m-procurement-resources__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+}
+
+.m-procurement-resources__card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: end;
+    min-width: 0;
+    min-height: 340px;
+    overflow: hidden;
+    padding: 32px;
+    border-radius: 28px;
+    color: var(--white);
+    background: #2f358b;
+}
+
+.m-procurement-resources__card--image {
+    background: var(--dark-blue);
+}
+
+.m-procurement-resources__image {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+}
+
+.m-procurement-resources__image>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.m-procurement-resources__card--image::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0, 31, 84, .96), rgba(0, 31, 84, .25) 85%);
+}
+
+.m-procurement-resources__action .a-btn {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.m-procurement-resources__action .a-btn--border-white {
+    min-height: 50px;
+}
+
+.m-procurement-resources__action .a-btn--white:hover {
+    color: var(--dark-blue);
+}
+
+.m-procurement-resources__action .a-btn--border-white:hover {
+    color: var(--white);
+}
+
+.m-procurement-resources__action .a-btn:hover::after {
+    transform: scaleX(0);
+}
+
+.m-procurement-resources__action .a-btn:hover i {
+    transform: none;
+}
+
+.m-procurement-resources__signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 16px;
+    min-width: 0;
+    min-height: 340px;
+    padding: 36px;
+    border-radius: 28px;
+    background: var(--white);
+}
+
+.m-procurement-resources__form form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.m-procurement-resources__form input[type="email"] {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 12px 20px;
+    border: 1px solid transparent;
+    border-radius: 99px;
+    background: #f3f4f7;
+    color: var(--dark-blue);
+    font-family: inherit;
+}
+
+.m-procurement-resources__form input::placeholder {
+    color: #77849b;
+}
+
+.m-procurement-resources__form button {
+    width: 100%;
+    min-height: 50px;
+    justify-content: center;
+}
+
+.m-procurement-resources__form input:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+}
+
+@media (min-width: 1024px) {
+    .m-procurement-resources__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
