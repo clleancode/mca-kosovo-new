@@ -12,7 +12,7 @@ namespace MCA\Setup;
  */
 function theme_setup() {
     // Translation
-	load_theme_textdomain('rapture', get_template_directory() . '/languages');
+	load_theme_textdomain('mca', get_template_directory() . '/languages');
 
     // Add support for title tag.
     add_theme_support( 'title-tag' );
@@ -56,7 +56,7 @@ add_action( 'after_setup_theme', __NAMESPACE__ . '\\theme_setup' );
 function enqueue_editor_assets() {
     // Enqueue the main theme styles for the editor
     wp_enqueue_style( 
-        'rapture-editor-style', 
+        'mca-editor-style',
         get_theme_file_uri( '/assets/css/style.css' ), 
         [], 
         wp_get_theme()->get( 'Version' )
@@ -64,9 +64,9 @@ function enqueue_editor_assets() {
 
     // Enqueue additional editor-specific styles if needed
     wp_enqueue_style( 
-        'rapture-editor-custom', 
+        'mca-editor-custom',
         get_theme_file_uri( '/assets/css/editor-style.css' ), 
-        ['rapture-editor-style'], 
+        ['mca-editor-style'],
         wp_get_theme()->get( 'Version' )
     );
 }

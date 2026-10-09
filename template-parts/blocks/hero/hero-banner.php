@@ -5,7 +5,7 @@
 
 use MCA\Helpers;
 
-$device_visibility       = Helpers\rapture_get_device_visibility();
+$device_visibility       = Helpers\mca_get_device_visibility();
 $show                    = $device_visibility['show'];
 $visibility_class_string = $device_visibility['visibility_classes'];
 

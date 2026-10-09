@@ -6,7 +6,7 @@
  */
 
 namespace MCA\Actions;
-use function MCA\Helpers\getRaptureLocations;
+use function MCA\Helpers\getMCALocations;
 
 /**
  * Clean up <head> output and remove unnecessary actions.
@@ -86,7 +86,7 @@ add_action( 'pre_get_posts', __NAMESPACE__ . '\\change_surfcamp_query');
  */
 function ajax_search_suggestions() {
 	// First check the nonce, if it fails the function will break
-	check_ajax_referer('rapture-search-form', 'security');
+	check_ajax_referer('mca-search-form', 'security');
 	
 	$parentCategory = isset($_POST['cat_id']) ? $_POST['cat_id'] : '';
 	$keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
@@ -164,7 +164,7 @@ add_action('wp_ajax_nopriv_get_phone_extensions', __NAMESPACE__ . '\\get_phone_e
  * Surfcamp menu register
  */
 // function surfcamp_menu_register() {
-// 	foreach(getRaptureLocations() as $id=>$camp) {
+// 	foreach(getMCALocations() as $id=>$camp) {
 // 		$post_language_information = apply_filters( 'wpml_post_language_details', null, $id);
 
 // 		if ($post_language_information["language_code"]=="en") {

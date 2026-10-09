@@ -10,9 +10,6 @@
 ?>
 	<div class="o-hero o-hero--image">
 	    <div class="container">
-	        <video muted autoplay loop playsinline poster class="a-video">
-	            <source src="https://www.rapturecamps.com/wp-content/uploads/2019/10/bgvideo-home.mp4" type="video/mp4">
-	        </video>
 	        <div class="m-content">
 				<nav aria-label="Breadcrumb">
 					<div class="m-breadcrumbs s-m-b-m s-d-b-s">
@@ -55,7 +52,7 @@
 	            <div class="a-seperator"></div>
 				<?php
 					$description = get_the_archive_description();
-					echo \MCA\Helpers\rapture_format_recipe_text($description, 'h-white-600');
+					echo \MCA\Helpers\mca_format_recipe_text($description, 'h-white-600');
 				?>
 	        </div>
 	    </div>

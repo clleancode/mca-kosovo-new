@@ -1,0 +1,21 @@
+{
+  "name": "acf/notices",
+  "title": "MCA - Latest Notices",
+  "description": "Filterable procurement notices with pagination.",
+  "category": "formatting",
+  "icon": "media-document",
+  "keywords": [
+    "notices",
+    "procurement",
+    "filter"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "notices.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

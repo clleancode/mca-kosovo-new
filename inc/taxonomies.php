@@ -93,6 +93,9 @@ function register_procurement_status_taxonomy() {
     // Ensure default terms exist
     $default_terms = [
         'ongoing'                    => __( 'Ongoing', 'MCA' ),
+        'closing-soon'               => __('Closing soon', 'MCA'),
+        'in-evaluation'              => __('In evaluation', 'MCA'),
+        'specific-procurement-notice' => __('Specific Procurement Notice', 'MCA'),
         'closed'                     => __( 'Closed', 'MCA' ),
         'general-procurement-notice' => __( 'General Procurement Notice', 'MCA' ),
         'procurement-guidelines'     => __( 'Procurement Guidelines', 'MCA' ),

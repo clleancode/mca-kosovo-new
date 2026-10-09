@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Functions and definitions for Rapture Surfcamps Theme
+ * Functions and definitions for MCA Kosovo Theme
  *
  * @package MCA
  */
