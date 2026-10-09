@@ -1,0 +1,17 @@
+{
+  "name": "acf/how-to-apply",
+  "title": "MCA - How to Apply",
+  "description": "Application steps displayed as numbered cards.",
+  "category": "formatting",
+  "icon": "list-view",
+  "keywords": ["apply", "application", "steps", "jobs"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "how-to-apply.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
