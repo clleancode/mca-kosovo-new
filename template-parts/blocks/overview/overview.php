@@ -45,6 +45,11 @@ $statistic = trim((string) get_field('overview_statistic'));
 $statistic_unit = trim((string) get_field('overview_unit'));
 $statistic_label = trim((string) get_field('overview_statistic_label'));
 $statistic_color = Helpers\get_field_choice('overview_statistic_color', ['blue', 'purple', 'green'], 'blue');
+$has_content = trim((string) get_field('overview_title')) !== ''
+    || trim((string) get_field('overview_label')) !== ''
+    || trim((string) $description) !== ''
+    || !empty($benefits) || $main_image || $detail_image
+    || $statistic !== '' || $statistic_unit !== '' || $statistic_label !== '';
 ?>
 <section
     <?php if (!empty($block['anchor'])) : ?>id="<?php echo esc_attr($block['anchor']); ?>"<?php endif; ?>
@@ -54,9 +59,11 @@ $statistic_color = Helpers\get_field_choice('overview_statistic_color', ['blue',
     <div class="m-overview__navigation">
         <div class="container">
             <div class="m-overview__bar">
+                <?php if (trim((string) get_field('overview_project_name')) !== ''): ?>
                 <div class="m-overview__project">
                     <span class="a-text a-text--m h-semibold"><?php echo esc_html(get_field('overview_project_name')); ?></span>
                 </div>
+                <?php endif; ?>
 
                 <nav class="m-overview__links" aria-label="Project sections">
                     <a class="a-overview-link a-text a-text--l" href="#<?php echo esc_attr($content_id); ?>" data-overview-link aria-current="location">
@@ -85,10 +92,13 @@ $statistic_color = Helpers\get_field_choice('overview_statistic_color', ['blue',
         </div>
     </div>
 
+    <?php if ($has_content): ?>
     <div class="container">
         <div id="<?php echo esc_attr($content_id); ?>" class="m-overview__content">
             <div class="m-overview__copy">
-                <p class="a-badge h-dark-blue s-d-b-xs"><?php echo esc_html(get_field('overview_label')); ?></p>
+                <?php if (trim((string) get_field('overview_label')) !== ''): ?>
+                    <p class="a-badge h-dark-blue s-d-b-xs h-semibold"><?php echo esc_html(get_field('overview_label')); ?></p>
+                <?php endif; ?>
 
                 <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
                     <?php echo nl2br(esc_html(get_field('overview_title'))); ?>
@@ -148,4 +158,7 @@ $statistic_color = Helpers\get_field_choice('overview_statistic_color', ['blue',
             </div>
         </div>
     </div>
+    <?php else: ?>
+        <div id="<?php echo esc_attr($content_id); ?>"></div>
+    <?php endif; ?>
 </section>

@@ -24,11 +24,16 @@ if (class_exists(FieldsBuilder::class)) {
         ->setLocation('block', '==', 'acf/spotlight')
 
         ->addTab('Content')
+            ->addText('spotlight_section_id', [
+                'label' => 'Section ID',
+                'instructions' => 'Enter an ID without #, for example our-mission. Use #our-mission in the Overview link.',
+            ])
             ->addButtonGroup('spotlight_layout', [
                 'label'   => 'Banner style',
                 'choices' => [
                     'purple' => 'Purple - image left',
                     'green'  => 'Green - image right',
+                    'white'  => 'White - image right',
                 ],
             ])
             ->addImage('spotlight_image', [
@@ -46,6 +51,11 @@ if (class_exists(FieldsBuilder::class)) {
             ->addTextarea('spotlight_description', [
                 'label' => 'Description',
                 'rows'  => 4,
+            ])
+            ->addTextarea('spotlight_mission', [
+                'label' => 'Mission text (white layout)',
+                'rows' => 3,
+                'conditional_logic' => [[['field' => 'spotlight_layout', 'operator' => '==', 'value' => 'white']]],
             ])
             ->addRepeater('spotlight_tags', [
                 'label'        => 'Tags (optional)',
