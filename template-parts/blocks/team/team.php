@@ -270,7 +270,7 @@ if ($layout === 'board') {
                         <a class="a-btn a-btn--white a-btn--smallest" href="<?php echo esc_url($structure_pdf['url']); ?>" download>
                             <span>
                                 <?php echo esc_html($structure_button_label); ?>
-                                <span aria-hidden="true">&darr;</span>
+                                <span aria-hidden="true">↓</span>
                             </span>
                         </a>
                     <?php endif; ?>
