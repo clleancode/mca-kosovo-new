@@ -2,3 +2,18 @@
     background: var(--grey);
     color: var(--white);
 }
+
+.o-spotlight--featured {
+    padding: 16px 0 40px;
+}
+
+.o-spotlight--featured > .container {
+    display: block;
+}
+
+@media (min-width: 992px) {
+    .o-spotlight--featured > .container {
+        padding-right: 3.75%;
+        padding-left: 3.75%;
+    }
+}

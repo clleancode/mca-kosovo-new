@@ -1,0 +1,17 @@
+{
+  "name": "acf/gallery-filter",
+  "title": "MCA - Gallery Filter",
+  "description": "Featured media story with category and date.",
+  "category": "formatting",
+  "icon": "format-gallery",
+  "keywords": ["gallery", "media", "featured", "filter"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "gallery-filter.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

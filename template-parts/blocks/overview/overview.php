@@ -35,6 +35,8 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
 
 $content_id = sanitize_html_class(($block['id'] ?? 'overview') . '-content');
 $links = get_field('overview_navigation') ?: [];
+$show_sort = (bool) get_field('overview_show_sort');
+$sort_label = get_field('overview_sort_label') ?: 'Sort: Newest first';
 $factsheet = get_field('overview_factsheet') ?: [];
 $factsheet_target = $factsheet['target'] ?? '';
 $benefits = array_slice(get_field('overview_benefits') ?: [], 0, 3);
@@ -78,7 +80,11 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                     <?php endforeach; ?>
                 </nav>
 
-                <?php if (!empty($factsheet['url'])) : ?>
+                <?php if ($show_sort) : ?>
+                    <span class="a-overview-factsheet a-overview-factsheet--sort a-text a-text--m h-semibold">
+                        <?php echo esc_html($sort_label); ?>
+                    </span>
+                <?php elseif (!empty($factsheet['url'])) : ?>
                     <a
                         class="a-overview-factsheet a-text a-text--m h-semibold"
                         href="<?php echo esc_url($factsheet['url']); ?>"
