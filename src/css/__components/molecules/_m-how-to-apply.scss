@@ -1,0 +1,63 @@
+.m-how-to-apply {
+    width: 100%;
+}
+
+.m-how-to-apply__title {
+    margin: 0 0 32px;
+}
+
+.m-how-to-apply__steps {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.m-how-to-apply__card {
+    display: flex;
+    min-width: 0;
+    height: 290px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px;
+    border-radius: 16px;
+    background: var(--white);
+}
+
+.m-how-to-apply__number {
+    display: grid;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    place-items: center;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    background: var(--dark-blue);
+    color: var(--white);
+}
+
+.m-how-to-apply__card--last .m-how-to-apply__number {
+    background: var(--red);
+}
+
+.m-how-to-apply__copy > h3 {
+    margin: 0 0 14px;
+}
+
+.m-how-to-apply__copy > p {
+    margin: 0;
+}
+
+@media (min-width: 640px) {
+    .m-how-to-apply__steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .m-how-to-apply__steps {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
