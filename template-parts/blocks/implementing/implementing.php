@@ -33,16 +33,19 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
 ] = Helpers\get_block_typography();
 
 $layout     = get_field('implementing_layout');
+$show_numbers = (bool) get_field('implementing_show_numbers');
 $section_id = sanitize_title(get_field('implementing_section_id') ?: ($block['anchor'] ?? ''));
 $title      = get_field('implementing_title');
-$items      = array_slice(get_field('implementing_items') ?: [], 0, $layout === 'media' ? 4 : 2);
+$item_limit = $layout === 'media' ? 4 : ($layout === 'five-cards' ? 5 : 2);
+$items      = array_slice(get_field('implementing_items') ?: [], 0, $item_limit);
+$numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--numbered' : '';
 ?>
 <section
     <?php if ($section_id) : ?>id="<?php echo esc_attr($section_id); ?>"<?php endif; ?>
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
 >
     <div class="container">
-        <div class="m-implementing m-implementing--<?php echo esc_attr($layout); ?>">
+        <div class="m-implementing m-implementing--<?php echo esc_attr($layout); ?><?php echo esc_attr($numbered_class); ?>">
             <?php if ($title) : ?>
                 <div class="m-implementing__heading">
                     <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> s-d-b-xs s-m-b-xs">
@@ -54,14 +57,15 @@ $items      = array_slice(get_field('implementing_items') ?: [], 0, $layout === 
             <div class="m-implementing__grid">
                 <?php foreach ($items as $index => $item) : ?>
                     <?php
-                    $tone      = in_array($item['tone'] ?? '', ['white', 'blue', 'purple'], true) ? $item['tone'] : '';
+                    $tone      = in_array($item['tone'] ?? '', ['white', 'blue', 'purple', 'violet'], true) ? $item['tone'] : '';
                     $image     = $item['image'] ?? 0;
                     $dark      = $image || ($tone && $tone !== 'white');
                     $link      = $item['link'] ?? [];
                     $target    = $link['target'] ?? '';
-                    $card_size = $layout === 'media' && $index > 0 ? 'h6' : $size;
+                    $card_size = ($layout === 'media' && $index > 0) || ($layout === 'five-cards' && $index > 0) ? 'h6' : $size;
+                    $featured_card = $layout === 'five-cards' && $index === 0;
                     ?>
-                    <article class="m-implementing__card<?php echo $tone ? ' m-implementing__card--' . esc_attr($tone) : ''; ?><?php echo $image ? ' m-implementing__card--image' : ''; ?>">
+                    <article class="m-implementing__card<?php echo $tone ? ' m-implementing__card--' . esc_attr($tone) : ''; ?><?php echo $image ? ' m-implementing__card--image' : ''; ?><?php echo $featured_card ? ' m-implementing__card--featured' : ''; ?>">
                         <?php if ($image) : ?>
                             <div class="m-implementing__image">
                                 <?php
@@ -71,6 +75,10 @@ $items      = array_slice(get_field('implementing_items') ?: [], 0, $layout === 
                                 ]);
                                 ?>
                             </div>
+                        <?php endif; ?>
+
+                        <?php if ($show_numbers && $layout === 'five-cards' && $index > 0) : ?>
+                            <span class="m-implementing__number a-text a-text--xs" aria-hidden="true"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
                         <?php endif; ?>
 
                         <div class="m-implementing__copy">

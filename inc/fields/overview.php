@@ -36,6 +36,26 @@ if (class_exists(FieldsBuilder::class)) {
         ->endRepeater()
         ->addLink('overview_factsheet', [
             'label' => 'Project factsheet (PDF)',
+            'conditional_logic' => [[[
+                'field'    => 'overview_show_sort',
+                'operator' => '!=',
+                'value'    => '1',
+            ]]],
+        ])
+        ->addTrueFalse('overview_show_sort', [
+            'label'         => 'Show sort instead of media link',
+            'instructions'  => 'Turn on to display a sort label in the navigation bar. Turn off to use the project factsheet link.',
+            'default_value' => 0,
+            'ui'            => 1,
+        ])
+        ->addText('overview_sort_label', [
+            'label'             => 'Sort label',
+            'default_value'     => 'Sort: Newest first',
+            'conditional_logic' => [[[
+                'field'    => 'overview_show_sort',
+                'operator' => '==',
+                'value'    => '1',
+            ]]],
         ])
         ->addTab('Content')
         ->addText('overview_label', [

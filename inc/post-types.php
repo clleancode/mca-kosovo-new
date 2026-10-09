@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $custom_post_types = [
     'galleries.php',
     'jobs.php',
+    'news.php',
     'procurements.php',
     'projects.php',
     'publications.php',

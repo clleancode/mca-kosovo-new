@@ -1,0 +1,32 @@
+.o-gallery-banner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 237px;
+    padding: 72px 0 30px;
+    background-color: #001f54;
+    background-position: center 43%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: var(--white);
+
+    &::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(90deg, rgba(0, 31, 84, .94) 0%, rgba(0, 31, 84, .8) 48%, rgba(0, 31, 84, .42) 100%);
+    }
+
+    .container {
+        display: block;
+    }
+
+    @media (min-width: 768px) {
+        display: flex;
+        align-items: center;
+        min-height: 237px;
+        padding: 30px 0;
+    }
+}

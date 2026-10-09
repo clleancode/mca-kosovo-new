@@ -1,0 +1,17 @@
+{
+  "name": "acf/gallery-banner",
+  "title": "MCA - Gallery Banner",
+  "description": "Banner for the media and gallery page.",
+  "category": "formatting",
+  "icon": "cover-image",
+  "keywords": ["gallery", "media", "banner"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "gallery-banner.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

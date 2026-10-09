@@ -33,6 +33,7 @@ if (class_exists(FieldsBuilder::class)) {
                 'choices' => [
                     'purple' => 'Purple - image left',
                     'green'  => 'Green - image right',
+                    'blue'   => 'Blue - image right',
                     'white'  => 'White - image right',
                 ],
             ])
@@ -43,6 +44,17 @@ if (class_exists(FieldsBuilder::class)) {
             ])
             ->addText('spotlight_label', [
                 'label' => 'Pill label',
+            ])
+            ->addSelect('spotlight_pill_color', [
+                'label'         => 'Pill label color',
+                'choices'       => [
+                    'pink'  => 'Pink',
+                    'blue'  => 'Blue',
+                    'black' => 'Black',
+                    'white' => 'White',
+                ],
+                'default_value' => 'white',
+                'conditional_logic' => [[['field' => 'spotlight_layout', 'operator' => '!=', 'value' => 'white']]],
             ])
             ->addTextarea('spotlight_title', [
                 'label' => 'Title',

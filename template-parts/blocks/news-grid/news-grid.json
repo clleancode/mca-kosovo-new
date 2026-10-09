@@ -1,0 +1,17 @@
+{
+  "name": "acf/news-grid",
+  "title": "MCA - News Grid",
+  "description": "Latest WordPress news cards with pagination.",
+  "category": "formatting",
+  "icon": "grid-view",
+  "keywords": ["news", "grid", "latest", "pagination"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "news-grid.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
