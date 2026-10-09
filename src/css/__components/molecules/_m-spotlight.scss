@@ -11,6 +11,10 @@
     background: var(--dark-green);
 }
 
+.m-spotlight--blue {
+    background: var(--dark-blue);
+}
+
 .m-spotlight__image {
     position: relative;
 }
@@ -43,6 +47,25 @@
 
 .m-spotlight--green .a-spotlight-pill {
     color: var(--dark-green);
+}
+
+.m-spotlight--blue .a-spotlight-pill {
+    color: var(--dark-blue);
+}
+
+.m-spotlight__label--pink .a-spotlight-pill {
+    background: var(--pink);
+    color: var(--white);
+}
+
+.m-spotlight__label--blue .a-spotlight-pill {
+    background: var(--blue);
+    color: var(--dark-blue);
+}
+
+.m-spotlight__label--black .a-spotlight-pill {
+    background: var(--black);
+    color: var(--white);
 }
 
 .m-spotlight__tags {
@@ -82,8 +105,13 @@
     color: var(--dark-green);
 }
 
+.m-spotlight--blue .a-spotlight-button {
+    color: var(--navy);
+}
+
 .a-spotlight-button--secondary,
-.m-spotlight--green .a-spotlight-button--secondary {
+.m-spotlight--green .a-spotlight-button--secondary,
+.m-spotlight--blue .a-spotlight-button--secondary {
     background: transparent;
     color: var(--white);
     border-color: #ffffff80;
@@ -108,16 +136,19 @@
         padding: 70px;
     }
 
-    .m-spotlight--green {
+    .m-spotlight--green,
+    .m-spotlight--blue {
         grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
     }
 
-    .m-spotlight--green .m-spotlight__content {
+    .m-spotlight--green .m-spotlight__content,
+    .m-spotlight--blue .m-spotlight__content {
         grid-column: 1;
         grid-row: 1;
     }
 
-    .m-spotlight--green .m-spotlight__image {
+    .m-spotlight--green .m-spotlight__image,
+    .m-spotlight--blue .m-spotlight__image {
         grid-column: 2;
         grid-row: 1;
     }

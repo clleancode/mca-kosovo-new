@@ -33,7 +33,8 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     'text_line_height'   => $text_height,
 ] = Helpers\get_block_typography();
 
-$layout      = Helpers\get_field_choice('spotlight_layout', ['purple', 'green', 'white'], 'purple');
+$layout      = Helpers\get_field_choice('spotlight_layout', ['purple', 'green', 'blue', 'white'], 'purple');
+$pill_color  = Helpers\get_field_choice('spotlight_pill_color', ['pink', 'blue', 'black', 'white'], 'white');
 if ($layout === 'white') {
     $color = 'h-dark-blue';
     $text_color = 'h-dark-blue';
@@ -72,7 +73,7 @@ $links = [
             <div class="m-spotlight__content">
 
                 <?php if ($label) : ?>
-                    <div class="m-spotlight__label s-d-b-s s-m-b-xs">
+                    <div class="m-spotlight__label m-spotlight__label--<?php echo esc_attr($pill_color); ?> s-d-b-s s-m-b-xs">
                         <?php if ($layout === 'white'): ?>
                             <p class="a-badge h-dark-blue h-semibold"><?php echo esc_html($label); ?></p>
                         <?php else: ?>
@@ -123,7 +124,7 @@ $links = [
                             <?php endif; ?>
                         >
                             <?php echo esc_html($link['title'] ?? ''); ?>
-                            <?php if ($type === 'primary' && $layout !== 'green') : ?>
+                            <?php if ($type === 'primary' && !in_array($layout, ['green', 'blue'], true)) : ?>
                                 <span aria-hidden="true">→</span>
                             <?php endif; ?>
                         </a>
