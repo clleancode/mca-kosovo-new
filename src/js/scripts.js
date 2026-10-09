@@ -11,6 +11,7 @@ import overview from "./__modules/overview";
 import filter from "./__modules/filter";
 import notices from "./__modules/notices";
 import team from "./__modules/team";
+import faq from "./__modules/faq";
 
 const updateHeroFraction = (swiper) => {
 	const current = swiper.el.querySelector(".m-hero__current");
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     filter();
     notices();
     team();
+    faq();
 
 	if (document.querySelector(".o-header")) {
 		header();
