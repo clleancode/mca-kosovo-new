@@ -1,0 +1,143 @@
+.m-faq {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 40px;
+    width: 100%;
+    min-width: 0;
+}
+
+.m-faq__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 24px;
+    min-width: 0;
+    max-width: 480px;
+}
+
+.m-faq__heading a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.m-faq__heading a:hover {
+    text-decoration: underline;
+}
+
+.m-faq__items {
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+}
+
+.m-faq__item {
+    padding: 28px 32px;
+    border-radius: 24px;
+    background: var(--white);
+    color: var(--dark-blue);
+    transition: background-color .3s ease, color .3s ease;
+}
+
+.m-faq__item[open] {
+    background: var(--dark-blue);
+    color: var(--white);
+}
+
+.m-faq__item>summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    cursor: pointer;
+}
+
+.m-faq__item>summary::-webkit-details-marker {
+    display: none;
+}
+
+.m-faq__item>summary>span:first-child {
+    color: #59647d;
+    flex-shrink: 0;
+    letter-spacing: .1em;
+}
+
+.m-faq__item[open]>summary>span:first-child {
+    color: var(--blue);
+}
+
+.m-faq__item>summary>span:nth-child(2) {
+    min-width: 0;
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+.m-faq__item>summary>span:last-child {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    color: var(--dark-blue);
+    background: #f3f4f7;
+}
+
+.m-faq__item[open]>summary>span:last-child {
+    background: var(--white);
+}
+
+.m-faq__item>summary>span:last-child {
+    display: grid;
+    place-items: center;
+}
+
+.m-faq__item>summary>span:last-child>img {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+}
+
+.m-faq__item>summary>span:last-child>img:last-child {
+    display: none;
+}
+
+.m-faq__item[open]>summary>span:last-child>img:first-child {
+    display: none;
+}
+
+.m-faq__item[open]>summary>span:last-child>img:last-child {
+    display: block;
+}
+
+.m-faq__answer {
+    padding-top: 16px;
+}
+
+.m-faq__item>summary:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 5px;
+    border-radius: 4px;
+}
+
+@media (min-width: 1024px) {
+    .m-faq {
+        grid-template-columns: minmax(0, 480fr) minmax(0, 1136fr);
+        gap: 64px;
+    }
+}
+
+.m-faq__item>summary>span:first-child {
+    transition: color .3s ease;
+}
+
+.m-faq__item>summary>span:last-child {
+    transition: background-color .3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .m-faq__item,
+    .m-faq__item>summary>span {
+        transition: none;
+    }
+}
