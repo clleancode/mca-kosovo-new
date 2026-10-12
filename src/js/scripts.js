@@ -12,6 +12,7 @@ import filter from "./__modules/filter";
 import notices from "./__modules/notices";
 import team from "./__modules/team";
 import faq from "./__modules/faq";
+import smallHero from "./__modules/small-hero";
 import application from "./__modules/application";
 import vacancies from "./__modules/vacancies";
 
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     notices();
     team();
     faq();
+    smallHero();
     application();
     vacancies();
 

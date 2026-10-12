@@ -4,6 +4,7 @@
 	*/
 	
 	get_header();
+    $document_search = isset($_GET['search_scope']) && is_string($_GET['search_scope']) && $_GET['search_scope'] === 'documents';
 ?>
 	<div class="defult-bg default-search">
 		<?php
@@ -31,16 +32,14 @@
 				<?php
 					$paged = max( 1, get_query_var( 'paged' ) ? get_query_var( 'paged' ) : get_query_var( 'page' ) );
 					$search_term = get_search_query();
-					$search_wp = new WP_Query([
-						's' => $search_term,
-						'posts_per_page' => 6,
-						'paged' => $paged,
-					]);
+					$search_args = ['s' => $search_term, 'posts_per_page' => 6, 'paged' => $paged];
+                    if ($document_search) $search_args = array_merge($search_args, \MCA\Helpers\get_document_search_args());
+                    $search_wp = new WP_Query($search_args);
 				?>
 				<?php if ( $search_wp->have_posts() ) : ?>
 						<?php while ( $search_wp->have_posts() ) : $search_wp->the_post(); ?>
 							<div class="m-faq m-faq--procurement m-results__item">
-							<a href="<?php the_permalink(); ?>" class="m-results__link">
+							<a href="<?php echo esc_url($document_search && get_post_type() === 'attachment' ? wp_get_attachment_url(get_the_ID()) : get_permalink()); ?>" class="m-results__link">
 								<p class="a-heading a-heading--h6 s-d-b-xs s-m-b-xs h-britanica"><?php the_title(); ?></p>
 								<p class="a-text a-text--m"><?php echo wp_kses_post( get_the_excerpt() ); ?></p>
 							</a>
@@ -65,7 +64,7 @@
 									'prev_next' => true,
 									'prev_text' => '<i class="icon-arrow-right a-icon" aria-hidden="true" aria-label="Previous page"></i>',
 									'next_text' => '<i class="icon-arrow-right a-icon" aria-hidden="true" aria-label="Next page"></i>',
-									'add_args'  => [ 's' => $search_term ],
+									'add_args'  => array_merge(['s' => $search_term], $document_search ? ['search_scope' => 'documents'] : []),
 								]);
 
 								if ( $pagination_links ) {

@@ -91,7 +91,15 @@ $links       = array_slice(get_field('small_page_hero_links') ?: [], 0, 3);
                 <?php endif; ?>
             </div>
 
-            <?php if ($links) : ?>
+            <?php if (get_field('small_page_hero_right') === 'search'): ?>
+                <div class="m-small-hero__search">
+                    <form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>" data-document-search>
+                        <input class="a-text a-text--l" type="search" name="s" placeholder="<?php echo esc_attr(get_field('small_page_hero_search_placeholder') ?: 'Search documents'); ?>" aria-label="Search documents" required>
+                        <input type="hidden" name="search_scope" value="documents">
+                        <button class="a-btn a-btn--blue a-btn--smallest" type="submit"><span><?php echo esc_html(get_field('small_page_hero_search_button') ?: 'Search'); ?></span></button>
+                    </form>
+                </div>
+            <?php elseif ($links) : ?>
                 <div class="m-small-hero__links">
                     <?php foreach ($links as $row) : ?>
                         <?php

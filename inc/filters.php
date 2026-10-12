@@ -7,6 +7,21 @@
 
 namespace MCA\Filters;
 
+add_action('pre_get_posts', function ($query) {
+    if (is_admin() || !$query->is_main_query() || !$query->is_search()) return;
+    if (!isset($_GET['search_scope']) || !is_string($_GET['search_scope']) || $_GET['search_scope'] !== 'documents') return;
+    foreach (\MCA\Helpers\get_document_search_args() as $key => $value) $query->set($key, $value);
+}, 20);
+
+add_filter('posts_where', function ($where, $query) {
+    if (!$query->get('mca_document_search')) return $where;
+    global $wpdb;
+    $mimes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/csv'];
+    $placeholders = implode(',', array_fill(0, count($mimes), '%s'));
+    $where .= $wpdb->prepare(" AND ({$wpdb->posts}.post_type = 'publication' OR ({$wpdb->posts}.post_type = 'attachment' AND {$wpdb->posts}.post_mime_type IN ($placeholders) AND ({$wpdb->posts}.post_parent = 0 OR EXISTS (SELECT 1 FROM {$wpdb->posts} document_parent WHERE document_parent.ID = {$wpdb->posts}.post_parent AND document_parent.post_status = 'publish' AND document_parent.post_password = '')))) AND {$wpdb->posts}.post_password = '' ", ...$mimes);
+    return $where;
+}, 10, 2);
+
 add_filter('mca_projects_hero_breadcrumbs', function ($items, $post_id) {
     $projects_page = get_page_by_path('projects');
     return [
