@@ -18,6 +18,7 @@ $custom_post_types = [
     'news.php',
     'procurements.php',
     'projects.php',
+    'programs.php',
     'publications.php',
 ];
 

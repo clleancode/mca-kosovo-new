@@ -1,0 +1,17 @@
+{
+  "name": "acf/related-programs",
+  "title": "MCA - Related Programs",
+  "description": "Displays the three latest programs.",
+  "category": "formatting",
+  "icon": "welcome-learn-more",
+  "keywords": ["programs", "related programs", "projects"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "related-programs.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
