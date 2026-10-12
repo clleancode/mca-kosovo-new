@@ -1,0 +1,17 @@
+{
+  "name": "acf/specific-pages",
+  "title": "MCA - Specific Pages",
+  "description": "Displays manually configured image cards.",
+  "category": "formatting",
+  "icon": "screenoptions",
+  "keywords": ["specific pages", "pages", "links"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "specific-pages.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

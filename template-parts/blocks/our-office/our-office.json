@@ -1,0 +1,17 @@
+{
+  "name": "acf/our-office",
+  "title": "MCA - Our Office",
+  "description": "Office information with a location map.",
+  "category": "formatting",
+  "icon": "location-alt",
+  "keywords": ["office", "address", "map", "contact"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "our-office.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

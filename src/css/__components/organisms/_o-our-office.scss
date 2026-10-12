@@ -1,0 +1,9 @@
+.o-our-office {
+    padding: clamp(32px, 5vw, 64px) 0;
+    background: var(--grey);
+    color: var(--dark-blue);
+
+    >.container {
+        display: block;
+    }
+}
