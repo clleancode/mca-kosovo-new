@@ -116,3 +116,18 @@
     outline: 2px solid var(--blue);
     outline-offset: -2px;
 }
+.m-small-hero--procurement { padding: 150px 0 64px; }
+.m-small-hero__procurement { position: relative; z-index: 2; width: 100%; max-width: 1250px; }
+.m-small-hero__back > a { display: inline-flex; align-items: center; gap: 8px; color: var(--white); text-decoration: none; }
+.m-small-hero__back > a img { display: block; width: 17px; height: 14px; }
+.m-small-hero__procurement-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: .04em; }
+.m-small-hero__status { display: flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; color: var(--white); background: var(--dark-blue); }
+.m-small-hero__status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.m-small-hero__status--closed { color: #59647d; background: #dce0ea; }
+.m-small-hero__status--open { color: #003a20; background: #6dbe6b; }
+.m-small-hero__status--closing { background: var(--pink); }
+.m-small-hero__status--evaluation { color: var(--dark-blue); background: var(--blue); }
+.m-small-hero__status--award { background: #2f358b; }
+.m-small-hero__notice-type { padding: 4px 10px; border: 1px solid #ffffff40; border-radius: 99px; }
+.m-small-hero__project { padding: 4px 10px; border-radius: 99px; background: var(--blue); }
+@media (min-width: 768px) { .m-small-hero--procurement { padding: 200px 0 80px; } }

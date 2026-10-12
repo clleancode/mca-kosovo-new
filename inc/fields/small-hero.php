@@ -19,6 +19,12 @@ if (class_exists(FieldsBuilder::class)) {
         ->setLocation('block', '==', 'acf/small-hero')
 
         ->addTab('Content')
+        ->addButtonGroup('small_page_hero_layout', [
+            'label' => 'Hero layout',
+            'choices' => ['page' => 'Page hero', 'procurement' => 'Single procurement'],
+            'default_value' => 'page',
+            'instructions' => 'Single procurement reads the title, status, notice type, method and project from the current Procurement post.',
+        ])
         ->addButtonGroup('small_page_hero_right', [
             'label' => 'Right side content',
             'choices' => ['links' => 'Useful links', 'search' => 'Search documents'],

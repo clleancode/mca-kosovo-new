@@ -1,0 +1,20 @@
+{
+  "name": "acf/about-procurement",
+  "title": "MCA - About Procurement",
+  "description": "Procurement facts, documents, application steps and contact.",
+  "category": "formatting",
+  "icon": "media-document",
+  "keywords": [
+    "procurement",
+    "documents"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "about-procurement.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
