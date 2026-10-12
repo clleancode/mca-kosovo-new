@@ -146,7 +146,12 @@ function register_publication_type_taxonomy() {
     register_taxonomy( 'publication_type', [ 'publication' ], $args );
 
     // Optionally, add some default terms
-    $default_terms = [ ];
+    $default_terms = [
+        'publications' => __('Publications', 'MCA'),
+        'project-documents' => __('Project documents', 'MCA'),
+        'legal-framework' => __('Legal framework', 'MCA'),
+        'board-records' => __('Board records', 'MCA'),
+    ];
 
     foreach ( $default_terms as $slug => $name ) {
         if ( ! term_exists( $name, 'publication_type' ) && ! term_exists( $slug, 'publication_type' ) ) {

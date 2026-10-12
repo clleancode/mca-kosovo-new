@@ -17,7 +17,8 @@ get_header();
                 <span>Publication</span>
             </a>
             <?php
-                $post_cats = get_the_category();
+                $publication_types = get_the_terms(get_the_ID(), 'publication_type');
+                $post_cats = $publication_types && !is_wp_error($publication_types) ? $publication_types : get_the_category();
                 $excluded_slugs = ['all', 'news', 'publication'];
                 
                 if (!empty($post_cats)) {
@@ -36,7 +37,7 @@ get_header();
                     } else { 
                         $class = 'a-tag--purple';
                     }
-                    $category_link = get_category_link($cat->term_id);
+                    $category_link = get_term_link($cat);
                     echo '<a href="' . esc_url($category_link) . '" class="a-tag ' . esc_attr($class) . '">' . esc_html($cat->name) . '</a> ';
                 }
             }

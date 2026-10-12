@@ -15,6 +15,7 @@ import faq from "./__modules/faq";
 import smallHero from "./__modules/small-hero";
 import application from "./__modules/application";
 import vacancies from "./__modules/vacancies";
+import category from "./__modules/category";
 
 const updateHeroFraction = (swiper) => {
 	const current = swiper.el.querySelector(".m-hero__current");
@@ -39,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     smallHero();
     application();
     vacancies();
+    category();
 
 	if (document.querySelector(".o-header")) {
 		header();
