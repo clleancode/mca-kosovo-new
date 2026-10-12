@@ -65,15 +65,19 @@ if (class_exists(FieldsBuilder::class)) {
     $publication
         ->setLocation('post_type', '==', 'publication')
         ->addFile('publication_pdf', [
-            'label'         => 'Publication PDF',
+            'label'         => 'Publication document (PDF / XLS)',
             'return_format' => 'array',
-            'mime_types'    => 'pdf',
+            'mime_types'    => 'pdf,xls,xlsx',
         ])
         ->addPostObject('publication_project', [
             'label'         => 'Related project',
             'post_type'     => ['project'],
             'return_format' => 'id',
             'allow_null'    => 1,
+        ])
+        ->addText('publication_document_caption', [
+            'label' => 'Document caption',
+            'instructions' => 'Text below the title, for example Compact, Board · 02 Jul 2026, or MCA Kosovo. Leave empty to use the related project.',
         ]);
 
     add_action('acf/init', function () use ($category, $publication) {

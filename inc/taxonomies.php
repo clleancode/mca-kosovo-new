@@ -151,6 +151,7 @@ function register_publication_type_taxonomy() {
         'publications' => __('Publications', 'MCA'),
         'project-documents' => __('Project documents', 'MCA'),
         'legal-framework' => __('Legal framework', 'MCA'),
+        'policies' => __('Policies', 'MCA'),
         'board-records' => __('Board records', 'MCA'),
     ];
 
