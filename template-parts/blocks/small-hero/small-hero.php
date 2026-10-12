@@ -34,7 +34,19 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     'text_line_height'   => $text_height,
 ] = Helpers\get_block_typography();
 
-$page_id     = get_the_ID();
+$page_id = get_the_ID();
+if (get_field('small_page_hero_layout') === 'procurement') {
+    get_template_part('template-parts/blocks/small-hero/procurement-hero', null, [
+        'post_id' => $page_id,
+        'classes' => $classes,
+        'anchor' => $block['anchor'] ?? '',
+        'image' => get_field('small_page_hero_image'),
+        'tag' => $tag,
+        'size' => $size,
+    ]);
+    return;
+}
+
 $image       = get_field('small_page_hero_image');
 $description = get_field('small_page_hero_description');
 $links       = array_slice(get_field('small_page_hero_links') ?: [], 0, 3);
