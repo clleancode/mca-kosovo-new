@@ -32,40 +32,75 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     'text_line_height' => $text_height,
 ] = Helpers\get_block_typography();
 
-$layout     = get_field('implementing_layout');
+$layout       = get_field('implementing_layout');
 $show_numbers = (bool) get_field('implementing_show_numbers');
-$section_id = sanitize_title(get_field('implementing_section_id') ?: ($block['anchor'] ?? ''));
-$title      = get_field('implementing_title');
-$item_limit = $layout === 'media' ? 4 : ($layout === 'five-cards' ? 5 : 2);
-$items      = array_slice(get_field('implementing_items') ?: [], 0, $item_limit);
+$section_id   = sanitize_title(get_field('implementing_section_id') ?: ($block['anchor'] ?? ''));
+$title        = get_field('implementing_title');
+$label        = get_field('implementing_label');
+$item_limit   = $layout === 'media' ? 4 : ($layout === 'five-cards' ? 5 : 2);
+$items        = array_slice(get_field('implementing_items') ?: [], 0, $item_limit);
+
 $numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--numbered' : '';
 ?>
 <section
-    <?php if ($section_id) : ?>id="<?php echo esc_attr($section_id); ?>"<?php endif; ?>
+    <?php if ($section_id) : ?>
+        id="<?php echo esc_attr($section_id); ?>"
+    <?php endif; ?>
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
 >
     <div class="container">
         <div class="m-implementing m-implementing--<?php echo esc_attr($layout); ?><?php echo esc_attr($numbered_class); ?>">
-            <?php if ($title) : ?>
+
+            <?php if ($title || $label) : ?>
                 <div class="m-implementing__heading">
-                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> s-d-b-xs s-m-b-xs">
-                        <?php echo esc_html($title); ?>
-                    </<?php echo tag_escape($tag); ?>>
+                    <?php if ($label) : ?>
+                        <p class="a-badge h-dark-blue s-d-b-s s-m-b-xs h-semibold">
+                            <?php echo esc_html($label); ?>
+                        </p>
+                    <?php endif; ?>
+
+                    <?php if ($title) : ?>
+                        <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> s-d-b-xs s-m-b-xs">
+                            <?php echo esc_html($title); ?>
+                        </<?php echo tag_escape($tag); ?>>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 
             <div class="m-implementing__grid">
                 <?php foreach ($items as $index => $item) : ?>
                     <?php
-                    $tone      = in_array($item['tone'] ?? '', ['white', 'blue', 'purple', 'violet'], true) ? $item['tone'] : '';
-                    $image     = $item['image'] ?? 0;
-                    $dark      = $image || ($tone && $tone !== 'white');
-                    $link      = $item['link'] ?? [];
-                    $target    = $link['target'] ?? '';
-                    $card_size = ($layout === 'media' && $index > 0) || ($layout === 'five-cards' && $index > 0) ? 'h6' : $size;
-                    $featured_card = $layout === 'five-cards' && $index === 0;
+                    $tone             = in_array($item['tone'] ?? '', ['white', 'blue', 'purple', 'violet'], true) ? $item['tone'] : '';
+                    $image            = $item['image'] ?? 0;
+                    $dark             = $image || ($tone && $tone !== 'white');
+                    $link             = $item['link'] ?? [];
+                    $target           = $link['target'] ?? '';
+                    $card_size        = ($layout === 'media' && $index > 0) || ($layout === 'five-cards' && $index > 0) ? 'h6' : $size;
+                    $featured_card    = $layout === 'five-cards' && $index === 0;
+                    $text_color_class = $dark ? 'h-white' : 'h-dark-blue';
+
+                    $card_classes = ['m-implementing__card'];
+
+                    if ($tone) {
+                        $card_classes[] = 'm-implementing__card--' . $tone;
+                    }
+
+                    if ($image) {
+                        $card_classes[] = 'm-implementing__card--image';
+                    }
+
+                    if ($featured_card) {
+                        $card_classes[] = 'm-implementing__card--featured';
+                    }
+
+                    if ($layout === 'five-cards' && $index > 0) {
+                        $item_title_class = 'a-text a-text--xxl';
+                    } else {
+                        $item_title_class = 'a-heading a-heading--' . ($layout === 'five-cards' ? 'h5' : $card_size);
+                    }
                     ?>
-                    <article class="m-implementing__card<?php echo $tone ? ' m-implementing__card--' . esc_attr($tone) : ''; ?><?php echo $image ? ' m-implementing__card--image' : ''; ?><?php echo $featured_card ? ' m-implementing__card--featured' : ''; ?>">
+                    <article class="<?php echo esc_attr(implode(' ', $card_classes)); ?>">
+
                         <?php if ($image) : ?>
                             <div class="m-implementing__image">
                                 <?php
@@ -78,17 +113,21 @@ $numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--
                         <?php endif; ?>
 
                         <?php if ($show_numbers && $layout === 'five-cards' && $index > 0) : ?>
-                            <span class="m-implementing__number a-text a-text--xs" aria-hidden="true"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
+                            <div class="m-implementing__number" aria-hidden="true">
+                                <span class="a-text a-text--xs">
+                                    <?php echo esc_html(sprintf('%02d', $index + 1)); ?>
+                                </span>
+                            </div>
                         <?php endif; ?>
 
                         <div class="m-implementing__copy">
-                            <h3 class="a-heading a-heading--<?php echo esc_attr($card_size); ?> <?php echo $dark ? 'h-white' : 'h-dark-blue'; ?> s-d-b-xs s-m-b-xs">
+                            <h3 class="<?php echo esc_attr($item_title_class); ?> <?php echo esc_attr($text_color_class); ?> s-d-b-xs s-m-b-xs h-semibold">
                                 <?php echo esc_html($item['title'] ?? ''); ?>
                             </h3>
 
                             <?php if (!empty($item['description'])) : ?>
-                                <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo $dark ? 'h-white' : 'h-dark-blue'; ?> h--<?php echo esc_attr($text_height); ?>">
-                                    <?php echo nl2br(esc_html($item['description'])); ?>
+                                <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color_class); ?> h--<?php echo esc_attr($text_height); ?>">
+                                    <?php echo wp_kses(nl2br($item['description']), ['br' => []]); ?>
                                 </p>
                             <?php endif; ?>
                         </div>
@@ -99,7 +138,9 @@ $numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--
                                     class="a-btn a-btn--white a-btn--smallest"
                                     href="<?php echo esc_url($link['url']); ?>"
                                     target="<?php echo esc_attr($target); ?>"
-                                    <?php if ($target === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>
+                                    <?php if ($target === '_blank') : ?>
+                                        rel="noopener noreferrer"
+                                    <?php endif; ?>
                                 >
                                     <span>
                                         <?php echo esc_html($link['title'] ?? ''); ?>
@@ -108,9 +149,11 @@ $numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--
                                 </a>
                             </div>
                         <?php endif; ?>
+
                     </article>
                 <?php endforeach; ?>
             </div>
+
         </div>
     </div>
 </section>

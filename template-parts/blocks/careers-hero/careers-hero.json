@@ -1,0 +1,21 @@
+{
+  "name": "acf/careers-hero",
+  "title": "MCA - Careers Hero",
+  "description": "Careers introduction with a six-photo team collage.",
+  "category": "formatting",
+  "icon": "groups",
+  "keywords": [
+    "careers",
+    "jobs",
+    "hero"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "careers-hero.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

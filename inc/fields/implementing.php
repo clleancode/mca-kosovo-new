@@ -45,6 +45,10 @@ if (class_exists(FieldsBuilder::class)) {
         ->addText('implementing_title', [
             'label' => 'Section title (optional)',
         ])
+        ->addText('implementing_label', [
+            'label' => 'Badge label',
+            'instructions' => 'Appears above the section title. For example: Why MCA Kosovo. Leave empty to hide the badge.',
+        ])
         ->addRepeater('implementing_items', [
             'label'        => 'Cards',
             'min'          => 2,
