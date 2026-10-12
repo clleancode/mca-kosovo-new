@@ -1,0 +1,21 @@
+{
+  "name": "acf/application",
+  "title": "MCA - Job Application",
+  "description": "Job application form layout with team photos and HR contact.",
+  "category": "formatting",
+  "icon": "feedback",
+  "keywords": [
+    "application",
+    "jobs",
+    "form"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "application.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
