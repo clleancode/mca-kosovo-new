@@ -12,6 +12,7 @@ import filter from "./__modules/filter";
 import notices from "./__modules/notices";
 import team from "./__modules/team";
 import faq from "./__modules/faq";
+import vacancies from "./__modules/vacancies";
 
 const updateHeroFraction = (swiper) => {
 	const current = swiper.el.querySelector(".m-hero__current");
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     notices();
     team();
     faq();
+    vacancies();
 
 	if (document.querySelector(".o-header")) {
 		header();

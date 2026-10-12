@@ -1,0 +1,21 @@
+{
+  "name": "acf/vacancies",
+  "title": "MCA - Vacancies",
+  "description": "Open and closed job vacancies.",
+  "category": "formatting",
+  "icon": "businessperson",
+  "keywords": [
+    "vacancies",
+    "jobs",
+    "careers"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "vacancies.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
