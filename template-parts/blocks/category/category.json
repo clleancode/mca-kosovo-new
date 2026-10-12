@@ -1,0 +1,21 @@
+{
+  "name": "acf/category",
+  "title": "MCA - Resource Categories",
+  "description": "Browse publications by document category.",
+  "category": "formatting",
+  "icon": "category",
+  "keywords": [
+    "category",
+    "resources",
+    "publications"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "category.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
