@@ -1,0 +1,17 @@
+{
+  "name": "acf/contact-form",
+  "title": "MCA - Contact Form",
+  "description": "Contact form and contact information panels.",
+  "category": "formatting",
+  "icon": "email-alt",
+  "keywords": ["contact", "form", "email"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "contact-form.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
