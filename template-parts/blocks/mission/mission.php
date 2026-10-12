@@ -39,6 +39,7 @@ $section_id  = sanitize_title(get_field('mission_section_id') ?: ($block['anchor
 $items       = array_slice(get_field('mission_items') ?: [], 0, 3);
 $label       = get_field('mission_label');
 $description = get_field('mission_description');
+$category_cards = (bool) get_field('mission_cards_with_category');
 ?>
 <section
     <?php if ($section_id) : ?>id="<?php echo esc_attr($section_id); ?>"<?php endif; ?>
@@ -72,8 +73,10 @@ $description = get_field('mission_description');
                     $tone   = in_array($item['tone'] ?? '', ['blue', 'purple', 'green'], true) ? $item['tone'] : '';
                     $link   = $item['link'] ?? [];
                     $target = $link['target'] ?? '';
+                    $show_category = $layout === 'mission' && $category_cards;
+                    $link_title = trim($link['title'] ?? '');
                     ?>
-                    <article class="m-mission__card<?php echo $tone ? ' m-mission__card--' . esc_attr($tone) : ''; ?>">
+                    <article class="m-mission__card<?php echo $tone ? ' m-mission__card--' . esc_attr($tone) : ''; ?><?php echo $show_category ? ' m-mission__card--category' : ''; ?>">
                         <div class="m-mission__image">
                             <?php
                             if (!empty($item['image'])) {
@@ -85,14 +88,20 @@ $description = get_field('mission_description');
                             ?>
                         </div>
 
-                        <?php if ($layout === 'mission') : ?>
+                        <?php if ($layout === 'mission' && !$category_cards) : ?>
                             <div class="m-mission__number">
                                 <span class="a-heading a-heading--h2 h-white"><?php echo esc_html($index + 1); ?></span>
                             </div>
                         <?php endif; ?>
 
+                        <?php if ($show_category && !empty($item['label'])) : ?>
+                            <div class="m-mission__category">
+                                <span class="a-text a-text--xs h-dark-blue"><?php echo esc_html($item['label']); ?></span>
+                            </div>
+                        <?php endif; ?>
+
                         <div class="m-mission__copy">
-                            <?php if (!empty($item['label'])) : ?>
+                            <?php if (!empty($item['label']) && !$show_category) : ?>
                                 <div class="m-mission__label">
                                     <span class="h-semibold a-text a-text--xs<?php echo $layout === 'news' ? ' h-white' : ' h-dark-blue'; ?>">
                                         <?php echo esc_html($item['label']); ?>
@@ -100,7 +109,7 @@ $description = get_field('mission_description');
                                 </div>
                             <?php endif; ?>
 
-                            <h3 class="a-heading a-heading--h5 h-white s-d-b-xs s-m-b-xs">
+                            <h3 class="a-heading a-heading--h4 h-white s-d-b-xs s-m-b-xs">
                                 <?php echo esc_html($item['title'] ?? ''); ?>
                             </h3>
 
@@ -112,7 +121,7 @@ $description = get_field('mission_description');
                         </div>
 
                         <?php if (!empty($link['url'])) : ?>
-                            <div class="m-mission__link">
+                            <div class="m-mission__link<?php echo $show_category ? ' m-mission__link--text' : ''; ?>">
                                 <a
                                     class="a-mission-link"
                                     href="<?php echo esc_url($link['url']); ?>"
@@ -120,7 +129,12 @@ $description = get_field('mission_description');
                                     aria-label="<?php echo esc_attr(($link['title'] ?? '') ?: ($item['title'] ?? '')); ?>"
                                     <?php if ($target === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>
                                 >
-                                    <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
+                                    <?php if ($show_category) : ?>
+                                        <span class="a-text a-text--l h-white"><?php echo esc_html($link_title ?: ($item['title'] ?? '')); ?></span>
+                                        <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
+                                    <?php else : ?>
+                                        <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
+                                    <?php endif; ?>
                                 </a>
                             </div>
                         <?php endif; ?>

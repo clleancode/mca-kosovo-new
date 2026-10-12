@@ -42,6 +42,12 @@ if (class_exists(FieldsBuilder::class)) {
         ])
 
         ->addTab('Cards')
+        ->addTrueFalse('mission_cards_with_category', [
+            'label' => 'Show category instead of number',
+            'instructions' => 'When enabled, the card category appears at the top and the link is displayed as text.',
+            'ui' => 1,
+            'default_value' => 0,
+        ])
         ->addRepeater('mission_items', [
             'label'        => 'Project cards',
             'min'          => 3,

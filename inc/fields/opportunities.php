@@ -101,6 +101,15 @@ if (class_exists(FieldsBuilder::class)) {
         ->addText('procurement_phase', [
             'label'        => 'Phase',
             'instructions' => 'Optional phase shown alongside the publication date.',
+        ])
+        ->addText('procurement_call_category', [
+            'label'        => 'Call category',
+            'instructions' => 'For example: JETA - GRANT.',
+        ])
+        ->addText('procurement_call_summary', [
+            'label'        => 'Text under call title',
+            'placeholder' => 'Who can apply · Grant size · Duration',
+            'instructions' => 'This text appears directly below the call title in the Current Calls card.',
         ]);
 
     add_action('acf/init', function () use ($opportunities, $details) {

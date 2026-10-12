@@ -10,6 +10,7 @@ import gallerySlider from "./__modules/gallery-slider";
 import overview from "./__modules/overview";
 import filter from "./__modules/filter";
 import notices from "./__modules/notices";
+import currentCalls from "./__modules/current-calls";
 import team from "./__modules/team";
 import faq from "./__modules/faq";
 import smallHero from "./__modules/small-hero";
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     overview();
     filter();
     notices();
+    currentCalls();
     team();
     faq();
     smallHero();
