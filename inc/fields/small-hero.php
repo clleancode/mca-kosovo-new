@@ -19,6 +19,13 @@ if (class_exists(FieldsBuilder::class)) {
         ->setLocation('block', '==', 'acf/small-hero')
 
         ->addTab('Content')
+        ->addButtonGroup('small_page_hero_right', [
+            'label' => 'Right side content',
+            'choices' => ['links' => 'Useful links', 'search' => 'Search documents'],
+            'default_value' => 'links',
+        ])
+        ->addText('small_page_hero_search_placeholder', ['label' => 'Search placeholder', 'default_value' => 'Search documents'])
+        ->addText('small_page_hero_search_button', ['label' => 'Search button label', 'default_value' => 'Search'])
         ->addImage('small_page_hero_image', [
             'label'         => 'Background image',
             'return_format' => 'id',

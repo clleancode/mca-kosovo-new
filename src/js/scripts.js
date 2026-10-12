@@ -13,6 +13,7 @@ import notices from "./__modules/notices";
 import currentCalls from "./__modules/current-calls";
 import team from "./__modules/team";
 import faq from "./__modules/faq";
+import smallHero from "./__modules/small-hero";
 import application from "./__modules/application";
 import vacancies from "./__modules/vacancies";
 
@@ -37,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentCalls();
     team();
     faq();
+    smallHero();
     application();
     vacancies();
 

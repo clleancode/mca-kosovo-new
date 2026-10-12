@@ -9,6 +9,14 @@ namespace MCA\Helpers;
 use WP_Query;
 use Detection\MobileDetect;
 
+function get_document_search_args() {
+    return [
+        'post_type' => ['publication', 'attachment'],
+        'post_status' => ['publish', 'inherit'],
+        'mca_document_search' => true,
+    ];
+}
+
 /** Return an ACF choice only when it is one of the supported values. */
 function get_field_choice($name, array $allowed, $default) {
     $value = get_field($name);
