@@ -313,7 +313,7 @@ function remove_jquery() {
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\remove_jquery', 20);
 
 function load_cf7_scripts_and_styles() {
-    if ( is_page( 'contact' ) || is_page( 'newsletter' ) || is_page( 'job-application' ) || has_block('acf/application') ) {
+    if ( is_page( 'contact' ) || is_page( 'newsletter' ) || is_page( 'job-application' ) || has_block('acf/application') || has_block('acf/contact-form') ) {
         if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
             wpcf7_enqueue_scripts();
             wpcf7_enqueue_styles();
