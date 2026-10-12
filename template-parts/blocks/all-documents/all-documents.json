@@ -1,0 +1,21 @@
+{
+  "name": "acf/all-documents",
+  "title": "MCA - All Documents",
+  "description": "Filterable publication documents with downloads and load more.",
+  "category": "formatting",
+  "icon": "media-document",
+  "keywords": [
+    "documents",
+    "resources",
+    "downloads"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "all-documents.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
