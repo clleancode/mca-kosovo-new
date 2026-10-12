@@ -1,0 +1,229 @@
+.m-current-calls {
+    width: 100%;
+}
+
+.m-current-calls__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    margin-bottom: 24px;
+
+    >.a-heading {
+        margin: 0;
+    }
+}
+
+.m-current-calls__tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px;
+    border-radius: 99px;
+    background: var(--white);
+}
+
+.m-current-calls__tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    padding: 0 12px;
+    border-radius: 99px;
+    color: var(--dark-blue);
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.m-current-calls__tab.is-active {
+    background: var(--dark-blue);
+    color: var(--white);
+}
+
+.m-current-calls__count {
+    display: grid;
+    place-items: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 99px;
+    background: var(--white);
+    color: var(--dark-blue);
+    font-size: 10px;
+}
+
+.m-current-calls__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+}
+
+.m-current-calls__message,
+.m-current-calls__card {
+    min-width: 0;
+    border-radius: 18px;
+    background: var(--white);
+}
+
+.m-current-calls__message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+    padding: 38px;
+
+    >.a-heading,
+    >.a-text {
+        margin: 0;
+    }
+}
+
+.m-current-calls__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 99px;
+    background: #f3f4f7;
+    color: #59647d;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+
+    &::before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #4da8df;
+    }
+}
+
+.m-current-calls__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 26px;
+    border: 1px dashed #605be8;
+}
+
+.m-current-calls__card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.m-current-calls__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.m-current-calls__category {
+    color: var(--dark-blue);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.m-current-calls__deadline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 107px;
+    height: 107px;
+    padding: 7px 9px;
+    border-radius: 12px;
+    background: #f3f4f7;
+    color: #59647d;
+    text-transform: uppercase;
+
+    >.a-heading {
+        margin: 0;
+        line-height: 1;
+    }
+}
+
+.m-current-calls__card-copy {
+    flex: 1;
+
+    >.a-heading,
+    >.a-text {
+        margin: 0;
+    }
+
+    >.a-heading {
+        margin-bottom: 8px;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+
+    >.a-text {
+        color: #77849b;
+    }
+}
+
+.m-current-calls__card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 28px;
+    border-top: 1px solid #e1e7ef;
+    color: #303aa0;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.m-current-calls__open {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--dark-blue);
+    color: var(--white);
+    text-decoration: none;
+}
+
+.m-current-calls__card--empty {
+    justify-content: center;
+    color: #59647d;
+
+    >.a-text {
+        margin: 0;
+    }
+}
+
+.o-current-calls[aria-busy="true"] .m-current-calls__layout {
+    opacity: .55;
+}
+
+.m-current-calls__error {
+    margin-top: 12px;
+    color: #b42342;
+}
+
+@media (min-width: 768px) {
+    .m-current-calls__layout {
+        grid-template-columns: minmax(0, 2.1fr) minmax(300px, 1fr);
+        align-items: stretch;
+    }
+
+    .m-current-calls__card {
+        min-height: 204px;
+        padding: 32px;
+    }
+}
+
+@media (min-width: 992px) {
+    .m-current-calls__message {
+        padding: 48px;
+    }
+}

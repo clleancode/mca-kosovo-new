@@ -1,0 +1,17 @@
+{
+  "name": "acf/current-calls",
+  "title": "MCA - Current Calls",
+  "description": "Current procurement calls with status filters.",
+  "category": "formatting",
+  "icon": "megaphone",
+  "keywords": ["current calls", "procurement", "calls"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "current-calls.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
