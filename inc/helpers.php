@@ -9,6 +9,51 @@ namespace MCA\Helpers;
 use WP_Query;
 use Detection\MobileDetect;
 
+function mca_get_album_photos($album_id, array $visited = []) {
+    $album_id = absint($album_id);
+    if (!$album_id || in_array($album_id, $visited, true)) return [];
+    $visited[] = $album_id;
+    $album = get_post($album_id);
+    if (!$album) return [];
+
+    $normalize = static function ($images) {
+        return array_values(array_filter(array_map(static function ($image) {
+            return absint(is_array($image) ? ($image['ID'] ?? $image['id'] ?? 0) : $image);
+        }, (array) $images)));
+    };
+    $legacy = static function ($source) use ($normalize) {
+        $images = [];
+        foreach ((array) get_field('images', $source) as $row) {
+            if (is_array($row) && !empty($row['image'])) $images[] = $row['image'];
+        }
+        return $normalize($images);
+    };
+    $has_gallery = false;
+    $collect = static function ($blocks) use (&$collect, &$has_gallery, $normalize, $legacy, $album_id, $visited) {
+        $photos = [];
+        foreach ($blocks as $gallery_block) {
+            if (($gallery_block['blockName'] ?? '') === 'acf/gallery') {
+                $has_gallery = true;
+                $data = $gallery_block['attrs']['data'] ?? [];
+                $images = $normalize($data['gallery_photos'] ?? []);
+                if (!$images) {
+                    $source = absint($data['gallery_source'] ?? 0) ?: $album_id;
+                    $images = $source === $album_id
+                        ? $legacy($source)
+                        : mca_get_album_photos($source, $visited);
+                }
+                $photos = array_merge($photos, $images);
+            }
+            if (!empty($gallery_block['innerBlocks'])) {
+                $photos = array_merge($photos, $collect($gallery_block['innerBlocks']));
+            }
+        }
+        return $photos;
+    };
+    $photos = $collect(parse_blocks($album->post_content));
+    return array_values(array_unique($has_gallery ? $photos : $legacy($album_id)));
+}
+
 function get_document_search_args() {
     return [
         'post_type' => ['publication', 'attachment'],

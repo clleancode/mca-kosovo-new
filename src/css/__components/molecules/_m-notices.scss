@@ -11,6 +11,14 @@
     gap: 24px;
 }
 
+.m-notices__header > .a-btn {
+    min-height: 50px;
+}
+
+.m-notices__header > .a-btn > span {
+    gap: 5px;
+}
+
 .m-notices__heading {
     display: flex;
     flex-wrap: wrap;

@@ -25,10 +25,25 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     }
 }
 
-$filters  = Notices\get_filters();
+$compact = get_field('notices_layout') === 'selected';
+$header_link = get_field('notices_header_link') ?: [];
+$filters = $compact
+    ? ['search' => '', 'status' => 'all', 'type' => 'all', 'project' => 0, 'sort' => 'newest', 'page' => 1]
+    : Notices\get_filters();
 $per_page = max(3, min(24, (int) (get_field('notices_per_page') ?: 8)));
 $args     = Notices\query_args($filters, $per_page);
-$query    = new WP_Query($args);
+if ($compact) {
+    $selected = array_slice(array_filter(array_map('absint', (array) get_field('notices_selected'))), 0, 3);
+    $args['posts_per_page'] = 3;
+    $args['no_found_rows'] = true;
+    if ($selected) {
+        $args['post__in'] = $selected;
+        $args['orderby'] = 'post__in';
+    } else {
+        $args['post__not_in'] = [get_the_ID()];
+    }
+}
+$query = new WP_Query($args);
 
 if ($query->max_num_pages && $filters['page'] > $query->max_num_pages) {
     $filters['page'] = (int) $query->max_num_pages;
@@ -37,7 +52,7 @@ if ($query->max_num_pages && $filters['page'] > $query->max_num_pages) {
 }
 
 $total_pages = max(1, (int) $query->max_num_pages);
-$featured    = get_field('notices_featured');
+$featured = !$compact && get_field('notices_featured');
 $base_url    = remove_query_arg('notice_page');
 
 $legend = [
@@ -52,21 +67,21 @@ $legend = [
 <section
     <?php if (!empty($block['anchor'])) : ?>id="<?php echo esc_attr($block['anchor']); ?>"<?php endif; ?>
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
-    data-notices
+    <?php if (!$compact): ?>data-notices<?php endif; ?>
 >
     <div class="container">
         <div class="m-notices">
             <div class="m-notices__header s-d-b-s s-m-b-xs">
                 <div class="m-notices__heading">
                     <h2 class="a-heading a-heading--h5 h-dark-blue">
-                        <?php echo esc_html(get_field('notices_title') ?: 'Latest notices'); ?>
+                        <?php echo esc_html(get_field('notices_title') ?: ($compact ? 'More procurement notices' : 'Latest notices')); ?>
                     </h2>
-                    <span class="a-text a-text--xs">
+                    <?php if (!$compact): ?><span class="a-text a-text--xs">
                         Page <?php echo esc_html($filters['page']); ?> of <?php echo esc_html($total_pages); ?>
-                    </span>
+                    </span><?php endif; ?>
                 </div>
 
-                <ul class="m-notices__legend" aria-label="Notice statuses">
+                <?php if (!$compact): ?><ul class="m-notices__legend" aria-label="Notice statuses">
                     <?php foreach ($legend as $state => $label) : ?>
                         <li>
                             <span class="h-semibold a-notices-status a-notices-status--<?php echo esc_attr($state); ?> a-text a-text--xs">
@@ -74,7 +89,10 @@ $legend = [
                             </span>
                         </li>
                     <?php endforeach; ?>
-                </ul>
+                </ul><?php endif; ?>
+                <?php if (!empty($header_link['url'])): ?>
+                    <a class="a-btn a-btn--border-blue a-btn--smallest" href="<?php echo esc_url($header_link['url']); ?>"<?php if (($header_link['target'] ?? '') === '_blank'): ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>><span><?php echo esc_html($header_link['title'] ?: 'All procurements'); ?><span aria-hidden="true">&rarr;</span></span></a>
+                <?php endif; ?>
             </div>
 
             <div class="m-notices__results" aria-live="polite">

@@ -1,0 +1,108 @@
+.m-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 12px;
+    width: 100%;
+}
+
+.m-gallery__column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+.m-gallery__photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    aspect-ratio: var(--gallery-photo-ratio, 191 / 139);
+}
+
+.m-gallery__column:nth-child(3n + 1)>.m-gallery__photo:nth-child(3n + 1) {
+    --gallery-photo-ratio: 191 / 195;
+}
+
+.m-gallery__column:nth-child(3n + 1)>.m-gallery__photo:nth-child(3n + 2),
+.m-gallery__column:nth-child(3n + 2)>.m-gallery__photo:nth-child(3n) {
+    --gallery-photo-ratio: 191 / 131;
+}
+
+.m-gallery__column:nth-child(3n + 1)>.m-gallery__photo:nth-child(3n) {
+    --gallery-photo-ratio: 191 / 159;
+}
+
+.m-gallery__column:nth-child(3n + 2)>.m-gallery__photo:nth-child(3n + 2) {
+    --gallery-photo-ratio: 191 / 216;
+}
+
+.m-gallery__column:nth-child(3n)>.m-gallery__photo:nth-child(3n + 1) {
+    --gallery-photo-ratio: 191 / 167;
+}
+
+.m-gallery__column:nth-child(3n)>.m-gallery__photo:nth-child(3n) {
+    --gallery-photo-ratio: 191 / 180;
+}
+
+.m-gallery__photo>a {
+    display: block;
+    height: 100%;
+    outline-offset: -4px;
+}
+
+.m-gallery__photo>a>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .3s ease;
+}
+
+.m-gallery__photo:hover>a>img {
+    transform: scale(1.025);
+}
+
+.m-gallery__expand {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--dark-blue);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+.m-gallery__expand>svg {
+    width: 16px;
+    height: 16px;
+}
+
+.m-gallery__photo:hover>.m-gallery__expand,
+.m-gallery__photo:focus-within>.m-gallery__expand {
+    opacity: 1;
+}
+
+@media (max-width: 767px) {
+    .m-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .m-gallery__expand {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .m-gallery__photo>a>img,
+    .m-gallery__expand {
+        transition: none;
+    }
+}

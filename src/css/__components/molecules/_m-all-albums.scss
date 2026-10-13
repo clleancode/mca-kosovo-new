@@ -1,0 +1,230 @@
+.m-all-albums {
+    width: 100%;
+    display: grid;
+    gap: 28px;
+}
+
+.m-all-albums [hidden] {
+    display: none !important;
+}
+
+.m-all-albums__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.m-all-albums__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.m-all-albums__filters>a {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 99px;
+    padding: 10px 16px;
+    background: var(--white);
+    color: #2f358b;
+    cursor: pointer;
+}
+
+.m-all-albums__filters>a[aria-current] {
+    background: var(--dark-blue);
+    color: var(--white);
+}
+
+.m-all-albums__year {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.m-all-albums__year>select {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.m-all-albums__grid {
+    display: grid;
+    gap: 24px;
+}
+
+.m-all-albums__album {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 320px;
+    padding: 28px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--dark-blue);
+}
+
+.m-all-albums__image {
+    position: absolute;
+    inset: 0;
+}
+
+.m-all-albums__image>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s var(--cubic-bezier);
+}
+
+.m-all-albums__album:hover .m-all-albums__image>img {
+    transform: scale(1.035);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .m-all-albums__image>img {
+        transition: none;
+    }
+}
+
+.m-all-albums__album::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(0, 20, 53, .85) 100%);
+    pointer-events: none;
+}
+
+.m-all-albums__arrow>a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    color: inherit;
+    text-decoration: none;
+}
+
+.m-all-albums__arrow>a:focus-visible {
+    outline: 2px solid var(--white);
+    outline-offset: 4px;
+}
+
+.m-all-albums__badge {
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+    padding: 6px 12px;
+    background: var(--white);
+    color: var(--dark-blue);
+    border-radius: 99px;
+}
+
+.m-all-albums__badge [data-album-label],
+.m-all-albums__badge [data-album-photo-label] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.m-all-albums__badge [data-album-label]>img,
+.m-all-albums__badge [data-album-photo-label]>img {
+    display: block;
+    flex-shrink: 0;
+    width: 12px;
+    height: 10px;
+}
+
+.m-all-albums__copy {
+    z-index: 2;
+    display: grid;
+    gap: 8px;
+}
+
+.m-all-albums__album:not(.is-featured)>.m-all-albums__copy {
+    max-width: 520px;
+}
+
+.m-all-albums__copy>h2>a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+}
+
+.m-all-albums__album:focus-within {
+    outline: 2px solid var(--dark-blue);
+    outline-offset: 4px;
+}
+
+.m-all-albums__arrow {
+    position: absolute;
+    z-index: 3;
+    right: 28px;
+    bottom: 28px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: var(--dark-blue);
+    background: var(--white);
+}
+
+.m-all-albums__latest {
+    display: grid;
+    gap: 24px;
+    padding-top: 48px;
+}
+
+.m-all-albums__photos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: 16px;
+}
+
+.m-all-albums__photo {
+    aspect-ratio: 1;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.m-all-albums__photo:nth-child(even) {
+    aspect-ratio: 1.25;
+}
+
+.m-all-albums__photo>a {
+    display: block;
+    height: 100%;
+}
+
+.m-all-albums__photo>a>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    .m-all-albums__grid {
+        grid-template-columns: 1.5fr 1fr;
+        grid-auto-rows: 280px;
+    }
+
+    .m-all-albums__album {
+        min-height: 0;
+    }
+
+    .m-all-albums__album.is-featured {
+        grid-column: 1;
+        grid-row: span 2;
+    }
+
+    .m-all-albums__photos {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}

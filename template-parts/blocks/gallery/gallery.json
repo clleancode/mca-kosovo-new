@@ -1,0 +1,15 @@
+{
+  "name": "acf/gallery",
+  "title": "MCA - Gallery",
+  "description": "Photo gallery with an album lightbox.",
+  "category": "formatting",
+  "icon": "format-gallery",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "gallery.php"
+  },
+  "supports": {
+    "anchor": true,
+    "customClassName": true
+  }
+}

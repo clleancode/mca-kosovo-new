@@ -1,0 +1,14 @@
+{
+  "name": "acf/all-albums",
+  "title": "MCA - All Albums",
+  "category": "formatting",
+  "icon": "format-gallery",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "all-albums.php"
+  },
+  "supports": {
+    "anchor": true,
+    "customClassName": true
+  }
+}

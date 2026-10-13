@@ -14,6 +14,22 @@ if (class_exists(FieldsBuilder::class)) {
         ->setLocation('block', '==', 'acf/notices')
 
         ->addTab('Content')
+        ->addSelect('notices_layout', [
+            'label' => 'Layout',
+            'choices' => ['listing' => 'Latest notices - full listing', 'selected' => 'More notices - 3 cards'],
+            'default_value' => 'listing',
+            'return_format' => 'value',
+        ])
+        ->addRelationship('notices_selected', [
+            'label' => 'Select up to 3 notices',
+            'post_type' => ['procurement'],
+            'post_status' => ['publish'],
+            'return_format' => 'id',
+            'max' => 3,
+            'instructions' => 'Drag to reorder. Leave empty to show the latest 3 notices, excluding the current post.',
+            'conditional_logic' => [[['field' => 'notices_layout', 'operator' => '==', 'value' => 'selected']]],
+        ])
+        ->addLink('notices_header_link', ['label' => 'Header button', 'instructions' => 'For example: All procurements.'])
         ->addText('notices_title', [
             'label' => 'Title',
         ])

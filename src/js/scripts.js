@@ -18,6 +18,7 @@ import application from "./__modules/application";
 import vacancies from "./__modules/vacancies";
 import category from "./__modules/category";
 import allDocuments from "./__modules/all-documents";
+import allAlbums from "./__modules/all-albums";
 import aboutProcurement from "./__modules/about-procurement";
 import singleHero from "./__modules/single-hero";
 import singleContent from "./__modules/single-content";
@@ -48,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     vacancies();
     category();
     allDocuments();
+    allAlbums();
     aboutProcurement();
     singleHero();
     singleContent();
@@ -87,13 +89,23 @@ document.addEventListener("DOMContentLoaded", () => {
 		countdown();
 	}
 
-	if (document.querySelector("[data-fancybox]")) {
-		Fancybox.bind("[data-fancybox]", {
+	if (window.Fancybox && document.querySelector("[data-fancybox]")) {
+		Fancybox.bind("[data-fancybox]:not([data-mca-gallery])", {
 			closeButton: true,
 			transition: "slide",
 			clickContent: "toggle",
 		});
 	}
+
+    if (window.Fancybox && document.querySelector('[data-mca-gallery]')) {
+        Fancybox.bind('[data-mca-gallery]', {
+            mainClass: 'gallery-lightbox',
+            closeButton: false,
+            infinite: true,
+            Thumbs: { autoStart: true },
+            Toolbar: { display: ['counter', 'close'] },
+        });
+    }
 
 	if (document.querySelector(".cookie-banner")) {
 		cookie();
