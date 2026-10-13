@@ -1,0 +1,17 @@
+{
+  "name": "acf/newsletter-subscribe",
+  "title": "MCA - Newsletter Subscribe",
+  "description": "Newsletter signup section with an editorial preview card.",
+  "category": "formatting",
+  "icon": "email-alt",
+  "keywords": ["newsletter", "subscribe", "email"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "newsletter-subscribe.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

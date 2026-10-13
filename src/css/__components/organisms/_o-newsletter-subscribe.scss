@@ -1,0 +1,13 @@
+.o-newsletter-subscribe {
+    padding: 32px 0;
+    background: var(--grey);
+    color: var(--dark-blue);
+
+    > .container {
+        display: block;
+    }
+
+    @media (min-width: 768px) {
+        padding: 40px 0;
+    }
+}
