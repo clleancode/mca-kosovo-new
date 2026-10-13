@@ -4,6 +4,7 @@
 }
 
 .m-publications-banner__cover {
+    order: 1;
     overflow: hidden;
     border-radius: 16px;
 }
@@ -88,5 +89,8 @@
 @media (min-width: 768px) {
     .m-publications-banner {
         grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    }
+    .m-publications-banner__cover {
+        order: 0;
     }
 }

@@ -64,6 +64,10 @@ add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\register_assets');
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets', 20);
 
 add_filter('script_loader_tag', function($tag, $handle) {
+    if ($handle === 'mca-main-script') {
+        $tag = preg_replace('/\s+type=([\'"])text\/javascript\1/', '', $tag);
+        return str_replace('<script ', '<script type="module" ', $tag);
+    }
     $defer = ['google-maps-api'];
     if (in_array($handle, $defer, true)) {
         return str_replace(' src', ' defer src', $tag);
