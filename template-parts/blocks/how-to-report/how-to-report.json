@@ -1,0 +1,17 @@
+{
+  "name": "acf/how-to-report",
+  "title": "MCA - How to Report",
+  "description": "Hotline reporting options and related anti-fraud resources.",
+  "category": "formatting",
+  "icon": "warning",
+  "keywords": ["report", "hotline", "fraud", "corruption"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "how-to-report.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
