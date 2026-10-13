@@ -23,6 +23,7 @@ import aboutProcurement from "./__modules/about-procurement";
 import jobRole from "./__modules/job-role";
 import singleHero from "./__modules/single-hero";
 import singleContent from "./__modules/single-content";
+import newsletterSubscribe from "./__modules/newsletter-subscribe";
 
 const updateHeroFraction = (swiper) => {
 	const current = swiper.el.querySelector(".m-hero__current");
@@ -55,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     jobRole();
     singleHero();
     singleContent();
+    newsletterSubscribe();
 
 	if (document.querySelector(".o-header")) {
 		header();
