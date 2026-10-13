@@ -20,6 +20,8 @@ import category from "./__modules/category";
 import allDocuments from "./__modules/all-documents";
 import allAlbums from "./__modules/all-albums";
 import aboutProcurement from "./__modules/about-procurement";
+import singleHero from "./__modules/single-hero";
+import singleContent from "./__modules/single-content";
 
 const updateHeroFraction = (swiper) => {
 	const current = swiper.el.querySelector(".m-hero__current");
@@ -49,6 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
     allDocuments();
     allAlbums();
     aboutProcurement();
+    singleHero();
+    singleContent();
 
 	if (document.querySelector(".o-header")) {
 		header();
