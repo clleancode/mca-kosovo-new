@@ -46,8 +46,27 @@ $page = isset($_GET[$page_key]) && is_scalar($_GET[$page_key])
 $per_page = max(3, min(24, (int) (get_field('vacancies_per_page') ?: 6)));
 
 $queries = [];
+$other_positions = (bool) get_field('vacancies_other_positions');
+$other_jobs = [];
+if ($other_positions) {
+    $current_job = is_singular('job') ? get_queried_object_id() : 0;
+    $job_selection = array_values(array_diff(array_filter(array_map('absint', (array) get_field('vacancies_other_selection'))), [$current_job]));
+    $other_args = [
+        'post_type' => 'job',
+        'post_status' => 'publish',
+        'posts_per_page' => 3,
+        'post__not_in' => $current_job ? [$current_job] : [],
+        'orderby' => ['date' => 'DESC', 'ID' => 'DESC'],
+        'no_found_rows' => true,
+    ];
+    if ($job_selection) {
+        $other_args['post__in'] = $job_selection;
+        $other_args['orderby'] = 'post__in';
+    }
+    $other_jobs = get_posts($other_args);
+}
 
-foreach (['ongoing', 'closed'] as $state) {
+foreach ($other_positions ? [] : ['ongoing', 'closed'] as $state) {
     $args = [
         'post_type'      => 'job',
         'post_status'    => 'publish',
@@ -80,6 +99,13 @@ $render_cards = static function ($jobs, $state) {
         <?php foreach ($jobs as $job) : ?>
             <?php
             $deadline   = Notices\get_deadline($job->ID);
+            $card_state = $state;
+            if ($card_state === null) {
+                $is_closed = $deadline
+                    ? $deadline < new DateTimeImmutable('today', wp_timezone())
+                    : has_term('closed', 'job_status', $job->ID);
+                $card_state = $is_closed ? 'closed' : 'ongoing';
+            }
             $department = get_field('job_department', $job->ID);
             $tone       = get_field('job_department_color', $job->ID);
             $tone       = in_array($tone, ['blue', 'purple', 'green'], true) ? $tone : 'blue';
@@ -88,9 +114,9 @@ $render_cards = static function ($jobs, $state) {
             <article class="m-vacancies__card">
                 <div class="m-vacancies__card-top">
                     <div class="m-vacancies__meta">
-                        <div class="m-vacancies__status m-vacancies__status--<?php echo esc_attr($state); ?>">
+                        <div class="m-vacancies__status m-vacancies__status--<?php echo esc_attr($card_state); ?>">
                             <span class="a-text a-text--xs">
-                                <?php echo $state === 'closed' ? 'Closed' : 'Ongoing'; ?>
+                                <?php echo $card_state === 'closed' ? 'Closed' : 'Ongoing'; ?>
                             </span>
                         </div>
 
@@ -118,7 +144,7 @@ $render_cards = static function ($jobs, $state) {
                     </h3>
                 </div>
 
-                <div class="m-vacancies__card-footer">
+                <div class="m-vacancies__card-footer s-d-t-xs s-m-t-xs">
                     <span class="a-text a-text--xs h-semibold">
                         <?php echo esc_html(get_field('job_employer', $job->ID)); ?>
                     </span>
@@ -149,9 +175,10 @@ $render_cards = static function ($jobs, $state) {
 
             <div class="m-vacancies__header">
                 <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?>">
-                    <?php echo esc_html(get_field('vacancies_title')); ?>
+                    <?php echo esc_html(get_field('vacancies_title') ?: ($other_positions ? __('Other positions', 'MCA') : '')); ?>
                 </<?php echo tag_escape($tag); ?>>
 
+                <?php if (!$other_positions): ?>
                 <nav class="m-vacancies__tabs" aria-label="Vacancy status">
                     <?php foreach (['ongoing' => 'Ongoing', 'closed' => 'Closed'] as $state => $label) : ?>
                         <a
@@ -167,9 +194,15 @@ $render_cards = static function ($jobs, $state) {
                         </a>
                     <?php endforeach; ?>
                 </nav>
+                <?php endif; ?>
             </div>
 
-            <?php foreach (['ongoing', 'closed'] as $state) : ?>
+            <?php if ($other_positions): ?>
+                <?php if ($other_jobs): $render_cards($other_jobs, null); else: ?>
+                    <p class="a-text a-text--l"><?php esc_html_e('No other positions found.', 'MCA'); ?></p>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php foreach ($other_positions ? [] : ['ongoing', 'closed'] as $state) : ?>
                 <?php $query = $queries[$state]; ?>
                 <div
                     class="m-vacancies__panel"
