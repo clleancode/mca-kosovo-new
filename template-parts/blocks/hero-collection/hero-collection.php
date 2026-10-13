@@ -126,7 +126,7 @@ $render_breadcrumbs = static function ($rows) use ($link_markup) {
                     <nav class="m-hero-collection__policy-links" aria-label="Policy navigation">
                         <?php foreach ($links as $index => $row) : ?>
                             <?php $link = $row['link'] ?? []; if (empty($link['url'])) { continue; } ?>
-                            <span class="m-hero-collection__policy-link<?php echo $index === 0 ? ' is-current' : ''; ?>"><?php $link_markup($link, 'a-text a-text--m'); ?></span>
+                            <span class="m-hero-collection__policy-link<?php echo $index === 0 ? ' is-current' : ''; ?>"><?php $link_markup($link, 'a-text a-text--m h-semibold'); ?></span>
                         <?php endforeach; ?>
                     </nav>
                 <?php endif; ?>
