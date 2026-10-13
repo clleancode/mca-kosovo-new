@@ -1,0 +1,17 @@
+{
+  "name": "acf/hero-collection",
+  "title": "MCA - Hero Collection",
+  "description": "One hero block with five selectable layouts.",
+  "category": "formatting",
+  "icon": "cover-image",
+  "keywords": ["hero", "header", "banner"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "hero-collection.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

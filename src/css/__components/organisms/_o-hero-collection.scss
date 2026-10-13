@@ -1,0 +1,49 @@
+.o-hero-collection {
+    position: relative;
+    overflow: hidden;
+    padding: 56px 0 32px;
+    color: var(--white);
+    background: var(--dark-blue);
+
+    > .container {
+        display: block;
+    }
+
+    @media (min-width: 768px) {
+        padding: 40px 0 30px;
+    }
+
+    @media (min-width: 1200px) {
+        padding-top: 44px;
+    }
+}
+
+.o-hero-collection--album {
+    @media (min-width: 768px) {
+        padding-top: 112px;
+    }
+}
+
+.o-hero-collection--integrity {
+    @media (min-width: 768px) {
+        padding-top: 36px;
+        padding-bottom: 38px;
+    }
+}
+
+.o-hero-collection--policy {
+    @media (min-width: 768px) {
+        padding-top: 48px;
+    }
+}
+
+.o-hero-collection--vacancies {
+    @media (min-width: 768px) {
+        padding-top: 30px;
+        padding-bottom: 50px;
+    }
+}
+
+.o-hero-collection--integrity {
+    background: linear-gradient(110deg, #001f54 0%, #201642 56%, #50102f 100%);
+}
