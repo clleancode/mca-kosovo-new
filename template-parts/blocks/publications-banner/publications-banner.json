@@ -1,0 +1,14 @@
+{
+    "name": "acf/publications-banner",
+    "title": "MCA - Publications Banner",
+    "category": "formatting",
+    "icon": "book",
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "publications-banner.php"
+    },
+    "supports": {
+        "anchor": true,
+        "customClassName": true
+    }
+}
