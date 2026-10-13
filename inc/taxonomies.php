@@ -162,3 +162,12 @@ function register_publication_type_taxonomy() {
     }
 }
 add_action( 'init', __NAMESPACE__ . '\\register_publication_type_taxonomy' );
+
+// Album categories for the All Albums filters.
+add_action('init', function () {
+    register_taxonomy('gallery_category', ['gallery'], [
+        'label' => __('Album categories', 'MCA'),
+        'public' => true, 'hierarchical' => true, 'show_in_rest' => true,
+        'show_admin_column' => true, 'rewrite' => ['slug' => 'album-category'],
+    ]);
+});

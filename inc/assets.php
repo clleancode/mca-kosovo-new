@@ -23,10 +23,12 @@ function register_assets() {
         mca_asset_ver('/assets/css/style.min.css')
     );
 
+    wp_register_script('mca-fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.js', [], '4.0.31', true);
+
     wp_register_script(
         'mca-main-script',
         $theme_uri . '/assets/js/script.min.js',
-        [],
+        ['mca-fancybox'],
         mca_asset_ver('/assets/js/script.min.js'),
         true
     );

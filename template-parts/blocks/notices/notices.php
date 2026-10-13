@@ -91,7 +91,7 @@ $legend = [
                     <?php endforeach; ?>
                 </ul><?php endif; ?>
                 <?php if (!empty($header_link['url'])): ?>
-                    <a class="a-btn a-btn--border-blue a-btn--smallest" href="<?php echo esc_url($header_link['url']); ?>"<?php if (($header_link['target'] ?? '') === '_blank'): ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>><span><?php echo esc_html($header_link['title'] ?: 'All procurements'); ?> &rarr;</span></a>
+                    <a class="a-btn a-btn--border-blue a-btn--smallest" href="<?php echo esc_url($header_link['url']); ?>"<?php if (($header_link['target'] ?? '') === '_blank'): ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>><span><?php echo esc_html($header_link['title'] ?: 'All procurements'); ?><span aria-hidden="true">&rarr;</span></span></a>
                 <?php endif; ?>
             </div>
 
