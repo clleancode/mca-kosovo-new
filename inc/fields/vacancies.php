@@ -15,6 +15,20 @@ if (class_exists(FieldsBuilder::class)) {
     $vacancies
         ->setLocation('block', '==', 'acf/vacancies')
         ->addTab('Content')
+        ->addTrueFalse('vacancies_other_positions', [
+            'label' => 'Show only 3 other positions',
+            'ui' => 1,
+            'instructions' => 'Shows three job cards without tabs or pagination. Excludes the current job on single-job pages.',
+        ])
+        ->addRelationship('vacancies_other_selection', [
+            'label' => 'Other positions (optional)',
+            'post_type' => ['job'],
+            'post_status' => ['publish'],
+            'return_format' => 'id',
+            'max' => 3,
+            'instructions' => 'Leave empty to show the latest three jobs. Drag to reorder.',
+            'conditional_logic' => [[['field' => 'vacancies_other_positions', 'operator' => '==', 'value' => '1']]],
+        ])
         ->addText('vacancies_section_id', [
             'label' => 'Section ID',
         ])
