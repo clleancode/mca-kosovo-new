@@ -19,6 +19,8 @@ import vacancies from "./__modules/vacancies";
 import category from "./__modules/category";
 import allDocuments from "./__modules/all-documents";
 import aboutProcurement from "./__modules/about-procurement";
+import singleHero from "./__modules/single-hero";
+import singleContent from "./__modules/single-content";
 
 const updateHeroFraction = (swiper) => {
 	const current = swiper.el.querySelector(".m-hero__current");
@@ -47,6 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
     category();
     allDocuments();
     aboutProcurement();
+    singleHero();
+    singleContent();
 
 	if (document.querySelector(".o-header")) {
 		header();

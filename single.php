@@ -24,7 +24,10 @@ get_header();
     }
 
     $show_fallback_related = !has_block('acf/related-posts', get_the_ID());
+    $has_single_hero = has_block('acf/single-hero', get_the_ID());
+    $has_single_content = has_block('acf/single-content', get_the_ID());
 ?>
+<?php if (!$has_single_hero) : ?>
 <section class="o-hero-banner o-hero--half s-d-t-3xl s-d-b-m s-m-t-xl s-m-b-m">
     <div class="m-content h-text-center">
         <div class="m-tag h-text-center h-no-margin m-tag--center">
@@ -55,10 +58,21 @@ get_header();
         <img src="<?php echo esc_url( $featured_img_url ); ?>" class="a-img" loading="lazy" decoding="async" alt="<?php echo esc_attr( $post_title ); ?>"  data-aos="fade-up" data-aos-delay="300">
     <?php endif; ?>
 </section>
+<?php endif; ?>
 
-<?php while ( have_posts() ) : the_post(); ?>
-	<?php the_content();?>
-<?php endwhile;?>
+<?php if ($has_single_content) : ?>
+    <?php while (have_posts()) : the_post(); ?>
+        <?php foreach (parse_blocks(get_post_field('post_content', get_the_ID())) as $single_block) : ?>
+            <?php if (in_array($single_block['blockName'] ?? '', ['acf/single-hero', 'acf/single-content'], true)) : ?>
+                <?php echo render_block($single_block); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endwhile; ?>
+<?php else : ?>
+    <?php while (have_posts()) : the_post(); ?>
+        <?php the_content(); ?>
+    <?php endwhile; ?>
+<?php endif; ?>
 
 <section class="m-content s-d-b-m s-m-b-m">
     <div class="container h-flex-center">

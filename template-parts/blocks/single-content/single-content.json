@@ -1,0 +1,17 @@
+{
+  "name": "acf/single-content",
+  "title": "MCA - Single Content",
+  "description": "Build the full article in this block, with share links, an automatic table of contents and a related project.",
+  "category": "formatting",
+  "icon": "editor-alignleft",
+  "keywords": ["single content", "news", "article"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "single-content.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}

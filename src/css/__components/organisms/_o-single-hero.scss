@@ -1,0 +1,10 @@
+.o-single-hero {
+    position: relative;
+    padding: 28px 0 16px;
+    background: linear-gradient(180deg, var(--dark-blue) 0 62%, var(--white) 62% 100%);
+    color: var(--white);
+
+    >.container {
+        display: block;
+    }
+}

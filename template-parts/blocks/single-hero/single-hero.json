@@ -1,0 +1,17 @@
+{
+  "name": "acf/single-hero",
+  "title": "MCA - Single Hero",
+  "description": "News article hero with metadata, sharing and featured image.",
+  "category": "formatting",
+  "icon": "format-image",
+  "keywords": ["single hero", "news", "article"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "single-hero.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "customClassName": true
+  }
+}
