@@ -1,0 +1,14 @@
+{
+    "name": "acf/job-role",
+    "title": "MCA - Job Role",
+    "category": "formatting",
+    "icon": "businessperson",
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "job-role.php"
+    },
+    "supports": {
+        "anchor": true,
+        "customClassName": true
+    }
+}
