@@ -1,0 +1,14 @@
+{
+    "name": "acf/document-preview",
+    "title": "MCA - Document Preview",
+    "category": "formatting",
+    "icon": "media-document",
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "document-preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "customClassName": true
+    }
+}
