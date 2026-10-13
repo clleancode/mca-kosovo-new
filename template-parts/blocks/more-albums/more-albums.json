@@ -1,0 +1,9 @@
+{
+  "name": "acf/more-albums",
+  "title": "MCA - More Albums",
+  "description": "Two links to other gallery albums.",
+  "category": "formatting",
+  "icon": "format-gallery",
+  "acf": { "mode": "preview", "renderTemplate": "more-albums.php" },
+  "supports": { "anchor": true, "customClassName": true }
+}
