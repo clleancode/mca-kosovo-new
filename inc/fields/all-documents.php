@@ -13,6 +13,20 @@ if (class_exists(FieldsBuilder::class)) {
     $documents
         ->setLocation('block', '==', 'acf/all-documents')
         ->addTab('Content')
+        ->addTrueFalse('all_documents_related', [
+            'label' => 'Show only related documents (up to 4)',
+            'ui' => 1,
+            'instructions' => 'Shows selected cards without filters, sorting or Load more.',
+        ])
+        ->addRelationship('all_documents_selection', [
+            'label' => 'Related documents',
+            'post_type' => ['publication'],
+            'post_status' => ['publish'],
+            'return_format' => 'id',
+            'max' => 4,
+            'instructions' => 'Choose up to four publications with a document attached. Drag to reorder.',
+            'conditional_logic' => [[['field' => 'all_documents_related', 'operator' => '==', 'value' => '1']]],
+        ])
         ->addText('all_documents_title', [
             'label' => 'Title',
         ])

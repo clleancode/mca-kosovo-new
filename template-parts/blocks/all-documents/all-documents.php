@@ -25,6 +25,7 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
 }
 
 $section_id = sanitize_title(get_field('all_documents_section_id') ?: ($block['anchor'] ?? ''));
+$related = (bool) get_field('all_documents_related');
 $instance   = sanitize_html_class($block['id'] ?? 'all-documents');
 $filter_key = 'document_filter_' . $instance;
 $page_key   = 'document_page_' . $instance;
@@ -112,6 +113,16 @@ if (strpos($selected, 'project-') === 0) {
     ];
 }
 
+if ($related) {
+    $selection = array_slice(array_values(array_filter(array_map('absint', (array) get_field('all_documents_selection')))), 0, 4);
+    unset($args['tax_query']);
+    $args['meta_query'] = [$args['meta_query'][0]];
+    $args['post__in'] = $selection ?: [0];
+    $args['posts_per_page'] = 4;
+    $args['orderby'] = 'post__in';
+    $args['paged'] = $paged = 1;
+    $args['no_found_rows'] = true;
+}
 $query = new WP_Query($args);
 
 if ($query->max_num_pages && $paged > $query->max_num_pages) {
@@ -127,7 +138,7 @@ $base = remove_query_arg($page_key);
         id="<?php echo esc_attr($section_id); ?>"
     <?php endif; ?>
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
-    data-all-documents="<?php echo esc_attr($instance); ?>"
+    <?php if (!$related): ?>data-all-documents="<?php echo esc_attr($instance); ?>"<?php endif; ?>
     data-filter-key="<?php echo esc_attr($filter_key); ?>"
     data-sort-key="<?php echo esc_attr($sort_key); ?>"
     data-page-key="<?php echo esc_attr($page_key); ?>"
@@ -135,10 +146,11 @@ $base = remove_query_arg($page_key);
 >
     <div class="container">
         <div class="m-all-documents">
-            <div class="m-all-documents__header s-d-b-s s-m-b-xs">
+            <div class="m-all-documents__header s-d-b-xs s-m-b-xs">
                 <h2 class="a-heading a-heading--h4 h-dark-blue">
-                    <?php echo esc_html(get_field('all_documents_title') ?: 'All documents'); ?>
+                    <?php echo esc_html(get_field('all_documents_title') ?: ($related ? 'Related documents' : 'All documents')); ?>
                 </h2>
+                <?php if (!$related): ?>
                 <label class="a-text a-text--m h-semibold">
                     Sort:
                     <select class="a-text a-text--m h-semibold" data-documents-sort aria-label="Sort documents">
@@ -146,7 +158,9 @@ $base = remove_query_arg($page_key);
                         <option value="oldest"<?php selected($sort, 'oldest'); ?>>Oldest first</option>
                     </select>
                 </label>
+                <?php endif; ?>
             </div>
+            <?php if (!$related): ?>
             <nav class="m-all-documents__filters" aria-label="Document filters">
                 <?php foreach ($filters as $value => $label) : ?>
                     <a
@@ -161,6 +175,7 @@ $base = remove_query_arg($page_key);
                     </a>
                 <?php endforeach; ?>
             </nav>
+            <?php endif; ?>
             <div class="m-all-documents__results" aria-live="polite">
                 <div class="m-all-documents__grid">
                     <?php foreach ($query->posts as $publication) :
@@ -221,6 +236,7 @@ $base = remove_query_arg($page_key);
                         <p class="a-text a-text--l">No documents found for this filter.</p>
                     </div>
                 <?php endif; ?>
+                <?php if (!$related): ?>
                 <div class="m-all-documents__more s-d-t-s s-m-t-xs">
                     <?php if ($paged < $query->max_num_pages) : ?>
                         <a class="a-btn a-btn--border-blue" href="<?php echo esc_url(add_query_arg([$filter_key => $selected, $sort_key => $sort, $page_key => $paged + 1], $base)); ?>" data-documents-more>
@@ -228,6 +244,7 @@ $base = remove_query_arg($page_key);
                         </a>
                     <?php endif; ?>
                 </div>
+                <?php endif; ?>
             </div>
             <div class="m-all-documents__message" role="status" data-documents-message></div>
         </div>
