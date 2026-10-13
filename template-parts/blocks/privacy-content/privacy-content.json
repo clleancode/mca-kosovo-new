@@ -1,0 +1,14 @@
+{
+    "name": "acf/privacy-content",
+    "title": "MCA - Privacy Content",
+    "category": "formatting",
+    "icon": "privacy",
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "privacy-content.php"
+    },
+    "supports": {
+        "anchor": true,
+        "customClassName": true
+    }
+}
