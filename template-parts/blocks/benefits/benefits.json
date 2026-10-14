@@ -1,0 +1,14 @@
+{
+    "name": "acf/benefits",
+    "title": "MCA - Benefits",
+    "category": "formatting",
+    "icon": "grid-view",
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "benefits.php"
+    },
+    "supports": {
+        "anchor": true,
+        "customClassName": true
+    }
+}
