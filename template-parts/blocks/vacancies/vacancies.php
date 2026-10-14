@@ -205,7 +205,7 @@ $render_cards = static function ($jobs, $state) {
             <?php foreach ($other_positions ? [] : ['ongoing', 'closed'] as $state) : ?>
                 <?php $query = $queries[$state]; ?>
                 <div
-                    class="m-vacancies__panel"
+                    class="m-vacancies__panel s-m-t-s"
                     data-vacancy-panel="<?php echo esc_attr($state); ?>"
                     <?php if ($state !== $selected) : ?>
                         hidden
