@@ -33,7 +33,9 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     'text_line_height'   => $text_height,
 ] = Helpers\get_block_typography();
 
-$items        = array_slice(get_field('timeline_milestones') ?: [], 0, 4);
+$items        = array_values(get_field('timeline_milestones') ?: []);
+$item_count   = count($items);
+$step         = $item_count ? 100 / $item_count : 0;
 $active_index = null;
 $progress     = 0;
 
@@ -44,12 +46,12 @@ foreach ($items as $index => $item) {
     }
 
     if (($item['status'] ?? '') === 'complete') {
-        $progress = ($index + 1) * 25;
+        $progress = ($index + 1) * $step;
     }
 }
 
 if ($active_index !== null) {
-    $progress = $active_index * 25;
+    $progress = $active_index * $step;
 }
 
 $label        = get_field('timeline_label');
@@ -94,7 +96,7 @@ $active_label = get_field('timeline_active_label');
             <?php if ($items) : ?>
                 <div
                     class="m-timeline__board<?php echo $active_index !== null ? ' m-timeline__board--active' : ''; ?>"
-                    style="--timeline-progress: <?php echo esc_attr($progress); ?>%;"
+                    style="--timeline-progress: <?php echo esc_attr($progress); ?>%; --timeline-count: <?php echo esc_attr($item_count); ?>;"
                 >
                     <img
                         class="m-timeline__decoration"

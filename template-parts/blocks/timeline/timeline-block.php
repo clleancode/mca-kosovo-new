@@ -9,7 +9,7 @@ add_action('acf/init', function () {
     acf_register_block_type([
         'name'            => 'timeline',
         'title'           => __('MCA - Compact Timeline', 'MCA'),
-        'description'     => __('Four milestones from Compact signature to handover.', 'MCA'),
+        'description'     => __('Custom project milestones with dates and progress statuses.', 'MCA'),
         'render_template' => get_template_directory() . '/template-parts/blocks/timeline/timeline.php',
         'category'        => 'formatting',
         'icon'            => 'clock',

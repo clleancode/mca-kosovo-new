@@ -41,14 +41,13 @@ if (class_exists(FieldsBuilder::class)) {
         ->addTab('Milestones')
             ->addRepeater('timeline_milestones', [
                 'label'        => 'Milestones',
-                'min'          => 4,
-                'max'          => 4,
+                'min'          => 1,
                 'layout'       => 'block',
                 'button_label' => 'Add milestone',
-                'instructions' => 'Add four milestones in chronological order. Set only one milestone to In progress.',
+                'instructions' => 'Add milestones in chronological order. Each timeline can use its own dates. Set only one milestone to In progress.',
             ])
                 ->addText('year', [
-                    'label'    => 'Year',
+                    'label'    => 'Year or main date',
                     'required' => 1,
                 ])
                 ->addText('date', [

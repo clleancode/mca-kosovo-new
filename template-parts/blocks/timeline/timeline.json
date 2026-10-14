@@ -1,7 +1,7 @@
 {
   "name": "acf/timeline",
   "title": "MCA - Compact Timeline",
-  "description": "Four milestones from Compact signature to handover.",
+  "description": "Custom project milestones with dates and progress statuses.",
   "category": "formatting",
   "icon": "clock",
   "keywords": [
