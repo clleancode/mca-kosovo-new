@@ -1,83 +1,132 @@
 <?php
-	/*
-	* archive.php
-	*/
-	
-	get_header();
-    $document_search = isset($_GET['search_scope']) && is_string($_GET['search_scope']) && $_GET['search_scope'] === 'documents';
+get_header();
+
+$search_term = get_search_query();
+$search_types = \MCA\SearchResults\get_types();
+$selected_type = isset($_GET['search_type']) && is_string($_GET['search_type'])
+    ? sanitize_key(wp_unslash($_GET['search_type']))
+    : 'all';
+
+if (!isset($search_types[$selected_type])) {
+    $selected_type = 'all';
+}
+
+$count_for_type = static function (array $args) use ($search_term) {
+    $query = new WP_Query(array_merge($args, [
+        's' => $search_term,
+        'posts_per_page' => 1,
+        'fields' => 'ids',
+        'paged' => 1,
+        'no_found_rows' => false,
+        'ignore_sticky_posts' => true,
+    ]));
+
+    return (int) $query->found_posts;
+};
+
+$search_counts = [];
+foreach ($search_types as $type_key => $type_data) {
+    if ($type_key !== 'all') {
+        $search_counts[$type_key] = $count_for_type($type_data['args']);
+    }
+}
+$search_counts['all'] = array_sum($search_counts);
+
+$paged = max(1, (int) get_query_var('paged'));
+$results_query = \MCA\SearchResults\get_results_query($search_term, $selected_type, $paged);
 ?>
-	<div class="defult-bg default-search">
-		<?php
-			$image = get_field('upload_category_banner', 'option');
-			$size = 'extra_large';
-			if ($image) {
-				echo wp_get_attachment_image($image, $size);
-			}
-		?>
-	</div>
-	<section class="search s-d-t-3xl s-m-t-2xl s-d-b-2xl s-m-b-xl">
-		<div class="container h-flex-center">
-			<h1 class="a-heading a-heading--h3 ">
-				<?php
-					$search_query = get_search_query();
-					if ( $search_query ) {
-						printf(
-							esc_html__( 'Search results for: %s', 'mca-kosovo' ),
-							'<span class="a-text h-blue">' . esc_html( $search_query ) . '</span>'
-						);
-					}
-				?>
-			</h1>
-			<div class="m-results m-results--search">
-				<?php
-					$paged = max( 1, get_query_var( 'paged' ) ? get_query_var( 'paged' ) : get_query_var( 'page' ) );
-					$search_term = get_search_query();
-					$search_args = ['s' => $search_term, 'posts_per_page' => 6, 'paged' => $paged];
-                    if ($document_search) $search_args = array_merge($search_args, \MCA\Helpers\get_document_search_args());
-                    $search_wp = new WP_Query($search_args);
-				?>
-				<?php if ( $search_wp->have_posts() ) : ?>
-						<?php while ( $search_wp->have_posts() ) : $search_wp->the_post(); ?>
-							<div class="m-faq m-faq--procurement m-results__item">
-							<a href="<?php echo esc_url($document_search && get_post_type() === 'attachment' ? wp_get_attachment_url(get_the_ID()) : get_permalink()); ?>" class="m-results__link">
-								<p class="a-heading a-heading--h6 s-d-b-xs s-m-b-xs h-britanica"><?php the_title(); ?></p>
-								<p class="a-text a-text--m"><?php echo wp_kses_post( get_the_excerpt() ); ?></p>
-							</a>
-							<i class="icon-arrow-right-up a-icon a-icon--xs"></i>
-					        </div>
-						<?php endwhile; wp_reset_postdata(); ?>
 
-					<div class="m-pagination">
-						<?php
-							$total_pages = $search_wp->max_num_pages;
-							if ( $total_pages > 1 ) {
-								$base = remove_query_arg( 'paged', get_pagenum_link(1) ) . '%_%';
-								$format = '&paged=%#%';
-								$pagination_links = paginate_links([
-									'base'      => $base,
-									'format'    => $format,
-									'current'   => $paged,
-									'total'     => $total_pages,
-									'type'      => 'list',
-									'mid_size'  => 1,
-									'end_size'  => 1,
-									'prev_next' => true,
-									'prev_text' => '<i class="icon-arrow-right a-icon" aria-hidden="true" aria-label="Previous page"></i>',
-									'next_text' => '<i class="icon-arrow-right a-icon" aria-hidden="true" aria-label="Next page"></i>',
-									'add_args'  => array_merge(['s' => $search_term], $document_search ? ['search_scope' => 'documents'] : []),
-								]);
+<main class="o-search-results s-d-t-xl s-m-t-xl" data-search-results data-ajax-url="<?php echo esc_url(admin_url('admin-ajax.php')); ?>" data-nonce="<?php echo esc_attr(wp_create_nonce('mca_search_pagination')); ?>">
+    <section class="m-search-results__hero">
+        <div class="container">
+            <form class="m-search-results__form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+                <input type="hidden" name="search_type" value="<?php echo esc_attr($selected_type); ?>">
+                <label class="a-text a-text--s" for="search-results-query"><?php esc_html_e('Search', 'mca-kosovo'); ?></label>
+                <div class="m-search-results__input-wrap">
+                    <input class="a-heading a-heading--h6" id="search-results-query" type="search" name="s" value="<?php echo esc_attr($search_term); ?>" required>
+                    <a class="m-search-results__clear" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('Clear search', 'mca-kosovo'); ?>">&times;</a>
+                    <button class="a-text a-text--m" type="submit"><?php esc_html_e('Search', 'mca-kosovo'); ?></button>
+                </div>
+                <?php if ($search_term) : ?>
+                    <p class="a-text a-text--l"><?php printf(esc_html__('Showing results for “%s”', 'mca-kosovo'), esc_html($search_term)); ?></p>
+                <?php endif; ?>
+            </form>
+        </div>
+    </section>
 
-								if ( $pagination_links ) {
-									echo '<nav class="m-pagination s-m-t-m s-d-t-m">' . $pagination_links . '</nav>';
-								}
-							}
-						?>
-					</div>
-				<?php else : ?>
-					<p class="a-text a-text--m"><?php esc_html_e( 'No results found. Please try a different search.', 'mca-kosovo' ); ?></p>
-				<?php endif; ?>
-			</div>
-		</div>
-	</section>
-<?php
-	get_footer(); ?>
+    <section class="m-search-results">
+        <div class="container">
+            <nav class="m-search-results__filters" aria-label="<?php esc_attr_e('Filter search results', 'mca-kosovo'); ?>">
+                <?php foreach ($search_types as $type_key => $type_data) : ?>
+                    <?php $filter_url = add_query_arg(['s' => $search_term, 'search_type' => $type_key], home_url('/')); ?>
+                    <a class="m-search-results__filter<?php echo $selected_type === $type_key ? ' is-active' : ''; ?>" href="<?php echo esc_url($filter_url); ?>" <?php echo $selected_type === $type_key ? 'aria-current="page"' : ''; ?>>
+                        <span class="a-text a-text--m"><?php echo esc_html($type_data['label']); ?></span>
+                        <span class="a-text a-text--xs"><?php echo esc_html(number_format_i18n($search_counts[$type_key])); ?></span>
+                    </a>
+                <?php endforeach; ?>
+            </nav>
+
+            <div data-search-content aria-live="polite">
+                <?php get_template_part('template-parts/search/results-content', null, [
+                    'query' => $results_query,
+                    'term' => $search_term,
+                    'type' => $selected_type,
+                    'page' => $paged,
+                ]); ?>
+            </div>
+            <p class="a-text a-text--s" data-search-error hidden><?php esc_html_e('Search results could not be loaded. Please try again.', 'mca-kosovo'); ?></p>
+        </div>
+    </section>
+</main>
+
+<script>
+(() => {
+    const root = document.querySelector('[data-search-results]');
+    const content = root?.querySelector('[data-search-content]');
+    const errorMessage = root?.querySelector('[data-search-error]');
+    if (!root || !content || !errorMessage) return;
+
+    const loadPage = async (url, updateHistory = true) => {
+        const target = new URL(url, window.location.href);
+        const body = new URLSearchParams({
+            action: 'mca_search_pagination',
+            nonce: root.dataset.nonce,
+            s: target.searchParams.get('s') || '',
+            search_type: target.searchParams.get('search_type') || 'all',
+            paged: target.searchParams.get('paged') || '1',
+        });
+
+        root.classList.add('is-loading');
+        errorMessage.hidden = true;
+        try {
+            const response = await fetch(root.dataset.ajaxUrl, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                body: body.toString(),
+            });
+            const result = await response.json();
+            if (!response.ok || !result.success) throw new Error('Search pagination failed');
+
+            content.innerHTML = result.data.content;
+            if (updateHistory) window.history.pushState({}, '', result.data.url);
+            content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } catch (error) {
+            errorMessage.hidden = false;
+        } finally {
+            root.classList.remove('is-loading');
+        }
+    };
+
+    root.addEventListener('click', event => {
+        const link = event.target.closest?.('.m-search-results__pagination a');
+        if (!link || root.classList.contains('is-loading') || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        loadPage(link.href);
+    });
+
+    window.addEventListener('popstate', () => loadPage(window.location.href, false));
+})();
+</script>
+
+<?php get_footer(); ?>
