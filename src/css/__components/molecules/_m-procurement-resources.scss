@@ -56,15 +56,11 @@
 }
 
 .m-procurement-resources__action .a-btn--white:hover {
-    color: var(--dark-blue);
-}
-
-.m-procurement-resources__action .a-btn--border-white:hover {
     color: var(--white);
 }
 
-.m-procurement-resources__action .a-btn:hover::after {
-    transform: scaleX(0);
+.m-procurement-resources__action .a-btn--border-white:hover {
+    color: var(--dark-blue);
 }
 
 .m-procurement-resources__action .a-btn:hover i {

@@ -1,3 +1,5 @@
+@use '../atoms/a-btn' as button;
+
 .m-compact-projects__intro {
     width: 100%;
     min-width: 0;
@@ -183,7 +185,8 @@
     background: var(--white);
     color: var(--dark-blue);
     text-decoration: none;
-    transition: transform .25s var(--cubic-bezier), background .25s var(--cubic-bezier);
+    @include button.fill-hover();
+    transition: color .3s ease-in-out, transform .25s var(--cubic-bezier);
 
     .icon-arrow-right-up {
         font-size: 12px;
@@ -193,7 +196,6 @@
 
 .m-compact-projects__button:hover {
     transform: translateY(-2px);
-    background: var(--grey);
 }
 
 .m-compact-projects__open {
