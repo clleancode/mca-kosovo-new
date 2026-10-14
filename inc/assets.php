@@ -98,24 +98,31 @@ add_action('wp_head', function () {
       'analytics_storage': 'denied',
       'ad_storage': 'denied',
       'ad_user_data': 'denied',
-      'ad_personalization': 'denied'
+      'ad_personalization': 'denied',
+      'functionality_storage': 'denied',
+      'personalization_storage': 'denied',
+      'security_storage': 'granted'
     });
 
     try {
       var storedConsent = localStorage.getItem('cookie_consent');
-      if (storedConsent === 'accepted') {
+      var preferences = null;
+      if (storedConsent === 'accepted' || storedConsent === 'rejected') {
+        preferences = { statistics: storedConsent === 'accepted', marketing: storedConsent === 'accepted', preferences: storedConsent === 'accepted' };
+      } else if (storedConsent) {
+        var parsedConsent = JSON.parse(storedConsent);
+        if (parsedConsent.version === 1 && ['preferences', 'statistics', 'marketing'].every(function (key) { return typeof parsedConsent[key] === 'boolean'; })) {
+          preferences = parsedConsent;
+        }
+      }
+      if (preferences) {
         gtag('consent', 'update', {
-          'analytics_storage': 'granted',
-          'ad_storage': 'granted',
-          'ad_user_data': 'granted',
-          'ad_personalization': 'granted'
-        });
-      } else if (storedConsent === 'rejected') {
-        gtag('consent', 'update', {
-          'analytics_storage': 'denied',
-          'ad_storage': 'denied',
-          'ad_user_data': 'denied',
-          'ad_personalization': 'denied'
+          'analytics_storage': preferences.statistics ? 'granted' : 'denied',
+          'ad_storage': preferences.marketing ? 'granted' : 'denied',
+          'ad_user_data': preferences.marketing ? 'granted' : 'denied',
+          'ad_personalization': preferences.marketing ? 'granted' : 'denied',
+          'functionality_storage': preferences.preferences ? 'granted' : 'denied',
+          'personalization_storage': preferences.preferences ? 'granted' : 'denied'
         });
       }
     } catch (e) {

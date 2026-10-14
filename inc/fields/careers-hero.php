@@ -33,12 +33,12 @@ if (class_exists(FieldsBuilder::class)) {
         ])
         ->addTab('Team collage')
         ->addRepeater('careers_hero_photos', [
-            'label'        => 'Team photos',
-            'min'          => 6,
+            'label'        => 'Fallback team photos',
+            'min'          => 0,
             'max'          => 6,
             'layout'       => 'table',
             'button_label' => 'Add photo',
-            'instructions' => 'First three photos form the top row; the next three form the bottom row.',
+            'instructions' => 'The collage automatically selects up to six random published Persons with a Person photo. These photos are only used when no Persons photos are available. Manage portraits under Persons in the admin menu.',
         ])
             ->addImage('image', [
                 'label'         => 'Photo',

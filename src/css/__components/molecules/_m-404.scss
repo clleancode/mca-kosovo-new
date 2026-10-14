@@ -1,0 +1,42 @@
+.m-404 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.m-404__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 720px;
+
+    .a-tag {
+        max-width: 120px;
+    }
+}
+
+.m-404__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.m-404__number {
+    flex-shrink: 0;
+    font-size: clamp(180px, 18.75vw, 360px);
+    font-weight: 500;
+    line-height: .889;
+    letter-spacing: -.035em;
+}
+
+@media (max-width: 767px) {
+    .m-404 {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .m-404__number {
+        align-self: center;
+        font-size: clamp(160px, 40vw, 260px);
+    }
+}

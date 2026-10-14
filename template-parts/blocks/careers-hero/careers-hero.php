@@ -38,7 +38,33 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
 
 $page_id     = get_the_ID();
 $description = get_field('careers_hero_description');
-$photos      = array_slice(get_field('careers_hero_photos') ?: [], 0, 6);
+$persons = get_posts([
+    'post_type'      => 'person',
+    'post_status'    => 'publish',
+    'posts_per_page' => 6,
+    'orderby'       => 'rand',
+    'meta_query'    => [
+        [
+            'key'     => '_thumbnail_id',
+            'value'   => 0,
+            'compare' => '>',
+            'type'    => 'NUMERIC',
+        ],
+    ],
+]);
+
+$photos = [];
+foreach ($persons as $person) {
+    $image_id = get_post_thumbnail_id($person->ID);
+    if ($image_id && wp_attachment_is_image($image_id)) {
+        $photos[] = ['image' => $image_id, 'alt' => get_the_title($person->ID)];
+    }
+}
+
+// Keep existing block photos until portraits have been published.
+if (!$photos) {
+    $photos = array_slice(get_field('careers_hero_photos') ?: [], 0, 6);
+}
 $statistic   = get_field('careers_hero_statistic');
 $caption     = get_field('careers_hero_statistic_caption');
 
@@ -119,10 +145,14 @@ $links = [
                         <div class="m-careers-hero__photo">
                             <?php
                             if (!empty($photo['image'])) {
-                                echo wp_get_attachment_image($photo['image'], 'large', false, [
+                                $image_attributes = [
                                     'loading'  => 'eager',
                                     'decoding' => 'async',
-                                ]);
+                                ];
+                                if (isset($photo['alt'])) {
+                                    $image_attributes['alt'] = get_post_meta($photo['image'], '_wp_attachment_image_alt', true) ?: $photo['alt'];
+                                }
+                                echo wp_get_attachment_image($photo['image'], 'large', false, $image_attributes);
                             }
                             ?>
                         </div>

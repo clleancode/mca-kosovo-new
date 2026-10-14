@@ -173,3 +173,10 @@
         max-width: 64%;
     }
 }
+.m-footer__legal [data-cookie-settings] {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+    cursor: pointer;
+}

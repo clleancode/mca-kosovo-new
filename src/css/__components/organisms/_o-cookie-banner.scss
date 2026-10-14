@@ -1,0 +1,16 @@
+.o-cookie-banner {
+    position: fixed;
+    z-index: 100;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    color: var(--dark-blue);
+
+    &[hidden] { display: none; }
+
+    @media (min-width: 768px) {
+        right: 16px;
+        bottom: 16px;
+        left: 16px;
+    }
+}

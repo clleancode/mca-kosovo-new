@@ -37,11 +37,11 @@
 .m-vacancies__tabs>a>span {
     display: grid;
     place-items: center;
-    min-width: 20px;
+    min-width: 25px;
     height: 20px;
-    padding: 0 4px;
-    border-radius: 50%;
-    color: #59647d;
+    padding: 2px 8px;
+    border-radius: 99px;
+    color: var(--dark-blue);
     background: #f3f4f7;
 }
 

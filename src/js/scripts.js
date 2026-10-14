@@ -2,7 +2,7 @@ import header from "./__modules/header";
 import slider from "./__modules/slider";
 import AOS from "aos";
 import countdown from "./__modules/countdown";
-import cookie from "./__modules/cookie";
+import cookieBanner from "./__modules/cookie-banner";
 import compact from "./__modules/compact";
 import compactProjects from "./__modules/compact-projects";
 import news from "./__modules/news";
@@ -115,8 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-	if (document.querySelector(".cookie-banner")) {
-		cookie();
+	if (document.querySelector(".o-cookie-banner")) {
+		cookieBanner();
 	}
 
 	AOS.init({

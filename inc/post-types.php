@@ -16,6 +16,7 @@ $custom_post_types = [
     'galleries.php',
     'jobs.php',
     'news.php',
+    'persons.php',
     'procurements.php',
     'projects.php',
     'programs.php',
