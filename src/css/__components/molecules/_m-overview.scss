@@ -1,3 +1,35 @@
+.m-overview__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px 32px;
+}
+
+.o-overview--activities .m-overview__main-image {
+    aspect-ratio: 280 / 315;
+}
+
+.o-overview--activities .m-overview__detail-image {
+    border-width: 4px;
+    border-radius: 14px;
+}
+
+.o-overview--activities .m-overview__statistic {
+    right: 24px;
+    bottom: 72px;
+    padding: 24px 28px;
+}
+
+@media (min-width: 768px) {
+    .o-overview--activities .m-overview__content {
+        grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+    }
+
+    .o-overview--activities .m-overview__visual {
+        padding: 0 0 100px 23%;
+    }
+}
+
 .m-overview__navigation>.container {
     display: block;
 }

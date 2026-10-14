@@ -16,6 +16,21 @@ if (class_exists(FieldsBuilder::class)) {
 
     $overview
         ->setLocation('block', '==', 'acf/overview')
+        ->addTab('Layout')
+        ->addButtonGroup('overview_layout', [
+            'label' => 'Section layout',
+            'choices' => ['default' => 'Project overview', 'activities' => 'Key activities'],
+            'default_value' => 'default',
+            'instructions' => 'Key activities uses a white background, two overlapping images and content links instead of the project navigation and benefits.',
+        ])
+        ->addLink('overview_download', [
+            'label' => 'Download link',
+            'conditional_logic' => [[['field' => 'overview_layout', 'operator' => '==', 'value' => 'activities']]],
+        ])
+        ->addLink('overview_content_link', [
+            'label' => 'Additional content link',
+            'conditional_logic' => [[['field' => 'overview_layout', 'operator' => '==', 'value' => 'activities']]],
+        ])
         ->addTab('Navigation')
         ->addText('overview_project_name', [
             'label' => 'Project name',

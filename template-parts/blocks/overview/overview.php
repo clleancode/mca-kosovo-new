@@ -13,6 +13,13 @@ $classes = [
     $block['className'] ?? '',
 ];
 
+$is_activities = get_field('overview_layout') === 'activities';
+$download = get_field('overview_download') ?: [];
+$content_link = get_field('overview_content_link') ?: [];
+if ($is_activities) {
+    $classes[] = 'o-overview--activities';
+}
+
 foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     foreach (['top' => 't', 'bottom' => 'b'] as $side => $suffix) {
         $space = get_field("space_{$device}_{$side}");
@@ -58,6 +65,7 @@ $has_content = trim((string) get_field('overview_title')) !== ''
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
     data-overview
 >
+    <?php if (!$is_activities) : ?>
     <div class="m-overview__navigation">
         <div class="container">
             <div class="m-overview__bar">
@@ -98,6 +106,7 @@ $has_content = trim((string) get_field('overview_title')) !== ''
         </div>
     </div>
 
+    <?php endif; ?>
     <?php if ($has_content): ?>
     <div class="container">
         <div id="<?php echo esc_attr($content_id); ?>" class="m-overview__content">
@@ -118,7 +127,22 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                     </div>
                 <?php endif; ?>
 
-                <?php if ($benefits) : ?>
+                <?php if ($is_activities && (!empty($download['url']) || !empty($content_link['url']))) : ?>
+                    <div class="m-overview__actions s-d-t-s s-m-t-xs">
+                        <?php if (!empty($download['url'])) : ?>
+                            <a class="a-btn a-btn--blue" href="<?php echo esc_url($download['url']); ?>"<?php if (($download['target'] ?? '') === '_blank') : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>>
+                                <span><?php echo esc_html($download['title'] ?: __('Download', 'MCA')); ?> <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/white-download.svg')); ?>" width="18" height="18" alt="" aria-hidden="true"></span>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($content_link['url'])) : ?>
+                            <a class="a-underline a-text a-text--m h-dark-blue" href="<?php echo esc_url($content_link['url']); ?>"<?php if (($content_link['target'] ?? '') === '_blank') : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>>
+                                <span><?php echo esc_html($content_link['title'] ?? ''); ?></span><i class="icon-arrow-right a-icon" aria-hidden="true"></i>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($benefits && !$is_activities) : ?>
                     <ol class="m-overview__benefits">
                         <?php foreach ($benefits as $index => $benefit) : ?>
                             <li class="m-overview__benefit">
