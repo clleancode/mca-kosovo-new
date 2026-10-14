@@ -81,7 +81,7 @@
         border-color: var(--dark-blue);
         background: var(--dark-blue);
         color: var(--white);
-        @include button.fill-hover(var(--white), var(--dark-blue));
+        @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
     }
 }
 

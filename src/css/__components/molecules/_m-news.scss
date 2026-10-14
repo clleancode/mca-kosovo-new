@@ -126,11 +126,12 @@
     gap: 16px;
     padding: 6px 6px 6px 20px;
     margin-top: 24px;
+    border: 1px solid var(--dark-blue);
     border-radius: 99px;
     background: var(--dark-blue);
     color: var(--white);
     text-decoration: none;
-    @include button.fill-hover(var(--blue), var(--white));
+    @include button.fill-hover(var(--blue), var(--white), var(--white));
 
     .icon-arrow-right-up {
         font-size: 11px;
@@ -261,7 +262,7 @@
     color: var(--white);
     text-decoration: none;
     flex-shrink: 0;
-    @include button.fill-hover(var(--blue), var(--white));
+    @include button.fill-hover(var(--blue), var(--white), var(--white));
 }
 
 .m-news__form input {
