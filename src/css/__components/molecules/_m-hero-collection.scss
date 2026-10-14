@@ -1,3 +1,5 @@
+@use '../atoms/a-btn' as button;
+
 .m-hero-collection {
     display: flex;
     position: relative;
@@ -215,11 +217,25 @@
     padding: 10px 18px;
     border: 1px solid #ffffff60;
     border-radius: 999px;
+    @include button.fill-hover(var(--white), var(--dark-blue));
 }
 
 .m-hero-collection__policy-link.is-current {
     color: var(--dark-blue);
     background: var(--white);
+    @include button.fill-hover(var(--dark-blue), var(--white));
+
+    @media (hover: hover) {
+        &:hover,
+        &:focus-within {
+            background: transparent;
+        }
+
+        &:hover>a,
+        &:focus-within>a {
+            color: var(--white);
+        }
+    }
 }
 
 .m-hero-collection__policy-link.is-current>a {

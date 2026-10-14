@@ -34,9 +34,7 @@ if (class_exists(FieldsBuilder::class)) {
         ->addLink('hero_album_share_link', ['label' => 'Share album link'])
         ->addTab('Single vacancy')
         ->addLink('hero_vacancy_back_link', ['label' => 'Back link'])
-        ->addText('hero_vacancy_status', ['label' => 'Status'])
         ->addText('hero_vacancy_notice', ['label' => 'Notice type'])
-        ->addText('hero_vacancy_project', ['label' => 'Project'])
         ->addText('hero_vacancy_title', ['label' => 'Title'])
         ->addTab('Report fraud')
         ->addText('hero_integrity_label', ['label' => 'Category label'])
@@ -45,11 +43,6 @@ if (class_exists(FieldsBuilder::class)) {
         ->addText('hero_integrity_panel_title', ['label' => 'Anonymous panel title'])
         ->addTextarea('hero_integrity_panel_description', ['label' => 'Anonymous panel description', 'rows' => 3])
         ->addTab('Policy page')
-        ->addRepeater('hero_policy_breadcrumbs', [
-            'label' => 'Breadcrumbs', 'layout' => 'table', 'button_label' => 'Add breadcrumb',
-        ])
-            ->addLink('link', ['label' => 'Breadcrumb link'])
-        ->endRepeater()
         ->addText('hero_policy_title', ['label' => 'Title'])
         ->addRepeater('hero_policy_links', [
             'label' => 'Policy links', 'min' => 1, 'max' => 6, 'layout' => 'table', 'button_label' => 'Add policy link',
@@ -59,11 +52,6 @@ if (class_exists(FieldsBuilder::class)) {
         ->addText('hero_policy_updated_label', ['label' => 'Last updated label'])
         ->addText('hero_policy_updated_date', ['label' => 'Last updated date'])
         ->addTab('Job vacancies archive')
-        ->addRepeater('hero_vacancies_breadcrumbs', [
-            'label' => 'Breadcrumbs', 'layout' => 'table', 'button_label' => 'Add breadcrumb',
-        ])
-            ->addLink('link', ['label' => 'Breadcrumb link'])
-        ->endRepeater()
         ->addText('hero_vacancies_title', ['label' => 'Title'])
         ->addTextarea('hero_vacancies_description', ['label' => 'Description', 'rows' => 3])
         ->addRepeater('hero_vacancies_statistics', [

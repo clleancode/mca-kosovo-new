@@ -1,5 +1,8 @@
 <?php
 use MCA\Helpers;
+use MCA\Notices;
+
+require_once get_template_directory() . '/inc/procurement-notices.php';
 
 $visibility = Helpers\mca_get_device_visibility();
 if (!$visibility['show']) {
@@ -24,30 +27,29 @@ $link_markup = static function ($link, $class = 'a-text a-text--xs') {
     $target = $link['target'] ?? '_self';
     ?>
     <a class="<?php echo esc_attr($class); ?>" href="<?php echo esc_url($link['url']); ?>" target="<?php echo esc_attr($target); ?>" <?php if ($target === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>>
-        <?php echo esc_html($link['title'] ?? ''); ?>
+        <?php if (strpos($class, 'a-btn') !== false) : ?><span><?php echo esc_html($link['title'] ?? ''); ?></span><?php else : ?><?php echo esc_html($link['title'] ?? ''); ?><?php endif; ?>
     </a>
     <?php
 };
 
-$render_breadcrumbs = static function ($rows) use ($link_markup) {
-    $rows = is_array($rows) ? array_filter($rows, static function ($row) {
-        $link = $row['link'] ?? [];
-        return !empty($link['url']) || !empty($link['title']);
-    }) : [];
-    if (!$rows) {
+$page_id = get_queried_object_id();
+if (!$page_id || get_post_type($page_id) !== 'page') {
+    $page_id = get_the_ID();
+}
+
+$render_breadcrumbs = static function () use ($link_markup, $page_id) {
+    if (!$page_id) {
         return;
     }
+    $ancestors = array_reverse(get_post_ancestors($page_id));
     ?>
     <nav class="m-hero-collection__breadcrumbs" aria-label="Breadcrumb">
         <ol>
-            <?php foreach ($rows as $row) : ?>
-                <?php $link = $row['link'] ?? []; ?>
-                <?php if (!empty($link['url'])) : ?>
-                    <li><?php $link_markup($link); ?></li>
-                <?php elseif (!empty($link['title'])) : ?>
-                    <li><span class="a-text a-text--xs" aria-current="page"><?php echo esc_html($link['title']); ?></span></li>
-                <?php endif; ?>
+            <li><?php $link_markup(['url' => home_url('/'), 'title' => __('Home', 'MCA')]); ?></li>
+            <?php foreach ($ancestors as $ancestor_id) : ?>
+                <li><?php $link_markup(['url' => get_permalink($ancestor_id), 'title' => get_the_title($ancestor_id)]); ?></li>
             <?php endforeach; ?>
+            <li><span class="a-text a-text--xs" aria-current="page"><?php echo esc_html(get_the_title($page_id)); ?></span></li>
         </ol>
     </nav>
     <?php
@@ -94,7 +96,19 @@ $render_breadcrumbs = static function ($rows) use ($link_markup) {
                         </a>
                     </div>
                 <?php endif; ?>
-                <?php $vacancy_status = get_field('hero_vacancy_status'); $vacancy_notice = get_field('hero_vacancy_notice'); $vacancy_project = get_field('hero_vacancy_project'); ?>
+                <?php
+                $vacancy_id = get_the_ID();
+                if (!$vacancy_id || get_post_type($vacancy_id) !== 'job') {
+                    $vacancy_id = 0;
+                }
+                $vacancy_deadline = $vacancy_id ? Notices\get_deadline($vacancy_id) : false;
+                $vacancy_is_closed = $vacancy_deadline
+                    ? $vacancy_deadline < new DateTimeImmutable('today', wp_timezone())
+                    : ($vacancy_id ? has_term('closed', 'job_status', $vacancy_id) : false);
+                $vacancy_status = $vacancy_id ? ($vacancy_is_closed ? __('Closed', 'MCA') : __('Ongoing', 'MCA')) : '';
+                $vacancy_notice = get_field('hero_vacancy_notice');
+                $vacancy_project = $vacancy_id ? get_field('job_department', $vacancy_id) : '';
+                ?>
                 <?php if ($vacancy_status || $vacancy_notice || $vacancy_project) : ?><div class="m-hero-collection__meta">
                     <?php if ($vacancy_status) : ?><span class="m-hero-collection__pill m-hero-collection__pill--muted m-hero-collection__pill--status"><span class="a-text a-text--xs"><?php echo esc_html($vacancy_status); ?></span></span><?php endif; ?>
                     <?php if ($vacancy_notice) : ?><span class="m-hero-collection__pill m-hero-collection__pill--outline"><span class="a-text a-text--xs"><?php echo esc_html($vacancy_notice); ?></span></span><?php endif; ?>
@@ -118,7 +132,7 @@ $render_breadcrumbs = static function ($rows) use ($link_markup) {
             </div>
         <?php elseif ($layout === 'policy') : ?>
             <div class="m-hero-collection m-hero-collection--policy">
-                <?php $render_breadcrumbs(get_field('hero_policy_breadcrumbs')); ?>
+                <?php $render_breadcrumbs(); ?>
                 <?php if ($value = get_field('hero_policy_title')) : ?><h1 class="a-heading a-heading--h4"><?php echo esc_html($value); ?></h1><?php endif; ?>
                 <?php $links = get_field('hero_policy_links'); ?>
                 <?php $links = is_array($links) ? array_values(array_filter($links, static function ($row) { return !empty($row['link']['url']) && !empty($row['link']['title']); })) : []; ?>
@@ -136,7 +150,7 @@ $render_breadcrumbs = static function ($rows) use ($link_markup) {
         <?php elseif ($layout === 'vacancies') : ?>
             <div class="m-hero-collection m-hero-collection--vacancies">
                 <div class="m-hero-collection__vacancies-copy">
-                    <?php $render_breadcrumbs(get_field('hero_vacancies_breadcrumbs')); ?>
+                    <?php $render_breadcrumbs(); ?>
                     <?php if ($value = get_field('hero_vacancies_title')) : ?><h1 class="a-heading a-heading--h4"><?php echo esc_html($value); ?></h1><?php endif; ?>
                     <?php if ($value = get_field('hero_vacancies_description')) : ?><p class="a-text a-text--xl"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
                 </div>
