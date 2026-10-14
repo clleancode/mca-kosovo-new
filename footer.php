@@ -102,6 +102,7 @@ $render_menu = static function ($menu) use ($menu_link_classes) {
                 <div class="m-footer__copyright"><p class="a-text a-text--xs h-semibold"><?php echo $copyright ? esc_html(wp_strip_all_tags($copyright)) : esc_html(sprintf('© %s MCA Kosovo. All rights reserved.', wp_date('Y'))); ?></p></div>
                 <nav class="m-footer__legal" aria-label="Legal and privacy">
                     <?php $render_menu($legal_menu); ?>
+                    <button type="button" class="a-footer-link a-text a-text--xs" data-cookie-settings><?php echo esc_html(get_field('footer_cookie_settings_label', 'option') ?: 'Cookie settings'); ?></button>
                 </nav>
             </div>
         </div>
