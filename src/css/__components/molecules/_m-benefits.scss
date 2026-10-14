@@ -4,11 +4,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 18px;
+    padding: 18px 28px;
     border-radius: 24px;
     background: var(--white);
 
-    .icon-arrow-right-up{
+    .icon-arrow-right-up {
         font-size: 12px;
     }
 }
@@ -133,12 +133,12 @@
 .m-benefits__link {
     margin-top: auto;
 
-    .icon-arrow-right-up{
+    .icon-arrow-right-up {
         font-size: 10px;
     }
 }
 
-.m-benefits__card.is-featured .m-benefits__link > a {
+.m-benefits__card.is-featured .m-benefits__link>a {
     color: var(--white);
 }
 
@@ -168,5 +168,92 @@
 
     .m-benefits__cards {
         grid-auto-rows: minmax(240px, auto);
+    }
+}
+
+.m-benefits__ways {
+    display: grid;
+    gap: 24px;
+}
+
+.m-benefits__ways-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.m-benefits__way {
+    border-radius: 24px;
+    background: var(--dark-blue);
+    color: var(--white);
+
+    .icon-arrow-right-up{
+        font-size: 12px;
+    }
+}
+
+.m-benefits__way.is-blue {
+    background: #2F358B;
+}
+
+.m-benefits__way.is-purple {
+    background: var(--purple);
+}
+
+.m-benefits__way.is-pink {
+    background: var(--pink);
+}
+
+.m-benefits__way>a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 28px;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+    border-radius: inherit;
+}
+
+.m-benefits__way>a>div {
+    display: grid;
+    gap: 4px;
+}
+
+.m-benefits__way>a>span {
+    display: grid;
+    place-items: center;
+    flex: 0 0 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--dark-blue);
+    transition: transform .2s ease;
+}
+
+.m-benefits__way>a:hover>span {
+    transform: translate(2px, -2px);
+}
+
+.m-benefits__way>a:focus-visible {
+    outline: 2px solid var(--dark-blue);
+    outline-offset: 4px;
+}
+
+@media (min-width: 768px) {
+    .m-benefits__ways-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1200px) {
+    .m-benefits__ways-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .m-benefits__way>a>span {
+        transition: none;
     }
 }

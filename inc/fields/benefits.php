@@ -5,6 +5,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 require_once get_template_directory() . '/inc/fields/reusable/spacing.php';
 require_once get_template_directory() . '/inc/fields/reusable/device.php';
+require_once get_template_directory() . '/inc/fields/reusable/heading.php';
+require_once get_template_directory() . '/inc/fields/reusable/text.php';
 
 if ( ! class_exists( FieldsBuilder::class ) ) {
     return;
@@ -26,7 +28,7 @@ $fields
     ] )
     ->addText( 'benefits_label', [
         'label'        => 'Label (optional)',
-        'instructions' => 'Defaults to the selected variant.',
+        'instructions' => 'Optional label shown above the heading.',
     ] )
     ->addText( 'benefits_title', [
         'label' => 'Heading',
@@ -83,6 +85,48 @@ $fields
         'label' => 'Notice link (Subscribe)',
     ] )
 
+    ->addTab( 'Ways to benefit' )
+    ->addTrueFalse( 'benefits_show_ways', [
+        'label' => 'Show Ways to benefit',
+        'ui'    => 1,
+    ] )
+    ->addText( 'benefits_ways_title', [
+        'label' => 'Heading',
+    ] )
+    ->addRepeater( 'benefits_ways', [
+        'label'        => 'Ways to benefit cards',
+        'layout'       => 'block',
+        'max'          => 4,
+        'button_label' => 'Add card',
+    ] )
+        ->addText( 'title', [
+            'label'    => 'Title',
+            'required' => true,
+        ] )
+        ->addText( 'description', [
+            'label' => 'Description',
+        ] )
+        ->addSelect( 'color', [
+            'label'         => 'Background',
+            'choices'       => [
+                'navy'   => 'Dark blue',
+                'blue'   => 'Blue',
+                'purple' => 'Purple',
+                'pink'   => 'Pink',
+            ],
+            'return_format' => 'value',
+        ] )
+        ->addLink( 'link', [
+            'label'    => 'Link',
+            'required' => true,
+        ] )
+    ->endRepeater()
+
+    ->addTab( 'Heading' )
+    ->addFields( \MCA\Fields\Reusable\get_heading_fields() )
+
+    ->addTab( 'Text settings' )
+    ->addFields( \MCA\Fields\Reusable\get_text_fields() )
     ->addFields( \MCA\Fields\Reusable\get_spacing_fields() )
     ->addFields( \MCA\Fields\Reusable\get_device_fields() );
 
