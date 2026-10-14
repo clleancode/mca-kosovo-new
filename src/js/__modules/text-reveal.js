@@ -4,13 +4,14 @@ const textReveal = () => {
     if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
 
     const textBlocks = 'h1, h2, h3, h4, h5, h6, p, blockquote, figcaption, li, dt, dd, address, summary, td, th, .a-heading, .a-text';
-    const buttonSelector = 'button, .a-btn, [class*="a-btn--"], [role="button"], input[type="submit"], input[type="button"]';
+    const buttonSelector = 'button, .a-btn, [class*="a-btn--"], .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
     // Keep live countdown numbers intact: their text is replaced every second.
-    const wholeElementSelector = `${buttonSelector}, .m-compact__time`;
+    const faqIconSelector = '.m-faq__item > summary > span:last-child';
+    const wholeElementSelector = `${buttonSelector}, .m-compact__time, ${faqIconSelector}`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
     // Live regions can contain ordinary articles (news, search, filtered cards).
     // Exclude feedback messages themselves, rather than all live-region content.
-    const excluded = '.o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="tab"], [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, [data-aos], [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
+    const excluded = '.o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, [data-aos], [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
     const registered = new WeakSet();
     const revealed = new WeakSet();
     const animations = new Set();
@@ -134,7 +135,13 @@ const textReveal = () => {
         if (root.matches?.(selector)) candidates.unshift(root);
         candidates.forEach(element => {
             const button = element.matches(wholeElementSelector);
-            if (registered.has(element) || revealed.has(element) || element.closest(excluded)) return;
+            // FAQ icons are decorative (aria-hidden) but still need a visual
+            // reveal. Keep summary layout intact and reveal its children separately.
+            if (element.matches('.m-faq__item > summary')) return;
+            const exclusions = element.matches(faqIconSelector)
+                ? excluded.replace('[aria-hidden="true"], ', '')
+                : excluded;
+            if (registered.has(element) || revealed.has(element) || element.closest(exclusions)) return;
             if (!button && (element.closest('form, button, input') || !element.textContent.trim())) return;
             const buttonParent = element.closest(wholeElementSelector);
             if (buttonParent && buttonParent !== element) return;
