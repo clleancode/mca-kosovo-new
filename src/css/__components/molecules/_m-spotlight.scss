@@ -118,7 +118,7 @@
     background: transparent;
     color: var(--white);
     border-color: #ffffff80;
-    @include button.fill-hover(var(--white), var(--dark-blue));
+    @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
 }
 
 .a-spotlight-button:focus-visible {
@@ -264,7 +264,7 @@
 }
 
 .m-spotlight--featured .a-spotlight-button {
-    @include button.fill-hover(var(--white), var(--dark-blue));
+    @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
 }
 
 @media (min-width: 768px) {

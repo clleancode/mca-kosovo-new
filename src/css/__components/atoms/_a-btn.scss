@@ -1,7 +1,8 @@
 .a-btn {
     --a-btn-hover-fill: var(--dark-blue);
     --a-btn-hover-color: var(--white);
-    border: none;
+    --a-btn-hover-border: var(--white);
+    border: 1px solid transparent;
     outline: none;
     display: inline-flex;
     align-items: center;
@@ -33,22 +34,20 @@
     &::after {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: -1px;
         background-color: var(--a-btn-hover-fill);
         transform: scaleX(0);
         transform-origin: left;
         transition: transform 0.3s ease-in-out;
         z-index: 1;
         pointer-events: none;
+        border-radius: inherit;
     }
 
     @media (hover: hover) {
         &:hover {
             color: var(--a-btn-hover-color);
-            border-color: var(--a-btn-hover-fill);
+            border-color: var(--a-btn-hover-border);
 
             &::after {
                 transform: scaleX(1);
@@ -138,11 +137,13 @@
     color: var(--white);
     --a-btn-hover-fill: var(--white);
     --a-btn-hover-color: var(--dark-blue);
+    --a-btn-hover-border: var(--dark-blue);
 }
 
 .a-btn--border-blue {
     background-color: transparent;
     border: 1px solid var(--dark-blue);
+    --a-btn-hover-border: var(--white);
 }
 
 .a-btn--border-white {
@@ -152,9 +153,10 @@
     border-radius: 99px;
     --a-btn-hover-fill: var(--white);
     --a-btn-hover-color: var(--dark-blue);
+    --a-btn-hover-border: var(--dark-blue);
 }
 
-@mixin fill-hover($fill: var(--dark-blue), $hover-color: var(--white)) {
+@mixin fill-hover($fill: var(--dark-blue), $hover-color: var(--white), $hover-border: var(--white)) {
     position: relative;
     overflow: hidden;
     isolation: isolate;
@@ -163,30 +165,28 @@
     &::after {
         content: '';
         position: absolute;
-        inset: 0;
+        inset: -1px;
         z-index: -1;
         background-color: $fill;
         transform: scaleX(0);
         transform-origin: left center;
         pointer-events: none;
         transition: transform .3s ease-in-out;
+        border-radius: inherit;
     }
 
     @media (hover: hover) {
         &:hover,
         &:focus-visible {
             color: $hover-color;
-            border-color: $fill;
+            border-color: $hover-border;
+            background-color: transparent;
 
             &::after {
                 transform: scaleX(1);
             }
         }
 
-        &:hover {
-            border-color: $fill;
-            outline: none;
-        }
     }
 }
 

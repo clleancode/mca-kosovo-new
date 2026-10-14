@@ -51,7 +51,7 @@
     color: var(--white);
     background: transparent;
     border-color: #ffffff80;
-    @include button.fill-hover(var(--white), var(--dark-blue));
+    @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
 }
 
 .a-projects-hero-button:focus-visible,

@@ -54,7 +54,7 @@
 .m-hero-card > .a-btn--border-white {
     display: inline-flex;
     align-items: center;
-    @include button.fill-hover(var(--white), var(--dark-blue));
+    @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
 }
 
 @media (min-width: 992px) {

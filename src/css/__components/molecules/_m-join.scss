@@ -69,7 +69,7 @@
     color: var(--white);
     background: transparent;
     border-color: var(--white);
-    @include button.fill-hover(var(--white), var(--dark-blue));
+    @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
 }
 
 .a-join__button:hover {
