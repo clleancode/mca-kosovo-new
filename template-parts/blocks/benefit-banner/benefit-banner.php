@@ -1,0 +1,109 @@
+<?php
+use MCA\Helpers;
+
+$visibility = Helpers\mca_get_device_visibility();
+
+if ( ! $visibility['show'] ) {
+    return;
+}
+
+$classes = [
+    'o-benefit-banner',
+    $visibility['visibility_classes'],
+    $block['className'] ?? '',
+];
+
+foreach ( [ 'mobile' => 'm', 'desktop' => 'd' ] as $device => $prefix ) {
+    foreach ( [ 'top' => 't', 'bottom' => 'b' ] as $side => $suffix ) {
+        if ( $space = get_field( "space_{$device}_{$side}" ) ) {
+            $classes[] = "s-{$prefix}-{$suffix}-{$space}";
+        }
+    }
+}
+
+$cards       = get_field( 'benefit_banner_cards' ) ?: [];
+$scroll      = get_field( 'benefit_banner_scroll_link' );
+$breadcrumb  = get_field( 'benefit_banner_breadcrumb' );
+$title       = get_field( 'benefit_banner_title' );
+$description = get_field( 'benefit_banner_description' );
+?>
+<section
+    class="<?php echo esc_attr( implode( ' ', array_filter( $classes ) ) ); ?>"
+    <?php if ( ! empty( $block['anchor'] ) ) : ?>id="<?php echo esc_attr( $block['anchor'] ); ?>"<?php endif; ?>
+>
+    <div class="m-benefit-banner">
+        <div class="m-benefit-banner__intro">
+            <div class="m-benefit-banner__content">
+                <nav class="m-benefit-banner__breadcrumbs" aria-label="Breadcrumb">
+                    <a class="a-text a-text--xs  h-uppercase" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                        <?php esc_html_e( 'Home', 'MCA' ); ?>
+                    </a>
+                    <span class="a-text a-text--xs" aria-hidden="true">/</span>
+                    <?php if ( $breadcrumb ) : ?>
+                        <span class="a-text a-text--xs h-uppercase" aria-current="page">
+                            <?php echo esc_html( $breadcrumb ); ?>
+                        </span>
+                    <?php endif; ?>
+                </nav>
+
+                <?php if ( $title ) : ?>
+                    <h1 class="a-heading a-heading--h2 h-white"><?php echo esc_html( $title ); ?></h1>
+                <?php endif; ?>
+
+                <?php if ( $description ) : ?>
+                    <p class="a-text a-text--l h-white"><?php echo nl2br( esc_html( $description ) ); ?></p>
+                <?php endif; ?>
+            </div>
+
+            <?php if ( ! empty( $scroll['url'] ) ) : ?>
+                <div class="m-benefit-banner__scroll">
+                    <a
+                        href="<?php echo esc_url( $scroll['url'] ); ?>"
+                        <?php if ( ! empty( $scroll['title'] ) ) : ?>aria-label="<?php echo esc_attr( $scroll['title'] ); ?>"<?php endif; ?>
+                        <?php if ( ( $scroll['target'] ?? '' ) === '_blank' ) : ?>target="_blank" rel="noopener noreferrer"<?php endif; ?>
+                    >
+                        <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
+                    </a>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <?php foreach ( array_slice( $cards, 0, 2 ) as $index => $card ) :
+            $image = absint( $card['image'] ?? 0 );
+            $link  = $card['link'] ?? [];
+            ?>
+            <div class="m-benefit-banner__card<?php echo 1 === $index ? ' is-business' : ''; ?>">
+                <?php if ( $image ) : ?>
+                    <div class="m-benefit-banner__image">
+                        <?php echo wp_get_attachment_image( $image, 'full', false, [ 'loading' => 'eager' ] ); ?>
+                    </div>
+                <?php endif; ?>
+
+                <div class="m-benefit-banner__content">
+                    <?php if ( ! empty( $card['label'] ) ) : ?>
+                        <p class="a-text a-text--xs h-uppercase h-semibold"><?php echo esc_html( $card['label'] ); ?></p>
+                    <?php endif; ?>
+
+                    <h2 class="a-heading a-heading--h3 h-white"><?php echo esc_html( $card['title'] ?? '' ); ?></h2>
+
+                    <?php if ( ! empty( $card['description'] ) ) : ?>
+                        <p class="a-text a-text--l h-white"><?php echo nl2br( esc_html( $card['description'] ) ); ?></p>
+                    <?php endif; ?>
+
+                    <?php if ( ! empty( $link['url'] ) ) : ?>
+                        <div class="m-benefit-banner__link">
+                            <a
+                                class="a-text a-text--m"
+                                href="<?php echo esc_url( $link['url'] ); ?>"
+                                <?php if ( ( $link['target'] ?? '' ) === '_blank' ) : ?>target="_blank" rel="noopener noreferrer"<?php endif; ?>
+                            >
+                                <span><?php echo esc_html( $link['title'] ?? '' ); ?></span>
+                                <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>

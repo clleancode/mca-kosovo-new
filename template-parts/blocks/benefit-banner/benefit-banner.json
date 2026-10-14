@@ -1,0 +1,14 @@
+{
+    "name": "acf/benefit-banner",
+    "title": "MCA - Benefit Banner",
+    "category": "formatting",
+    "icon": "cover-image",
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "benefit-banner.php"
+    },
+    "supports": {
+        "anchor": true,
+        "customClassName": true
+    }
+}

@@ -1,0 +1,141 @@
+.m-benefit-banner {
+    display: grid;
+}
+
+.m-benefit-banner__intro {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 360px;
+    padding: 48px 24px 80px;
+    background: #2f358b;
+}
+
+.m-benefit-banner__content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 20px;
+}
+
+.m-benefit-banner__breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.m-benefit-banner__breadcrumbs>a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.m-benefit-banner__scroll {
+    position: absolute;
+    right: 28px;
+    bottom: 28px;
+}
+
+.m-benefit-banner__scroll>a {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--white);
+    color: #2f358b;
+    text-decoration: none;
+}
+
+.m-benefit-banner__scroll>a>i {
+    transform: rotate(90deg);
+}
+
+.m-benefit-banner__card {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: 480px;
+    padding: 40px 24px;
+    overflow: hidden;
+    background: var(--dark-blue);
+}
+
+.m-benefit-banner__image {
+    position: absolute;
+    inset: 0;
+}
+
+.m-benefit-banner__image>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s var(--cubic-bezier);
+}
+.m-benefit-banner__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 31, 84, .2), rgba(0, 31, 84, .9));
+    pointer-events: none;
+}
+
+.m-benefit-banner__card.is-business::after {
+    background: linear-gradient(180deg, rgba(0, 98, 114, .15), rgba(0, 74, 87, .9));
+}
+
+.m-benefit-banner__card:hover .m-benefit-banner__image>img {
+    transform: scale(1.035);
+}
+
+.m-benefit-banner__link>a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.m-benefit-banner__link {
+    .icon-arrow-right-up {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    .m-benefit-banner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .m-benefit-banner__intro {
+        grid-column: span 2;
+        padding: 64px 48px 80px;
+    }
+
+    .m-benefit-banner__card {
+        padding: 40px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .m-benefit-banner {
+        grid-template-columns: 1.18fr 1fr 1fr;
+    }
+
+    .m-benefit-banner__intro {
+        grid-column: auto;
+        padding: 64px 40px 96px max(40px, calc((100vw - 1680px) / 2));
+    }
+
+    .m-benefit-banner__intro,
+    .m-benefit-banner__card {
+        min-height: 680px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .m-benefit-banner__image>img {
+        transition: none;
+    }
+}

@@ -100,7 +100,7 @@ $render_breadcrumbs = static function ($rows) use ($link_markup) {
                     <?php if ($vacancy_notice) : ?><span class="m-hero-collection__pill m-hero-collection__pill--outline"><span class="a-text a-text--xs"><?php echo esc_html($vacancy_notice); ?></span></span><?php endif; ?>
                     <?php if ($vacancy_project) : ?><span class="m-hero-collection__pill m-hero-collection__pill--blue"><span class="a-text a-text--xs"><?php echo esc_html($vacancy_project); ?></span></span><?php endif; ?>
                 </div><?php endif; ?>
-                <?php if ($value = get_field('hero_vacancy_title')) : ?><h1 class="a-heading a-heading--h3"><?php echo nl2br(esc_html($value)); ?></h1><?php endif; ?>
+                <?php if ($value = get_field('hero_vacancy_title')) : ?><h1 class="a-heading a-heading--h3"><?php echo nl2br(wp_kses($value, ['br' => []])); ?></h1><?php endif; ?>
             </div>
         <?php elseif ($layout === 'integrity') : ?>
             <div class="m-hero-collection m-hero-collection--integrity">

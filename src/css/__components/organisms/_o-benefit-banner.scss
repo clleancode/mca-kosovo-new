@@ -1,0 +1,11 @@
+.o-benefit-banner {
+    padding-top: 100px;
+    background: var(--dark-blue);
+    color: var(--white);
+}
+
+@media (min-width: 768px) {
+    .o-benefit-banner {
+        padding-top: 160px;
+    }
+}
