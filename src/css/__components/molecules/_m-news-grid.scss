@@ -1,3 +1,5 @@
+@use '../atoms/a-btn' as button;
+
 .m-news-grid__header {
     display: flex;
     align-items: center;
@@ -198,12 +200,17 @@
     border-radius: 99px;
     background: var(--white);
     cursor: pointer;
+    @include button.fill-hover();
 }
 
 .m-news-grid__signup input:focus-visible,
 .m-news-grid__signup button:focus-visible {
     outline: 2px solid var(--blue);
     outline-offset: 2px;
+}
+
+.m-news-grid__signup button:hover {
+    outline: none;
 }
 
 .m-news-grid__newsletter-form {
