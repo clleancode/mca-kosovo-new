@@ -30,6 +30,35 @@ const application = () => {
         guardedSubmit.applicationErrorHandling = true;
         window.wpcf7.submit = guardedSubmit;
     }
+    // CF7 resets asynchronously after a successful send. A failed refill
+    // request must not leave the form resetting or lose its success feedback.
+    if (window.wpcf7?.reset && !window.wpcf7.reset.applicationErrorHandling) {
+        const reset = window.wpcf7.reset;
+        const guardedReset = async form => {
+            if (!form.closest('[data-application]')) return reset(form);
+            try {
+                return await reset(form);
+            } catch (error) {
+                console.error('Application form reset failed:', error);
+                const sent = Boolean(form.wpcf7?.resetOnMailSent);
+                const status = sent ? 'sent' : 'init';
+                const previousStatus = form.getAttribute('data-status');
+                form.classList.remove(previousStatus, 'resetting', 'submitting', 'validating');
+                form.classList.add(status);
+                form.setAttribute('data-status', status);
+                if (form.wpcf7) {
+                    form.wpcf7.status = status;
+                    delete form.wpcf7.resetOnMailSent;
+                }
+                form.dispatchEvent(new CustomEvent('wpcf7statuschanged', {
+                    bubbles: true,
+                    detail: { status, prevStatus: previousStatus, contactFormId: form.wpcf7?.id },
+                }));
+            }
+        };
+        guardedReset.applicationErrorHandling = true;
+        window.wpcf7.reset = guardedReset;
+    }
     document.querySelectorAll('[data-application]').forEach(section => {
         section.querySelector('[data-application-preview]')?.addEventListener('submit', event => event.preventDefault());
         const position = new URL(location.href).searchParams.get('position');
