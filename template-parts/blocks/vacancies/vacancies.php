@@ -47,6 +47,7 @@ $per_page = max(3, min(24, (int) (get_field('vacancies_per_page') ?: 6)));
 
 $queries = [];
 $other_positions = (bool) get_field('vacancies_other_positions');
+$archive_search = !$other_positions && (bool) get_field('vacancies_archive_search');
 $other_jobs = [];
 if ($other_positions) {
     $current_job = is_singular('job') ? get_queried_object_id() : 0;
@@ -66,7 +67,7 @@ if ($other_positions) {
     $other_jobs = get_posts($other_args);
 }
 
-foreach ($other_positions ? [] : ['ongoing', 'closed'] as $state) {
+foreach ($other_positions || $archive_search ? [] : ['ongoing', 'closed'] as $state) {
     $args = [
         'post_type'      => 'job',
         'post_status'    => 'publish',
@@ -93,7 +94,15 @@ foreach ($other_positions ? [] : ['ongoing', 'closed'] as $state) {
 $section_id = sanitize_title(get_field('vacancies_section_id') ?: ($block['anchor'] ?? ''));
 $base       = remove_query_arg([$status_key, $page_key]);
 
-$render_cards = static function ($jobs, $state) {
+$get_job_state = static function ($job_id) {
+    $deadline = Notices\get_deadline($job_id);
+    $is_closed = $deadline
+        ? $deadline < new DateTimeImmutable('today', wp_timezone())
+        : has_term('closed', 'job_status', $job_id);
+    return $is_closed ? 'closed' : 'ongoing';
+};
+
+$render_cards = static function ($jobs, $state) use ($get_job_state) {
     ?>
     <div class="m-vacancies__grid">
         <?php foreach ($jobs as $job) : ?>
@@ -101,10 +110,7 @@ $render_cards = static function ($jobs, $state) {
             $deadline   = Notices\get_deadline($job->ID);
             $card_state = $state;
             if ($card_state === null) {
-                $is_closed = $deadline
-                    ? $deadline < new DateTimeImmutable('today', wp_timezone())
-                    : has_term('closed', 'job_status', $job->ID);
-                $card_state = $is_closed ? 'closed' : 'ongoing';
+                $card_state = $get_job_state($job->ID);
             }
             $department = get_field('job_department', $job->ID);
             $tone       = get_field('job_department_color', $job->ID);
@@ -162,6 +168,10 @@ $render_cards = static function ($jobs, $state) {
     </div>
     <?php
 };
+if ($archive_search) {
+    require __DIR__ . '/vacancies-archive.php';
+    return;
+}
 ?>
 <section
     <?php if ($section_id) : ?>

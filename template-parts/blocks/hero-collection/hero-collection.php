@@ -141,12 +141,12 @@ $render_breadcrumbs = static function ($rows) use ($link_markup) {
                     <?php if ($value = get_field('hero_vacancies_description')) : ?><p class="a-text a-text--xl"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
                 </div>
                 <?php $statistics = get_field('hero_vacancies_statistics'); ?>
-                <?php $statistics = is_array($statistics) ? array_filter($statistics, static function ($row) { return !empty($row['value']) || !empty($row['label']); }) : []; ?>
+                <?php $statistics = is_array($statistics) ? array_filter($statistics, static function ($row) { return trim((string) ($row['value'] ?? '')) !== '' || !empty($row['label']); }) : []; ?>
                 <?php if (is_array($statistics) && $statistics) : ?>
                     <div class="m-hero-collection__statistics">
                         <?php foreach ($statistics as $row) : ?>
                             <div class="m-hero-collection__statistic">
-                                <?php if (!empty($row['value'])) : ?><span class="a-heading a-heading--h3"><?php echo esc_html($row['value']); ?></span><?php endif; ?>
+                                <?php if (trim((string) ($row['value'] ?? '')) !== '') : ?><span class="a-heading a-heading--h3"><?php echo esc_html($row['value']); ?></span><?php endif; ?>
                                 <?php if (!empty($row['label'])) : ?><span class="a-text a-text--xs"><?php echo esc_html($row['label']); ?></span><?php endif; ?>
                             </div>
                         <?php endforeach; ?>

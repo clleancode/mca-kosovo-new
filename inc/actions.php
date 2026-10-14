@@ -313,7 +313,7 @@ function remove_jquery() {
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\remove_jquery', 20);
 
 function load_cf7_scripts_and_styles() {
-    if ( is_page( 'contact' ) || is_page( 'newsletter' ) || is_page( 'job-application' ) || has_block('acf/application') || has_block('acf/contact-form') ) {
+    if ( is_page( 'contact' ) || is_page( 'newsletter' ) || is_page( 'job-application' ) || has_block('acf/application') || has_block('acf/contact-form') || has_block('acf/how-to-apply') ) {
         if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
             wpcf7_enqueue_scripts();
             wpcf7_enqueue_styles();
@@ -321,6 +321,23 @@ function load_cf7_scripts_and_styles() {
     }
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\load_cf7_scripts_and_styles' );
+
+/** Route this Local site's test emails to Mailpit instead of the PHP FastCGI port. */
+function configure_local_application_mail( $mailer ) {
+    if ( wp_get_environment_type() !== 'local'
+        || wp_parse_url( home_url(), PHP_URL_HOST ) !== 'mca-new.local' ) {
+        return;
+    }
+
+    $mailer->isSMTP();
+    $mailer->Host = '127.0.0.1';
+    $mailer->Port = defined( 'MCA_LOCAL_SMTP_PORT' ) ? (int) MCA_LOCAL_SMTP_PORT : 10286;
+    $mailer->SMTPAuth = false;
+    $mailer->SMTPSecure = '';
+    $mailer->SMTPAutoTLS = false;
+    $mailer->Timeout = 10;
+}
+add_action( 'phpmailer_init', __NAMESPACE__ . '\\configure_local_application_mail', 100 );
 
 
 function mca_submit_contact_form() {

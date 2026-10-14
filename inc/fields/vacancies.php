@@ -15,6 +15,17 @@ if (class_exists(FieldsBuilder::class)) {
     $vacancies
         ->setLocation('block', '==', 'acf/vacancies')
         ->addTab('Content')
+        ->addTrueFalse('vacancies_archive_search', [
+            'label' => 'Archive with search and team filters',
+            'ui' => 1,
+            'default_value' => 0,
+            'instructions' => 'Shows search by job title, All/Ongoing/Closed statuses and department filters. Applies when Other positions is turned off.',
+        ])
+        ->addText('vacancies_archive_notice', [
+            'label' => 'No ongoing vacancies notice',
+            'default_value' => 'No ongoing vacancies right now — showing recently closed positions.',
+            'conditional_logic' => [[['field' => 'vacancies_archive_search', 'operator' => '==', 'value' => '1']]],
+        ])
         ->addTrueFalse('vacancies_other_positions', [
             'label' => 'Show only 3 other positions',
             'ui' => 1,
