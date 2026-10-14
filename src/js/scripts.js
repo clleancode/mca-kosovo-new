@@ -26,6 +26,7 @@ import privacyContent from "./__modules/privacy-content";
 import singleHero from "./__modules/single-hero";
 import singleContent from "./__modules/single-content";
 import newsletterSubscribe from "./__modules/newsletter-subscribe";
+import textReveal from "./__modules/text-reveal";
 
 const updateHeroFraction = (swiper) => {
 	const current = swiper.el.querySelector(".m-hero__current");
@@ -61,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     singleHero();
     singleContent();
     newsletterSubscribe();
+    textReveal();
 
 	if (document.querySelector(".o-header")) {
 		header();
