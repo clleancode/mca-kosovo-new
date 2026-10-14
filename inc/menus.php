@@ -272,7 +272,7 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
                 $output .= '<button type="button" class="a-list-item a-list-item--m" aria-haspopup="true" aria-controls="projects-sub-menu">' . esc_html($item->title) . '</button>';
                 $output .= $this->projects_dropdown();
             } elseif ($this->resources_menu) {
-                $output .= '<button type="button" class="a-list-item a-list-item--m" aria-haspopup="true" aria-controls="resources-sub-menu">' . esc_html($item->title) . '</button>';
+                $output .= '<a href="' . esc_url($item->url) . '" class="a-list-item a-list-item--m" aria-haspopup="true" aria-controls="resources-sub-menu">' . esc_html($item->title) . '</a>';
                 $output .= $this->resources_dropdown();
             } else {
                 $output .= '<a href="' . esc_url($item->url) . '" class="a-list-item a-list-item--m">' . esc_html($item->title) . '</a>';
