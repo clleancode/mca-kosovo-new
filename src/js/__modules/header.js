@@ -1,7 +1,6 @@
 const header = () => {
     const headerBurger = document.querySelector('.m-header__burger');
     const menu = document.querySelector('.m-header__menu-mobile');
-    const iconItem = document.querySelectorAll(".m-header__menu-mobile .a-list-item .a-icon");
     const searchForm = document.querySelector(".m-search--form");
     const searchIcon = document.querySelector(".a-icon--search");
     const closeIcon = document.querySelector(".a-icon--close");
@@ -14,15 +13,16 @@ const header = () => {
         }
     });
 
-    iconItem.forEach(icon => {
-        icon.addEventListener("touchstart", function (event) {
-            event.preventDefault();
-            const listItem = this.closest("li");
-            const subMenu = listItem.querySelector(".m-header__sub-menu");
-            if (subMenu) {
-                subMenu.classList.add("active");
-            }
-        });
+    menu.addEventListener("click", (event) => {
+        const link = event.target.closest(".a-list-item");
+        if (!link || !menu.contains(link)) return;
+
+        const subMenu = link.parentElement.querySelector(":scope > .m-header__sub-menu");
+        if (!subMenu) return;
+
+        event.preventDefault();
+        subMenu.classList.add("active");
+        link.setAttribute("aria-expanded", "true");
     });
 
     searchIcon.addEventListener("click", (event) => {

@@ -104,6 +104,20 @@ add_action( 'acf/init', function() {
                 'instructions' => 'Add a button for the banner (optional).',
                 'required' => false,
                 'return_format' => 'array',
+            ])
+            ->addTab('Resources', ['label' => 'Resources menu'])
+            ->addText('resources_featured_document_title', [
+                'label' => 'Featured document title',
+            ])
+            ->addFile('resources_featured_document', [
+                'label' => 'Featured document PDF',
+                'return_format' => 'array',
+                'mime_types' => 'pdf',
+            ])
+            ->addImage('resources_featured_document_cover', [
+                'label' => 'Featured document cover',
+                'return_format' => 'id',
+                'preview_size' => 'medium',
             ]);
 
         acf_add_local_field_group( $themeSettings->build() );
