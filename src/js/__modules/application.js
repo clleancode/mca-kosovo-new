@@ -1,4 +1,35 @@
 const application = () => {
+    // CF7 leaves the form submitting when its REST request rejects.
+    // Keep CF7's submission/validation flow and recover application forms only.
+    if (window.wpcf7?.submit && !window.wpcf7.submit.applicationErrorHandling) {
+        const submit = window.wpcf7.submit;
+        const guardedSubmit = async (form, options) => {
+            if (!form.closest('[data-application]')) return submit(form, options);
+            try {
+                return await submit(form, options);
+            } catch (error) {
+                console.error('Application form submission failed:', error);
+                const previousStatus = form.getAttribute('data-status');
+                form.classList.remove(previousStatus, 'submitting', 'resetting', 'validating');
+                form.classList.add('aborted');
+                form.setAttribute('data-status', 'aborted');
+                if (form.wpcf7) form.wpcf7.status = 'aborted';
+                const message = form.closest('[data-application]').dataset.applicationError;
+                form.querySelectorAll('.wpcf7-response-output').forEach(output => {
+                    output.textContent = message;
+                    output.removeAttribute('aria-hidden');
+                });
+                const liveRegion = form.closest('.wpcf7')?.querySelector('.screen-reader-response [role="status"]');
+                if (liveRegion) liveRegion.textContent = message;
+                form.dispatchEvent(new CustomEvent('wpcf7statuschanged', {
+                    bubbles: true,
+                    detail: { status: 'aborted', prevStatus: previousStatus, contactFormId: form.wpcf7?.id },
+                }));
+            }
+        };
+        guardedSubmit.applicationErrorHandling = true;
+        window.wpcf7.submit = guardedSubmit;
+    }
     document.querySelectorAll('[data-application]').forEach(section => {
         section.querySelector('[data-application-preview]')?.addEventListener('submit', event => event.preventDefault());
         const position = new URL(location.href).searchParams.get('position');
@@ -15,6 +46,10 @@ const application = () => {
             if (name) name.textContent = file?.name ?? '';
             if (!input.checkValidity()) input.reportValidity();
         }));
+        section.addEventListener('wpcf7mailsent', () => {
+            section.querySelectorAll('[data-upload-name]').forEach(name => { name.textContent = ''; });
+            section.querySelectorAll('input[type="file"]').forEach(input => input.setCustomValidity(''));
+        });
     });
 };
 export default application;

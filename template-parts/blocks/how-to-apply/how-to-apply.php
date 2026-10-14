@@ -14,7 +14,7 @@ $classes = [
     $block['className'] ?? '',
 ];
 
-$style = Helpers\get_field_choice('how_to_apply_style', ['standard', 'blue'], 'standard');
+$style = Helpers\get_field_choice('how_to_apply_style', ['standard', 'blue', 'alerts'], 'standard');
 $classes[] = 'o-how-to-apply--' . $style;
 
 foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
@@ -45,7 +45,12 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     'text_line_height' => 'l',
 ]);
 
-$steps = array_slice(get_field('how_to_apply_steps') ?: [], 0, 4);
+$steps = array_slice(array_values(array_filter(get_field('how_to_apply_steps') ?: [], static function ($step) {
+    return trim((string) ($step['title'] ?? '')) !== '' || trim((string) ($step['description'] ?? '')) !== '';
+})), 0, 4);
+$open_title = get_field('how_to_apply_open_title');
+$open_description = get_field('how_to_apply_open_description');
+$open_link = get_field('how_to_apply_open_link') ?: [];
 
 $contact_image = get_field('how_to_apply_contact_image');
 $contact_label = get_field('how_to_apply_contact_label');
@@ -66,7 +71,7 @@ $section_title = get_field('how_to_apply_title');
 >
     <div class="container">
         <div class="m-how-to-apply">
-            <?php if ($section_title) : ?>
+            <?php if ($section_title && $steps) : ?>
                 <<?php echo tag_escape($tag); ?> class="m-how-to-apply__title a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
                     <?php echo esc_html($section_title); ?>
                 </<?php echo tag_escape($tag); ?>>
@@ -90,19 +95,27 @@ $section_title = get_field('how_to_apply_title');
                 </ol>
             <?php endif; ?>
 
-            <?php if ($style === 'blue') : ?>
-                <div class="m-how-to-apply__bottom">
+            <?php if ($style !== 'standard') : ?>
+                <div class="m-how-to-apply__bottom<?php echo !$steps ? ' m-how-to-apply__bottom--only' : ''; ?>">
                     <div class="m-how-to-apply__contact">
                         <?php if ($contact_image) : ?>
                             <?php echo wp_get_attachment_image($contact_image, 'thumbnail', false, ['class' => 'm-how-to-apply__contact-image', 'loading' => 'lazy', 'decoding' => 'async']); ?>
                         <?php endif; ?>
                         <div class="m-how-to-apply__contact-copy">
+                            <?php if ($style === 'alerts') : ?>
+                                <?php if ($open_title) : ?><h3 class="a-heading a-heading--h6 h-semibold h-dark-blue"><?php echo esc_html($open_title); ?></h3><?php endif; ?>
+                                <?php if ($open_description) : ?><p class="a-text a-text--m h-dark-blue"><?php echo nl2br(esc_html($open_description)); ?></p><?php endif; ?>
+                                <?php if (!empty($open_link['url'])) : ?>
+                                    <a class="a-text a-text--m h-blue" href="<?php echo esc_url($open_link['url']); ?>"<?php if (($open_link['target'] ?? '') === '_blank') : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($open_link['title'] ?? ''); ?> <i class="icon-arrow-right-up a-icon a-icon--xs" aria-hidden="true"></i></a>
+                                <?php endif; ?>
+                            <?php else : ?>
                             <?php if ($contact_label) : ?><p class="m-how-to-apply__contact-label a-text a-text--xs h-semibold"><?php echo esc_html($contact_label); ?></p><?php endif; ?>
                             <?php if ($contact_name) : ?><h3 class="a-heading a-heading--h6 h-semibold h-dark-blue"><?php echo esc_html($contact_name); ?></h3><?php endif; ?>
                             <?php if ($contact_role || $contact_email) : ?>
                                 <p class="a-text a-text--m h-dark-blue">
                                     <?php echo esc_html($contact_role); ?><?php if ($contact_role && $contact_email) : ?> · <?php endif; ?><?php if ($contact_email) : ?><a href="mailto:<?php echo esc_attr($contact_email); ?>"><?php echo esc_html($contact_email); ?></a><?php endif; ?>
                             </p>
+                            <?php endif; ?>
                             <?php endif; ?>
                         </div>
                     </div>

@@ -31,20 +31,21 @@ if (class_exists(FieldsBuilder::class)) {
             'choices'       => [
                 'standard' => 'Standard',
                 'blue'     => 'Blue',
+                'alerts'   => 'Open application and job alerts',
             ],
             'default_value' => 'standard',
         ])
         ->addRepeater('how_to_apply_steps', [
             'label'        => 'Application steps',
-            'min'          => 4,
+            'min'          => 0,
             'max'          => 4,
             'layout'       => 'block',
             'button_label' => 'Add step',
-            'instructions' => 'Add four steps. Their numbers and badge colors are generated automatically.',
+            'instructions' => 'Optional. Leave empty to display only the contact and job alerts cards. Add up to four steps; empty rows are not displayed.',
         ])
             ->addText('title', [
                 'label'    => 'Step title',
-                'required' => 1,
+                'required' => 0,
             ])
             ->addTextarea('description', [
                 'label' => 'Description',
@@ -52,63 +53,66 @@ if (class_exists(FieldsBuilder::class)) {
             ])
         ->endRepeater()
 
-        ->addTab('Blue style details')
+        ->addTab('Contact and job alerts')
+        ->addText('how_to_apply_open_title', ['label' => 'Open application title'])
+        ->addTextarea('how_to_apply_open_description', ['label' => 'Open application description', 'rows' => 2])
+        ->addLink('how_to_apply_open_link', ['label' => 'Open application link'])
         ->addImage('how_to_apply_contact_image', [
             'label'             => 'Contact photo',
             'return_format'     => 'id',
             'preview_size'      => 'thumbnail',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
-                'operator' => '==',
-                'value'    => 'blue',
+                'operator' => '!=',
+                'value'    => 'standard',
             ]]],
         ])
         ->addText('how_to_apply_contact_label', [
             'label'             => 'Contact label',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
-                'operator' => '==',
-                'value'    => 'blue',
+                'operator' => '!=',
+                'value'    => 'standard',
             ]]],
         ])
         ->addText('how_to_apply_contact_name', [
             'label'             => 'Contact name',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
-                'operator' => '==',
-                'value'    => 'blue',
+                'operator' => '!=',
+                'value'    => 'standard',
             ]]],
         ])
         ->addText('how_to_apply_contact_role', [
             'label'             => 'Contact role',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
-                'operator' => '==',
-                'value'    => 'blue',
+                'operator' => '!=',
+                'value'    => 'standard',
             ]]],
         ])
         ->addEmail('how_to_apply_contact_email', [
             'label'             => 'Contact email',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
-                'operator' => '==',
-                'value'    => 'blue',
+                'operator' => '!=',
+                'value'    => 'standard',
             ]]],
         ])
         ->addText('how_to_apply_newsletter_title', [
             'label'             => 'Newsletter title',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
-                'operator' => '==',
-                'value'    => 'blue',
+                'operator' => '!=',
+                'value'    => 'standard',
             ]]],
         ])
         ->addText('how_to_apply_newsletter_placeholder', [
             'label'             => 'Newsletter email placeholder',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
-                'operator' => '==',
-                'value'    => 'blue',
+                'operator' => '!=',
+                'value'    => 'standard',
             ]]],
         ])
         ->addText('how_to_apply_newsletter_shortcode', [
@@ -116,16 +120,16 @@ if (class_exists(FieldsBuilder::class)) {
             'instructions'      => 'Optional. Use a newsletter service shortcode to handle subscriptions.',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
-                'operator' => '==',
-                'value'    => 'blue',
+                'operator' => '!=',
+                'value'    => 'standard',
             ]]],
         ])
         ->addLink('how_to_apply_newsletter_link', [
             'label'             => 'Newsletter form destination',
             'conditional_logic' => [[[
                 'field'    => 'how_to_apply_style',
-                'operator' => '==',
-                'value'    => 'blue',
+                'operator' => '!=',
+                'value'    => 'standard',
             ]]],
         ])
 
