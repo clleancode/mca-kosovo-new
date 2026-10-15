@@ -42,6 +42,7 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
 
 $content_id = sanitize_html_class(($block['id'] ?? 'overview') . '-content');
 $links = get_field('overview_navigation') ?: [];
+$navigation_pills = get_field('overview_navigation_style') === 'pills';
 $show_sort = (bool) get_field('overview_show_sort');
 $sort_label = get_field('overview_sort_label') ?: 'Sort: Newest first';
 $factsheet = get_field('overview_factsheet') ?: [];
@@ -68,7 +69,7 @@ $has_content = trim((string) get_field('overview_title')) !== ''
     <?php if (!$is_activities) : ?>
     <div class="m-overview__navigation">
         <div class="container">
-            <div class="m-overview__bar">
+            <div class="m-overview__bar<?php echo $navigation_pills ? ' m-overview__bar--pills' : ''; ?>">
                 <?php if (trim((string) get_field('overview_project_name')) !== ''): ?>
                 <div class="m-overview__project">
                     <span class="a-text a-text--m h-semibold"><?php echo esc_html(get_field('overview_project_name')); ?></span>
@@ -76,7 +77,7 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                 <?php endif; ?>
 
                 <nav class="m-overview__links" aria-label="Project sections">
-                    <a class="a-overview-link a-text a-text--l" href="#<?php echo esc_attr($content_id); ?>" data-overview-link aria-current="location">
+                    <a class="a-overview-link a-text a-text--l h-semibold" href="#<?php echo esc_attr($content_id); ?>" data-overview-link aria-current="location">
                         <?php echo esc_html(get_field('overview_navigation_label')); ?>
                     </a>
                     <?php foreach ($links as $row):
@@ -84,7 +85,7 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                         if (empty($link['url'])) continue;
                         $target = ($link['target'] ?? '') ?: '_self';
                         ?>
-                        <a class="a-overview-link a-text a-text--l" href="<?php echo esc_url($link['url']); ?>" data-overview-link target="<?php echo esc_attr($target); ?>"<?php if ($target === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($link['title'] ?? ''); ?></a>
+                        <a class="a-overview-link a-text a-text--l h-semibold" href="<?php echo esc_url($link['url']); ?>" data-overview-link target="<?php echo esc_attr($target); ?>"<?php if ($target === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($link['title'] ?? ''); ?></a>
                     <?php endforeach; ?>
                 </nav>
 

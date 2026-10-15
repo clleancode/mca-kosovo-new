@@ -76,6 +76,17 @@
     background: var(--dark-blue);
 }
 
+.m-overview__bar--pills .a-overview-link {
+    padding: 14px 24px;
+    border-radius: 100px;
+    background: var(--white);
+}
+
+.m-overview__bar--pills .a-overview-link[aria-current] {
+    background: var(--dark-blue);
+    color: var(--white);
+}
+
 .a-overview-factsheet {
     display: inline-flex;
     padding: 10px 16px;

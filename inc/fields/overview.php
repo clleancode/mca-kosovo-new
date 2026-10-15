@@ -32,6 +32,12 @@ if (class_exists(FieldsBuilder::class)) {
             'conditional_logic' => [[['field' => 'overview_layout', 'operator' => '==', 'value' => 'activities']]],
         ])
         ->addTab('Navigation')
+        ->addButtonGroup('overview_navigation_style', [
+            'label'         => 'Navigation button style',
+            'choices'       => ['plain' => 'Without background', 'pills' => 'White background'],
+            'default_value' => 'plain',
+            'instructions'  => 'Choose white rounded buttons for Media News or any other overview navigation. The active button stays dark blue.',
+        ])
         ->addText('overview_project_name', [
             'label' => 'Project name',
         ])
