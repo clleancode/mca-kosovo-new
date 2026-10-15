@@ -51,7 +51,7 @@ $word_count = count($word_matches[0] ?? []);
 $read_time = $override_read_time ?: max(1, (int) ceil($word_count / 200));
 $news_terms = [];
 
-foreach (['post_tag', 'news_category'] as $taxonomy) {
+foreach (['post_tag', 'category'] as $taxonomy) {
     $terms = get_the_terms($post_id, $taxonomy);
     if (!is_array($terms)) {
         continue;

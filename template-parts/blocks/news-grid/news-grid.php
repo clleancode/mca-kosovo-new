@@ -36,7 +36,7 @@ $current_page = isset($_GET[$page_key]) ? max(1, absint(wp_unslash($_GET[$page_k
 $per_page = absint(get_field('news_grid_posts_per_page')) ?: 5;
 $per_page = min(max($per_page, 1), 12);
 $query = new WP_Query([
-    'post_type'           => 'news',
+    'post_type'           => 'post',
     'post_status'         => 'publish',
     'posts_per_page'      => $per_page,
     'paged'               => $current_page,
@@ -50,7 +50,7 @@ if ($current_page > $total_pages) {
     $current_page = $total_pages;
     wp_reset_postdata();
     $query = new WP_Query([
-        'post_type'           => 'news',
+        'post_type'           => 'post',
         'post_status'         => 'publish',
         'posts_per_page'      => $per_page,
         'paged'               => $current_page,
@@ -100,7 +100,7 @@ $category_color_map = [
                 <?php while ($query->have_posts()) : $query->the_post(); ?>
                     <?php
                     $post_id = get_the_ID();
-                    $categories = get_the_terms($post_id, 'news_category');
+                    $categories = get_the_terms($post_id, 'category');
                     $categories = is_array($categories) ? $categories : [];
                     $category = $categories[0] ?? null;
                     $color_index = $category ? absint($category->term_id) % count($category_colors) : 0;

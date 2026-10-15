@@ -6,14 +6,14 @@ function get_types(): array {
         'all' => [
             'label' => __('All', 'mca-kosovo'),
             'args' => [
-                'post_type' => ['news', 'post', 'procurement', 'publication', 'page', 'project', 'attachment'],
+                'post_type' => ['post', 'procurement', 'publication', 'page', 'project', 'attachment'],
                 'post_status' => ['publish', 'inherit'],
                 'mca_search_all' => true,
             ],
         ],
         'news' => [
             'label' => __('News', 'mca-kosovo'),
-            'args' => ['post_type' => ['news', 'post'], 'post_status' => 'publish'],
+            'args' => ['post_type' => 'post', 'post_status' => 'publish'],
         ],
         'procurement' => [
             'label' => __('Procurement', 'mca-kosovo'),

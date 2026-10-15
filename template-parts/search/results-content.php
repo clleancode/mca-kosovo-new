@@ -18,7 +18,6 @@ if (!$query instanceof WP_Query) {
             $mime_type = $is_attachment ? get_post_mime_type($result_id) : '';
             $result_url = $is_attachment ? wp_get_attachment_url($result_id) : get_permalink($result_id);
             $type_labels = [
-                'news' => __('News', 'mca-kosovo'),
                 'post' => __('News', 'mca-kosovo'),
                 'procurement' => __('Procurement', 'mca-kosovo'),
                 'publication' => __('Document', 'mca-kosovo'),
@@ -30,8 +29,8 @@ if (!$query instanceof WP_Query) {
             $type_label = $type_labels[$result_type] ?? ($post_type_object ? $post_type_object->labels->singular_name : '');
             $metadata = '';
 
-            if (in_array($result_type, ['news', 'post'], true)) {
-                $news_terms = get_the_terms($result_id, $result_type === 'news' ? 'news_category' : 'category');
+            if ($result_type === 'post') {
+                $news_terms = get_the_terms($result_id, 'category');
                 $metadata = is_array($news_terms) ? implode(' · ', wp_list_pluck($news_terms, 'name')) : get_the_date('M Y');
             } elseif ($result_type === 'procurement') {
                 $metadata = get_field('procurement_notice_type', $result_id) ?: get_the_date('M Y', $result_id);

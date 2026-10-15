@@ -16,7 +16,7 @@ add_action('acf/init', function () {
         'icon' => 'editor-alignleft',
         'keywords' => ['single content', 'news', 'article'],
         'mode' => 'preview',
-        'post_types' => ['news'],
+        'post_types' => ['post'],
         'supports' => ['align' => true, 'anchor' => true, 'customClassName' => true],
     ]);
 });
