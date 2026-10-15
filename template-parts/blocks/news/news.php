@@ -185,7 +185,7 @@ $render_filters = static function () use ($base_url, $selected, $categories, $fi
                         </p>
                     </div>
 
-                    <a class="m-news__read a-text a-text--s" href="<?php echo esc_url(get_permalink($lead)); ?>">
+                    <a class="m-news__read a-text a-text--m h-semibold" href="<?php echo esc_url(get_permalink($lead)); ?>">
                         Read the story <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
                     </a>
                 </article>

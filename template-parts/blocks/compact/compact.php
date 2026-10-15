@@ -132,7 +132,7 @@ $allowed_br = ['br' => []];
                                     <?php echo wp_kses($statistic['unit'] ?? '', $allowed_br); ?>
                                 </span>
                             </div>
-                            <p class="a-text a-text--s">
+                            <p class="a-text a-text--l">
                                 <?php echo wp_kses($statistic['description'] ?? '', $allowed_br); ?>
                             </p>
                         </div>

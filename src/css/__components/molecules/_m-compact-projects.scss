@@ -186,17 +186,20 @@
     color: var(--dark-blue);
     text-decoration: none;
     @include button.fill-hover();
-    transition: color .3s ease-in-out, transform .25s var(--cubic-bezier);
+    transition: color .3s ease-in-out;
+
+    @media (hover: hover) {
+        &:hover,
+        &:focus-visible {
+            background-color: var(--white);
+        }
+    }
 
     .icon-arrow-right-up {
         font-size: 12px;
     }
 }
 
-
-.m-compact-projects__button:hover {
-    transform: translateY(-2px);
-}
 
 .m-compact-projects__open {
     position: absolute;

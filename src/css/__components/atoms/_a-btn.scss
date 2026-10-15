@@ -15,6 +15,7 @@
     transition: color 0.3s ease-in-out;
     position: relative;
     overflow: hidden;
+    isolation: isolate;
     font-weight: 600;
 
     i {
@@ -39,15 +40,21 @@
         transform: scaleX(0);
         transform-origin: left;
         transition: transform 0.3s ease-in-out;
-        z-index: 1;
+        z-index: -1;
         pointer-events: none;
         border-radius: inherit;
     }
 
     @media (hover: hover) {
-        &:hover {
+
+        &:not(:disabled):not([aria-disabled="true"]):hover,
+        &:not(:disabled):not([aria-disabled="true"]):focus-visible {
             color: var(--a-btn-hover-color);
             border-color: var(--a-btn-hover-border);
+
+            > span.a-text {
+                color: inherit;
+            }
 
             &::after {
                 transform: scaleX(1);
@@ -120,6 +127,9 @@
 }
 
 .a-btn--white {
+    --a-btn-hover-fill: var(--dark-blue);
+    --a-btn-hover-color: var(--white);
+    --a-btn-hover-border: var(--white);
     background-color: var(--white);
     color: var(--dark-blue);
     min-height: 44px;
@@ -160,6 +170,7 @@
     position: relative;
     overflow: hidden;
     isolation: isolate;
+    border: 1px solid transparent;
     transition: color .3s ease-in-out;
 
     &::after {
@@ -176,11 +187,11 @@
     }
 
     @media (hover: hover) {
-        &:hover,
-        &:focus-visible {
+
+        &:not(:disabled):not([aria-disabled="true"]):hover,
+        &:not(:disabled):not([aria-disabled="true"]):focus-visible {
             color: $hover-color;
             border-color: $hover-border;
-            background-color: transparent;
 
             &::after {
                 transform: scaleX(1);
@@ -188,6 +199,33 @@
         }
 
     }
+}
+
+@mixin surface-hover($fill: var(--dark-blue), $text: var(--white), $border: var(--white)) {
+    border: 1px solid transparent;
+    background-image: linear-gradient($fill, $fill);
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size .3s ease-in-out, color .3s ease-in-out, border-color .3s ease-in-out;
+
+    @media (hover: hover) {
+
+        &:not(:disabled):not([aria-disabled="true"]):hover,
+        &:not(:disabled):not([aria-disabled="true"]):focus-visible {
+            background-size: 100% 100%;
+            color: $text;
+            border-color: $border;
+        }
+    }
+}
+
+input.a-btn--blue {
+    @include surface-hover(var(--white), var(--dark-blue), var(--dark-blue));
+}
+
+input.a-btn--white {
+    @include surface-hover();
 }
 
 .a-btn--pdf {

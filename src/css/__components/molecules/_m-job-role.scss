@@ -1,3 +1,5 @@
+@use '../atoms/a-btn' as button;
+
 .m-job-role,
 .m-job-role__facts,
 .m-job-role__layout,
@@ -219,4 +221,9 @@
     .m-job-role__layout {
         grid-template-columns: minmax(0, 2.45fr) minmax(0, 1fr);
     }
+}
+
+.m-job-role__actions > a,
+.m-job-role__actions > button:not(:disabled) {
+    @include button.surface-hover();
 }

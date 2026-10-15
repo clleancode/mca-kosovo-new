@@ -131,7 +131,14 @@
     background: var(--dark-blue);
     color: var(--white);
     text-decoration: none;
-    @include button.fill-hover(var(--blue), var(--white), var(--white));
+    @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
+
+    @media (hover: hover) {
+        &:hover,
+        &:focus-visible {
+            background-color: var(--dark-blue);
+        }
+    }
 
     .icon-arrow-right-up {
         font-size: 11px;
@@ -262,7 +269,7 @@
     color: var(--white);
     text-decoration: none;
     flex-shrink: 0;
-    @include button.fill-hover(var(--blue), var(--white), var(--white));
+    @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
 }
 
 .m-news__form input {

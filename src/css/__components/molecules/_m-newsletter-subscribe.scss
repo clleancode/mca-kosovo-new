@@ -1,3 +1,5 @@
+@use '../atoms/a-btn' as button;
+
 .m-newsletter-subscribe {
     width: 100%;
 }
@@ -522,4 +524,9 @@
     .m-newsletter-subscribe__preview {
         min-height: 380px;
     }
+}
+
+.m-newsletter-subscribe__signup-row > button,
+.m-newsletter-subscribe__form .m-newsletter-subscribe__signup-row input[type="submit"] {
+    @include button.surface-hover(var(--white), var(--dark-blue), var(--dark-blue));
 }

@@ -190,6 +190,11 @@
     gap: 10px;
 }
 
+.m-opportunities__featured-action.a-btn.a-btn--icon-red:hover > .a-icon,
+.m-opportunities__featured-action.a-btn.a-btn--icon-red:focus-visible > .a-icon {
+    transform: none;
+}
+
 .a-opportunities-status {
     display: inline-flex;
     align-items: center;
