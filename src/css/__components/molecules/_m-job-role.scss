@@ -87,8 +87,12 @@
 }
 
 .m-job-role__actions>a,
-.m-job-role__actions>button:not(:disabled) {
+.m-job-role__actions>button {
     display: block;
+    width: 100%;
+    min-height: 56px;
+    box-sizing: border-box;
+    font-family: inherit;
     padding: 12px 18px;
     border: 0;
     border-radius: 99px;

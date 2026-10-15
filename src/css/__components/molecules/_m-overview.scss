@@ -87,7 +87,15 @@
     display: none;
 }
 
+.m-overview__mobile-project { display: none; }
+
 @media (max-width: 767px) {
+    .m-overview__mobile-project:not(:empty) {
+        display: block;
+        padding-block: 16px;
+    }
+
+    .m-overview__mobile-project .m-overview__project { margin: 0; }
     .has-mobile-navigation .m-overview__bar {
         gap: 0;
         padding: 0;
@@ -404,6 +412,31 @@
     margin: 4px 0 0;
     text-transform: uppercase;
     letter-spacing: .06em;
+}
+
+@media (max-width: 767px) {
+    .m-overview__statistic {
+        max-width: 60%;
+        padding: 18px 20px;
+        border-radius: 16px;
+    }
+
+    .m-overview__statistic .m-overview__value > .a-heading--h3 {
+        font-size: 30px;
+    }
+
+    .m-overview__statistic .m-overview__value > .a-heading--h6 {
+        font-size: 16px;
+    }
+
+    .m-overview__statistic > .a-text {
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+    .o-overview--activities .m-overview__statistic {
+        padding: 18px 20px;
+    }
 }
 
 @media (min-width: 768px) {

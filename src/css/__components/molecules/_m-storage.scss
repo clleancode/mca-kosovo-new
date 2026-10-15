@@ -171,6 +171,12 @@
     text-transform: uppercase;
 }
 
+@media (max-width: 767px) {
+    .m-storage__legend {
+        bottom: 10px;
+    }
+}
+
 .m-storage__legend li {
     display: flex;
     gap: 6px;

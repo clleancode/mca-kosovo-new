@@ -1,3 +1,5 @@
+@use '../atoms/a-btn' as button;
+
 .m-publications-banner {
     display: grid;
     align-items: center;
@@ -83,6 +85,26 @@
 .m-publications-banner__actions>a {
     background: var(--white);
     color: var(--dark-blue);
+    @include button.fill-hover();
+
+    > img {
+        transition: filter .3s ease-in-out;
+    }
+
+    @media (hover: hover) {
+        &:hover,
+        &:focus-visible {
+            > img {
+                filter: brightness(0) invert(1);
+            }
+        }
+    }
+}
+
+.m-publications-banner__share>summary {
+    background: transparent;
+    color: var(--white);
+    @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
 }
 
 

@@ -44,11 +44,24 @@ const overview = () => {
         const navigation = section.querySelector('.m-overview__links');
         const currentLabel = section.querySelector('[data-overview-current]');
         const mobile = matchMedia('(max-width: 767px)');
-        const sortLabel = section.querySelector('.a-overview-factsheet--sort');
+        const sortLabel = section.querySelector('.a-overview-factsheet');
         const sortPosition = sortLabel ? document.createComment('Overview desktop sort position') : null;
         if (sortLabel) sortLabel.before(sortPosition);
+        const project = section.querySelector('.m-overview__project');
+        const projectPosition = project ? document.createComment('Overview desktop project position') : null;
+        let projectSlot;
+        if (project && bar) {
+            project.before(projectPosition);
+            projectSlot = document.createElement('div');
+            projectSlot.className = 'm-overview__mobile-project container';
+            bar.parentElement.before(projectSlot);
+        }
         let dropdownAnimation;
         const setOpen = (open, animate = true) => {
+            if (projectSlot) {
+                if (mobile.matches && project.parentElement !== projectSlot) projectSlot.append(project);
+                else if (!mobile.matches && project.parentElement === projectSlot) projectPosition.after(project);
+            }
             if (sortLabel && navigation) {
                 if (mobile.matches && sortLabel.parentElement !== navigation) navigation.append(sortLabel);
                 else if (!mobile.matches && sortLabel.parentElement === navigation) sortPosition.after(sortLabel);

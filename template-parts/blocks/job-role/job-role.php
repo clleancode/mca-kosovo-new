@@ -147,7 +147,7 @@ if ($closed) {
                         <p class="a-text a-text--m"><?php echo esc_html($application_text); ?></p>
                         <div class="m-job-role__actions">
                             <?php if ($closed) : ?>
-                                <button class="a-text a-text--m h-semidold" type="button" disabled>
+                                <button class="a-text a-text--m h-semibold" type="button" disabled>
                                     <?php esc_html_e('Apply now', 'MCA'); ?>
                                 </button>
                             <?php elseif (!empty($apply['url'])) : ?>

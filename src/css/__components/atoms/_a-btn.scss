@@ -237,6 +237,8 @@
     }
 
     >.a-icon {
+        position: relative;
+        z-index: 2;
         display: grid;
         place-items: center;
         width: 26px;

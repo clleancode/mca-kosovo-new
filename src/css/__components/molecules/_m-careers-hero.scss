@@ -82,3 +82,11 @@
         gap: 80px;
     }
 }
+
+@media (max-width: 767px) {
+    .m-careers-hero__buttons .a-btn {
+        min-height: 44px;
+        padding: 0 18px;
+        font-size: 14px;
+    }
+}

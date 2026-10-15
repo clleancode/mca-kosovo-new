@@ -41,6 +41,14 @@
     margin: 0;
 }
 
+@media (max-width: 767px) {
+    .m-notices__header .a-btn {
+        min-height: 40px;
+        padding: 0 16px;
+        font-size: 14px;
+    }
+}
+
 .a-notices-status {
     display: inline-flex;
     align-items: center;

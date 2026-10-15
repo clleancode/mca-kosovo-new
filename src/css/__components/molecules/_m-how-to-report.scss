@@ -188,11 +188,28 @@
     padding: 8px 14px;
     border: 1px solid #ffffff40;
     border-radius: 99px;
+    background-image: linear-gradient(var(--white), var(--white));
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 0 100%;
+    transition: background-size .3s ease-in-out, border-color .3s ease-in-out;
 }
 
 .m-how-to-report__option > a {
     color: var(--white);
     text-decoration: none;
+    transition: color .3s ease-in-out;
+}
+
+.m-how-to-report__option:hover,
+.m-how-to-report__option:focus-within {
+    background-size: 100% 100%;
+    border-color: var(--white);
+}
+
+.m-how-to-report__option:hover > a,
+.m-how-to-report__option:focus-within > a {
+    color: var(--dark-blue);
 }
 
 .m-how-to-report__cta {

@@ -187,6 +187,18 @@
     padding: 18px 40px;
 }
 
+@media (max-width: 767px) {
+    .m-application__download .a-btn {
+        min-height: 44px;
+        padding: 0 16px;
+        font-size: 14px;
+    }
+
+    .m-application__download .a-btn .a-text {
+        font-size: 14px;
+    }
+}
+
 .m-application__sidebar {
     display: flex;
     flex-direction: column;

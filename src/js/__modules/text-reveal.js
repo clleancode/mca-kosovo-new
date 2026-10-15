@@ -22,7 +22,9 @@ const textReveal = () => {
         '.m-newsletter-subscribe__label',
         '.m-how-to-apply__number',
     ].join(', ');
-    const wholeElementSelector = `${buttonSelector}, ${badgeSelector}, .m-compact__time, ${faqIconSelector}`;
+    const decorativeSelector = `${faqIconSelector}, .m-how-to-apply__number, .m-contact-form__icon`;
+    const contactFieldSelector = '.m-contact-form__field, .m-contact-form__topics, .m-contact-form__privacy, .m-contact-form__submit';
+    const wholeElementSelector = `${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
     // Live regions can contain ordinary articles (news, search, filtered cards).
     // Exclude feedback messages themselves, rather than all live-region content.
@@ -154,7 +156,7 @@ const textReveal = () => {
             // FAQ icons are decorative (aria-hidden) but still need a visual
             // reveal. Keep summary layout intact and reveal its children separately.
             if (element.matches('.m-faq__item > summary')) return;
-            const exclusions = element.matches(`${faqIconSelector}, .m-how-to-apply__number`)
+            const exclusions = element.matches(decorativeSelector)
                 ? excluded.replace('[aria-hidden="true"], ', '')
                 : excluded;
             if (registered.has(element) || revealed.has(element) || element.closest(exclusions)) return;

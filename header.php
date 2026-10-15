@@ -91,7 +91,7 @@ if (get_post_type($current_post_id) === 'project') {
    class="icon-message a-icon a-icon--circle a-icon--bg-blue a-icon--fixed"
    style="background-color: var(--<?php echo esc_attr($icon_color); ?>)"
    aria-label="Open Chat"></a>
-<a href="mailto:mcchotline@usaid.gov"
+<a href="<?php echo esc_url(home_url('/report-fraud-corruption/')); ?>"
    class="a-btn a-btn--fixed-left"
    style="background-color: var(--<?php echo esc_attr($button_color); ?>); border-color: var(--<?php echo esc_attr($button_color); ?>)">
     <i class="a-icon" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z"/><path d="M12 8v5m0 3v1"/></svg></i>

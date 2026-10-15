@@ -138,6 +138,20 @@
     }
 }
 
+@media (max-width: 767px) {
+    .m-single-content__quote--card {
+        padding: 24px 20px 24px 56px;
+
+        > blockquote::before {
+            top: -10px;
+            left: -38px;
+            width: 28px;
+            height: 48px;
+            font-size: 72px;
+        }
+    }
+}
+
 .m-single-content__quote--pullquote {
     padding: 4px 0 4px 36px;
     border-left: 4px solid var(--red);
