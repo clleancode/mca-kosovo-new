@@ -78,6 +78,8 @@ $numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--
                     $card_size        = ($layout === 'media' && $index > 0) || ($layout === 'five-cards' && $index > 0) ? 'h6' : $size;
                     $featured_card    = $layout === 'five-cards' && $index === 0;
                     $text_color_class = $dark ? 'h-white' : 'h-dark-blue';
+                    $media_download = $layout === 'media' && $tone === 'purple';
+                    $media_plain_link = $layout === 'media' && ($tone === 'purple' || ($tone === 'white' && !$image));
 
                     $card_classes = ['m-implementing__card'];
 
@@ -135,7 +137,7 @@ $numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--
                         <?php if (!empty($link['url'])) : ?>
                             <div class="m-implementing__action s-d-t-xs s-m-t-xs">
                                 <a
-                                    class="a-btn a-btn--white a-btn--smallest"
+                                    class="<?php echo $media_plain_link ? 'm-implementing__download a-text a-text--m' : 'a-btn a-btn--white a-btn--smallest'; ?>"
                                     href="<?php echo esc_url($link['url']); ?>"
                                     target="<?php echo esc_attr($target); ?>"
                                     <?php if ($target === '_blank') : ?>
@@ -144,7 +146,15 @@ $numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--
                                 >
                                     <span>
                                         <?php echo esc_html($link['title'] ?? ''); ?>
-                                        <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
+                                        <?php if ($media_download) : ?>
+                                            <span aria-hidden="true">&#8595;</span>
+                                        <?php elseif ($layout === 'media' && $index === 0) : ?>
+                                            <span aria-hidden="true">&#8594;</span>
+                                        <?php elseif ($layout === 'media' && $index === 3) : ?>
+                                            <?php // Contact action uses its label without an arrow. ?>
+                                        <?php else : ?>
+                                            <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
+                                        <?php endif; ?>
                                     </span>
                                 </a>
                             </div>

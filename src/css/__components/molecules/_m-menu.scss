@@ -478,6 +478,7 @@
 
 
 .m-header__menu-mobile {
+    --mobile-menu-inset: 15px;
     overflow: hidden;
     width: 100%;
     position: fixed;
@@ -489,6 +490,7 @@
     @extend %container !optional;
     display: block;
     padding-top: 102px;
+    padding-inline: var(--mobile-menu-inset);
     background-color: var(--white);
     transition: transform 0.45s var(--cubic-bezier);
 
@@ -497,7 +499,8 @@
     }
 
     ul {
-        padding: 0 8px;
+        margin: 0;
+        padding: 0;
     }
 
     li {
@@ -505,6 +508,7 @@
         width: 100%;
 
         .a-list-item {
+            padding: 0;
             width: 100%;
             border: 0;
             background: transparent;
@@ -540,6 +544,14 @@
             bottom: -220px;
         }
     }
+
+    @media (min-width: 992px) {
+        --mobile-menu-inset: 6vw;
+    }
+}
+
+.m-header__menu-mobile.active ~ .a-btn--fixed-left {
+    z-index: 3;
 }
 
 .m-header__sub-menu {
@@ -551,7 +563,7 @@
     right: -100%;
     height: 100%;
     top: 0;
-    padding: 170px 15px 0;
+    padding: 170px var(--mobile-menu-inset, 15px) 0;
     transition: all .45s var(--cubic-bezier);
     @extend %container !optional;
     display: block;
@@ -566,7 +578,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    margin: 0 8px 20px;
+    margin: 0 0 20px;
     padding: 8px 0;
     border: 0;
     background: transparent;
