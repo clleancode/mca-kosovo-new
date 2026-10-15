@@ -52,6 +52,26 @@
     justify-content: center;
 }
 
+@media (max-width: 767px) {
+    .m-filter__search {
+        min-height: 54px;
+        gap: 10px;
+        padding: 5px 5px 5px 16px;
+    }
+
+    .m-filter__search > i,
+    .m-filter__search > img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .m-filter__search > button {
+        min-height: 42px;
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+}
+
 @media (hover: hover) {
     .m-filter__search>button:hover i {
         transform: none;

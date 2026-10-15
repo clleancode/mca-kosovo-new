@@ -20,6 +20,7 @@
 
 .m-mission__card {
     position: relative;
+    background: transparent;
     isolation: isolate;
     display: flex;
     flex-direction: column;
@@ -140,6 +141,23 @@
     aspect-ratio: 1.8;
     justify-content: flex-start;
     gap: 0;
+}
+
+@media (max-width: 767px) {
+    .m-mission--news {
+        min-width: 0;
+    }
+
+    .m-mission--news .m-mission__card {
+        width: 100%;
+        box-sizing: border-box;
+        aspect-ratio: auto;
+    }
+
+    .m-mission--news .m-mission__intro > * {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
 }
 
 @media (min-width: 1024px) {

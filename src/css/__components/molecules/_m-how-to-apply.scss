@@ -204,6 +204,23 @@
     cursor: pointer;
 }
 
+@media (max-width: 767px) {
+    .m-how-to-apply__signup {
+        gap: 8px;
+    }
+
+    .m-how-to-apply__signup input {
+        height: 44px;
+        padding: 10px 16px;
+    }
+
+    .m-how-to-apply__signup button {
+        height: 44px;
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+}
+
 .m-how-to-apply__signup input:focus-visible,
 .m-how-to-apply__signup button:focus-visible {
     outline: 2px solid var(--blue);

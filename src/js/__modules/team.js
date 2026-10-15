@@ -1,15 +1,70 @@
 const team = () => {
-    document.querySelectorAll('[data-team]').forEach(section => {
+    document.querySelectorAll('[data-team]').forEach((section, sectionIndex) => {
         if (section.dataset.teamInitialized) return;
         section.dataset.teamInitialized = 'true';
-        section.querySelectorAll('[data-team-group]').forEach(group => {
+        section.querySelectorAll('[data-team-group]').forEach((group, groupIndex) => {
             const filters = [...group.querySelectorAll('[data-team-department]')];
             const members = [...group.querySelectorAll('[data-team-member-department]')];
+            const filterList = group.querySelector('.m-team__filters');
+            const mobile = matchMedia('(max-width: 767px)');
+            let toggle;
+            let dropdownAnimation;
+            const setOpen = (open, animate = true) => {
+                const currentHeight = filterList?.getBoundingClientRect().height ?? 0;
+                const currentOpacity = filterList ? getComputedStyle(filterList).opacity : '0';
+                dropdownAnimation?.cancel();
+                group.classList.remove('is-filters-animating');
+                group.classList.toggle('is-filters-open', open);
+                toggle?.setAttribute('aria-expanded', String(open));
+                if (filterList) filterList.inert = mobile.matches && !open;
+                if (!filterList || !animate || !mobile.matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                group.classList.add('is-filters-animating');
+                const targetHeight = open ? filterList.getBoundingClientRect().height : 0;
+                const animation = filterList.animate([
+                    { height: `${currentHeight}px`, opacity: currentHeight ? currentOpacity : 0, paddingBottom: currentHeight ? '24px' : '0px' },
+                    { height: `${targetHeight}px`, opacity: open ? 1 : 0, paddingBottom: open ? '24px' : '0px' },
+                ], { duration: 380, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' });
+                dropdownAnimation = animation;
+                animation.onfinish = () => {
+                    if (dropdownAnimation !== animation) return;
+                    group.classList.remove('is-filters-animating');
+                    animation.cancel();
+                    dropdownAnimation = null;
+                };
+            };
+            if (filterList && filters.length) {
+                toggle = document.createElement('button');
+                toggle.type = 'button';
+                toggle.className = 'm-team__filters-toggle a-text a-text--m';
+                toggle.dataset.textReveal = 'off';
+                toggle.textContent = (filters.find(filter => filter.getAttribute('aria-pressed') === 'true') || filters[0]).textContent.trim();
+                filterList.id ||= `team-filters-${sectionIndex}-${groupIndex}`;
+                toggle.setAttribute('aria-controls', filterList.id);
+                filterList.before(toggle);
+                filterList.dataset.textReveal = 'off';
+                group.classList.add('has-mobile-filters');
+                setOpen(false, false);
+                toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+                mobile.addEventListener('change', () => setOpen(false, false));
+                filterList.addEventListener('keydown', event => {
+                    if (event.key === 'Escape' && mobile.matches) {
+                        setOpen(false);
+                        toggle.focus();
+                    }
+                });
+            }
             filters.forEach(button => button.addEventListener('click', () => {
                 filters.forEach(filter => filter.setAttribute('aria-pressed', String(filter === button)));
                 members.forEach(member => {
                     member.hidden = button.dataset.teamDepartment !== '' && member.dataset.teamMemberDepartment !== button.dataset.teamDepartment;
                 });
+                if (toggle) {
+                    toggle.textContent = button.textContent.trim();
+                    if (mobile.matches) {
+                        setOpen(false);
+                        toggle.focus({ preventScroll: true });
+                    }
+                }
             }));
         });
         const tabs = [...section.querySelectorAll('[data-team-tab]')];

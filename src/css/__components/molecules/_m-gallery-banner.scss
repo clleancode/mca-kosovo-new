@@ -22,11 +22,10 @@
 
 .m-gallery-banner__search {
     display: flex;
-    align-items: center;
     gap: 8px;
     width: 100%;
     min-width: 0;
-    padding: 4px;
+    padding: 8px;
     border-radius: 99px;
     background: var(--white);
 }
@@ -50,6 +49,9 @@
 
 
 .m-gallery-banner__search .a-btn {
+    --a-btn-hover-fill: var(--white);
+    --a-btn-hover-color: var(--dark-blue);
+    --a-btn-hover-border: var(--dark-blue);
     flex-shrink: 0;
     min-height: 34px;
     padding: 0 16px;
@@ -68,6 +70,7 @@
     }
 
     .m-gallery-banner__search {
+        align-items: center;
         margin-top: 34px;
     }
 }

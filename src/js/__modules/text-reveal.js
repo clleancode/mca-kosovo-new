@@ -20,6 +20,7 @@ const textReveal = () => {
         '.m-small-hero__status', '.m-team__badge', '.m-timeline__pill',
         '.m-vacancies__status', '.m-current-calls__eyebrow',
         '.m-newsletter-subscribe__label',
+        '.m-how-to-apply__number',
     ].join(', ');
     const wholeElementSelector = `${buttonSelector}, ${badgeSelector}, .m-compact__time, ${faqIconSelector}`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
@@ -153,7 +154,7 @@ const textReveal = () => {
             // FAQ icons are decorative (aria-hidden) but still need a visual
             // reveal. Keep summary layout intact and reveal its children separately.
             if (element.matches('.m-faq__item > summary')) return;
-            const exclusions = element.matches(faqIconSelector)
+            const exclusions = element.matches(`${faqIconSelector}, .m-how-to-apply__number`)
                 ? excluded.replace('[aria-hidden="true"], ', '')
                 : excluded;
             if (registered.has(element) || revealed.has(element) || element.closest(exclusions)) return;

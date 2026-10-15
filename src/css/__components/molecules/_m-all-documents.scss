@@ -18,6 +18,68 @@
     font-family: inherit;
 }
 
+.m-all-documents__filter-toggle { display: none; }
+.m-all-documents__filter-panel { display: contents; }
+
+@media (max-width: 767px) {
+    .has-document-filters-dropdown .m-all-documents__filter-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        width: 100%;
+        margin-bottom: 16px;
+        padding: 14px 18px;
+        border: 0;
+        border-radius: 24px;
+        background: var(--white);
+        color: var(--dark-blue);
+        font-family: inherit;
+        text-align: left;
+        cursor: pointer;
+
+        &::after {
+            content: '';
+            width: 9px;
+            height: 9px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: rotate(45deg);
+            transition: transform .45s ease;
+            flex-shrink: 0;
+        }
+        &[aria-expanded="true"]::after { transform: rotate(225deg); }
+        &:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    }
+
+    .has-document-filters-dropdown .m-all-documents__filter-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        transition: grid-template-rows .45s ease, opacity .45s ease;
+    }
+
+    .has-document-filters-dropdown.is-document-filters-open .m-all-documents__filter-panel {
+        grid-template-rows: 1fr;
+        opacity: 1;
+    }
+
+    .has-document-filters-dropdown .m-all-documents__filters {
+        min-height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+
+        > a { width: 100%; box-sizing: border-box; padding-block: 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .has-document-filters-dropdown .m-all-documents__filter-panel,
+        .has-document-filters-dropdown .m-all-documents__filter-toggle::after { transition: none; }
+    }
+}
+
 .m-all-documents__filters {
     display: flex;
     flex-wrap: wrap;

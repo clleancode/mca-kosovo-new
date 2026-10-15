@@ -34,6 +34,20 @@
     background: var(--dark-blue);
 }
 
+@media (max-width: 767px) {
+    .m-team__tabs {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        border-radius: 24px;
+    }
+
+    .m-team__tabs > button {
+        width: 100%;
+        text-align: left;
+    }
+}
+
 .m-team__panel[hidden],
 .m-team__group[hidden],
 .m-team__more[hidden] {
@@ -189,6 +203,66 @@
     flex-wrap: wrap;
     gap: 8px;
     padding-bottom: 24px;
+}
+
+.m-team__filters-toggle {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .has-mobile-filters > .m-team__filters-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        width: 100%;
+        margin-bottom: 16px;
+        padding: 14px 18px;
+        border: 0;
+        border-radius: 24px;
+        background: var(--white);
+        color: var(--dark-blue);
+        font-family: inherit;
+        text-align: left;
+        cursor: pointer;
+
+        &::after {
+            content: '';
+            width: 9px;
+            height: 9px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: rotate(45deg);
+            transition: transform .38s cubic-bezier(.22, 1, .36, 1);
+            flex-shrink: 0;
+        }
+
+        &[aria-expanded="true"]::after { transform: rotate(225deg); }
+        &:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    }
+
+    .has-mobile-filters > .m-team__filters { display: none; }
+
+    .has-mobile-filters.is-filters-open > .m-team__filters,
+    .has-mobile-filters.is-filters-animating > .m-team__filters {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        box-sizing: border-box;
+
+        > button {
+            width: 100%;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            text-align: left;
+        }
+    }
+
+    .has-mobile-filters.is-filters-animating > .m-team__filters { overflow: hidden; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .has-mobile-filters > .m-team__filters-toggle::after { transition: none; }
+    }
 }
 
 .m-team__filters>button {

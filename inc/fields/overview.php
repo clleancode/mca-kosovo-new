@@ -33,10 +33,16 @@ if (class_exists(FieldsBuilder::class)) {
         ])
         ->addTab('Navigation')
         ->addButtonGroup('overview_navigation_style', [
-            'label'         => 'Navigation button style',
+            'label'         => 'Navigation bar background',
             'choices'       => ['plain' => 'Without background', 'pills' => 'White background'],
             'default_value' => 'plain',
-            'instructions'  => 'Choose white rounded buttons for Media News or any other overview navigation. The active button stays dark blue.',
+            'instructions'  => 'Choose the navigation bar background. Button backgrounds are configured separately below.',
+        ])
+        ->addButtonGroup('overview_button_background', [
+            'label'         => 'Button background',
+            'choices'       => ['inherit' => 'Match previous setting', 'transparent' => 'Without background', 'white' => 'White'],
+            'default_value' => 'inherit',
+            'instructions'  => 'Choose white rounded buttons or transparent buttons independently of the bar background. The active button stays dark blue.',
         ])
         ->addText('overview_project_name', [
             'label' => 'Project name',

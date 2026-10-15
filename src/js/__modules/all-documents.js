@@ -1,5 +1,5 @@
 const allDocuments = () => {
-    document.querySelectorAll('[data-all-documents]').forEach(section => {
+    document.querySelectorAll('[data-all-documents]').forEach((section, sectionIndex) => {
         if (section.dataset.initialized) return;
         section.dataset.initialized = 'true';
         const results = section.querySelector('.m-all-documents__results');
@@ -7,6 +7,43 @@ const allDocuments = () => {
         let selected = section.dataset.selectedFilter;
         let controller;
         let loading = false;
+        const filters = section.querySelector('.m-all-documents__filters');
+        const mobile = matchMedia('(max-width: 767px)');
+        let toggle;
+        const updateLabel = () => {
+            const active = filters?.querySelector('[aria-current]') || filters?.querySelector('a');
+            if (toggle && active) toggle.textContent = active.textContent.trim();
+        };
+        const setOpen = open => {
+            section.classList.toggle('is-document-filters-open', open);
+            toggle?.setAttribute('aria-expanded', String(open));
+            if (filters) filters.inert = mobile.matches && !open;
+        };
+        if (filters) {
+            const panel = document.createElement('div');
+            panel.className = 'm-all-documents__filter-panel';
+            filters.before(panel);
+            panel.append(filters);
+            toggle = document.createElement('button');
+            toggle.type = 'button';
+            toggle.className = 'm-all-documents__filter-toggle a-text a-text--m';
+            toggle.dataset.textReveal = 'off';
+            filters.dataset.textReveal = 'off';
+            filters.id ||= `document-filters-${sectionIndex}`;
+            toggle.setAttribute('aria-controls', filters.id);
+            panel.before(toggle);
+            section.classList.add('has-document-filters-dropdown');
+            updateLabel();
+            setOpen(false);
+            toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+            mobile.addEventListener('change', () => setOpen(false));
+            filters.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && mobile.matches) {
+                    setOpen(false);
+                    toggle.focus();
+                }
+            });
+        }
         const load = async (url, append = false) => {
             if (append && loading) return;
             controller?.abort();
@@ -36,6 +73,7 @@ const allDocuments = () => {
                     link.removeAttribute('aria-current');
                     if (link.dataset.documentFilter === selected) link.setAttribute('aria-current', 'true');
                 });
+                updateLabel();
             } catch (error) {
                 if (error.name !== 'AbortError') message.textContent = 'Could not load documents. Please try again.';
             } finally {
@@ -54,7 +92,14 @@ const allDocuments = () => {
             if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
             event.preventDefault();
             if (link.hasAttribute('data-documents-more')) load(link.href, true);
-            else { selected = link.dataset.documentFilter; load(filterUrl()); }
+            else {
+                selected = link.dataset.documentFilter;
+                if (mobile.matches && toggle) {
+                    setOpen(false);
+                    toggle.focus({ preventScroll: true });
+                }
+                load(filterUrl());
+            }
         });
         sort.addEventListener('change', () => load(filterUrl()));
     });
