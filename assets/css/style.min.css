@@ -4105,6 +4105,9 @@ p {
   align-items: center;
   gap: 0 30px;
 }
+.m-menu > ul.menu-header-menu > li > a, .m-menu > ul.menu-header-menu > li > button {
+  font-size: 18px;
+}
 .m-menu > ul > li.menu-item--projects-dropdown::after, .m-menu > ul > li.menu-item--resources-dropdown::after {
   content: "";
   position: absolute;
@@ -4121,6 +4124,7 @@ p {
   color: inherit;
   background: transparent;
   font: inherit;
+  font-size: 18px;
   cursor: pointer;
 }
 .m-menu > ul > li > a:after,
@@ -9312,6 +9316,10 @@ p {
   text-decoration: none;
 }
 
+.m-related-programs__action .icon-arrow-right-up {
+  font-size: 12px;
+}
+
 .m-related-programs__action > a {
   display: inline-flex;
   align-items: center;
@@ -11632,7 +11640,8 @@ p {
   padding: 0 12px;
   border-radius: 99px;
   color: var(--dark-blue);
-  font-size: 12px;
+  font-size: 16px;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -11644,13 +11653,14 @@ p {
 .m-current-calls__count {
   display: grid;
   place-items: center;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
+  min-width: 25px;
+  height: 20px;
+  padding: 2px 8px;
   border-radius: 99px;
   background: var(--white);
   color: var(--dark-blue);
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .m-current-calls__layout {
@@ -11704,7 +11714,7 @@ p {
   justify-content: space-between;
   gap: 24px;
   padding: 26px;
-  border: 1px dashed #605be8;
+  border: 2px dashed #605be8;
 }
 
 .m-current-calls__card-top {
@@ -12393,7 +12403,7 @@ p {
 
 .m-how-to-apply__contact-label {
   margin: 0 0 4px;
-  color: var(--blue);
+  color: var(--dark-blue);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -15624,8 +15634,19 @@ p {
   border-radius: 99px;
   color: var(--white);
   background: var(--dark-blue);
+  background-image: linear-gradient(var(--white), var(--white));
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 0 100%;
   cursor: pointer;
   width: 138px;
+  transition: background-size 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.m-newsletter-subscribe__form .m-newsletter-subscribe__signup-row input[type=submit]:not(:disabled):hover,
+.m-newsletter-subscribe__form .m-newsletter-subscribe__signup-row input[type=submit]:not(:disabled):focus-visible {
+  background-size: 100% 100%;
+  color: var(--dark-blue);
 }
 
 .m-newsletter-subscribe__form .m-newsletter-subscribe__consent > p {
@@ -15740,13 +15761,31 @@ p {
 .m-newsletter-subscribe__story-link {
   display: inline-flex;
   padding: 10px 18px;
+  border: 1px solid transparent;
   border-radius: 99px;
   background: var(--dark-blue);
+  background-image: linear-gradient(var(--white), var(--white));
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 0 100%;
+  transition: background-size 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
 .m-newsletter-subscribe__story-link > a {
   color: var(--white);
   text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.m-newsletter-subscribe__story-link:hover,
+.m-newsletter-subscribe__story-link:focus-within {
+  background-size: 100% 100%;
+  border-color: var(--dark-blue);
+}
+
+.m-newsletter-subscribe__story-link:hover > a,
+.m-newsletter-subscribe__story-link:focus-within > a {
+  color: var(--dark-blue);
 }
 
 .m-newsletter-subscribe__success {
@@ -16362,15 +16401,28 @@ p {
 }
 
 .m-job-role__actions > a,
-.m-job-role__actions > button {
+.m-job-role__actions > button:not(:disabled) {
   display: block;
   padding: 12px 18px;
   border: 0;
   border-radius: 99px;
   background: var(--white);
+  background-image: linear-gradient(var(--dark-blue), var(--dark-blue));
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 0 100%;
   color: var(--dark-blue);
   text-align: center;
   text-decoration: none;
+  transition: background-size 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.m-job-role__actions > a:hover,
+.m-job-role__actions > a:focus-visible,
+.m-job-role__actions > button:not(:disabled):hover,
+.m-job-role__actions > button:not(:disabled):focus-visible {
+  background-size: 100% 100%;
+  color: var(--white);
 }
 
 .m-job-role__actions > button:disabled {
@@ -18377,6 +18429,16 @@ p {
 @media (min-width: 768px) {
   .o-how-to-report {
     padding: 48px 0;
+  }
+}
+
+.o-newsletter-header-background {
+  height: 100px;
+  background: var(--dark-blue);
+}
+@media (min-width: 768px) {
+  .o-newsletter-header-background {
+    height: 140px;
   }
 }
 

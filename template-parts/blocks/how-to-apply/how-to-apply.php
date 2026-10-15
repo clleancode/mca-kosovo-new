@@ -127,7 +127,7 @@ $section_title = get_field('how_to_apply_title');
                         <?php else : ?>
                             <form class="m-how-to-apply__signup" action="<?php echo esc_url($newsletter_action); ?>" method="get">
                                 <input type="email" name="email" placeholder="<?php echo esc_attr($newsletter_placeholder); ?>" aria-label="Email address" autocomplete="email" required>
-                                <?php if ($newsletter_button) : ?><button class="a-text a-text--m h-dark-blue" type="submit"><?php echo esc_html($newsletter_button); ?></button><?php endif; ?>
+                                <?php if ($newsletter_button) : ?><button class="a-text a-text--m h-medium h-dark-blue" type="submit"><?php echo esc_html($newsletter_button); ?></button><?php endif; ?>
                             </form>
                         <?php endif; ?>
                     </aside>

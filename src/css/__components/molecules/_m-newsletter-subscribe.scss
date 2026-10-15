@@ -213,8 +213,19 @@
     border-radius: 99px;
     color: var(--white);
     background: var(--dark-blue);
+    background-image: linear-gradient(var(--white), var(--white));
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 0 100%;
     cursor: pointer;
     width: 138px;
+    transition: background-size .3s ease-in-out, color .3s ease-in-out;
+}
+
+.m-newsletter-subscribe__form .m-newsletter-subscribe__signup-row input[type="submit"]:not(:disabled):hover,
+.m-newsletter-subscribe__form .m-newsletter-subscribe__signup-row input[type="submit"]:not(:disabled):focus-visible {
+    background-size: 100% 100%;
+    color: var(--dark-blue);
 }
 
 .m-newsletter-subscribe__form .m-newsletter-subscribe__consent > p {
@@ -329,13 +340,31 @@
 .m-newsletter-subscribe__story-link {
     display: inline-flex;
     padding: 10px 18px;
+    border: 1px solid transparent;
     border-radius: 99px;
     background: var(--dark-blue);
+    background-image: linear-gradient(var(--white), var(--white));
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 0 100%;
+    transition: background-size .3s ease-in-out, border-color .3s ease-in-out;
 }
 
 .m-newsletter-subscribe__story-link > a {
     color: var(--white);
     text-decoration: none;
+    transition: color .3s ease-in-out;
+}
+
+.m-newsletter-subscribe__story-link:hover,
+.m-newsletter-subscribe__story-link:focus-within {
+    background-size: 100% 100%;
+    border-color: var(--dark-blue);
+}
+
+.m-newsletter-subscribe__story-link:hover > a,
+.m-newsletter-subscribe__story-link:focus-within > a {
+    color: var(--dark-blue);
 }
 
 .m-newsletter-subscribe__success {

@@ -107,9 +107,7 @@ $notify_link = get_field('current_calls_notify_link') ?: [];
                             <?php if ($active_status === $status) : ?>aria-current="page"<?php endif; ?>
                         >
                             <span><?php echo esc_html($config['label']); ?></span>
-                            <?php if ($status === 'open') : ?>
                                 <span class="m-current-calls__count"><?php echo esc_html($counts[$status]); ?></span>
-                            <?php endif; ?>
                         </a>
                     <?php endforeach; ?>
                 </nav>
@@ -118,17 +116,32 @@ $notify_link = get_field('current_calls_notify_link') ?: [];
             <div class="m-current-calls__layout">
                 <div class="m-current-calls__message">
                     <?php
-                    $has_open_calls = $counts['open'] > 0;
-                    $message_label = get_field('current_calls_empty_label');
-                    $message_title = $has_open_calls
-                        ? get_field('current_calls_open_title')
-                        : get_field('current_calls_empty_title');
-                    $message_description = $has_open_calls
-                        ? get_field('current_calls_open_description')
-                        : get_field('current_calls_empty_description');
-                    $message_link = $has_open_calls
-                        ? (get_field('current_calls_open_link') ?: [])
-                        : $notify_link;
+                    $has_calls = $counts[$active_status] > 0;
+                    $message_label = [
+                        'open' => $has_calls ? 'Open' : (get_field('current_calls_empty_label') ?: 'Coming soon'),
+                        'upcoming' => 'Coming soon',
+                        'closed' => 'Closed',
+                    ][$active_status];
+                    if ($active_status === 'open') {
+                        $message_title = $has_calls
+                            ? get_field('current_calls_open_title')
+                            : get_field('current_calls_empty_title');
+                        $message_description = $has_calls
+                            ? get_field('current_calls_open_description')
+                            : get_field('current_calls_empty_description');
+                        $message_link = $has_calls
+                            ? (get_field('current_calls_open_link') ?: [])
+                            : $notify_link;
+                    } else {
+                        $message_title = get_field('current_calls_' . $active_status . '_title');
+                        $message_description = get_field('current_calls_' . $active_status . '_description');
+                        $message_link = $notify_link;
+                    }
+                    if (!$message_title) {
+                        $message_title = $has_calls
+                            ? $statuses[$active_status]['label'] . ' calls'
+                            : 'No ' . strtolower($statuses[$active_status]['label']) . ' calls at the moment';
+                    }
                     ?>
                     <?php if ($message_label) : ?>
                         <span class="m-current-calls__eyebrow a-text a-text--xs h-semibold">

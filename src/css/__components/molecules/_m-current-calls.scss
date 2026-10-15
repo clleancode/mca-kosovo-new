@@ -32,7 +32,8 @@
     padding: 0 12px;
     border-radius: 99px;
     color: var(--dark-blue);
-    font-size: 12px;
+    font-size: 16px;
+    font-weight: 600;
     text-decoration: none;
 }
 
@@ -44,13 +45,14 @@
 .m-current-calls__count {
     display: grid;
     place-items: center;
-    min-width: 18px;
-    height: 18px;
-    padding: 0 4px;
+    min-width: 25px;
+    height: 20px;
+    padding: 2px 8px;
     border-radius: 99px;
     background: var(--white);
     color: var(--dark-blue);
-    font-size: 10px;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .m-current-calls__layout {
@@ -106,7 +108,7 @@
     justify-content: space-between;
     gap: 24px;
     padding: 26px;
-    border: 1px dashed #605be8;
+    border: 2px dashed #605be8;
 }
 
 .m-current-calls__card-top {

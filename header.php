@@ -21,6 +21,7 @@ $current_post_id = get_the_ID();
 
 $icon_color  = 'dark-blue';
 $button_color = 'pink';
+$newsletter_header = is_singular() && has_block('acf/newsletter-subscribe', get_queried_object_id());
 
 if (get_post_type($current_post_id) === 'project') {
     $color_from_acf = get_field('project_color', $current_post_id);
@@ -68,6 +69,10 @@ if (get_post_type($current_post_id) === 'project') {
 	        </div>
 	    </div>
 	</header>
+
+    <?php if ($newsletter_header) : ?>
+        <div class="o-newsletter-header-background" aria-hidden="true"></div>
+    <?php endif; ?>
 
 
 	<nav class="m-header__menu-mobile" id="mobile-menu" aria-label="Primary Mobile Navigation">

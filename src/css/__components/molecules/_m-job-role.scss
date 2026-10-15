@@ -87,15 +87,28 @@
 }
 
 .m-job-role__actions>a,
-.m-job-role__actions>button {
+.m-job-role__actions>button:not(:disabled) {
     display: block;
     padding: 12px 18px;
     border: 0;
     border-radius: 99px;
     background: var(--white);
+    background-image: linear-gradient(var(--dark-blue), var(--dark-blue));
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 0 100%;
     color: var(--dark-blue);
     text-align: center;
     text-decoration: none;
+    transition: background-size .3s ease-in-out, color .3s ease-in-out;
+}
+
+.m-job-role__actions>a:hover,
+.m-job-role__actions>a:focus-visible,
+.m-job-role__actions>button:not(:disabled):hover,
+.m-job-role__actions>button:not(:disabled):focus-visible {
+    background-size: 100% 100%;
+    color: var(--white);
 }
 
 .m-job-role__actions>button:disabled {

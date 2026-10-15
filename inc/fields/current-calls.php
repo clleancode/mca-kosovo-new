@@ -41,6 +41,22 @@ if (class_exists(FieldsBuilder::class)) {
         ->addLink('current_calls_open_link', [
             'label' => 'Open calls button link',
         ])
+        ->addText('current_calls_upcoming_title', [
+            'label' => 'Upcoming calls title (optional)',
+            'instructions' => 'If empty, a title based on the actual number of upcoming calls is shown.',
+        ])
+        ->addTextarea('current_calls_upcoming_description', [
+            'label' => 'Upcoming calls description',
+            'rows' => 3,
+        ])
+        ->addText('current_calls_closed_title', [
+            'label' => 'Closed calls title (optional)',
+            'instructions' => 'If empty, a title based on the actual number of closed calls is shown.',
+        ])
+        ->addTextarea('current_calls_closed_description', [
+            'label' => 'Closed calls description',
+            'rows' => 3,
+        ])
 
         ->addTab('Heading')
         ->addFields(\MCA\Fields\Reusable\get_heading_fields())

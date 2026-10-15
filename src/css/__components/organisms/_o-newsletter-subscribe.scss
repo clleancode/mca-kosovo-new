@@ -1,3 +1,12 @@
+.o-newsletter-header-background {
+    height: 100px;
+    background: var(--dark-blue);
+
+    @media (min-width: 768px) {
+        height: 140px;
+    }
+}
+
 .o-newsletter-subscribe {
     padding: 32px 0;
     background: var(--grey);
