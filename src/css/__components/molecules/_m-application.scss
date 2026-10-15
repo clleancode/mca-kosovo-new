@@ -274,3 +274,13 @@
         padding: 56px;
     }
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .m-application__tile {
+        padding: 28px;
+    }
+
+    .m-application__contact {
+        padding: 28px;
+    }
+}

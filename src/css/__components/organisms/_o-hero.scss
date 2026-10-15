@@ -66,6 +66,24 @@
     }
 }
 
+@media (min-width: 768px) and (max-width: 1199px) {
+    .o-hero > .swiper {
+        height: auto;
+    }
+
+    .o-hero .m-hero__inner {
+        height: auto;
+        min-height: 640px;
+        padding: 160px 0 120px;
+        box-sizing: border-box;
+        align-items: flex-start;
+    }
+
+    .o-hero .m-navigation {
+        bottom: 40px;
+    }
+}
+
 .o-hero-banner {
     position: relative;
 

@@ -18,6 +18,12 @@
     }
 }
 
+@media (min-width: 768px) and (max-width: 1199px) {
+    .o-hero-collection > .container {
+        padding-top: 60px;
+    }
+}
+
 .o-hero-collection--album {
     @media (min-width: 768px) {
         padding-top: 112px;

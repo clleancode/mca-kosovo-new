@@ -2,3 +2,9 @@
     background: var(--dark-blue);
     color: var(--white);
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .o-careers-hero.s-d-t-2xl {
+        padding-top: 180px;
+    }
+}

@@ -8,3 +8,9 @@
         display: block;
     }
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .o-single-hero > .container {
+        padding-top: 60px;
+    }
+}

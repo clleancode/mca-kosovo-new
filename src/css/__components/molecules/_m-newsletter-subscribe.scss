@@ -509,3 +509,17 @@
 .wpcf7-response-output {
     display: none !important;
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .m-newsletter-subscribe__panel {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .m-newsletter-subscribe__content {
+        padding: 40px;
+    }
+
+    .m-newsletter-subscribe__preview {
+        min-height: 380px;
+    }
+}

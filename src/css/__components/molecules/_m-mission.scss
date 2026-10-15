@@ -178,3 +178,15 @@
         aspect-ratio: .88;
     }
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .m-mission--news .m-mission__card {
+        width: 100%;
+        min-width: 0;
+        aspect-ratio: auto;
+    }
+
+    .m-mission--news .m-mission__intro>* {
+        min-width: 0;
+    }
+}

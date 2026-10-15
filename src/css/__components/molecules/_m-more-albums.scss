@@ -1,15 +1,20 @@
 .m-more-albums {
+    min-width: 0;
+    width: 100%;
     display: grid;
     gap: 20px;
 }
 
 .m-more-albums__grid {
+    min-width: 0;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
 }
 
 .m-more-albums__card {
+    min-width: 0;
+    width: 100%;
     position: relative;
     overflow: hidden;
     border-radius: 24px;
@@ -66,6 +71,19 @@
 .m-more-albums__card:focus-within {
     outline: 2px solid var(--dark-blue);
     outline-offset: 4px;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .m-more-albums__card {
+        aspect-ratio: auto;
+        height: 80px;
+    }
+
+    .m-more-albums__card > a > span {
+        left: 16px;
+        max-width: calc(100% - 32px);
+        box-sizing: border-box;
+    }
 }
 
 @media (max-width: 767px) {

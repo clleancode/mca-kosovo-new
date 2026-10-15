@@ -344,3 +344,13 @@
     outline: 2px solid var(--blue);
     outline-offset: 2px;
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .m-news__item {
+        grid-template-columns: minmax(0, 1fr) 120px;
+    }
+
+    .m-news__newsletter {
+        padding: 24px;
+    }
+}

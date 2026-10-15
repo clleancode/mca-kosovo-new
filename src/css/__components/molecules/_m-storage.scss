@@ -197,3 +197,21 @@
     padding-top: 2px;
     background: var(--blue);
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .m-storage__map {
+        min-width: 0;
+        aspect-ratio: auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .m-storage {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
+    }
+
+    .m-storage__map {
+        min-height: 430px;
+    }
+}

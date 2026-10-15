@@ -461,3 +461,14 @@
         padding-left: 23%;
     }
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .m-overview__content {
+        gap: 28px;
+    }
+
+    .m-overview__statistic,
+    .o-overview--activities .m-overview__statistic {
+        padding: 20px;
+    }
+}

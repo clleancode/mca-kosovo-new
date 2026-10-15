@@ -373,3 +373,17 @@
         grid-template-columns: minmax(0, 1.7fr) minmax(300px, 1fr);
     }
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .m-contact-form {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .m-contact-form__main {
+        padding: 32px;
+    }
+
+    .m-contact-form__panel-copy {
+        overflow-wrap: anywhere;
+    }
+}

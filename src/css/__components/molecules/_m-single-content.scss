@@ -576,3 +576,21 @@
         grid-template-columns: minmax(0, 1fr);
     }
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .m-single-content__article {
+        min-width: 0;
+    }
+
+    .m-single-content__quote--card {
+        padding: 32px 28px 32px 76px;
+
+        >blockquote::before {
+            left: -52px;
+            top: -14px;
+            width: 36px;
+            height: 64px;
+            font-size: 90px;
+        }
+    }
+}

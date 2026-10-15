@@ -42,7 +42,7 @@
         border-radius: 24px;
     }
 
-    .m-team__tabs > button {
+    .m-team__tabs>button {
         width: 100%;
         text-align: left;
     }
@@ -210,7 +210,7 @@
 }
 
 @media (max-width: 767px) {
-    .has-mobile-filters > .m-team__filters-toggle {
+    .has-mobile-filters>.m-team__filters-toggle {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -237,20 +237,28 @@
             flex-shrink: 0;
         }
 
-        &[aria-expanded="true"]::after { transform: rotate(225deg); }
-        &:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+        &[aria-expanded="true"]::after {
+            transform: rotate(225deg);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 3px;
+        }
     }
 
-    .has-mobile-filters > .m-team__filters { display: none; }
+    .has-mobile-filters>.m-team__filters {
+        display: none;
+    }
 
-    .has-mobile-filters.is-filters-open > .m-team__filters,
-    .has-mobile-filters.is-filters-animating > .m-team__filters {
+    .has-mobile-filters.is-filters-open>.m-team__filters,
+    .has-mobile-filters.is-filters-animating>.m-team__filters {
         display: flex;
         flex-direction: column;
         align-items: stretch;
         box-sizing: border-box;
 
-        > button {
+        >button {
             width: 100%;
             padding-top: 15px;
             padding-bottom: 15px;
@@ -258,10 +266,14 @@
         }
     }
 
-    .has-mobile-filters.is-filters-animating > .m-team__filters { overflow: hidden; }
+    .has-mobile-filters.is-filters-animating>.m-team__filters {
+        overflow: hidden;
+    }
 
     @media (prefers-reduced-motion: reduce) {
-        .has-mobile-filters > .m-team__filters-toggle::after { transition: none; }
+        .has-mobile-filters>.m-team__filters-toggle::after {
+            transition: none;
+        }
     }
 }
 
@@ -345,4 +357,10 @@
 
 .m-team__group--six .m-team__copy {
     padding: 12px 0 0;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .m-team .m-team__group--six .m-team__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }

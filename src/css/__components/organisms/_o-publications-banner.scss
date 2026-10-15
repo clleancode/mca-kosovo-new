@@ -2,3 +2,9 @@
     background: var(--dark-blue);
     color: var(--white);
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .o-publications-banner > .container {
+        padding-top: 60px;
+    }
+}

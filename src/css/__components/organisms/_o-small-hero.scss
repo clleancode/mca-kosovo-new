@@ -17,3 +17,9 @@
         padding: 200px 0 80px;
     }
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .o-small-hero > .container {
+        padding-top: 60px;
+    }
+}
