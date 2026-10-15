@@ -19,6 +19,13 @@ if (class_exists(FieldsBuilder::class)) {
         ->setLocation('block', '==', 'acf/gallery-filter')
 
         ->addTab('Content')
+        ->addImage('gallery_filter_image', [
+            'label'         => 'Featured image',
+            'instructions'  => 'Choose an image from the Media Library. If empty, the default gallery image is used.',
+            'return_format' => 'id',
+            'preview_size'  => 'medium',
+            'library'       => 'all',
+        ])
         ->addText('gallery_filter_badge', [
             'label'         => 'Badge',
             'default_value' => 'Featured',

@@ -50,7 +50,11 @@ $description = get_field('gallery_filter_description');
 $link        = get_field('gallery_filter_link') ?: [];
 $link_url    = $link['url'] ?? '';
 $link_target = $link['target'] ?? '';
-$image       = get_theme_file_uri('/assets/img/pics/gallery/media-hero.png');
+$image_id    = absint(get_field('gallery_filter_image'));
+$image       = $image_id ? wp_get_attachment_image($image_id, 'large', false, [
+    'loading'  => 'lazy',
+    'decoding' => 'async',
+]) : '';
 
 if (!$link_url) {
     $posts_page = absint(get_option('page_for_posts'));
@@ -63,8 +67,12 @@ if (!$link_url) {
 >
     <div class="container">
         <article class="m-spotlight m-spotlight--featured">
-            <div class="m-spotlight__image" aria-hidden="true">
-                <img src="<?php echo esc_url($image); ?>" alt="" loading="lazy" decoding="async">
+            <div class="m-spotlight__image">
+                <?php if ($image) : ?>
+                    <?php echo $image; ?>
+                <?php else : ?>
+                    <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/gallery/media-hero.png')); ?>" alt="" loading="lazy" decoding="async">
+                <?php endif; ?>
             </div>
 
             <div class="m-spotlight__content">
@@ -76,7 +84,7 @@ if (!$link_url) {
                     <?php if ($date) : ?><span class="a-text a-text--xs"><?php echo esc_html($date); ?></span><?php endif; ?>
                 </div>
 
-                <<?php echo tag_escape($tag); ?> class="m-spotlight__featured-title a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?>">
+                <<?php echo tag_escape($tag); ?> class="s-d-b-xs s-m-b-xs h-navy m-spotlight__featured-title a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?>">
                     <?php echo esc_html($title); ?>
                 </<?php echo tag_escape($tag); ?>>
 

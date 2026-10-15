@@ -224,12 +224,6 @@
     color: var(--white);
 }
 
-.m-spotlight--featured .m-spotlight__featured-title {
-    margin-bottom: 12px;
-    color: var(--dark-blue);
-    font-size: clamp(28px, 3vw, 36px);
-}
-
 .m-spotlight--featured .m-spotlight__label > span:not(.a-spotlight-pill)::before {
     content: '·';
     margin-right: 8px;

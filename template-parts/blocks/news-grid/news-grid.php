@@ -127,7 +127,7 @@ $category_color_map = [
                                 </time>
                             </div>
 
-                            <h2 class="m-news-grid__title a-text a-text--xl h-semibold h-dark-blue">
+                            <h2 class="m-news-grid__title a-text a-text--xxl h-semibold h-dark-blue">
                                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                             </h2>
 
@@ -143,8 +143,8 @@ $category_color_map = [
 
             <aside class="m-news-grid__newsletter">
                 <p class="m-news-grid__newsletter-label a-text a-text--xs h-semibold"><?php echo esc_html($newsletter_label); ?></p>
-                <h2 class="m-news-grid__newsletter-title a-heading a-heading--h6 h-white h-semibold"><?php echo esc_html($newsletter_title); ?></h2>
-                <p class="m-news-grid__newsletter-description a-text a-text--s h-white"><?php echo esc_html($newsletter_description); ?></p>
+                <h2 class="m-news-grid__newsletter-title a-heading a-heading--h5 h-white h-semibold"><?php echo esc_html($newsletter_title); ?></h2>
+                <p class="m-news-grid__newsletter-description a-text a-text--m h-white"><?php echo esc_html($newsletter_description); ?></p>
 
                 <?php if ($newsletter_shortcode) : ?>
                     <div class="m-news-grid__newsletter-form"><?php echo do_shortcode($newsletter_shortcode); ?></div>
