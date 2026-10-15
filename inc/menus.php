@@ -308,161 +308,39 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
 
 
 class Custom_Main_Menu_Mobile_Walker extends \Walker_Nav_Menu {
-    private $projects_page_item = false;
-    private $projects_page_depth = 0;
-    private $inside_projects_menu = false;
-
-    private function mobile_projects_submenu() {
-        $projects = [];
-        $locations = get_nav_menu_locations();
-        $menu_id = $locations['footer_projects'] ?? 0;
-
-        foreach ((array) ($menu_id ? wp_get_nav_menu_items($menu_id) : []) as $menu_item) {
-            if (
-                ($menu_item->object ?? '') !== 'project'
-                || empty($menu_item->object_id)
-                || get_post_status($menu_item->object_id) !== 'publish'
-            ) {
-                continue;
-            }
-
-            $project_slug = get_post_field('post_name', $menu_item->object_id);
-            $project_titles = [
-                'energy-storage' => 'BESS',
-                'jeta' => 'JETA',
-                'acfd' => 'ACFD',
-                'acfg' => 'ACFD',
-            ];
-
-            $projects[] = [
-                'title' => $project_titles[$project_slug] ?? $menu_item->title,
-                'url' => $menu_item->url,
-            ];
-        }
-
-        if (!$projects) {
-            foreach (get_posts([
-                'post_type' => 'project',
-                'post_status' => 'publish',
-                'numberposts' => 3,
-                'orderby' => ['menu_order' => 'ASC', 'title' => 'ASC'],
-            ]) as $project) {
-                $projects[] = [
-                    'title' => [
-                        'energy-storage' => 'BESS',
-                        'jeta' => 'JETA',
-                        'acfd' => 'ACFD',
-                        'acfg' => 'ACFD',
-                    ][get_post_field('post_name', $project)] ?? get_the_title($project),
-                    'url' => get_permalink($project),
-                ];
-            }
-        }
-
-        $output = '<nav class="m-header__sub-menu"><ul>';
-        foreach (array_slice($projects, 0, 3) as $project) {
-            $output .= '<li><a class="a-list-item a-text a-text--l" href="' . esc_url($project['url']) . '">';
-            $output .= esc_html($project['title']) . '</a></li>';
-        }
-
-        return $output . '</ul></nav>';
+    public function start_lvl(&$output, $depth = 0, $args = null) {
+        $output .= '<nav class="m-header__sub-menu" inert>';
+        $output .= '<a href="#" class="m-header__submenu-back h-semibold"><span aria-hidden="true">&larr;</span> ' . esc_html__('Back', 'MCA') . '</a><ul>';
     }
 
-    public function start_lvl( &$output, $depth = 0, $args = null ) {
-        if ($this->projects_page_item && $depth >= $this->projects_page_depth) {
-            return;
-        }
-
-        $indent = str_repeat( "\t", $depth );
-        $output .= "\n$indent<nav class=\"m-header__sub-menu\"><ul>\n";
+    public function end_lvl(&$output, $depth = 0, $args = null) {
+        $output .= '</ul></nav>';
     }
 
-    public function end_lvl( &$output, $depth = 0, $args = null ) {
-        if ($this->projects_page_item && $depth >= $this->projects_page_depth) {
-            return;
-        }
-
-        $indent = str_repeat( "\t", $depth );
-        $output .= "$indent</ul></nav>\n";
-    }
-
-    public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
-        if ($this->projects_page_item && $depth > $this->projects_page_depth) {
-            return;
-        }
-
-        $classes = empty( $item->classes ) ? [] : (array) $item->classes;
-        $has_children = in_array( 'menu-item-has-children', $classes );
-        if ($depth === 0) {
-            $this->inside_projects_menu = strtolower(trim(wp_strip_all_tags($item->title))) === 'projects';
-        }
-
-        $item_url_path = untrailingslashit((string) wp_parse_url($item->url ?? '', PHP_URL_PATH));
-        $is_projects_page = $depth > 0
-            && $this->inside_projects_menu
-            && (
-                strtolower(trim(wp_strip_all_tags($item->title))) === 'projects'
-                || $item_url_path === '/projects'
-            );
-        if ($is_projects_page) {
-            $this->projects_page_item = true;
-            $this->projects_page_depth = $depth;
-        }
-
-        $class_names = implode( ' ', array_filter( $classes ) );
-        $class_attr = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
-
-        $output .= "<li$class_attr>";
-
-        // Add the requested classes to all menu links in the mobile menu
-        $link_class = 'a-list-item';
-        if ($depth === 0) {
-            $link_class .= ' h-bold';
+    public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $classes = (array) ($item->classes ?? []);
+        $has_children = !empty($args->has_children) || in_array('menu-item-has-children', $classes, true);
+        $output .= '<li class="' . esc_attr(implode(' ', array_filter($classes))) . '">';
+        $link_class = $depth === 0 ? 'a-list-item h-bold' : 'a-list-item a-text a-text--l h-semibold';
+        $attributes = ' class="' . esc_attr($link_class) . '"';
+        if ($has_children) {
+            $output .= '<button type="button"' . $attributes . ' aria-haspopup="true" aria-expanded="false">';
         } else {
-            $link_class .= ' a-text a-text--l';
+            $attributes .= ' href="' . esc_url($item->url) . '"';
+            if (!empty($item->attr_title)) $attributes .= ' title="' . esc_attr($item->attr_title) . '"';
+            if (!empty($item->target)) $attributes .= ' target="' . esc_attr($item->target) . '"';
+            $rel = $item->xfn ?? '';
+            if (($item->target ?? '') === '_blank') $rel = trim($rel . ' noopener noreferrer');
+            if ($rel) $attributes .= ' rel="' . esc_attr($rel) . '"';
+            $output .= '<a' . $attributes . '>';
         }
-
-        $attributes  = ! empty( $item->attr_title ) ? ' title="' . esc_attr( $item->attr_title ) . '"' : '';
-        $attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target ) . '"' : '';
-        $attributes .= ! empty( $item->xfn )        ? ' rel="' . esc_attr( $item->xfn ) . '"' : '';
-        $attributes .= ( ! empty( $item->url ) && ! $has_children && ! $is_projects_page ) ? ' href="' . esc_url( $item->url ) . '"' : 'href="#"';
-        if ($has_children || $is_projects_page) {
-            $attributes .= ' aria-haspopup="true" aria-expanded="false"';
-        }
-        $attributes .= ' class="' . esc_attr( $link_class ) . '"';
-       
-
-        $title = apply_filters( 'the_title', $item->title, $item->ID );
-
-        $output .= '<a' . $attributes . '>' . $title;
-        
-        // Add dropdown icon for menu items with children
-        if ( $has_children || $is_projects_page ) {
-            $output .= ' <i class="icon-arrow-right a-icon" aria-hidden="true"></i>';
-        }
-        
-        $output .= '</a>';
-
-        if ($is_projects_page) {
-            $output .= $this->mobile_projects_submenu();
-        }
+        $output .= esc_html($item->title);
+        if ($has_children) $output .= ' <i class="icon-arrow-right a-icon" aria-hidden="true"></i>';
+        $output .= $has_children ? '</button>' : '</a>';
     }
 
-    public function end_el( &$output, $item, $depth = 0, $args = null ) {
-        if ($this->projects_page_item && $depth > $this->projects_page_depth) {
-            return;
-        }
-
+    public function end_el(&$output, $item, $depth = 0, $args = null) {
         $output .= "</li>\n";
-
-        if ($this->projects_page_item && $depth === $this->projects_page_depth) {
-            $this->projects_page_item = false;
-            $this->projects_page_depth = 0;
-        }
-
-        if ($depth === 0) {
-            $this->inside_projects_menu = false;
-        }
     }
 }
 

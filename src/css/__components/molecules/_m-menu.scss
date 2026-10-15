@@ -505,6 +505,12 @@
         width: 100%;
 
         .a-list-item {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            text-align: left;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -537,6 +543,8 @@
 }
 
 .m-header__sub-menu {
+    visibility: hidden;
+    overflow-y: auto;
     position: absolute;
     width: 100%;
     background: var(--white);
@@ -549,6 +557,20 @@
     display: block;
 
     &.active {
+        visibility: visible;
         right: 0;
     }
+}
+
+.m-header__submenu-back {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 8px 20px;
+    padding: 8px 0;
+    border: 0;
+    background: transparent;
+    color: var(--dark-blue);
+    font: inherit;
+    cursor: pointer;
 }

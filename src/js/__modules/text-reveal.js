@@ -7,7 +7,21 @@ const textReveal = () => {
     const buttonSelector = 'button, .a-btn, [class*="a-btn--"], .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
     // Keep live countdown numbers intact: their text is replaced every second.
     const faqIconSelector = '.m-faq__item > summary > span:last-child';
-    const wholeElementSelector = `${buttonSelector}, .m-compact__time, ${faqIconSelector}`;
+    // Use the outer badge so its background, pseudo-element dot and icons
+    // reveal together. Compact project category text lives inside its number pill.
+    const badgeSelector = [
+        '.a-badge', '.a-notices-status', '.a-opportunities-status',
+        '.a-activities-pill', '.a-progress-status', '.a-progress-pill',
+        '.a-project-updates-pill', '.a-spotlight-pill',
+        '.m-compact-projects__number', '.m-compact-projects__pair-label',
+        '.m-benefits__badge', '.m-all-albums__badge', '.m-news-grid__badge',
+        '.m-partnership__badge', '.m-single-hero__badge',
+        '.m-hero-collection__pill', '.m-related-programs__status',
+        '.m-small-hero__status', '.m-team__badge', '.m-timeline__pill',
+        '.m-vacancies__status', '.m-current-calls__eyebrow',
+        '.m-newsletter-subscribe__label',
+    ].join(', ');
+    const wholeElementSelector = `${buttonSelector}, ${badgeSelector}, .m-compact__time, ${faqIconSelector}`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
     // Live regions can contain ordinary articles (news, search, filtered cards).
     // Exclude feedback messages themselves, rather than all live-region content.
@@ -17,6 +31,7 @@ const textReveal = () => {
     const animations = new Set();
     const pending = new WeakMap();
     const words = new WeakMap();
+    const wholeElements = new WeakSet();
     let lastScrollY = window.scrollY;
     let scrollingDown = true;
     const updateScrollDirection = () => {
@@ -77,7 +92,7 @@ const textReveal = () => {
                 restoreWords(target);
                 return;
             }
-            if (target.matches(wholeElementSelector)) {
+            if (wholeElements.has(target)) {
                 // Move the whole button, including its background and icon.
                 // Individual translate leaves existing hover transforms intact.
                 animation.cancel();
@@ -156,8 +171,13 @@ const textReveal = () => {
             // Lists containing cards are layout containers, not text blocks.
             if (element.matches('li') && element.querySelector('h1, h2, h3, h4, h5, h6, p, div, article')) return;
             registered.add(element);
+            // Direct word spans become separate flex/grid items, causing
+            // space-between to pull words apart until the reveal is restored.
+            const display = getComputedStyle(element).display;
+            const wholeElement = button || ['flex', 'inline-flex', 'grid', 'inline-grid'].includes(display);
+            if (wholeElement) wholeElements.add(element);
             if (!motion.matches) {
-                if (!button) words.set(element, splitWords(element));
+                if (!wholeElement) words.set(element, splitWords(element));
                 const animation = element.animate([
                     { opacity: 0 },
                     { opacity: 0 },
