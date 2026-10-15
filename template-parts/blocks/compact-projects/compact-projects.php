@@ -16,8 +16,61 @@ $two_cards = get_field('compact_projects_layout') === 'two';
 $label = get_field('compact_projects_label') ?: 'Compact projects';
 $title = get_field('compact_projects_title') ?: ($two_cards ? 'Other Compact projects' : "Three Projects.\nOne Transformative Compact.");
 $description = get_field('compact_projects_description');
-$projects = get_field('compact_projects_items') ?: [];
-$projects = array_slice($projects, 0, $two_cards ? 2 : 3);
+$project_posts = get_posts([
+    'post_type' => 'project',
+    'post_status' => 'publish',
+    'posts_per_page' => $two_cards ? 2 : 3,
+    'orderby' => ['menu_order' => 'ASC', 'ID' => 'ASC'],
+    'post__not_in' => $two_cards && is_singular('project') ? [get_queried_object_id()] : [],
+]);
+$find_project_hero = static function (array $blocks) use (&$find_project_hero) {
+    foreach ($blocks as $project_block) {
+        if (($project_block['blockName'] ?? '') === 'acf/projects-hero') return $project_block['attrs']['data'] ?? [];
+        $nested = $find_project_hero($project_block['innerBlocks'] ?? []);
+        if ($nested) return $nested;
+    }
+    return [];
+};
+$projects = [];
+$block_tags = [];
+$block_labels = [];
+foreach ((get_field('compact_projects_tag_groups') ?: []) as $tag_group) {
+    $tag_project_id = absint($tag_group['project'] ?? 0);
+    if (!$tag_project_id) continue;
+    $block_labels[$tag_project_id] = trim((string) ($tag_group['card_label'] ?? ''));
+    $block_tags[$tag_project_id] = array_values(array_filter(array_map(static function ($row) {
+        return trim((string) ($row['tag'] ?? ''));
+    }, $tag_group['tags'] ?: [])));
+}
+foreach ($project_posts as $project_post) {
+    $hero = $find_project_hero(parse_blocks($project_post->post_content));
+    $image = $hero['small_hero_image'] ?? get_post_thumbnail_id($project_post->ID);
+    if (is_array($image)) $image = $image['ID'] ?? $image['id'] ?? 0;
+    $summary = wp_strip_all_tags($project_post->post_excerpt ?: ($hero['small_hero_description'] ?? ''));
+    $card_tags = [];
+    $tag_rows = $hero['projects_hero_card_tags'] ?? 0;
+    if (is_array($tag_rows)) {
+        foreach ($tag_rows as $row) {
+            $value = is_array($row) ? ($row['tag'] ?? '') : $row;
+            if (is_string($value) && trim($value) !== '') $card_tags[] = trim($value);
+        }
+    } else {
+        for ($tag_index = 0; $tag_index < min(3, absint($tag_rows)); $tag_index++) {
+            $value = trim((string) ($hero['projects_hero_card_tags_' . $tag_index . '_tag'] ?? ''));
+            if ($value !== '') $card_tags[] = $value;
+        }
+    }
+    $projects[] = [
+        'title' => get_the_title($project_post),
+        'image' => absint($image) ?: get_post_thumbnail_id($project_post->ID),
+        'description' => $summary,
+        'short_description' => wp_trim_words($summary, 12, '…'),
+        'category' => $block_labels[$project_post->ID] ?? '',
+        'tone' => $hero['projects_hero_tone'] ?? 'blue',
+        'link' => ['url' => get_permalink($project_post), 'title' => __('Explore the project', 'MCA')],
+        'tags' => array_slice($block_tags[$project_post->ID] ?? $card_tags, 0, 3),
+    ];
+}
 
 $heading_tag = get_field('header_tag') ?: 'h2';
 if (!in_array($heading_tag, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], true)) $heading_tag = 'h2';
@@ -30,7 +83,7 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
 ?>
 <section <?php if (!empty($block['anchor'])): ?>id="<?php echo esc_attr($block['anchor']); ?>" <?php endif; ?>class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>">
     <div class="container">
-        <div class="m-compact-projects__intro">
+        <div class="m-compact-projects__intro s-d-b-s s-m-b-xs">
             <div class="m-compact-projects__heading">
                 <?php if ($label): ?>
                     <p class="a-badge h-blue h-semibold"><?php echo esc_html($label); ?></p>
@@ -51,18 +104,15 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                     <?php
                     $number = sprintf('%02d', $index + 1);
                     $layout = $index === 0 ? 'feature' : 'compact';
-                    $tone = $index === 1 ? 'purple' : ($index === 2 ? 'green' : 'blue');
+                    $tone = in_array($project['tone'] ?? '', ['blue', 'purple', 'green'], true) ? $project['tone'] : 'blue';
                     $image = $project['image'] ?? 0;
                     $project_title = $project['title'] ?? '';
-                    if (!$project_title && $index === 1) $project_title = 'JETA';
-                    if (!$project_title && $index === 2) $project_title = 'ACFD';
                     $side_description = $project['short_description'] ?? '';
-                    if (!$side_description && $index === 1) $side_description = 'Just and Equitable Transition Acceleration';
-                    if (!$side_description && $index === 2) $side_description = 'American Catalyst Facility for Development';
                     if (!$side_description) $side_description = $project['description'] ?? '';
                     $project_description = ($project['description'] ?? '') ?: $side_description;
                     $project_link = $project['link'] ?? [];
                     $project_tags = $project['tags'] ?? [];
+                    if (is_wp_error($project_tags)) $project_tags = [];
                     if (!is_array($project_tags)) {
                         $project_tags = explode(',', (string) $project_tags);
                     }
@@ -77,7 +127,7 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                         <article class="m-compact-projects__card m-compact-projects__card--<?php echo esc_attr($pair_tone); ?>">
                             <?php if ($image) echo wp_get_attachment_image($image, 'large', false, ['class' => 'm-compact-projects__image', 'loading' => 'lazy', 'decoding' => 'async']); ?>
                             <div class="m-compact-projects__overlay"></div>
-                            <div class="m-compact-projects__pair-label"><span class="a-text a-text--xs h-semibold"><?php echo esc_html(($project['category'] ?? '') ?: 'Project ' . sprintf('%02d', $index + 2)); ?></span></div>
+                            <?php if ($project['category'] !== ''): ?><div class="m-compact-projects__pair-label"><span class="a-text a-text--xs h-semibold"><?php echo esc_html($project['category']); ?></span></div><?php endif; ?>
                             <div class="m-compact-projects__pair-content">
                                 <h3 class="a-heading a-heading--h3 h-white"><?php echo esc_html($project_title); ?></h3>
                                 <?php if (!empty($project['short_description'])): ?><p class="a-compact-projects-caption a-text a-text--xxl h-white h-regular"><?php echo esc_html($project['short_description']); ?></p><?php endif; ?>
@@ -93,7 +143,7 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                         <div class="m-compact-projects__overlay"></div>
                         <p class="a-text a-text--s m-compact-projects__number">
                             <span class="m-compact-projects__collapsed-number"><?php echo esc_html($number); ?></span>
-                            <span class="m-compact-projects__category-text"><?php echo esc_html(($project['category'] ?? '') ?: $number); ?></span>
+                            <span class="m-compact-projects__category-text a-text a-text--xs h-semibold"><?php echo esc_html($project['category']); ?></span>
                         </p>
                             <div class="m-compact-projects__feature-content"<?php if ($index !== 0): ?> hidden<?php endif; ?>>
                                 <?php if ($project_title): ?>
@@ -105,7 +155,7 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                                 <?php if ($project_tags): ?>
                                     <ul class="m-compact-projects__tags s-d-b-s s-m-t-xs s-m-b-xs s-d-t-s s-d-b-s">
                                         <?php foreach ($project_tags as $tag): ?>
-                                            <li class="a-text a-text--m"><?php echo esc_html($tag); ?></li>
+                                            <li class="a-text a-text--m h-semibold"><?php echo esc_html($tag); ?></li>
                                         <?php endforeach; ?>
                                     </ul>
                                 <?php endif; ?>
@@ -118,7 +168,7 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                             </div>
                             <button class="m-compact-projects__open" type="button" aria-expanded="<?php echo $index === 0 ? 'true' : 'false'; ?>" aria-label="<?php echo esc_attr('Open ' . $project_title); ?>">+</button>
                             <?php if ($project_title): ?>
-                                <h3 class="a-heading a-heading--h2 h-white a-compact-projects__side-title"><?php echo esc_html($project_title); ?></h3>
+                                <h3 class="a-heading a-heading--h2 h-white a-compact-projects__side-title<?php echo mb_strlen($project_title) > 12 ? ' a-compact-projects__side-title--long' : ''; ?>"><?php echo mb_strlen($project_title) > 12 ? implode('<br>', array_map('esc_html', preg_split('/\s+/', trim($project_title)))) : esc_html($project_title); ?></h3>
                             <?php endif; ?>
                             <?php if ($side_description): ?>
                                 <p class="a-text a-text--xs h-white a-compact-projects__side-description"><?php echo esc_html($side_description); ?></p>

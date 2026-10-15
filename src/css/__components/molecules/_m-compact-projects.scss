@@ -49,7 +49,7 @@
 .m-compact-projects__card--feature,
 .m-compact-projects__card--compact {
     min-height: 340px;
-    border-radius: 11px;
+    border-radius: 24px;
 }
 
 .m-compact-projects__image,
@@ -168,10 +168,10 @@
 }
 
 .m-compact-projects__tags li {
-    padding: 4px 9px;
-    border: 1px solid rgba(255, 255, 255, .35);
+    padding: 10px 16px;
+    border: 1px solid rgba(255, 255, 255, .5);
     border-radius: 99px;
-    background: rgba(0, 20, 55, .2);
+    background: rgba(255, 255, 255, .12);
     color: var(--white);
 }
 
@@ -229,7 +229,6 @@
     left: 50%;
     margin: 0;
     z-index: 2;
-    font-size: 25px;
     line-height: 1;
     letter-spacing: .02em;
     text-transform: uppercase;
@@ -244,7 +243,6 @@
     bottom: 10px;
     left: 5px;
     margin: 0;
-    font-size: 5px;
     line-height: 1.3;
     letter-spacing: .055em;
     text-transform: uppercase;
@@ -268,7 +266,7 @@
     .m-compact-projects__card--feature,
     .m-compact-projects__card--compact {
         min-height: 370px;
-        border-radius: 14px;
+        border-radius: 24px;
     }
 
     .m-compact-projects__number {
@@ -279,7 +277,7 @@
     .m-compact-projects__card--feature .m-compact-projects__number {
         top: 20px;
         left: 20px;
-        padding: 6px 11px;
+        padding: 8px 16px;
     }
 
     .m-compact-projects__feature-content {
@@ -296,15 +294,10 @@
         font-size: 28px;
     }
 
-    .m-compact-projects .a-compact-projects__side-title {
-        font-size: clamp(27px, 6vw, 40px);
-    }
-
     .m-compact-projects .a-compact-projects__side-description {
         right: 12px;
         bottom: 16px;
         left: 12px;
-        font-size: 6px;
     }
 }
 
@@ -345,8 +338,12 @@
 
     .m-compact-projects .a-compact-projects__side-description {
         right: 20px;
-        bottom: 26px;
+        bottom: 60px;
         left: 20px;
+    }
+
+    .m-compact-projects .a-compact-projects__side-title {
+        left: 30%;
     }
 }
 
@@ -399,10 +396,6 @@
     opacity: 1;
 }
 
-.m-compact-projects .a-compact-projects__side-description {
-    font-size: clamp(8px, .75vw, 11px);
-}
-
 @media (min-width: 768px) {
     .m-compact-projects__grid {
         height: clamp(355px, 41vw, 620px);
@@ -433,6 +426,13 @@
     .m-compact-projects__card {
         min-height: 430px;
     }
+}
+
+.m-compact-projects .a-compact-projects__side-title--long {
+    top: 44%;
+    line-height: .95;
+    text-align: center;
+    max-width: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

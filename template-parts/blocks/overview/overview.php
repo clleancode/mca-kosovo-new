@@ -201,8 +201,10 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                     <div class="m-overview__statistic m-overview__statistic--<?php echo esc_attr($statistic_color); ?>">
                         <?php if ($statistic !== '' || $statistic_unit !== ''): ?>
                             <div class="m-overview__value">
+                                <?php $unit_first = is_singular('project') && get_post_field('post_name', get_queried_object_id()) === 'jeta'; ?>
+                                <?php if ($unit_first && $statistic_unit !== ''): ?><span class="h-medium a-heading a-heading--h6"><?php echo esc_html($statistic_unit); ?></span><?php endif; ?>
                                 <?php if ($statistic !== ''): ?><span class="h-medium a-heading a-heading--h3 h-white"><?php echo esc_html($statistic); ?></span><?php endif; ?>
-                                <?php if ($statistic_unit !== ''): ?><span class="h-medium a-heading a-heading--h6"><?php echo esc_html($statistic_unit); ?></span><?php endif; ?>
+                                <?php if (!$unit_first && $statistic_unit !== ''): ?><span class="h-medium a-heading a-heading--h6"><?php echo esc_html($statistic_unit); ?></span><?php endif; ?>
                             </div>
                         <?php endif; ?>
                         <?php if ($statistic_label !== ''): ?><p class="a-text a-text--xs"><?php echo esc_html($statistic_label); ?></p><?php endif; ?>

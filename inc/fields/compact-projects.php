@@ -45,61 +45,28 @@ if (class_exists(FieldsBuilder::class)) {
             ])
 
         ->addTab('Projects')
-            ->addRepeater('compact_projects_items', [
-                'label'        => 'Projects',
-                'instructions' => 'Add up to three projects. The first opens initially; clicking another card expands that project.',
-                'min'          => 1,
-                'max'          => 3,
-                'layout'       => 'block',
-                'button_label' => 'Add project',
+            ->addRepeater('compact_projects_tag_groups', [
+                'label' => 'Project card labels and tags',
+                'instructions' => 'Choose a project and edit its top label and tags here. Other card details are loaded automatically from the project.',
+                'layout' => 'block',
+                'max' => 3,
+                'button_label' => 'Add project labels',
             ])
-                ->addText('title', [
-                    'label'    => 'Project name',
-                    'required' => true,
+                ->addPostObject('project', [
+                    'label' => 'Project', 'post_type' => ['project'],
+                    'return_format' => 'id', 'required' => 1, 'ui' => 1,
                 ])
-                ->addText('category', [
-                    'label' => 'Category pill',
-                ])
-                ->addTextarea('description', [
-                    'label' => 'Expanded project description',
-                    'rows'  => 3,
-                ])
-                ->addText('short_description', [
-                    'label'        => 'Short caption (side projects)',
-                    'instructions' => 'Keep this brief; it appears below the vertical project title.',
-                    'wrapper'      => ['width' => '50'],
+                ->addText('card_label', [
+                    'label' => 'Top label',
+                    'instructions' => 'Enter the full label, for example: 01 · ENERGY STORAGE PROJECT. Leave empty to hide the expanded label.',
                 ])
                 ->addRepeater('tags', [
-                    'label'        => 'Feature tags',
-                    'instructions' => 'Add up to three tags shown below the project description.',
-                    'min'          => 0,
-                    'max'          => 3,
-                    'layout'       => 'table',
-                    'button_label' => 'Add tag',
+                    'label' => 'Tags', 'max' => 3, 'layout' => 'table', 'button_label' => 'Add tag',
                 ])
-                    ->addText('tag', [
-                        'label'    => 'Tag',
-                        'required' => true,
-                    ])
+                    ->addText('tag', ['label' => 'Tag', 'required' => 1])
                 ->endRepeater()
-                ->addImage('image', [
-                    'label'         => 'Project image',
-                    'return_format' => 'id',
-                    'preview_size'  => 'medium',
-                ])
-                ->addSelect('tone', [
-                    'label'   => 'Side card tint',
-                    'choices' => [
-                        'purple' => 'Purple',
-                        'green'  => 'Green',
-                        'blue'   => 'Blue',
-                    ],
-                    'ui' => 1,
-                ])
-                ->addLink('link', [
-                    'label' => 'Project link',
-                ])
             ->endRepeater()
+            ->addMessage('Automatic projects', 'Cards are loaded automatically from published Projects, ordered by Order and then ID. Edit top labels and tags above. Titles and links come from the project; images, descriptions and colors come from its Projects Hero block (with featured image and excerpt supported). The 2-card layout excludes the current project on project pages.')
 
         ->addTab('Heading')
             ->addFields($heading_fields)

@@ -58,6 +58,15 @@ if (class_exists(FieldsBuilder::class)) {
             ])
 
         ->addTab('Statistics')
+            ->addRepeater('projects_hero_card_tags', [
+                'label' => 'Card tags',
+                'instructions' => 'Up to three labels displayed automatically on Compact Projects cards, for example 340 MWh, Istog & Ferizaj, KOSTT.',
+                'max' => 3,
+                'layout' => 'table',
+                'button_label' => 'Add tag',
+            ])
+                ->addText('tag', ['label' => 'Tag', 'required' => 1])
+            ->endRepeater()
             ->addRepeater('small_hero_statistics', [
                 'label'        => 'Statistics',
                 'max'          => 4,

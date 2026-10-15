@@ -1,3 +1,5 @@
+@use '../atoms/a-btn' as button;
+
 .m-documents__documents {
     display: grid;
     align-items: start;
@@ -29,6 +31,7 @@
     height: 64px;
     object-fit: contain;
     flex-shrink: 0;
+    @include button.surface-hover(var(--white), var(--dark-blue), var(--dark-blue));
 }
 
 .m-documents__document-copy {
@@ -57,6 +60,14 @@
 .a-documents-download>img {
     width: 12px;
     height: 14px;
+    transition: filter .3s ease-in-out;
+}
+
+@media (hover: hover) {
+    .a-documents-download:hover > img,
+    .a-documents-download:focus-visible > img {
+        filter: brightness(0) saturate(100%) invert(10%) sepia(65%) saturate(2410%) hue-rotate(191deg) brightness(88%) contrast(106%);
+    }
 }
 
 .a-documents-download:focus-visible {

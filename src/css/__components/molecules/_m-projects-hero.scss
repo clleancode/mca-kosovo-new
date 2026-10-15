@@ -50,8 +50,8 @@
 .a-projects-hero-button--secondary {
     color: var(--white);
     background: transparent;
-    border-color: #ffffff80;
     @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
+    border: 1px solid var(--white);
 }
 
 .a-projects-hero-button:focus-visible,

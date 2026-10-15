@@ -2,7 +2,7 @@
     --a-btn-hover-fill: var(--dark-blue);
     --a-btn-hover-color: var(--white);
     --a-btn-hover-border: var(--white);
-    border: 1px solid transparent;
+    border: 1px solid var(--white);
     outline: none;
     display: inline-flex;
     align-items: center;
@@ -170,7 +170,7 @@
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    border: 1px solid transparent;
+    border: 1px solid var(--white);
     transition: color .3s ease-in-out;
 
     &::after {
@@ -202,7 +202,7 @@
 }
 
 @mixin surface-hover($fill: var(--dark-blue), $text: var(--white), $border: var(--white)) {
-    border: 1px solid transparent;
+    border: 1px solid var(--white);
     background-image: linear-gradient($fill, $fill);
     background-position: left center;
     background-repeat: no-repeat;
@@ -288,7 +288,8 @@ input.a-btn--white {
     }
 
     @media (hover: hover) {
-        &:hover>.a-icon {
+        &.a-btn:not(:disabled):not([aria-disabled="true"]):hover > .a-icon,
+        &.a-btn:not(:disabled):not([aria-disabled="true"]):focus-visible > .a-icon {
             transform: none;
         }
     }
