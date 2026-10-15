@@ -70,7 +70,26 @@
 
 @media (max-width: 767px) {
     .m-more-albums__grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 16px;
+    }
+
+    .m-more-albums,
+    .m-more-albums__grid,
+    .m-more-albums__card {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .m-more-albums__card {
+        aspect-ratio: auto;
+        height: 72px;
+    }
+
+    .m-more-albums__card > a > span {
+        left: 16px;
+        max-width: calc(100% - 32px);
+        box-sizing: border-box;
+        overflow-wrap: anywhere;
     }
 }

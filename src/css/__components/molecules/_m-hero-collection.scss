@@ -90,6 +90,14 @@
     color: #59647d;
 }
 
+@media (max-width: 767px) {
+    .m-hero-collection__actions .a-btn {
+        min-height: 44px;
+        padding: 0 18px;
+        font-size: 14px;
+    }
+}
+
 .m-hero-collection__pill {
     display: inline-flex;
     align-items: center;

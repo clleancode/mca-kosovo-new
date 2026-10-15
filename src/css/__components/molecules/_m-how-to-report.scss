@@ -219,6 +219,11 @@
     border-radius: 99px;
     color: var(--dark-blue);
     background: var(--white);
+    background-image: linear-gradient(var(--dark-blue), var(--dark-blue));
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 0 100%;
+    transition: background-size .3s ease-in-out, color .3s ease-in-out;
 }
 
 .m-how-to-report__cta > a {
@@ -227,6 +232,13 @@
     gap: 6px;
     color: inherit;
     text-decoration: none;
+    transition: color .3s ease-in-out;
+}
+
+.m-how-to-report__cta:hover,
+.m-how-to-report__cta:focus-within {
+    background-size: 100% 100%;
+    color: var(--white);
 }
 
 .m-how-to-report__footer-grid {

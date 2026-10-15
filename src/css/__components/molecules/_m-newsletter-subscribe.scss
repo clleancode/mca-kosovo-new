@@ -245,8 +245,8 @@
     }
 }
 
-.m-newsletter-subscribe__form .m-newsletter-subscribe__signup-row input[type="submit"]:not(:disabled):hover,
-.m-newsletter-subscribe__form .m-newsletter-subscribe__signup-row input[type="submit"]:not(:disabled):focus-visible {
+.m-newsletter-subscribe__form .m-newsletter-subscribe__signup-row input[type="submit"]:hover,
+.m-newsletter-subscribe__form .m-newsletter-subscribe__signup-row input[type="submit"]:focus-visible {
     background-size: 100% 100%;
     color: var(--dark-blue);
 }
