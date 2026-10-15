@@ -1,4 +1,27 @@
 const header = () => {
+    const desktopItems = [...document.querySelectorAll('.m-header__inner .m-menu > ul > li')];
+    const desktopHover = window.matchMedia('(min-width: 1200px) and (hover: hover)');
+    let closeDropdownTimer;
+    const closeDesktopDropdowns = () => {
+        clearTimeout(closeDropdownTimer);
+        desktopItems.forEach(item => item.classList.remove('is-submenu-open'));
+    };
+    desktopItems.forEach(item => {
+        const trigger = item.querySelector(':scope > a, :scope > button');
+        const dropdown = item.querySelector(':scope > .m-sub-menu');
+        trigger?.addEventListener('pointerenter', () => {
+            if (!desktopHover.matches) return;
+            closeDesktopDropdowns();
+            if (dropdown) item.classList.add('is-submenu-open');
+        });
+        dropdown?.addEventListener('pointerenter', () => clearTimeout(closeDropdownTimer));
+        item.addEventListener('pointerleave', () => {
+            if (!desktopHover.matches || !item.classList.contains('is-submenu-open')) return;
+            clearTimeout(closeDropdownTimer);
+            closeDropdownTimer = setTimeout(closeDesktopDropdowns, 350);
+        });
+    });
+    desktopHover.addEventListener('change', closeDesktopDropdowns);
     const headerBurger = document.querySelector('.m-header__burger');
     const menu = document.querySelector('.m-header__menu-mobile');
     const searchForm = document.querySelector(".m-search--form");
