@@ -214,7 +214,7 @@ $allowed_br = ['br' => []];
                 data-compact-end="<?php echo esc_attr($end->format(DATE_ATOM)); ?>"
             >
                 <div class="m-compact__countdown-content">
-                    <p class="a-text a-text--xs a-compact__live s-d-b-xs s-m-b-xs">Compact countdown · Live</p>
+                    <p class="a-text a-text--xs a-compact__live h-semibold s-d-b-xs s-m-b-xs">Compact countdown · Live</p>
                     <h3 class="a-text a-text--xxl">
                         <?php echo esc_html(get_field('compact_countdown_title')); ?>
                     </h3>

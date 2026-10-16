@@ -63,16 +63,6 @@ get_header();
     <?php the_content(); ?>
 <?php endwhile; ?>
 
-<section class="m-content s-d-b-m s-m-b-m">
-    <div class="container h-flex-center">
-        <a href="<?php echo esc_url( home_url( '/media/' ) ); ?>" class="a-btn a-btn--link h-bold">
-            <span class="h-link">
-                <?php esc_html_e( 'Back to Media', 'mca-kosovo' ); ?>
-            </span>
-            <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
-        </a>
-    </div>
-</section>
 
 <?php
 get_footer();

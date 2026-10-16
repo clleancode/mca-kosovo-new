@@ -138,9 +138,9 @@ $render_filters = static function () use ($base_url, $selected, $categories, $fi
                 <?php echo esc_html($category->name); ?>
             </a>
         <?php endforeach; ?>
-        <a class="a-text a-text--l" href="<?php echo esc_url($archive_url); ?>">
-            <?php echo esc_html($archive['title'] ?? ''); ?>
-            <span aria-hidden="true">&rarr;</span>
+        <a class="a-underline a-text a-text--l" href="<?php echo esc_url($archive_url); ?>">
+            <span><?php echo esc_html($archive['title'] ?? ''); ?></span>
+            <i class="icon-arrow-right a-icon" aria-hidden="true"></i>
         </a>
     </nav>
     <?php
