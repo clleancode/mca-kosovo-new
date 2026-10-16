@@ -13,7 +13,7 @@ get_header(); ?>
         <div class="container">
             <div class="m-404">
                 <div class="m-404__content">
-                    <span class="a-tag a-tag--red a-text a-text--xs h-semibold h-uppercase"><span><?php esc_html_e('Error 404', 'MCA'); ?></span></span>
+                    <span class="a-tag a-tag--red a-text a-text--xs h-uppercase"><span><?php esc_html_e('Error 404', 'MCA'); ?></span></span>
                     <h1 id="error-title" class="a-heading a-heading--h3 h-white h-medium s-d-t-s s-m-t-xs"><?php esc_html_e('This page is off the grid', 'MCA'); ?></h1>
                     <p class="a-text a-text--xl h-white s-d-t-s s-m-t-xs s-d-b-s s-m-b-xs"><?php esc_html_e('The page you’re looking for may have moved or no longer exists. Try searching, or head to one of these:', 'MCA'); ?></p>
                     <div class="m-404__actions">
