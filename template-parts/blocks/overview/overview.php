@@ -43,6 +43,11 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
 $content_id = sanitize_html_class(($block['id'] ?? 'overview') . '-content');
 $links = get_field('overview_navigation') ?: [];
 $navigation_white = get_field('overview_navigation_style') === 'pills';
+$content_background = get_field('overview_content_background');
+if (!in_array($content_background, ['white', 'gray', 'dark-blue'], true)) {
+    $content_background = $navigation_white || $is_activities ? 'white' : 'gray';
+}
+$classes[] = 'o-overview--background-' . $content_background;
 $button_background = get_field('overview_button_background');
 $navigation_pills = $button_background === 'white'
     || (!in_array($button_background, ['white', 'transparent'], true) && $navigation_white);

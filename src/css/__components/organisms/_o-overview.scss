@@ -8,3 +8,21 @@
 .o-overview--activities {
     background: var(--white);
 }
+
+.o-overview--background-white { background: var(--white); }
+.o-overview--background-gray { background: var(--grey); }
+.o-overview--background-dark-blue {
+    background: var(--dark-blue);
+    color: var(--white);
+
+    .m-overview__copy {
+        color: var(--white);
+        .a-heading, .a-text, .a-badge, .a-underline { color: var(--white); }
+    }
+
+    .m-overview__number {
+        background: none;
+        color: #ffffff40;
+        -webkit-text-fill-color: currentColor;
+    }
+}

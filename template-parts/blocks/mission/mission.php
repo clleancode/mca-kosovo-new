@@ -109,7 +109,7 @@ $category_cards = (bool) get_field('mission_cards_with_category');
                                 </div>
                             <?php endif; ?>
 
-                            <h3 class="a-heading a-heading--h4 h-white s-d-b-xs s-m-b-xs">
+                            <h3 class="a-heading a-heading--h5 h-white s-d-b-xs s-m-b-xs">
                                 <?php echo esc_html($item['title'] ?? ''); ?>
                             </h3>
 

@@ -473,15 +473,20 @@
 }
 
 .m-compact-projects__pair-content {
-    position: relative;
+    position: absolute;
     z-index: 2;
-    margin: 120px 20px 88px;
+    left: 28px;
+    right: 84px;
+    bottom: 28px;
+    margin: 0;
     min-width: 0;
     overflow-wrap: anywhere;
 }
 
 .m-compact-projects__pair-content>.a-heading {
-    margin: 0 0 12px;
+    margin: 0 0 10px;
+    font-size: clamp(36px, 3.6vw, 64px);
+    line-height: 1.1;
 }
 
 .m-compact-projects__pair-content>.a-text {
@@ -489,6 +494,8 @@
 }
 
 .m-compact-projects__pair-content>.a-compact-projects-caption {
+    font-size: 10px;
+    line-height: 1.5;
     text-transform: uppercase;
     letter-spacing: .1em;
 }
@@ -521,16 +528,16 @@
     .m-compact-projects .m-compact-projects__grid--two {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .m-compact-projects__grid--two > .m-compact-projects__card { aspect-ratio: 1.6; }
-    .m-compact-projects__pair-label { top: 40px; left: 40px; }
+    .m-compact-projects__grid--two > .m-compact-projects__card { aspect-ratio: 1.6; min-height: 0; }
+    .m-compact-projects__pair-label { top: 28px; left: 28px; }
     .m-compact-projects__pair-content {
         position: absolute;
-        left: 36px;
-        right: 76px;
-        bottom: 36px;
+        left: 28px;
+        right: 84px;
+        bottom: 28px;
         margin: 0;
     }
-    .a-compact-projects-pair-link { right: 36px; bottom: 36px; }
+    .a-compact-projects-pair-link { right: 28px; bottom: 28px; }
 }
 
 .m-compact-projects__grid--two .m-compact-projects__card--blue .m-compact-projects__overlay {

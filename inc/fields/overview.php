@@ -23,6 +23,12 @@ if (class_exists(FieldsBuilder::class)) {
             'default_value' => 'default',
             'instructions' => 'Key activities uses a white background, two overlapping images and content links instead of the project navigation and benefits.',
         ])
+        ->addButtonGroup('overview_content_background', [
+            'label' => 'Content background',
+            'choices' => ['white' => 'White', 'gray' => 'Gray', 'dark-blue' => 'Dark blue'],
+            'default_value' => 'white',
+            'instructions' => 'Background of the content below the navigation bar.',
+        ])
         ->addLink('overview_download', [
             'label' => 'Download link',
             'conditional_logic' => [[['field' => 'overview_layout', 'operator' => '==', 'value' => 'activities']]],

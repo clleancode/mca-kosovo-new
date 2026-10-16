@@ -37,7 +37,7 @@ const team = () => {
                 toggle.type = 'button';
                 toggle.className = 'm-team__filters-toggle a-text a-text--m';
                 toggle.dataset.textReveal = 'off';
-                toggle.textContent = (filters.find(filter => filter.getAttribute('aria-pressed') === 'true') || filters[0]).textContent.trim();
+                toggle.textContent = (filters.find(filter => filter.getAttribute('aria-current') === 'true') || filters[0]).textContent.trim();
                 filterList.id ||= `team-filters-${sectionIndex}-${groupIndex}`;
                 toggle.setAttribute('aria-controls', filterList.id);
                 filterList.before(toggle);
@@ -53,8 +53,9 @@ const team = () => {
                     }
                 });
             }
-            filters.forEach(button => button.addEventListener('click', () => {
-                filters.forEach(filter => filter.setAttribute('aria-pressed', String(filter === button)));
+            filters.forEach(button => button.addEventListener('click', event => {
+                event.preventDefault();
+                filters.forEach(filter => filter.setAttribute('aria-current', String(filter === button)));
                 members.forEach(member => {
                     member.hidden = button.dataset.teamDepartment !== '' && member.dataset.teamMemberDepartment !== button.dataset.teamDepartment;
                 });

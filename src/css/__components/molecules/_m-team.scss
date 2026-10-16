@@ -277,21 +277,22 @@
     }
 }
 
-.m-team__filters>button {
+.m-team__filters>a {
+    text-decoration: none;
     padding: 9px 16px;
     border: 0;
     border-radius: 99px;
-    color: var(--dark-blue);
+    color: #2F358B;
     background: var(--white);
     cursor: pointer;
 }
 
-.m-team__filters>button[aria-pressed="true"] {
+.m-team__filters>a[aria-current="true"] {
     color: var(--white);
     background: var(--dark-blue);
 }
 
-.m-team__filters>button:focus-visible {
+.m-team__filters>a:focus-visible {
     outline: 2px solid var(--blue);
     outline-offset: 3px;
 }
