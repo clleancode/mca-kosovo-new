@@ -38,6 +38,11 @@ if (class_exists(FieldsBuilder::class)) {
             'label' => 'Additional description',
             'rows'  => 4,
         ])
+        ->addWysiwyg('ap_content', [
+            'label' => 'Procurement content',
+            'instructions' => 'Optional notice text, including paragraphs, lists and links.',
+            'media_upload' => 1,
+        ])
         ->addText('ap_participation_title', [
             'label' => 'Participation title',
         ])

@@ -11,15 +11,15 @@
     align-items: center;
     gap: 12px;
 
-    > .a-text:first-child {
+    >.a-text:first-child {
         width: 100%;
         color: #64708a;
         letter-spacing: .06em;
         text-transform: uppercase;
     }
 
-    > a,
-    > button {
+    >a,
+    >button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -43,12 +43,12 @@
         scroll-margin-top: 110px;
     }
 
-    > *:first-child,
-    > .m-single-content__section:first-child > .a-heading {
+    >*:first-child,
+    >.m-single-content__section:first-child>.a-heading {
         margin-top: 0;
     }
 
-    .m-single-content__section > .a-heading {
+    .m-single-content__section>.a-heading {
         margin: 40px 0 32px;
         color: var(--dark-blue);
     }
@@ -61,11 +61,11 @@
 }
 
 .m-single-content__rich-text {
-    > *:first-child {
+    >*:first-child {
         margin-top: 0;
     }
 
-    > *:last-child {
+    >*:last-child {
         margin-bottom: 0;
     }
 
@@ -85,13 +85,13 @@
         list-style: none;
     }
 
-    ul > li {
+    ul>li {
         position: relative;
         padding-left: 18px;
         margin-bottom: 12px;
     }
 
-    ul > li::before {
+    ul>li::before {
         position: absolute;
         top: .55em;
         left: 0;
@@ -106,11 +106,11 @@
 .m-single-content__quote {
     margin: 22px 0;
 
-    > blockquote {
+    >blockquote {
         margin: 0;
     }
 
-    > blockquote > .a-heading {
+    >blockquote>.a-heading {
         margin: 0;
         color: var(--dark-blue);
         font-weight: 600;
@@ -122,11 +122,11 @@
     border-radius: 14px;
     background: #f3f4f8;
 
-    > blockquote {
+    >blockquote {
         position: relative;
     }
 
-    > blockquote::before {
+    >blockquote::before {
         position: absolute;
         top: -20px;
         left: -81px;
@@ -142,7 +142,7 @@
     .m-single-content__quote--card {
         padding: 24px 20px 24px 56px;
 
-        > blockquote::before {
+        >blockquote::before {
             top: -10px;
             left: -38px;
             width: 28px;
@@ -163,7 +163,7 @@
     gap: 14px;
     margin: 16px 0 0 0;
 
-    > img {
+    >img {
         width: 56px;
         height: 56px;
         border-radius: 50%;
@@ -179,22 +179,22 @@
     display: grid;
     gap: 2px;
 
-    > .a-text {
+    >.a-text {
         margin: 0;
     }
 }
 
-.m-single-content__section > .m-single-content__list {
+.m-single-content__section>.m-single-content__list {
     padding-left: 22px;
     margin: 8px 0 32px;
 }
 
-.m-single-content__section > ol.m-single-content__list {
+.m-single-content__section>ol.m-single-content__list {
     padding-left: 0;
     list-style: none;
     counter-reset: single-content-step;
 
-    > li {
+    >li {
         position: relative;
         min-height: 26px;
         padding-left: 63px;
@@ -202,7 +202,7 @@
         counter-increment: single-content-step;
     }
 
-    > li::before {
+    >li::before {
         position: absolute;
         top: 0;
         left: 0;
@@ -217,11 +217,11 @@
     }
 }
 
-.m-single-content__section > ol.m-single-content__list--rows {
+.m-single-content__section>ol.m-single-content__list--rows {
     margin-top: 14px;
     border-bottom: 1px solid #e1e5ed;
 
-    > li {
+    >li {
         min-height: 0;
         padding: 21px 0 21px 54px;
         margin: 0;
@@ -230,7 +230,7 @@
         line-height: 1.5;
     }
 
-    > li::before {
+    >li::before {
         top: 50%;
         width: auto;
         height: auto;
@@ -244,18 +244,18 @@
     }
 }
 
-.m-single-content__section > ul.m-single-content__list {
+.m-single-content__section>ul.m-single-content__list {
     padding-left: 0;
     list-style: none;
 }
 
-.m-single-content__section > ul.m-single-content__list > li {
+.m-single-content__section>ul.m-single-content__list>li {
     position: relative;
     padding-left: 27px;
     margin-bottom: 14px;
 }
 
-.m-single-content__section > ul.m-single-content__list > li::before {
+.m-single-content__section>ul.m-single-content__list>li::before {
     position: absolute;
     top: .55em;
     left: 0;
@@ -311,8 +311,8 @@
     gap: 8px;
     margin-bottom: 12px;
 
-    > .a-heading,
-    > .a-text {
+    >.a-heading,
+    >.a-text {
         margin: 0;
         color: var(--dark-blue);
     }
@@ -333,7 +333,7 @@
     border-radius: 20px;
     background: #f3f4f8;
 
-    > img {
+    >img {
         display: block;
         width: 100%;
         height: 100%;
@@ -369,7 +369,7 @@
     overflow-x: auto;
     padding-top: 12px;
 
-    > a {
+    >a {
         flex: 0 0 80px;
         height: 56px;
         overflow: hidden;
@@ -395,14 +395,14 @@
     background: var(--dark-blue);
     color: var(--white);
 
-    > .a-text:first-child {
+    >.a-text:first-child {
         display: block;
         margin: 0 0 10px;
         color: #4297D1;
         text-transform: uppercase;
     }
 
-    > .a-text:last-child {
+    >.a-text:last-child {
         margin: 0;
         color: var(--white);
         line-height: 1.5;
@@ -417,11 +417,22 @@
     margin: 32px 0 0;
     list-style: none;
 
-    > li {
+    >li {
         padding: 8px 14px;
         border-radius: 99px;
         background: #f3f4f8;
         color: var(--dark-blue);
+    }
+}
+
+.m-single-content__compact-about-text {
+    p {
+        margin: 0 0 16px;
+        color: inherit;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
     }
 }
 
@@ -437,7 +448,7 @@
     border-radius: 24px;
     background: #F4F5F8;
 
-    > .a-text {
+    >.a-text {
         display: block;
         margin-bottom: 4px;
         color: #64708a;
@@ -445,7 +456,7 @@
         text-transform: uppercase;
     }
 
-    > ul {
+    >ul {
         display: grid;
         gap: 9px;
         padding: 0;
@@ -466,6 +477,7 @@
         border-left: 4px solid var(--purple);
         color: var(--dark-blue);
     }
+
 }
 
 .m-single-content__project {
@@ -486,7 +498,7 @@
         content: "";
     }
 
-    > img {
+    >img {
         position: absolute;
         inset: 0;
         width: 100%;
@@ -502,13 +514,13 @@
     gap: 12px;
     padding: 28px;
 
-    > .a-text:first-child {
+    >.a-text:first-child {
         letter-spacing: .06em;
         text-transform: uppercase;
     }
 
-    > .a-heading,
-    > .a-text {
+    >.a-heading,
+    >.a-text {
         margin: 0;
         color: var(--white);
     }
@@ -534,7 +546,7 @@
         flex-direction: column;
         align-items: center;
 
-        > .a-text:first-child {
+        >.a-text:first-child {
             text-align: center;
         }
     }

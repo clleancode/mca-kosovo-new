@@ -134,10 +134,9 @@ $legend = [
                                     </div>
 
                                     <?php if (!$is_featured) : ?>
-                                        <div class="m-notices__date-box">
+                                        <div class="m-notices__date-box<?php echo $state === 'award' ? ' m-notices__date-box--award' : ''; ?>">
                                             <?php if ($state === 'award') : ?>
-                                                <span class="a-text a-text--xs h-opacity-50">Status</span>
-                                                <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/red-check.svg')); ?>" alt="" aria-hidden="true">
+                                                <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/award.svg')); ?>" width="28" height="34" alt="" aria-hidden="true">
                                                 <span class="a-text a-text--xs h-semibold">Awarded</span>
                                             <?php elseif ($state === 'general') : ?>
                                                 <span class="a-text a-text--xs h-opacity-50">Status</span>

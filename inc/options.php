@@ -29,6 +29,15 @@ add_action( 'acf/init', function () {
     $themeSettings
         ->setLocation( 'options_page', '==', 'theme-general-settings' )
 
+        ->addTab('Procurement Join')
+        ->addPostObject('procurement_join_source', [
+            'label' => 'Default Join block source',
+            'instructions' => 'Choose a published page or post containing your Join block. Its Join is shown at the end of procurements that do not already contain one. Edit the Join in this source to update the default.',
+            'post_type' => ['procurement', 'page', 'post'],
+            'return_format' => 'id',
+            'allow_null' => 1,
+        ])
+
         // Social Media
         ->addTab( 'Social Media', [ 'label' => 'Social Media' ] )
         ->addRepeater( 'social_media_links', [

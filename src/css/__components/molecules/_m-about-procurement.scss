@@ -284,3 +284,6 @@
 .m-about-procurement__step>div>a>i {
     transform: rotate(-45deg);
 }
+.m-about-procurement__layout.is-documents-only {
+    grid-template-columns: minmax(0, 1fr);
+}

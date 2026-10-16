@@ -56,12 +56,14 @@ $facts = [
     ],
     [
         'Submission',
-        $value('ap_submission', 'Electronic only'),
+        $value('ap_submission', 'See notice'),
         $value('ap_submission_note'),
     ],
 ];
 
-$stage_value = $value('ap_process_stage', 2);
+$notice_status = Notices\get_status($id);
+$default_stage = ($notice_status[0] ?? '') === 'award' ? 4 : ((($notice_status[0] ?? '') === 'evaluation') ? 3 : 2);
+$stage_value = $value('ap_process_stage', $default_stage);
 if (is_array($stage_value)) {
     $stage_value = $stage_value['value'] ?? 2;
 }
@@ -80,6 +82,15 @@ $process = [
     ['Award notice', $value('ap_award_note')],
 ];
 
+$has_about = $value('ap_intro') || $value('ap_description') || $value('ap_content');
+$has_participation = true;
+$has_process = true;
+$has_main = $has_about || $has_participation || $has_process;
+$steps = get_field('ap_steps') ?: [
+    ['title' => 'Register', 'description' => 'Consult the official notice for registration instructions and the complete set of procurement documents.'],
+    ['title' => 'Prepare your offer', 'description' => 'Prepare your offer in accordance with the requirements in the procurement documents.'],
+    ['title' => 'Submit your offer', 'description' => 'Follow the submission method and deadline specified in the official notice.'],
+];
 $url = get_permalink($id);
 ?>
 <section
@@ -101,8 +112,10 @@ $url = get_permalink($id);
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="m-about-procurement__layout">
+            <div class="m-about-procurement__layout<?php echo $has_main ? '' : ' is-documents-only'; ?>">
+                <?php if ($has_main) : ?>
                 <div class="m-about-procurement__main">
+                    <?php if ($has_about) : ?>
                     <div class="m-about-procurement__card">
                         <h2 class="a-heading a-heading--h5">
                             <?php echo esc_html($value('ap_about_title', 'About this procurement')); ?>
@@ -113,12 +126,17 @@ $url = get_permalink($id);
                         <?php if ($description = $value('ap_description')) : ?>
                             <p class="a-text a-text--m"><?php echo nl2br(esc_html($description)); ?></p>
                         <?php endif; ?>
+                    <?php if ($content = $value('ap_content')) : ?>
+                        <div class="a-text a-text--l"><?php echo wp_kses_post($content); ?></div>
+                    <?php endif; ?>
                     </div>
+                    <?php endif; ?>
+                    <?php if ($has_participation) : ?>
                     <div class="m-about-procurement__card">
                         <h2 class="a-heading a-heading--h5">
                             <?php echo esc_html($value('ap_participation_title', 'How to take part')); ?>
                         </h2>
-                        <?php if ($steps = get_field('ap_steps')) : ?>
+                        <?php if ($steps) : ?>
                             <div class="m-about-procurement__steps">
                                 <?php foreach ($steps as $index => $step) : ?>
                                     <div class="m-about-procurement__step">
@@ -156,6 +174,8 @@ $url = get_permalink($id);
                             </div>
                         <?php endif; ?>
                     </div>
+                    <?php endif; ?>
+                    <?php if ($has_process) : ?>
                     <div class="m-about-procurement__card">
                         <h2 class="a-heading a-heading--h5">
                             <?php echo esc_html($value('ap_process_title', 'Procurement process')); ?>
@@ -172,7 +192,9 @@ $url = get_permalink($id);
                             <?php endforeach; ?>
                         </ol>
                     </div>
+                    <?php endif; ?>
                 </div>
+                <?php endif; ?>
                 <aside class="m-about-procurement__aside">
                     <?php if ($documents = get_field('ap_documents')) : ?>
                         <div class="m-about-procurement__card">
@@ -209,11 +231,11 @@ $url = get_permalink($id);
                                         </a>
                                         <p class="a-text a-text--xs h-semibold h-uppercase"><?php echo esc_html($document['description'] ?? ''); ?></p>
                                     </div>
-                                    <div class="m-about-procurement__arrow" aria-hidden="true">
+                                    <a class="m-about-procurement__arrow" href="<?php echo esc_url($document_url); ?>" aria-label="<?php echo esc_attr('Download ' . ($document['title'] ?? 'document')); ?>"<?php echo $file ? ' download' : ''; ?>>
                                         <?php if ($file) : ?>
                                             <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/white-download.svg')); ?>" alt="">
                                         <?php endif; ?>
-                                    </div>
+                                    </a>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -223,7 +245,7 @@ $url = get_permalink($id);
                         <p class="a-text a-text--m">
                             <?php echo esc_html($value('ap_contact_intro', 'Contact the MCA Kosovo Procurement Agent.')); ?>
                         </p>
-                        <?php if ($email = $value('ap_email')) : ?>
+                        <?php if ($email = $value('ap_email', 'MCAKosovoPA@adt-global.com')) : ?>
                             <div class="m-about-procurement__contact-detail">
                                 <p class="a-text a-text--xs h-uppercase">Email</p>
                                 <a class="a-text a-text--m" href="<?php echo esc_url('mailto:' . sanitize_email($email)); ?>">
@@ -231,7 +253,7 @@ $url = get_permalink($id);
                                 </a>
                             </div>
                         <?php endif; ?>
-                        <?php if ($address = $value('ap_address')) : ?>
+                        <?php if ($address = $value('ap_address', 'Migjeni Str. No. 21, 10000 Pristina, Republic of Kosovo')) : ?>
                             <div class="m-about-procurement__contact-detail">
                                 <p class="a-text a-text--xs h-uppercase">Address</p>
                                 <p class="a-text a-text--m"><?php echo nl2br(esc_html($address)); ?></p>

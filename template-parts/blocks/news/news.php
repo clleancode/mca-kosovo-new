@@ -34,10 +34,13 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
 ] = Helpers\get_block_typography(['header_size' => 'h5', 'header_color' => 'h-dark-blue', 'text_color' => 'h-dark-blue']);
 
 $category_ids = array_filter(array_map('absint', (array) get_field('news_categories')));
+$all_category = get_term_by('slug', 'all', 'category');
+$excluded_categories = [absint(get_option('default_category'))];
+if ($all_category) $excluded_categories[] = (int) $all_category->term_id;
 
 $categories = get_categories([
     'hide_empty' => true,
-    'exclude'    => [get_option('default_category')],
+    'exclude'    => $excluded_categories,
     'number'     => 5,
 ]);
 
@@ -49,6 +52,9 @@ if ($category_ids) {
     ]);
 }
 
+$categories = array_values(array_filter($categories, static function ($category) {
+    return strtolower(trim($category->name)) !== 'all' && $category->slug !== 'all';
+}));
 $category_ids = wp_list_pluck($categories, 'term_id');
 
 $instance = sanitize_html_class($block['id'] ?? 'news');

@@ -65,6 +65,17 @@ $add_heading = static function ($heading, $level = 'h2') use (&$toc_items, &$hea
 foreach ($sections as $section) {
     $layout = $section['acf_fc_layout'] ?? '';
 
+    if ($layout === 'compact_about') {
+        $about_label = trim((string) ($section['compact_about_label'] ?? ''));
+        $about_text = trim((string) ($section['compact_about_text'] ?? ''));
+        if ($about_text !== '') {
+            $article_markup .= '<div class="m-single-content__compact-about">';
+            if ($about_label !== '') $article_markup .= '<span class="a-text a-text--xs">' . esc_html($about_label) . '</span>';
+            $article_markup .= '<div class="m-single-content__compact-about-text a-text a-text--xl">' . wp_kses_post(wpautop($about_text)) . '</div></div>';
+        }
+        continue;
+    }
+
     if ($layout === 'text_section') {
         $heading = $section['heading'] ?? '';
         $level = ($section['heading_level'] ?? '') === 'h3' ? 'h3' : 'h2';
@@ -274,6 +285,19 @@ $linkedin_url = 'https://www.linkedin.com/sharing/share-offsite/?url=' . rawurle
 $facebook_url = 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode($post_url);
 $x_url = 'https://twitter.com/intent/tweet?url=' . rawurlencode($post_url) . '&text=' . rawurlencode($post_title);
 $copy_id = 'single-content-copy-' . sanitize_html_class($block['id'] ?? wp_unique_id());
+if (!$toc_items && get_post_type($post_id) === 'post' && trim(wp_strip_all_tags($article_markup)) !== '') {
+    $overview_id = 'article-overview-' . sanitize_html_class($block['id'] ?? (string) $post_id);
+    $toc_items[] = ['id' => $overview_id, 'title' => __('Overview', 'MCA')];
+    $article_markup = '<div id="' . esc_attr($overview_id) . '">' . $article_markup . '</div>';
+}
+?>
+<?php
+// Document-only procurements do not need an empty article and share column.
+if (get_post_type($post_id) === 'procurement' && has_block('acf/documents', $post_id)) {
+    $article_text = preg_replace('/[\s\x{00A0}]+/u', '', html_entity_decode(wp_strip_all_tags($article_markup), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+    $has_media = preg_match('/<(?:img|video|audio|iframe|embed|object)\b/i', $article_markup);
+    if ($article_text === '' && !$has_media) return;
+}
 ?>
 <section
     <?php if (!empty($block['anchor'])) : ?>id="<?php echo esc_attr($block['anchor']); ?>"<?php endif; ?>

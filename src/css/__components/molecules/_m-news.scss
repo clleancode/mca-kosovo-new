@@ -179,8 +179,11 @@
 }
 
 .m-news__thumbnail {
+    position: relative;
     display: block;
+    align-self: start;
     width: 100%;
+    aspect-ratio: 170 / 132;
     overflow: hidden;
     border-radius: 12px;
     background: #f3f4f7;
@@ -298,10 +301,6 @@
 }
 
 @media (min-width: 768px) {
-    .m-news__thumbnail {
-        min-height: 132px;
-    }
-
     .m-news__item {
         grid-template-columns: minmax(0, 1fr) 120px;
     }
@@ -404,4 +403,9 @@
     .m-news__newsletter {
         padding: 24px;
     }
+}
+
+.m-news__thumbnail img {
+    position: absolute;
+    inset: 0;
 }

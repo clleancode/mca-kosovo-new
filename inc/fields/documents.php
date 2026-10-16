@@ -35,12 +35,12 @@ if (class_exists(FieldsBuilder::class)) {
             ->addFile('file', [
                 'label'         => 'Document file',
                 'return_format' => 'array',
-                'mime_types'    => 'pdf,xls,xlsx',
+                'mime_types'    => 'pdf,xls,xlsx,doc,docx,ppt,pptx,png',
                 'required'      => 1,
             ])
             ->addButtonGroup('document_type', [
                 'label' => 'Document icon',
-                'choices' => ['pdf' => 'PDF', 'xls' => 'XLS / XLSX'],
+                'choices' => ['pdf' => 'PDF', 'xls' => 'XLS / XLSX', 'document' => 'Other document'],
                 'default_value' => 'pdf',
             ])
             ->addText('project_documents_title', [

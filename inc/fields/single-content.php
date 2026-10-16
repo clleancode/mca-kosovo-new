@@ -159,6 +159,9 @@ if (class_exists(FieldsBuilder::class)) {
                 ])
                     ->addText('tag', ['label' => 'Tag'])
                 ->endRepeater()
+            ->addLayout('compact_about', ['label' => 'About the Compact card'])
+                ->addText('compact_about_label', ['label' => 'Label', 'default_value' => 'About the MCC-Kosovo Compact'])
+                ->addWysiwyg('compact_about_text', ['label' => 'Text', 'toolbar' => 'basic', 'media_upload' => 0])
         ->endFlexibleContent()
         ->addTab('Sidebar')
         ->addText('single_content_toc_title', [

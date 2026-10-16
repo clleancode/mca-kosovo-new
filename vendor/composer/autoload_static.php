@@ -15,6 +15,10 @@ class ComposerStaticInitf17eb6282b39f622766ba4e85902559c
         array (
             'Psr\\SimpleCache\\' => 16,
         ),
+        'M' => 
+        array (
+            'MCA\\' => 4,
+        ),
         'D' => 
         array (
             'Doctrine\\Inflector\\' => 19,
@@ -30,6 +34,10 @@ class ComposerStaticInitf17eb6282b39f622766ba4e85902559c
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
+        'MCA\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/inc',
         ),
         'Doctrine\\Inflector\\' => 
         array (

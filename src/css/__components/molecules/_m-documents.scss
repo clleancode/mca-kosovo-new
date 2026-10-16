@@ -26,14 +26,6 @@
     background: var(--grey);
 }
 
-.a-documents-pdf {
-    width: 52px;
-    height: 64px;
-    object-fit: contain;
-    flex-shrink: 0;
-    @include button.surface-hover(var(--white), var(--dark-blue), var(--dark-blue));
-}
-
 .m-documents__document-copy {
     flex: 1;
     min-width: 120px;
