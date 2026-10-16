@@ -66,6 +66,19 @@
     }
 }
 
+@media (min-width: 1200px) {
+    .o-hero > .swiper {
+        height: auto;
+    }
+
+    .o-hero .m-hero__inner {
+        height: auto;
+        min-height: max(720px, 100svh);
+        padding: 180px 0 160px;
+        box-sizing: border-box;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 1199px) {
     .o-hero > .swiper {
         height: auto;

@@ -113,6 +113,8 @@
 
 .m-storage__map {
     position: relative;
+    min-width: 0;
+    width: 100%;
     aspect-ratio: 1.02;
     min-height: 320px;
     overflow: hidden;
@@ -149,6 +151,7 @@
 
     .m-storage__map {
         min-height: 430px;
+        aspect-ratio: auto;
     }
 
 }
