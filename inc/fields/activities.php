@@ -17,6 +17,10 @@ if (class_exists(FieldsBuilder::class)) {
     $activities
         ->setLocation('block', '==', 'acf/activities')
         ->addTab('Content')
+        ->addText('activities_id', [
+            'label' => 'Section ID',
+            'instructions' => 'Enter a unique ID without # or spaces, for example: activities. Leave empty to use activities.',
+        ])
         ->addButtonGroup('activities_layout', [
             'label'        => 'Number of cards',
             'choices'      => [

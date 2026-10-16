@@ -19,13 +19,20 @@ if (class_exists(FieldsBuilder::class)) {
         ->setLocation('block', '==', 'acf/news-grid')
 
         ->addTab('Content')
+        ->addButtonGroup('news_grid_mode', [
+            'label' => 'Display mode',
+            'choices' => ['auto' => 'Automatic', 'archive' => 'News archive', 'related' => 'Related articles'],
+            'default_value' => 'auto',
+            'instructions' => 'Automatic uses Related articles on single posts: no newsletter or pagination, and excludes the current post. Related articles shows 2 or 3 cards.',
+        ])
+        ->addLink('news_grid_all_news_link', ['label' => 'All news link (Related articles)'])
         ->addText('news_grid_title', [
             'label'         => 'Section title',
             'default_value' => 'Latest news',
         ])
         ->addNumber('news_grid_posts_per_page', [
             'label'         => 'News cards per page',
-            'instructions'  => 'The newsletter card is added after the news cards.',
+            'instructions'  => 'Choose 2 or 3 for Related articles. The newsletter is only added in News archive mode.',
             'default_value' => 5,
             'min'           => 1,
             'max'           => 12,

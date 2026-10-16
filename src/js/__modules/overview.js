@@ -48,7 +48,7 @@ const overview = () => {
         const sortPosition = sortLabel ? document.createComment('Overview desktop sort position') : null;
         if (sortLabel) sortLabel.before(sortPosition);
         const project = section.querySelector('.m-overview__project');
-        const projectPosition = project ? document.createComment('Overview desktop project position') : null;
+        const projectPosition = project ? document.createTextNode('') : null;
         let projectSlot;
         if (project && bar) {
             project.before(projectPosition);

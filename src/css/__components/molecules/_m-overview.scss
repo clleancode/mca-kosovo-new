@@ -76,6 +76,14 @@
     flex-shrink: 0;
 }
 
+.o-overview--project-purple .m-overview__project::before {
+    background: var(--purple);
+}
+
+.o-overview--project-green .m-overview__project::before {
+    background: var(--dark-green);
+}
+
 .m-overview__links {
     display: flex;
     flex-wrap: wrap;

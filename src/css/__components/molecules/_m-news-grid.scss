@@ -10,7 +10,6 @@
 
 .m-news-grid__header > .a-heading {
     margin: 0;
-    font-size: clamp(24px, 3vw, 32px);
 }
 
 .m-news-grid__page-count {
@@ -293,5 +292,11 @@
 
     .m-news-grid__newsletter {
         padding: 24px;
+    }
+}
+
+@media (min-width: 640px) {
+    .o-news-grid--related .m-news-grid__cards--two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }

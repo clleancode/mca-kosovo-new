@@ -40,9 +40,11 @@ $image = get_field('featured_programs_image');
 $description = get_field('featured_programs_description');
 $feature_description = get_field('featured_programs_feature_description');
 $items = array_slice(get_field('featured_programs_items') ?: [], 0, 4);
+$section_id = sanitize_title(ltrim(trim((string) get_field('featured_programs_id')), '#'));
+$section_id = $section_id ?: ($block['anchor'] ?? '');
 ?>
 <section
-    <?php if (!empty($block['anchor'])) : ?>id="<?php echo esc_attr($block['anchor']); ?>"<?php endif; ?>
+    <?php if ($section_id !== '') : ?>id="<?php echo esc_attr($section_id); ?>"<?php endif; ?>
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
 >
     <div class="container">

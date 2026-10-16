@@ -24,17 +24,30 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     }
 }
 
-['header_tag' => $tag] = Helpers\get_block_typography([
+[
+    'header_tag' => $tag,
+    'header_size' => $heading_size,
+    'header_color' => $heading_color,
+    'header_line_height' => $heading_line_height,
+] = Helpers\get_block_typography([
     'header_tag' => 'h2',
     'header_size' => 'h5',
     'header_color' => 'h-dark-blue',
 ]);
 
 $instance = sanitize_key($block['id'] ?? 'news-grid');
+$mode = get_field('news_grid_mode') ?: 'auto';
+$related = $mode === 'related' || ($mode === 'auto' && is_singular('post'));
+$all_news_link = get_field('news_grid_all_news_link') ?: [];
+$classes[] = $related ? 'o-news-grid--related' : '';
 $page_key = 'news_grid_page_' . $instance;
 $current_page = isset($_GET[$page_key]) ? max(1, absint(wp_unslash($_GET[$page_key]))) : 1;
 $per_page = absint(get_field('news_grid_posts_per_page')) ?: 5;
 $per_page = min(max($per_page, 1), 12);
+if ($related) {
+    $current_page = 1;
+    $per_page = min(3, max(2, $per_page));
+}
 $query = new WP_Query([
     'post_type'           => 'post',
     'post_status'         => 'publish',
@@ -43,6 +56,8 @@ $query = new WP_Query([
     'ignore_sticky_posts' => true,
     'orderby'             => 'date',
     'order'               => 'DESC',
+    'post__not_in'        => $related && is_singular('post') ? [get_queried_object_id()] : [],
+    'no_found_rows'       => $related,
 ]);
 
 $total_pages = max(1, (int) $query->max_num_pages);
@@ -87,15 +102,19 @@ $category_color_map = [
 >
     <div class="container">
         <div class="m-news-grid__header">
-            <<?php echo tag_escape($tag); ?> class="a-heading a-heading--h5 h-dark-blue">
+            <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($heading_size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_line_height); ?>">
                 <?php echo esc_html(get_field('news_grid_title') ?: 'Latest news'); ?>
             </<?php echo tag_escape($tag); ?>>
+            <?php if ($related): ?>
+                <?php if (!empty($all_news_link['url'])): ?><a class="a-btn a-btn--border-blue a-btn--smallest" href="<?php echo esc_url($all_news_link['url']); ?>" target="<?php echo esc_attr($all_news_link['target'] ?: '_self'); ?>"<?php if (($all_news_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($all_news_link['title'] ?: 'All news'); ?> &rarr;</a><?php endif; ?>
+            <?php else: ?>
             <p class="m-news-grid__page-count a-text a-text--xs" aria-live="polite">
                 PAGE <?php echo esc_html($current_page); ?> OF <?php echo esc_html($total_pages); ?>
             </p>
+            <?php endif; ?>
         </div>
 
-        <div class="m-news-grid__cards">
+        <div class="m-news-grid__cards<?php echo $related && $per_page === 2 ? ' m-news-grid__cards--two' : ''; ?>">
             <?php if ($query->have_posts()) : ?>
                 <?php while ($query->have_posts()) : $query->the_post(); ?>
                     <?php
@@ -131,7 +150,7 @@ $category_color_map = [
                                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                             </h2>
 
-                            <a class="m-news-grid__read a-text a-text--xs" href="<?php the_permalink(); ?>">
+                            <a class="m-news-grid__read a-text a-text--m" href="<?php the_permalink(); ?>">
                                 Read more <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -141,6 +160,7 @@ $category_color_map = [
                 <p class="m-news-grid__empty a-text a-text--m">No news has been published yet.</p>
             <?php endif; ?>
 
+            <?php if (!$related): ?>
             <aside class="m-news-grid__newsletter">
                 <p class="m-news-grid__newsletter-label a-text a-text--xs h-semibold"><?php echo esc_html($newsletter_label); ?></p>
                 <h2 class="m-news-grid__newsletter-title a-heading a-heading--h5 h-white h-semibold"><?php echo esc_html($newsletter_title); ?></h2>
@@ -155,9 +175,10 @@ $category_color_map = [
                     </form>
                 <?php endif; ?>
             </aside>
+            <?php endif; ?>
         </div>
 
-        <?php if ($total_pages > 1) : ?>
+        <?php if (!$related && $total_pages > 1) : ?>
             <nav class="m-news-grid__pagination" aria-label="News pages">
                 <?php if ($current_page > 1) : ?>
                     <a class="m-news-grid__page m-news-grid__page--arrow a-text a-text--xs" href="<?php echo esc_url(add_query_arg($page_key, $current_page - 1, $base_url) . $anchor); ?>" aria-label="Previous page">&larr;</a>

@@ -14,6 +14,12 @@ $classes = [
 ];
 
 $is_activities = get_field('overview_layout') === 'activities';
+$project_slug = is_singular('project') ? get_post_field('post_name', get_queried_object_id()) : '';
+if ($project_slug === 'jeta') {
+    $classes[] = 'o-overview--project-purple';
+} elseif (in_array($project_slug, ['acfg', 'acfd'], true)) {
+    $classes[] = 'o-overview--project-green';
+}
 $download = get_field('overview_download') ?: [];
 $content_link = get_field('overview_content_link') ?: [];
 if ($is_activities) {

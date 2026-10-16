@@ -24,6 +24,10 @@ if (class_exists(FieldsBuilder::class)) {
         ->setLocation('block', '==', 'acf/featured-programs')
 
         ->addTab('Content')
+            ->addText('featured_programs_id', [
+                'label' => 'Section ID',
+                'instructions' => 'Enter a unique ID without # or spaces, for example: programs. Link to it using #programs.',
+            ])
             ->addText('featured_programs_label', [
                 'label' => 'Badge label',
             ])

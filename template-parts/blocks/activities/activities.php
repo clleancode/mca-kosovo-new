@@ -39,7 +39,7 @@ $items = array_slice(get_field('activities_items') ?: [], 0, $layout === 'two' ?
 $title = get_field('activities_title');
 $description = get_field('activities_description');
 ?>
-<section id="activities" class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>">
+<section id="<?php echo esc_attr(sanitize_title(ltrim(trim((string) get_field('activities_id')), '#')) ?: (($block['anchor'] ?? '') ?: 'activities')); ?>" class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>">
     <div class="container">
         <div class="m-activities__intro s-d-b-m s-m-b-s">
             <div class="m-activities__heading">
