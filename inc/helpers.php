@@ -109,77 +109,72 @@ function get_block_typography(array $defaults = []) {
 /**
  * FAQ Category sidebar listing
  */
+/**
+ * Published FAQ hierarchy: a direct leaf counts as one; a group counts its
+ * published direct children. Cap sidebar output at 200 groups / 1000 links;
+ * aggregate counts remain exact and query count does not grow per item.
+ */
 function mca_faq_category_sidebar($parent = 0, $current_term = '') {
-	global $wpdb;
+    global $wpdb;
+    if (!post_type_exists('faq')) return;
 
-	$cats = mca_get_saved_cat_ids(true, $parent);
-
-	if (!empty($cats)) {
-?>
-		<nav class="m-menu m-menu--categories">
-			<p class="a-text a-text--m a-categories">
-				<?php _e('Category', 'mca'); ?> <i class="icon-arrow-down a-icon a-icon--xs a-icon--nospace h-white-700"></i>
-			</p>
-			<ul>
-				<?php
-					foreach ($cats as $group_id => $post_id) {
-						$class = $current_term == $post_id ? 'faq-active open' : '';
-						$url = esc_url(get_the_permalink($post_id));
-						$name = ucwords(get_the_title($post_id));
-						$count = mca_get_child_count($post_id);
-						$get_count_query = "SELECT ID from {$wpdb->prefix}posts where post_parent='{$post_id}'";
-						$get_count_query_result = $wpdb->get_results($get_count_query,OBJECT);
-						$category_count = 0;
-
-						foreach($get_count_query_result as $key=>$value){
-							$get_query = "select ID from {$wpdb->prefix}posts where post_parent='{$value->ID}'";
-							$get_query_result = $wpdb->get_results($get_query,OBJECT);
-							
-							if(count($get_query_result)>0){
-								$category_count+= count($get_query_result);
-							} else {
-								$category_count = $count;
-							}
-						}
-				  
-					?>
-					<li>
-						<a href="<?php echo $url; ?>" class="a-text">
-							<?php echo $name; ?>
-							<span class="">(<?php echo $category_count; ?>)</span>	
-						</a>
-						<i class="icon-arrow-down a-icon a-icon--s a-icon--nospace h-white"></i>
-						<?php
-						if ($parent) {
-							$args = array(
-								'post_type' => 'faq',
-								'posts_per_page' => -1,
-								'post_status' => 'publish',
-								'post_parent' => $post_id,
-								'orderby' => 'title',
-								'order' => 'asc'
-							);
-							$q = new WP_Query($args);
-							if ($q->have_posts()) {
-								echo '<ul>';
-								while ($q->have_posts()) {
-									$q->the_post();
-									$title = get_the_title();
-									$link = esc_url(get_the_permalink());
-									echo sprintf('<li><a href="%s">%s</a></li>', $link, $title);
-								}
-								echo '</ul>';
-								wp_reset_postdata();
-							}
-						}
-						?>
-					</li>
-				<?php }
-				?>
-			</ul>
-		</nav>
-		<?php
-	}
+    $cats = get_posts([
+        'post_type' => 'faq', 'post_status' => 'publish',
+        'post_parent' => absint($parent), 'posts_per_page' => 200,
+        'orderby' => ['title' => 'ASC', 'ID' => 'ASC'],
+        'update_post_meta_cache' => false, 'update_post_term_cache' => false,
+        'suppress_filters' => false,
+    ]);
+    if (!$cats) return;
+    $ids = wp_list_pluck($cats, 'ID');
+    $placeholders = implode(',', array_fill(0, count($ids), '%d'));
+    $rows = $wpdb->get_results($wpdb->prepare(
+        "SELECT child.post_parent AS category_id, SUM(COALESCE(grand.total, 1)) AS total
+         FROM {$wpdb->posts} child
+         LEFT JOIN (
+             SELECT post_parent, COUNT(*) AS total FROM {$wpdb->posts}
+             WHERE post_type = 'faq' AND post_status = 'publish' GROUP BY post_parent
+         ) grand ON grand.post_parent = child.ID
+         WHERE child.post_type = 'faq' AND child.post_status = 'publish'
+         AND child.post_parent IN ($placeholders)
+         GROUP BY child.post_parent", $ids
+    ));
+    $counts = [];
+    foreach ((array) $rows as $row) $counts[(int) $row->category_id] = (int) $row->total;
+    $children = [];
+    if ($parent) {
+        $items = get_posts([
+            'post_type' => 'faq', 'post_status' => 'publish',
+            'post_parent__in' => $ids, 'posts_per_page' => 1000,
+            'orderby' => ['title' => 'ASC', 'ID' => 'ASC'],
+            'update_post_meta_cache' => false, 'update_post_term_cache' => false,
+            'suppress_filters' => false,
+        ]);
+        foreach ($items as $item) $children[$item->post_parent][] = $item;
+    }
+    ?>
+    <nav class="m-menu m-menu--categories">
+        <p class="a-text a-text--m a-categories"><?php esc_html_e('Category', 'mca'); ?> <i class="icon-arrow-down a-icon a-icon--xs a-icon--nospace h-white-700" aria-hidden="true"></i></p>
+        <ul>
+            <?php foreach ($cats as $cat): ?>
+                <li class="<?php echo absint($current_term) === (int) $cat->ID ? 'faq-active open' : ''; ?>">
+                    <a href="<?php echo esc_url(get_permalink($cat)); ?>" class="a-text">
+                        <?php echo esc_html(ucwords(get_the_title($cat))); ?>
+                        <span>(<?php echo (int) ($counts[$cat->ID] ?? 0); ?>)</span>
+                    </a>
+                    <i class="icon-arrow-down a-icon a-icon--s a-icon--nospace h-white" aria-hidden="true"></i>
+                    <?php if (!empty($children[$cat->ID])): ?>
+                        <ul>
+                            <?php foreach ($children[$cat->ID] as $item): ?>
+                                <li><a href="<?php echo esc_url(get_permalink($item)); ?>"><?php echo esc_html(get_the_title($item)); ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </nav>
+    <?php
 }
 
 
@@ -193,7 +188,7 @@ function mca_faq_category_topbar($current = 0) {
 	if ($cats) {
 		echo '<div class="m-faq m-faq--menu">';
 	    echo    '<div class="m-faq__header">';
-	    echo        '<h5 class="a-subheading a-subheading--m h-white">' . get_the_title($current) . '</h5>';
+	    echo        '<h5 class="a-subheading a-subheading--m h-white">' . esc_html(get_the_title($current)) . '</h5>';
 	    echo        '<i class="icon-arrow-down a-icon a-icon--nospace a-icon--l"></i>';
 	    echo    '</div>';
 	    echo    '<div class="m-faq__body">';
@@ -201,7 +196,7 @@ function mca_faq_category_topbar($current = 0) {
 					foreach ($cats as $group_id => $post_id) {
 						$title = get_the_title($post_id);
 						$url = get_the_permalink($post_id);
-						echo sprintf('<li class="a-list-item-s"><a href="%s"><span>%s</span></a></li>', esc_url($url), ucwords($title));
+						echo sprintf('<li class="a-list-item-s"><a href="%s"><span>%s</span></a></li>', esc_url($url), esc_html(ucwords($title)));
 					}
 		echo    	'</ul>';
 		echo    '</div>';
@@ -222,7 +217,7 @@ function mca_faq_category_boxes($current = 0) {
 			$active = $current == $post_id ? 'active' : '';
 			$url = get_the_permalink($post_id);
 			if($post_id != 2699 && $post_id != 2700 && $post_id != 10732) {
-				echo sprintf('<li class="%s" data-id="%s"><a href="%s"><span>%s</span></a></li>', $active, $post_id, esc_url($url), ucwords($title));
+				echo sprintf('<li class="%s" data-id="%d"><a href="%s"><span>%s</span></a></li>', esc_attr($active), absint($post_id), esc_url($url), esc_html(ucwords($title)));
 			}
 		}
 		echo ' </ul>';
@@ -541,60 +536,63 @@ function mca_get_device_visibility($desktop_field = 'desktop', $tablet_field = '
  * Get notification visibility
  */
 function mca_get_notification_visibility() {
-	$current_slug = trim($_SERVER['REQUEST_URI'], '/');
-    $notification_locations = get_field('notification_locations', 'option');
+    $detect = new MobileDetect();
+    $is_tablet = $detect->isTablet();
+    $is_mobile = $detect->isMobile() || $is_tablet;
+    $result = [
+        'show' => false,
+        'visibility_classes' => '',
+        'notification_text' => '',
+        'book_link' => '',
+        'device_states' => [
+            'is_desktop' => !$is_mobile,
+            'is_tablet' => $is_tablet,
+            'is_mobile' => $is_mobile,
+        ],
+    ];
+    if (!function_exists('get_field')) return $result;
 
-	if($notification_locations):
-		foreach ($notification_locations as $i => $location):
-			if (strpos($current_slug, $location['notification_location_slug']) !== false):
-				$notification_text = $location['notification_text'];
-				$notification_desktop_active = $location['notification_desktop_active'];
-				$notification_mobile_active = $location['notification_mobile_active'];
-				$booking_url = get_field('booking_url','option');
-				$booking_locations = get_field('booking_locations', 'option');
-				$selected_location_id = '';
+    $path = wp_parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+    $current_slug = trim(is_string($path) ? $path : '', '/');
+    $locations = get_field('notification_locations', 'option');
+    if (!is_array($locations)) return $result;
 
-				foreach ($booking_locations as $i => $location) {
-					if (strpos($current_slug, $location['location_slug']) !== false) {
-						$selected_location_id    = $location['bookinglayer_slug'];
-					}
-				}
+    foreach ($locations as $location) {
+        if (!is_array($location)) continue;
+        $slug = $location['notification_location_slug'] ?? '';
+        if (!is_string($slug) || trim($slug, '/') === ''
+            || strpos($current_slug, trim($slug, '/')) === false) continue;
 
-				$desktop = $notification_desktop_active === null ? true : $notification_desktop_active;
-                $mobile  = $notification_mobile_active  === null ? true : $notification_mobile_active;
-
-                $detect = new MobileDetect();
-                $is_mobile = $detect->isMobile();
-                $is_desktop = !$is_mobile && !$is_tablet;
-
-                $show = false;
-
-                if ($desktop && $is_desktop) $show = true;
-                if ($mobile && $is_mobile) $show = true;
-
-                $visibility_classes = [];
-                if (!$desktop) $visibility_classes[] = 'h-hide-desktop';
-                if (!$mobile) $visibility_classes[] = 'h-hide-mobile';
-
-				$visibility_class_string = implode(' ', $visibility_classes);
-				$book_link = $booking_url . '/product/' . $selected_location_id;
-
-				return [
-					'show' => $show,
-					'visibility_classes' => $visibility_class_string,
-					'notification_text' => $notification_text,
-					'book_link' => $book_link,
-					'device_states' => [
-						'is_desktop' => $is_desktop,
-						'is_tablet' => $is_tablet,
-						'is_mobile' => $is_mobile
-					]
-				];
-
-				return $visibility_class_string;
-			endif;
-		endforeach;
-	endif;
+        // Notifications have two device options; tablets follow the mobile option.
+        $desktop = $location['notification_desktop_active'] ?? true;
+        $mobile = $location['notification_mobile_active'] ?? true;
+        $result['show'] = (bool) ($is_mobile ? $mobile : $desktop);
+        $result['visibility_classes'] = implode(' ', array_filter([
+            !$desktop ? 'h-hide-desktop' : '',
+            !$mobile ? 'h-hide-mobile h-hide-tablet' : '',
+        ]));
+        $text = $location['notification_text'] ?? '';
+        $result['notification_text'] = is_string($text) ? wp_kses_post($text) : '';
+        $booking_url = get_field('booking_url', 'option');
+        $booking_locations = get_field('booking_locations', 'option');
+        if (is_string($booking_url) && is_array($booking_locations)) {
+            foreach ($booking_locations as $booking) {
+                if (!is_array($booking)) continue;
+                $booking_slug = $booking['location_slug'] ?? '';
+                $product = $booking['bookinglayer_slug'] ?? '';
+                if (is_string($booking_slug) && trim($booking_slug, '/') !== ''
+                    && is_string($product) && $product !== ''
+                    && strpos($current_slug, trim($booking_slug, '/')) !== false) {
+                    $base = esc_url_raw($booking_url, ['http', 'https']);
+                    if ($base && wp_parse_url($base, PHP_URL_HOST)) {
+                        $result['book_link'] = esc_url_raw(trailingslashit($base) . 'product/' . rawurlencode($product));
+                    }
+                }
+            }
+        }
+        return $result;
+    }
+    return $result;
 }
 
 //contact form to not insert <p>
