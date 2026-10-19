@@ -1,0 +1,41 @@
+{
+  "note": "Existing legacy/global selector exceptions retained for minimal C-01 scope. New exceptions require review; do not regenerate to silence failures.",
+  "classes": [
+    "active",
+    "carousel",
+    "cf7-success-message",
+    "compensate-for-scrollbar",
+    "container",
+    "container--column",
+    "container--smaller",
+    "current",
+    "current-menu-item",
+    "gallery-lightbox",
+    "init",
+    "m-404",
+    "m-404__actions",
+    "m-404__content",
+    "m-404__number",
+    "m-single-content__gallery-image--1",
+    "mca-reveal-word",
+    "menu-header-menu",
+    "next",
+    "o-404",
+    "o-404__lines",
+    "page-numbers",
+    "prev",
+    "resetting",
+    "screen-reader-response",
+    "sent",
+    "skip-link",
+    "sr-only",
+    "submitting",
+    "swiper",
+    "with-fancybox",
+    "wpcf7"
+  ],
+  "ids": [
+    "a-countdown",
+    "main-content"
+  ]
+}
