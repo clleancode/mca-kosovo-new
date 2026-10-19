@@ -106,20 +106,6 @@ add_filter('the_generator', __NAMESPACE__ . '\\hide_wordpress_version');
 // add_filter( 'style_loader_src', __NAMESPACE__ . '\\hide_wordpress_version_in_script', 10, 2 );
 // add_filter( 'script_loader_src', __NAMESPACE__ . '\\hide_wordpress_version_in_script', 10, 2 );
 
-/**
- * Add lazy-loading attribute to images.
- *
- * This filter adds the `loading="lazy"` attribute to all images to improve performance
- * by deferring the loading of offscreen images until they are needed.
- *
- * @param array $attr The image attributes.
- * @return array Modified image attributes with lazy-loading enabled.
- */
-function theme_lazy_load_images( $attr ) {
-    $attr['loading'] = 'lazy';
-    return $attr;
-}
-add_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\\theme_lazy_load_images' );
 
 /**
  * Remove "Private" and "Protected" prefixes from post titles.

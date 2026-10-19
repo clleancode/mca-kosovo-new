@@ -76,18 +76,6 @@ add_filter('script_loader_tag', function($tag, $handle) {
 }, 10, 2);
 
 
-add_filter('the_content', function($html){
-
-    return preg_replace('/<img(?![^>]+loading=)/i', '<img loading="lazy"', $html);
-}, 11);
-
-
-add_action('wp_head', function () {
-  if (is_front_page()) {
-    echo '<link rel="preload" as="image" fetchpriority="high" href="https://www.mcakosovo.org/wp-content/uploads/2025/08/hero-image.webp" imagesizes="100vw">';
-  }
-}, 2);
-
 add_action('wp_head', function () {
     ?>
     <script>

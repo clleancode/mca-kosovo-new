@@ -141,6 +141,7 @@ if (get_field('hero_layout') === 'about') {
                             echo wp_get_attachment_image($background_image, 'full', false, [
                                 'class'    => 'a-img',
                                 'loading'  => $slide_index === 0 ? 'eager' : 'lazy',
+                                'fetchpriority' => $slide_index === 0 ? 'high' : 'auto',
                                 'decoding' => 'async',
                             ]);
                             ?>
