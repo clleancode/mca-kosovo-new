@@ -81,6 +81,27 @@ function change_surfcamp_query($query){
 };
 add_action( 'pre_get_posts', __NAMESPACE__ . '\\change_surfcamp_query');
 
+function configure_shared_archive_query( $query ) {
+    if ( is_admin() || ! $query->is_main_query() || ! $query->is_archive()
+        || $query->is_category() || $query->is_feed() ) {
+        return;
+    }
+
+    $query->set( 'posts_per_page', 12 );
+    $query->set( 'posts_per_archive_page', 12 );
+    $query->set( 'nopaging', false );
+    $query->set( 'no_found_rows', false );
+    $sort = isset( $_GET['sorting'] ) && is_string( $_GET['sorting'] )
+        ? sanitize_key( wp_unslash( $_GET['sorting'] ) ) : 'most_recent';
+    $orders = [
+        'most_recent' => [ 'date' => 'DESC', 'ID' => 'DESC' ],
+        'less_recent' => [ 'date' => 'ASC', 'ID' => 'ASC' ],
+        'alphabetical_order' => [ 'title' => 'ASC', 'ID' => 'ASC' ],
+    ];
+    $query->set( 'orderby', $orders[ $sort ] ?? $orders['most_recent'] );
+}
+add_action( 'pre_get_posts', __NAMESPACE__ . '\\configure_shared_archive_query', 20 );
+
 /**
  * Get AJAX Search Suggestions
  */
