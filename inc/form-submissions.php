@@ -13,6 +13,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 const DB_VERSION = '1.0.0';
 const DB_VERSION_OPTION = 'mca_form_submissions_db_version';
+const MANAGE_CAPABILITY = 'mca_manage_form_submissions';
+const CAPABILITY_VERSION_OPTION = 'mca_form_submissions_capability_version';
+
+function maybe_install_capability() {
+	if ( '1' === get_option( CAPABILITY_VERSION_OPTION ) ) {
+		return;
+	}
+
+	$administrator = get_role( 'administrator' );
+	if ( ! $administrator ) {
+		return;
+	}
+
+	$administrator->add_cap( MANAGE_CAPABILITY );
+	update_option( CAPABILITY_VERSION_OPTION, '1' );
+}
+add_action( 'after_setup_theme', __NAMESPACE__ . '\\maybe_install_capability' );
 
 /**
  * Prefixed table name.
@@ -109,7 +126,7 @@ function register_admin_menu() {
 	add_menu_page(
 		__( 'Form Submissions', 'MCA' ),
 		__( 'Form Submissions', 'MCA' ),
-		'edit_posts',
+		MANAGE_CAPABILITY,
 		'mca-form-submissions',
 		__NAMESPACE__ . '\\render_admin_page',
 		'dashicons-email-alt',
@@ -122,8 +139,8 @@ add_action( 'admin_menu', __NAMESPACE__ . '\\register_admin_menu' );
  * Render admin list page.
  */
 function render_admin_page() {
-	if ( ! current_user_can( 'edit_posts' ) ) {
-		wp_die( esc_html__( 'You do not have permission to view submissions.', 'MCA' ) );
+	if ( ! current_user_can( MANAGE_CAPABILITY ) ) {
+		wp_die( esc_html__( 'You do not have permission to view submissions.', 'MCA' ), '', array( 'response' => 403 ) );
 	}
 
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
@@ -166,8 +183,8 @@ function render_admin_page() {
  * Export submissions as CSV (Excel-compatible).
  */
 function export_csv() {
-	if ( ! current_user_can( 'edit_posts' ) ) {
-		wp_die( esc_html__( 'You do not have permission to export submissions.', 'MCA' ) );
+	if ( ! current_user_can( MANAGE_CAPABILITY ) ) {
+		wp_die( esc_html__( 'You do not have permission to export submissions.', 'MCA' ), '', array( 'response' => 403 ) );
 	}
 
 	check_admin_referer( 'mca_export_form_submissions' );
