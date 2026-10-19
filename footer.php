@@ -1,3 +1,4 @@
+</main>
 <?php
 $footer_logo = get_field('footer_logo', 'option');
 $description = get_field('footer_description', 'option');

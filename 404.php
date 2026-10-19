@@ -7,7 +7,7 @@
 
 get_header(); ?>
 
-<main id="main" class="site-main">
+<div id="main" class="site-main">
     <section class="o-404" aria-labelledby="error-title">
         <img class="o-404__lines" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/pics/icons/404-lines.svg'); ?>" alt="" aria-hidden="true" decoding="async">
         <div class="container">
@@ -27,6 +27,6 @@ get_header(); ?>
             </div>
         </div>
     </section>
-</main>
+</div>
 
 <?php get_footer(); ?>

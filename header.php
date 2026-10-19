@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,6 +32,8 @@ if (get_post_type($current_post_id) === 'project') {
 }
 ?>
 <body class="h-<?php echo is_singular('project') ? esc_attr($button_color) : ''; ?>">
+	<a class="skip-link" href="#main-content"><?php esc_html_e( 'Skip to content', 'mca' ); ?></a>
+	<?php wp_body_open(); ?>
 	<header class="o-header">
 	    <div class="m-header__wrapper">
 	        <div class="m-header__inner">
@@ -102,3 +104,4 @@ if (get_post_type($current_post_id) === 'project') {
 <div id="a-countdown"></div>
 
 <?php get_template_part('template-parts/cookie-banner'); ?>
+<main id="main-content" tabindex="-1">

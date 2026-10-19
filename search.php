@@ -36,7 +36,7 @@ $paged = max(1, (int) get_query_var('paged'));
 $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_type, $paged);
 ?>
 
-<main class="o-search-results s-d-t-xl s-m-t-xl" data-search-results data-ajax-url="<?php echo esc_url(admin_url('admin-ajax.php')); ?>" data-nonce="<?php echo esc_attr(wp_create_nonce('mca_search_pagination')); ?>">
+<div class="o-search-results s-d-t-xl s-m-t-xl" data-search-results data-ajax-url="<?php echo esc_url(admin_url('admin-ajax.php')); ?>" data-nonce="<?php echo esc_attr(wp_create_nonce('mca_search_pagination')); ?>">
     <section class="m-search-results__hero">
         <div class="container">
             <form class="m-search-results__form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
@@ -77,7 +77,7 @@ $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_ty
             <p class="a-text a-text--s" data-search-error hidden><?php esc_html_e('Search results could not be loaded. Please try again.', 'mca-kosovo'); ?></p>
         </div>
     </section>
-</main>
+</div>
 
 <script>
 (() => {
