@@ -22,6 +22,7 @@
 					</div>
 				</nav>
 				<?php
+					if ( ! defined( 'WPSEO_VERSION' ) ) {
 					$breadcrumbs = [
 						"@context" => "https://schema.org",
 						"@type"    => "BreadcrumbList",
@@ -47,6 +48,7 @@
 						]
 					];
 					echo '<script type="application/ld+json">' . wp_json_encode($breadcrumbs, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
+					}
 				?>
 	            <h1 class="a-heading a-heading--l"><?php single_cat_title();?></h1>
 	            <div class="a-seperator"></div>

@@ -202,10 +202,14 @@ function mca_handle_legacy_404_redirects() {
         return;
     }
 
-    // Normalize requested path without query string or trailing slash.
-    $request_uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
-    $path        = strtok( $request_uri, '?' );
-    $path        = rtrim( $path, '/' );
+    $request_uri = $_SERVER['REQUEST_URI'] ?? '/';
+    $path = wp_parse_url( $request_uri, PHP_URL_PATH );
+    $path = is_string( $path ) ? '/' . trim( $path, '/' ) : '';
+    $base = rtrim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+    if ( $base && 0 === strpos( $path, $base . '/' ) ) {
+        $path = substr( $path, strlen( $base ) );
+    }
+    $path = rtrim( $path, '/' );
 
     // 1) Redirect legacy /news/ URL to the news category archive.
     if ( $path === '/news' ) {
@@ -258,7 +262,8 @@ function mca_handle_legacy_404_redirects() {
         }
     }
 }
-add_action( 'template_redirect', __NAMESPACE__ . '\\mca_handle_legacy_404_redirects' );
+// Run before WordPress's canonical guessing can send /news/ to /newsletter/.
+add_action( 'template_redirect', __NAMESPACE__ . '\\mca_handle_legacy_404_redirects', 9 );
 
 // /**
 //  * Redirect paged to 404
@@ -615,6 +620,10 @@ function build_short_document_title( $title ) {
  * @return string
  */
 function filter_document_title( $title ) {
+	// Preserve Yoast's configured titles and social metadata when it owns SEO.
+	if ( defined( 'WPSEO_VERSION' ) ) {
+		return $title;
+	}
     if ( is_admin() || ! is_singular( [ 'post', 'procurement', 'job', 'publication' ] ) ) {
         return $title;
     }
@@ -632,6 +641,3 @@ function filter_document_title( $title ) {
     return build_short_document_title( $post_title );
 }
 add_filter( 'pre_get_document_title', __NAMESPACE__ . '\\filter_document_title' );
-add_filter( 'wpseo_title', __NAMESPACE__ . '\\filter_document_title' );
-add_filter( 'wpseo_opengraph_title', __NAMESPACE__ . '\\filter_document_title' );
-add_filter( 'wpseo_twitter_title', __NAMESPACE__ . '\\filter_document_title' );
