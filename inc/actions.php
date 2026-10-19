@@ -312,15 +312,56 @@ function remove_jquery() {
 }
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\remove_jquery', 20);
 
-function load_cf7_scripts_and_styles() {
-    if ( is_page( 'contact' ) || is_page( 'newsletter' ) || is_page( 'job-application' ) || has_block('acf/application') || has_block('acf/contact-form') || has_block('acf/how-to-apply') ) {
-        if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
-            wpcf7_enqueue_scripts();
-            wpcf7_enqueue_styles();
+function content_needs_cf7_assets( $content, $seen = [] ) {
+    if ( shortcode_exists( 'contact-form-7' )
+        && preg_match_all( '/' . get_shortcode_regex( [ 'contact-form-7' ] ) . '/s', $content, $matches, PREG_SET_ORDER ) ) {
+        foreach ( $matches as $match ) {
+            if ( '[' !== $match[1] || ']' !== $match[6] ) {
+                return true;
+            }
         }
     }
+
+    $blocks = parse_blocks( $content );
+    while ( $blocks ) {
+        $block = array_pop( $blocks );
+        if ( ! empty( $block['innerBlocks'] ) ) {
+            $blocks = array_merge( $blocks, $block['innerBlocks'] );
+        }
+
+        if ( 'core/block' !== $block['blockName'] || empty( $block['attrs']['ref'] ) ) {
+            continue;
+        }
+
+        $ref = absint( $block['attrs']['ref'] );
+        if ( isset( $seen[ $ref ] ) ) {
+            continue;
+        }
+        $seen[ $ref ] = true;
+        $reusable = get_post( $ref );
+        if ( $reusable && 'wp_block' === $reusable->post_type
+            && content_needs_cf7_assets( $reusable->post_content, $seen ) ) {
+            return true;
+        }
+    }
+
+    return false;
 }
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\load_cf7_scripts_and_styles' );
+
+function load_cf7_scripts_and_styles() {
+    if ( is_admin() || ! is_singular()
+        || ! function_exists( 'wpcf7_enqueue_scripts' )
+        || ! function_exists( 'wpcf7_enqueue_styles' ) ) {
+        return;
+    }
+
+    $post = get_queried_object();
+    if ( $post instanceof \WP_Post && content_needs_cf7_assets( $post->post_content ) ) {
+        wpcf7_enqueue_scripts();
+        wpcf7_enqueue_styles();
+    }
+}
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\load_cf7_scripts_and_styles', 20 );
 
 /** Route this Local site's test emails to Mailpit instead of the PHP FastCGI port. */
 function configure_local_application_mail( $mailer ) {
