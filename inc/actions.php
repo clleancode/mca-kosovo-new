@@ -341,13 +341,36 @@ add_action( 'phpmailer_init', __NAMESPACE__ . '\\configure_local_application_mai
 
 
 function mca_submit_contact_form() {
-	if ( ! check_ajax_referer( 'mca_contact_form', 'security', false ) ) {
+	if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) {
+		wp_send_json_error( [ 'message' => __( 'Please submit the form using POST.', 'MCA' ) ], 405 );
+	}
+	if ( ! isset( $_POST['security'] ) || ! is_string( $_POST['security'] )
+		|| ! check_ajax_referer( 'mca_contact_form', 'security', false ) ) {
 		wp_send_json_error(
 			[
 				'message' => __( 'Security check failed. Please refresh the page and try again.', 'MCA' ),
 			],
 			403
 		);
+	}
+
+	$peer = $_SERVER['REMOTE_ADDR'] ?? '';
+	$peer = filter_var( $peer, FILTER_VALIDATE_IP ) ? inet_ntop( inet_pton( $peer ) ) : 'unknown';
+	if ( ! \MCA\FormSubmissions\consume_submission_attempt( 'ip', $peer, 10 ) ) {
+		header( 'Retry-After: 900' );
+		wp_send_json_error( [ 'message' => __( 'Too many attempts. Please wait 15 minutes and try again.', 'MCA' ) ], 429 );
+	}
+
+	$errors = [];
+	foreach ( [ 'full_name' => 255, 'email' => 254, 'industry' => 255, 'pdf_url' => 2048, 'privacy' => 20 ] as $field => $max_length ) {
+		if ( isset( $_POST[ $field ] ) && ( ! is_string( $_POST[ $field ] )
+			|| strlen( $_POST[ $field ] ) > $max_length * 4
+			|| title_strlen( wp_unslash( $_POST[ $field ] ) ) > $max_length ) ) {
+			$errors[ $field ] = sprintf( __( 'Please enter text no longer than %d characters.', 'MCA' ), $max_length );
+		}
+	}
+	if ( $errors ) {
+		wp_send_json_error( [ 'message' => __( 'Please correct the highlighted fields.', 'MCA' ), 'errors' => $errors ], 422 );
 	}
 
 	$full_name = isset( $_POST['full_name'] ) ? sanitize_text_field( wp_unslash( $_POST['full_name'] ) ) : '';
@@ -381,6 +404,14 @@ function mca_submit_contact_form() {
 			],
 			422
 		);
+	}
+
+	if ( wp_check_comment_disallowed_list( $full_name, $email, '', $industry, $peer, '' ) ) {
+		wp_send_json_error( [ 'message' => __( 'Your submission could not be accepted. Please contact us for assistance.', 'MCA' ) ], 422 );
+	}
+	if ( ! \MCA\FormSubmissions\consume_submission_attempt( 'email', strtolower( $email ), 3 ) ) {
+		header( 'Retry-After: 900' );
+		wp_send_json_error( [ 'message' => __( 'Too many attempts for this email address. Please wait 15 minutes and try again.', 'MCA' ) ], 429 );
 	}
 
 	$inserted = \MCA\FormSubmissions\insert_submission( $full_name, $email, $industry );

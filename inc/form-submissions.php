@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const DB_VERSION = '1.0.0';
+const DB_VERSION = '1.1.0';
 const DB_VERSION_OPTION = 'mca_form_submissions_db_version';
 const MANAGE_CAPABILITY = 'mca_manage_form_submissions';
 const CAPABILITY_VERSION_OPTION = 'mca_form_submissions_capability_version';
@@ -65,7 +65,46 @@ function install_table() {
 	) {$charset_collate};";
 
 	dbDelta( $sql );
+
+	$rate_table = $wpdb->prefix . 'mca_submission_limits';
+	dbDelta( "CREATE TABLE {$rate_table} (
+		bucket_key varchar(64) NOT NULL,
+		hits int unsigned NOT NULL DEFAULT 0,
+		expires_at bigint(20) unsigned NOT NULL,
+		PRIMARY KEY  (bucket_key),
+		KEY expires_at (expires_at)
+	) {$charset_collate};" );
 	update_option( DB_VERSION_OPTION, DB_VERSION );
+}
+
+function consume_submission_attempt( $scope, $identity, $limit ) {
+	global $wpdb;
+	$table = $wpdb->prefix . 'mca_submission_limits';
+	$now   = time();
+	$key   = hash_hmac( 'sha256', $scope . ':' . $identity, wp_salt( 'nonce' ) );
+
+	$wpdb->query( $wpdb->prepare( "DELETE FROM {$table} WHERE expires_at <= %d", $now ) );
+	$result = $wpdb->query( $wpdb->prepare(
+		"INSERT INTO {$table} (bucket_key, hits, expires_at) VALUES (%s, 1, %d)
+		 ON DUPLICATE KEY UPDATE hits = LEAST(hits + 1, %d)",
+		$key, $now + 15 * MINUTE_IN_SECONDS, $limit + 1
+	) );
+	if ( false === $result ) {
+		return false;
+	}
+	$hits = $wpdb->get_var( $wpdb->prepare( "SELECT hits FROM {$table} WHERE bucket_key = %s", $key ) );
+	return null !== $hits && (int) $hits <= $limit;
+}
+
+/** Neutralize spreadsheet formulas at export only; retain original stored text. */
+function csv_text( $value ) {
+	$value = (string) $value;
+	if ( preg_match( '/^[\s\p{Z}\p{Cc}\x{FEFF}]*[=+@\-＝＋＠－]/u', $value )
+		|| preg_match( '/^[\t\r\n]/', $value ) ) {
+		// A tab also makes fputcsv quote the field; Excel imports it as text.
+		return "\t" . $value;
+	}
+	return $value;
 }
 
 /**
@@ -222,16 +261,16 @@ function export_csv() {
 		__( 'Email', 'MCA' ),
 		__( 'Industry', 'MCA' ),
 		__( 'Submitted', 'MCA' ),
-	) );
+	), ',', '"', '' );
 
 	if ( $rows ) {
 		foreach ( $rows as $row ) {
 			fputcsv( $output, array(
-				$row['full_name'],
-				$row['email'],
-				$row['industry'],
+				csv_text( $row['full_name'] ),
+				csv_text( $row['email'] ),
+				csv_text( $row['industry'] ),
 				$row['created_at'],
-			) );
+			), ',', '"', '' );
 		}
 	}
 
