@@ -1,3 +1,4 @@
+import transparency from "./__modules/transparency";
 import header from "./__modules/header";
 import slider from "./__modules/slider";
 import AOS from "aos";
@@ -39,6 +40,7 @@ const updateHeroFraction = (swiper) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+    transparency();
     compact();
     compactProjects();
     news();

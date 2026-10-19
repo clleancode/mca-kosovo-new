@@ -84,12 +84,25 @@
     text-decoration: none;
 }
 
-.m-transparency__view-all>a {
+.m-transparency__view-all>a,
+.m-transparency__view-all>button {
     color: #2f358b;
     text-decoration: none;
 }
 
-.m-transparency a:focus-visible {
+.m-transparency__view-all>button {
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.m-transparency__view-all>[hidden] {
+    display: none;
+}
+
+.m-transparency a:focus-visible,
+.m-transparency button:focus-visible {
     outline: 2px solid var(--blue);
     outline-offset: 4px;
 }

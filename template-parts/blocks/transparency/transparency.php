@@ -44,6 +44,38 @@ foreach ($devices as $device => $prefix) {
 $section_id  = sanitize_title(get_field('transparency_section_id') ?: ($block['anchor'] ?? ''));
 $collections = array_slice(get_field('transparency_collections') ?: [], 0, 3);
 $label       = get_field('transparency_label');
+$render_documents = static function (array $items) {
+    ?>
+                            <?php foreach ($items as $document):
+                                $file = $document['file'];
+                                ?>
+                                <li>
+                                    <div class="m-transparency__document-copy">
+                                        <h4 class="a-text a-text--m h-semibold h-dark-blue">
+                                            <?php echo esc_html($document['title']); ?>
+                                        </h4>
+                                        <span class="a-text a-text--xs h-semibold">
+                                            <?php echo esc_html(!empty($document['caption']) ? $document['caption'] . ' · PDF' : 'PDF'); ?>
+                                        </span>
+                                    </div>
+
+                                    <div class="m-transparency__download">
+                                        <a class="a-transparency-download"
+                                           href="<?php echo esc_url($file['url']); ?>"
+                                           download
+                                           aria-label="<?php echo esc_attr('Download ' . $document['title']); ?>">
+                                            <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.89844 0.898438V10.8984M1.89844 6.89844L6.89844 11.8984L11.8984 6.89844M0.898438 14.8984H12.8984"
+                                                      stroke="#001F54"
+                                                      stroke-width="1.8"
+                                                      stroke-linecap="round"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+    <?php
+};
 ?>
 <section <?php if ($section_id): ?>id="<?php echo esc_attr($section_id); ?>" <?php endif; ?>class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>">
     <div class="container">
@@ -86,37 +118,21 @@ $label       = get_field('transparency_label');
                         </div>
 
                         <ul class="m-transparency__documents">
-                            <?php foreach (array_slice($documents, 0, $limit) as $document):
-                                $file = $document['file'];
-                                ?>
-                                <li>
-                                    <div class="m-transparency__document-copy">
-                                        <h4 class="a-text a-text--m h-semibold h-dark-blue">
-                                            <?php echo esc_html($document['title']); ?>
-                                        </h4>
-                                        <span class="a-text a-text--xs h-semibold">
-                                            <?php echo esc_html(!empty($document['caption']) ? $document['caption'] . ' · PDF' : 'PDF'); ?>
-                                        </span>
-                                    </div>
-
-                                    <div class="m-transparency__download">
-                                        <a class="a-transparency-download"
-                                           href="<?php echo esc_url($file['url']); ?>"
-                                           download
-                                           aria-label="<?php echo esc_attr('Download ' . $document['title']); ?>">
-                                            <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M6.89844 0.898438V10.8984M1.89844 6.89844L6.89844 11.8984L11.8984 6.89844M0.898438 14.8984H12.8984"
-                                                      stroke="#001F54"
-                                                      stroke-width="1.8"
-                                                      stroke-linecap="round"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </li>
-                            <?php endforeach; ?>
+                            <?php $render_documents(array_slice($documents, 0, $limit)); ?>
                         </ul>
 
-                        <?php if (!empty($view_all['url'])): ?>
+                        <?php if (count($documents) > $limit && (empty($view_all['url']) || $view_all['url'] === '#')): ?>
+                            <div class="m-transparency__view-all h-semibold" data-transparency-toggle>
+                                <ul class="m-transparency__documents" id="<?php echo esc_attr(wp_unique_id('transparency-documents-')); ?>">
+                                    <?php $render_documents(array_slice($documents, $limit)); ?>
+                                </ul>
+                                <button type="button" class="a-text a-text--l" hidden
+                                        data-more="<?php echo esc_attr($view_all['title'] ?? __('View All', 'MCA')); ?>"
+                                        data-less="<?php echo esc_attr__('View Less', 'MCA'); ?>">
+                                    <span data-toggle-label></span> <span aria-hidden="true">&rarr;</span>
+                                </button>
+                            </div>
+                        <?php elseif (!empty($view_all['url'])): ?>
                             <div class="m-transparency__view-all h-semibold">
                                 <a class="a-text a-text--l"
                                    href="<?php echo esc_url($view_all['url']); ?>"
