@@ -75,12 +75,11 @@ add_filter('script_loader_tag', function($tag, $handle) {
     return $tag;
 }, 10, 2);
 
-
 add_action('wp_head', function () {
     ?>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
 
     gtag('consent', 'default', {
       'analytics_storage': 'denied',
@@ -115,11 +114,10 @@ add_action('wp_head', function () {
       }
     } catch (e) {
     }
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QM4TSQ9CVV"></script>
-    <script>
-    gtag('js', new Date());
+
+gtag('js', new Date());
     gtag('config', 'G-QM4TSQ9CVV');
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QM4TSQ9CVV"></script>
     <?php
 }, 5);
