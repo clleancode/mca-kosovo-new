@@ -1,8 +1,8 @@
 {
-  "name": "medcoms-averitas",
+  "name": "mca-kosovo-theme",
   "private": true,
-  "version": "1.1.0",
-  "description": "Medical Averitas WordPress Theme — Vite asset pipeline",
+  "version": "1.0.0",
+  "description": "MCA Kosovo WordPress theme by Clleancode",
   "type": "module",
   "scripts": {
     "dev": "vite build --watch --mode development",
@@ -16,6 +16,6 @@
     "vite": "^7.0.0"
   },
   "engines": {
-    "node": ">=20"
+    "node": "^20.19.0 || >=22.12.0"
   }
 }

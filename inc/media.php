@@ -49,10 +49,10 @@ function sanitize_svg_upload( $file ) {
             if ( $sanitized_svg ) {
                 file_put_contents( $file_path, $sanitized_svg );
             } else {
-                $file['error'] = __( 'The SVG file contains invalid or unsafe content.', 'medical-averitas' );
+                $file['error'] = __( 'The SVG file contains invalid or unsafe content.', 'mca' );
             }
         } else {
-            $file['error'] = __( 'SVG-Sanitizer library not found. SVG uploads are disabled.', 'medical-averitas' );
+            $file['error'] = __( 'SVG-Sanitizer library not found. SVG uploads are disabled.', 'mca' );
         }
     }
     return $file;

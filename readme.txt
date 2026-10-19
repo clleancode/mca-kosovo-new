@@ -1,49 +1,33 @@
-=== Medical Averitas ===
-Contributors: Medcomms Experts
+=== MCA Kosovo ===
+Contributors: Clleancode
 Requires at least: 6.0
-Tested up to: 7.0
-Requires PHP: 8.0
-Stable tag: 1.1.1
+Requires PHP: 7.4
+Stable tag: 1.0.0
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: mca
 
-A clean and professional WordPress theme designed for the Medical Averitas Pharma project.
+WordPress theme for MCA Kosovo, maintained by Clleancode.
 
-== Description ==
-Medical Averitas is a private project theme for Medical Averitas Pharma. It includes custom blocks, post types, and responsive layouts built for the WordPress block editor.
+== Requirements ==
+WordPress 6.0+ is the declared baseline. Local smoke checks used WordPress 7.1.3.
+The retained PHP declaration permits 7.4 or 8.x, but PHP 7.4 is unverified.
+Installed Composer dependencies require PHP 8.0+ at runtime; use PHP 8.0+ with
+this dependency set. The declaration does not establish PHP 7.4 compatibility.
+ACF Pro supplies blocks/fields; configured CF7 forms require Contact Form 7.
+Build tools: Composer 2 and Node.js 20.19+ or 22.12+.
 
-== Installation ==
-1. Upload the Medical Averitas theme to your WordPress site:
-   - Go to Appearance > Themes > Add New > Upload Theme.
-   - Choose the ZIP file of the theme and click "Install Now."
-2. Activate the theme and configure it as needed via the WordPress Customizer.
-3. From the theme directory, install PHP dependencies if vendor/ is missing:
-   `composer install --no-dev --optimize-autoloader`
+== Installation and build ==
+Install the theme and configure blocks, menus and ACF options.
+Run composer install --no-dev --optimize-autoloader and npm ci.
+Use npm run dev for watch mode; npm run build for production assets.
+Deploy compiled assets and locked dependencies, then clear caches.
+See README.md for contributor and release checks.
 
-== Build ==
-Frontend assets are compiled with Vite (Node 20+). Edit sources under `src/` and block folders, then rebuild before deploy.
+== Translations ==
+Theme translation domain: mca, loaded from languages/ by inc/setup.php.
+Regenerate older-domain catalogs before verifying translated theme strings.
 
-1. `nvm use` (or install Node 20+)
-2. `npm install`
-3. `npm run dev` — watch mode while developing
-4. `npm run build` — production build into `assets/` and block `.min` files
-5. `composer install --no-dev --optimize-autoloader` — PHP packages into `vendor/`
-
-Commit built `.min` CSS/JS when deploying to hosts without a build step (e.g. WP Engine).
-
-== Features ==
-- Customizable colors and typography.
-- Responsive and mobile-friendly design.
-- Compatible with the WordPress block editor (Gutenberg).
-
-== Changelog ==
-= 1.1.1 =
-* Theme metadata alignment and WordPress header compliance.
-* Composer dependency management and Vite build docs.
-
-= 1.0 =
-* Initial release.
-
-== Notes ==
-This theme is a private project created for Medical Averitas Pharma. For support or updates, contact Medcomms Experts.
-https://www.medcomms-experts.com
+== Maintenance ==
+The nonfunctional header chat placeholder was removed; no chat service is connected.
+Support: https://www.clleancode.com/

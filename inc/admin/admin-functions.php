@@ -19,12 +19,12 @@ function duplicate_post_as_draft() {
 
     // Validate the request
     if ( ! ( isset( $_GET['post'] ) || isset( $_POST['post'] ) || ( isset( $_REQUEST['action'] ) && 'duplicate_post_as_draft' === $_REQUEST['action'] ) ) ) {
-        wp_die( esc_html__( 'No post to duplicate has been supplied!', 'medical-averitas' ) );
+        wp_die( esc_html__( 'No post to duplicate has been supplied!', 'mca' ) );
     }
 
     // Verify the nonce
     if ( ! isset( $_GET['duplicate_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['duplicate_nonce'] ) ), 'duplicate_post_nonce' ) ) {
-        wp_die( esc_html__( 'Invalid nonce. Action not allowed.', 'medical-averitas' ) );
+        wp_die( esc_html__( 'Invalid nonce. Action not allowed.', 'mca' ) );
     }
 
     // Get original post ID and object
@@ -32,7 +32,7 @@ function duplicate_post_as_draft() {
     $post    = get_post( $post_id );
 
     if ( ! $post ) {
-        wp_die( esc_html__( 'Post creation failed. Could not find the original post.', 'medical-averitas' ) );
+        wp_die( esc_html__( 'Post creation failed. Could not find the original post.', 'mca' ) );
     }
 
     $post_type_object = get_post_type_object( $post->post_type );
@@ -41,7 +41,7 @@ function duplicate_post_as_draft() {
         || ! current_user_can( 'edit_post', $post_id )
         || ! current_user_can( $post_type_object->cap->create_posts )
     ) {
-        wp_die( esc_html__( 'You are not allowed to duplicate this post.', 'medical-averitas' ), 403 );
+        wp_die( esc_html__( 'You are not allowed to duplicate this post.', 'mca' ), 403 );
     }
 
     // Set the new post author
@@ -66,7 +66,7 @@ function duplicate_post_as_draft() {
     $new_post_id = wp_insert_post( $args, true );
 
     if ( is_wp_error( $new_post_id ) || ! $new_post_id ) {
-        wp_die( esc_html__( 'Post creation failed. Could not duplicate the original post.', 'medical-averitas' ) );
+        wp_die( esc_html__( 'Post creation failed. Could not duplicate the original post.', 'mca' ) );
     }
 
     // Copy taxonomies
@@ -107,7 +107,7 @@ function add_duplicate_post_link( $actions, $post ) {
             'duplicate_nonce'
         );
 
-        $actions['duplicate'] = '<a href="' . esc_url( $url ) . '" title="' . esc_attr__( 'Duplicate this post', 'medical-averitas' ) . '">' . esc_html__( 'Duplicate', 'medical-averitas' ) . '</a>';
+        $actions['duplicate'] = '<a href="' . esc_url( $url ) . '" title="' . esc_attr__( 'Duplicate this post', 'mca' ) . '">' . esc_html__( 'Duplicate', 'mca' ) . '</a>';
     }
 
     return $actions;

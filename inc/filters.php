@@ -269,7 +269,7 @@ add_filter(
  */
 if ( ! function_exists( 'mca_acf_expanded_editor_button_text' ) ) {
     function mca_acf_expanded_editor_button_text( $button_text, $block ) {
-        return __( 'Open Expanded Editor', 'balkan-nature-adventure' );
+        return __( 'Open Expanded Editor', 'mca' );
     }
 }
 add_filter( 'acf/blocks/default_expanded_editor_button_text', 'MCA\Filters\mca_acf_expanded_editor_button_text', 10, 2 );
