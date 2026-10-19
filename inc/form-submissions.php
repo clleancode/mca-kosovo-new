@@ -278,3 +278,48 @@ function export_csv() {
 	exit;
 }
 add_action( 'admin_post_mca_export_form_submissions', __NAMESPACE__ . '\\export_csv' );
+
+/**
+ * Store validated CF7 newsletter signups before its configured mail notification.
+ * Newsletter forms opt in with an acceptance field named newsletter-consent.
+ * CF7 runs this hook only after validation, acceptance and spam checks pass.
+ */
+function save_cf7_newsletter( $form, &$abort, $submission ) {
+	if ( $abort ) {
+		return;
+	}
+	$email_field = '';
+	$is_newsletter = false;
+	foreach ( $form->scan_form_tags() as $tag ) {
+		if ( 'acceptance' === $tag->basetype && 'newsletter-consent' === $tag->name ) {
+			$is_newsletter = true;
+		}
+		if ( 'email' === $tag->basetype && '' === $email_field ) {
+			$email_field = $tag->name;
+		}
+	}
+	if ( ! $is_newsletter || ! $email_field ) {
+		return;
+	}
+	$value = $submission->get_posted_data( $email_field );
+	$consent = $submission->get_posted_data( 'newsletter-consent' );
+	$email = is_string( $value ) ? sanitize_email( $value ) : '';
+	$error = '';
+	if ( ! is_string( $value ) || strlen( $value ) > 254 || ! is_email( $email ) || empty( $consent ) ) {
+		$error = __( 'Please enter a valid email and accept the privacy notice.', 'MCA' );
+	} else {
+		$peer = $_SERVER['REMOTE_ADDR'] ?? '';
+		$peer = filter_var( $peer, FILTER_VALIDATE_IP ) ? inet_ntop( inet_pton( $peer ) ) : 'unknown';
+		if ( ! consume_submission_attempt( 'ip', $peer, 10 )
+			|| ! consume_submission_attempt( 'email', strtolower( $email ), 3 ) ) {
+			$error = __( 'Too many attempts. Please wait 15 minutes and try again.', 'MCA' );
+		} elseif ( is_wp_error( insert_submission( '', $email, '' ) ) ) {
+			$error = __( 'Your subscription could not be saved. Please try again.', 'MCA' );
+		}
+	}
+	if ( $error ) {
+		$abort = true;
+		$submission->set_response( $error );
+	}
+}
+add_action( 'wpcf7_before_send_mail', __NAMESPACE__ . '\\save_cf7_newsletter', 20, 3 );
