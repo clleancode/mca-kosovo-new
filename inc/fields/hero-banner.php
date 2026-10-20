@@ -31,17 +31,18 @@ if (class_exists('StoutLogic\AcfBuilder\FieldsBuilder')) {
                 'instructions' => 'About uses the image, title and description from the first slide.',
             ])
             ->addRepeater('hero_slides', [
-                'label'        => 'Hero Slides',
-                'instructions' => 'Add hero slides for the swiper slider.',
-                'required'     => true,
-                'min'          => 1,
+                'label'        => 'About content',
+                'instructions' => 'About uses the image, title and description from the first item.',
+                'conditional_logic' => [[['field' => 'hero_layout', 'operator' => '==', 'value' => 'about']]],
+                'required'     => false,
+                'min'          => 0,
                 'max'          => 10,
                 'layout'       => 'block',
-                'button_label' => 'Add Slide',
+                'button_label' => 'Add About content',
             ])
                 ->addImage('background_image', [
                     'label'         => 'Background Image',
-                    'instructions'  => 'Upload the background image for this slide.',
+                    'instructions'  => 'Background image for the About layout.',
                     'required'      => true,
                     'return_format' => 'id',
                     'preview_size'  => 'medium',
@@ -49,21 +50,27 @@ if (class_exists('StoutLogic\AcfBuilder\FieldsBuilder')) {
                 ])
                 ->addText('title', [
                     'label'        => 'Title',
-                    'instructions' => 'Enter the main title for this slide.',
+                    'instructions' => 'Heading for the About layout.',
                     'required'     => true,
                 ])
                 ->addTextarea('description', [
                     'label'        => 'Description',
-                    'instructions' => 'Enter the description text for this slide.',
+                    'instructions' => 'Introduction for the About layout.',
                     'required'     => false,
                     'rows'         => 3,
                 ])
-                ->addLink('button_link', [
-                    'label'        => 'Button Link',
-                    'instructions' => 'Enter the URL for the button.',
-                    'required'     => false,
-                ])
             ->endRepeater()
+
+            ->addRelationship('hero_projects', [
+                'label' => 'Featured news & projects',
+                'conditional_logic' => [[['field' => 'hero_layout', 'operator' => '!=', 'value' => 'about']]],
+                'post_type' => ['post', 'project'],
+                'filters' => ['search', 'post_type', 'taxonomy'],
+                'post_status' => ['publish'],
+                'return_format' => 'id',
+                'max' => 6,
+                'instructions' => 'Choose news and projects together, then drag to reorder. Leave empty for the latest three news/projects. Projects use their Projects Hero description; news uses its excerpt. ',
+            ])
 
         ->addTab('About statistics')
             ->addRepeater('hero_about_statistics', [
@@ -74,30 +81,6 @@ if (class_exists('StoutLogic\AcfBuilder\FieldsBuilder')) {
                 ->addText('value', ['label' => 'Value', 'required' => 1])
                 ->addText('caption', ['label' => 'Caption'])
             ->endRepeater()
-        ->addTab('Hero Card')
-            ->addTrueFalse('show_last_vacancy', [
-                'label'        => 'Show Last Vacancy Instead of News',
-                'instructions' => 'If checked, the hero card will display the latest vacancy. Otherwise, you can select a specific news post below.',
-                'ui'           => 1,
-            ])
-            ->addRelationship('selected_news', [
-                'label'             => 'Select News Post',
-                'instructions'      => 'Select a news post to display in the hero card. Leave empty to show the latest news automatically.',
-                'post_type'         => ['post'],
-                'filters'           => ['search', 'post_type', 'taxonomy'],
-                'max'               => 1,
-                'return_format'     => 'object',
-                'conditional_logic' => [
-                    [
-                        [
-                            'field'    => 'show_last_vacancy',
-                            'operator' => '!=',
-                            'value'    => 1,
-                        ],
-                    ],
-                ],
-            ])
-
         ->addFields($spacingFields)
 
         ->addTab('Heading')

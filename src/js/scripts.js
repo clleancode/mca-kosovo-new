@@ -1,3 +1,4 @@
+import heroSlider from "./__modules/hero-slider";
 import transparency from "./__modules/transparency";
 import header from "./__modules/header";
 import slider from "./__modules/slider";
@@ -28,16 +29,6 @@ import singleHero from "./__modules/single-hero";
 import singleContent from "./__modules/single-content";
 import newsletterSubscribe from "./__modules/newsletter-subscribe";
 import textReveal from "./__modules/text-reveal";
-
-const updateHeroFraction = (swiper) => {
-	const current = swiper.el.querySelector(".m-hero__current");
-	const total = swiper.el.querySelector(".m-hero__total");
-	if (!current || !total) return;
-
-	const slideCount = swiper.slides.length;
-	current.textContent = String(swiper.realIndex + 1).padStart(2, "0");
-	total.textContent = String(slideCount).padStart(2, "0");
-};
 
 document.addEventListener("DOMContentLoaded", () => {
     transparency();
@@ -70,32 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		header();
 	}
 
-	if (document.querySelector(".swiper--hero")) {
-		slider({
-			name: "swiper--hero",
-			effect: "fade",
-			speed: 1200,
-			navigation: true,
-			rewind: true,
-			pagination: {
-				el: ".m-hero__pagination",
-				type: "progressbar",
-			},
-			on: {
-				init(swiper) {
-					updateHeroFraction(swiper);
-				},
-				slideChange(swiper) {
-					updateHeroFraction(swiper);
-				},
-			},
-			autoplay: {
-				delay: 8000,
-				disableOnInteraction: false,
-			},
-			fadeEffect: { crossFade: true },
-		});
-	}
+    heroSlider();
 
 	if (document.querySelector("#a-countdown")) {
 		countdown();

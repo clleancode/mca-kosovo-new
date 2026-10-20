@@ -115,154 +115,173 @@ if (get_field('hero_layout') === 'about') {
     <?php
     return;
 }
+
+$ids = array_filter(array_map('absint', (array) get_field('hero_projects')));
+
+$args = [
+    'post_type'      => ['post', 'project'],
+    'post_status'    => 'publish',
+    'posts_per_page' => 3,
+    'orderby'        => ['date' => 'DESC', 'ID' => 'DESC'],
+    'no_found_rows'  => true,
+];
+
+if ($ids) {
+    $args['post__in']       = $ids;
+    $args['orderby']        = 'post__in';
+    $args['posts_per_page'] = count($ids);
+}
+
+$items = get_posts($args);
+
+if (!$items) {
+    return;
+}
+
+$find_hero = static function (array $blocks) use (&$find_hero) {
+    foreach ($blocks as $item) {
+        if (($item['blockName'] ?? '') === 'acf/projects-hero') {
+            return $item['attrs']['data'] ?? [];
+        }
+
+        $nested = $find_hero($item['innerBlocks'] ?? []);
+
+        if ($nested) {
+            return $nested;
+        }
+    }
+
+    return [];
+};
+
+$summaries = [];
+$slide_labels = [];
+
+foreach ($items as $project) {
+    $slide_labels[$project->ID] = get_the_title($project);
+    if ($project->post_type === 'post') {
+        $slide_labels[$project->ID] = '';
+        foreach (get_the_category($project->ID) as $category) {
+            if (strtolower($category->slug) === 'news' || strtolower(trim($category->name)) === 'news') continue;
+            $slide_labels[$project->ID] = $category->name;
+            break;
+        }
+    }
+    $hero = $project->post_type === 'project'
+        ? $find_hero(parse_blocks($project->post_content))
+        : [];
+
+    $summaries[$project->ID] = wp_strip_all_tags(
+        ($hero['small_hero_description'] ?? '') ?: get_the_excerpt($project)
+    );
+}
+
+$type = Helpers\get_block_typography([
+    'header_tag'  => 'h1',
+    'header_size' => 'h4',
+    'text_type'   => 'l',
+]);
 ?>
-
 <section
-    <?php if (!empty($block['anchor'])) : ?>
-        id="<?php echo esc_attr($block['anchor']); ?>"
-    <?php endif; ?>
-    class="o-hero <?php echo esc_attr($spacing_classes); ?> <?php echo esc_attr($visibility_class_string); ?>"
+    class="o-hero <?php echo esc_attr($spacing_classes . ' ' . $visibility_class_string); ?>"
+    <?php if (!empty($block['anchor'])) : ?>id="<?php echo esc_attr($block['anchor']); ?>"<?php endif; ?>
 >
-    <div class="swiper swiper--hero">
+    <div class="swiper swiper--hero m-hero" data-hero-slider aria-label="Featured news and projects">
         <div class="swiper-wrapper">
-            <?php if ($slides && have_rows('hero_slides')) : ?>
-                <?php $slide_index = 0; ?>
-                <?php while (have_rows('hero_slides')) : the_row(); ?>
-                    <?php
-                    $background_image   = get_sub_field('background_image');
-                    $title              = get_sub_field('title');
-                    $description        = get_sub_field('description');
-                    $button_link        = get_sub_field('button_link');
-                    $current_header_tag = ($header_tag === 'h1' && $slide_index > 0) ? 'h2' : $header_tag;
-                    ?>
-                    <div class="swiper-slide m-hero__inner">
-                        <?php if ($background_image) : ?>
-                            <?php
-                            echo wp_get_attachment_image($background_image, 'full', false, [
-                                'class'    => 'a-img',
-                                'loading'  => $slide_index === 0 ? 'eager' : 'lazy',
-                                'fetchpriority' => $slide_index === 0 ? 'high' : 'auto',
-                                'decoding' => 'async',
-                            ]);
-                            ?>
-                        <?php endif; ?>
+            <?php foreach ($items as $index => $project) : ?>
+                <?php $tag = $index === 0 ? $type['header_tag'] : 'h2'; ?>
+                <div class="swiper-slide m-hero__inner">
+                    <div class="m-hero__image">
+                        <?php
+                        echo get_the_post_thumbnail($project, 'full', [
+                            'loading'       => $index === 0 ? 'eager' : 'lazy',
+                            'fetchpriority' => $index === 0 ? 'high' : 'auto',
+                        ]);
+                        ?>
+                    </div>
 
-                        <div class="container h-align-start">
-                            <div class="m-content h-white">
-                                <?php if ($title) : ?>
-                                    <<?php echo tag_escape($current_header_tag); ?>
-                                        class="a-heading <?php echo esc_attr(trim("$header_type $header_colorClass $header_line_height")); ?> h-uppercase"
-                                    >
-                                        <?php echo wp_kses_post($title); ?>
-                                    </<?php echo tag_escape($current_header_tag); ?>>
-                                <?php endif; ?>
+                    <div class="container">
+                        <div class="m-hero__copy">
+                            <div class="m-hero__meta">
+                                <?php if ($slide_labels[$project->ID]): ?><span class="a-text a-text--xs h-uppercase"><?php echo esc_html($slide_labels[$project->ID]); ?></span><?php endif; ?>
+                                <time class="a-text a-text--xs h-uppercase"><?php echo esc_html(get_the_date('M Y', $project)); ?></time>
+                            </div>
 
-                                <?php if ($description) : ?>
-                                    <p class="a-text <?php echo esc_attr(trim("$textTypeClass $textColorClass $textLineHeightClass")); ?>">
-                                        <?php echo wp_kses_post($description); ?>
-                                    </p>
-                                <?php endif; ?>
+                            <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($type['header_size']); ?> h-white h--<?php echo esc_attr($type['header_line_height']); ?>">
+                                <?php echo esc_html(get_the_title($project)); ?>
+                            </<?php echo tag_escape($tag); ?>>
 
-                                <?php if (!empty($button_link) && is_array($button_link)) : ?>
-                                    <?php
-                                    $button_url    = $button_link['url'] ?? '';
-                                    $button_title  = $button_link['title'] ?? '';
-                                    $button_target = $button_link['target'] ?? '_self';
-                                    ?>
-                                    <?php if ($button_url) : ?>
-                                        <a
-                                            href="<?php echo esc_url($button_url); ?>"
-                                            class="a-btn a-btn--white h-semibold"
-                                            target="<?php echo esc_attr($button_target); ?>"
-                                            <?php if ($button_target === '_blank') : ?>
-                                                rel="noopener noreferrer"
-                                            <?php endif; ?>
-                                            aria-label="<?php echo esc_attr($button_title); ?>"
-                                        >
-                                            <span><?php echo esc_html($button_title); ?></span>
-                                        </a>
-                                    <?php endif; ?>
-                                <?php endif; ?>
+                            <?php if ($excerpt = $summaries[$project->ID]) : ?>
+                                <p class="a-text a-text--<?php echo esc_attr($type['text_type']); ?> h-white">
+                                    <?php echo esc_html(wp_trim_words($excerpt, 28)); ?>
+                                </p>
+                            <?php endif; ?>
+
+                            <div class="m-hero__action">
+                                <a class="a-text a-text--m h-semibold" href="<?php echo esc_url(get_permalink($project)); ?>">
+                                    <span>
+                                        <?php echo esc_html($project->post_type === 'project' ? __('Explore project', 'MCA') : __('Read the story', 'MCA')); ?>
+                                    </span>
+                                    <span aria-hidden="true"><i class="icon-arrow-right-up a-icon"></i></span>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <?php $slide_index++; ?>
-                <?php endwhile; ?>
-            <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
         </div>
 
-        <?php
-        $show_last_vacancy = get_field('show_last_vacancy');
-        $selected_news     = get_field('selected_news');
-        $card_post         = !empty($selected_news[0]) ? get_post($selected_news[0]) : null;
+        <div class="m-hero__footer">
+            <div class="container">
+                <div class="m-hero__controls">
+                    <div class="m-hero__fraction">
+                        <span class="a-text a-text--s" data-hero-current>01</span>
+                        <span class="a-text a-text--s">/</span>
+                        <span class="a-text a-text--s"><?php echo esc_html(sprintf('%02d', count($items))); ?></span>
+                    </div>
 
-        if (!$card_post || $card_post->post_status !== 'publish') {
-            $latest_posts = get_posts([
-                'post_type'      => $show_last_vacancy ? 'job' : 'post',
-                'posts_per_page' => 1,
-                'post_status'    => 'publish',
-                'orderby'        => 'date',
-                'order'          => 'DESC',
-            ]);
-
-            $card_post = $latest_posts[0] ?? null;
-        }
-        ?>
-
-        <?php if ($card_post) : ?>
-            <article class="m-hero-card">
-                <div class="m-hero-card__top">
-                    <a
-                        class="a-hero-card-image"
-                        href="<?php echo esc_url(get_permalink($card_post)); ?>"
-                        aria-label="<?php echo esc_attr(get_the_title($card_post)); ?>"
-                    >
-                        <?php
-                        echo get_the_post_thumbnail($card_post, 'medium', [
-                            'loading'  => 'lazy',
-                            'decoding' => 'async',
-                        ]);
-                        ?>
+                    <a href="#" role="button" data-hero-pause aria-label="Pause slideshow" aria-pressed="false">
+                        <span data-hero-pause-icon aria-hidden="true">
+                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/stop.svg')); ?>" alt="">
+                        </span>
                     </a>
 
-                    <div class="m-hero-card__heading">
-                        <p class="a-text a-text--s">
-                            Discover <?php echo $show_last_vacancy ? 'vacancies' : 'news'; ?>
-                        </p>
-                        <h2 class="a-text a-text--xxl h-white">
-                            <a class="a-hero-card-title" href="<?php echo esc_url(get_permalink($card_post)); ?>">
-                                <?php echo esc_html(get_the_title($card_post)); ?>
+                    <a href="#" role="button" data-hero-prev aria-label="Previous slide">
+                        <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/left-hero.svg')); ?>" alt="">
+                    </a>
+
+                    <a href="#" role="button" data-hero-next aria-label="Next slide">
+                        <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/right-hero.svg')); ?>" alt="">
+                    </a>
+                </div>
+
+                <div class="m-hero__cards">
+                    <?php foreach ($items as $index => $project) : ?>
+                        <div class="m-hero__card<?php echo $index === 0 ? ' is-active' : ''; ?>">
+                            <a
+                                href="<?php echo esc_url(get_permalink($project)); ?>"
+                                data-hero-slide="<?php echo esc_attr($index); ?>"
+                                <?php if ($index === 0) : ?>aria-current="true"<?php endif; ?>
+                                aria-label="<?php echo esc_attr(get_the_title($project)); ?>"
+                            >
+                                <div class="m-hero__thumbnail">
+                                    <?php echo get_the_post_thumbnail($project, 'thumbnail', ['loading' => 'lazy', 'alt' => '']); ?>
+                                </div>
+
+                                <div class="m-hero__card-copy h-semibold">
+                                    <p class="a-text a-text--xs h-uppercase">
+                                        <span class="a-text a-text--s h-semibold"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
+                                        <?php echo esc_html($slide_labels[$project->ID]); ?>
+                                    </p>
+                                    <p class="a-text a-text--xl h-semibold">
+                                        <?php echo esc_html(wp_html_excerpt($summaries[$project->ID] ?: get_the_title($project), 110, '…')); ?>
+                                    </p>
+                                </div>
                             </a>
-                        </h2>
-                    </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-
-                <div class="m-hero-card__excerpt s-d-t-xs s-d-b-s s-m-t-xs s-m-b-xs">
-                    <p class="a-text a-text--m">
-                        <?php echo esc_html(wp_trim_words(wp_strip_all_tags(get_the_excerpt($card_post)), 30)); ?>
-                    </p>
-                </div>
-
-                <a class="a-btn--border-white h-semibold" href="<?php echo esc_url(get_permalink($card_post)); ?>">
-                    <span>Read more</span>
-                </a>
-            </article>
-        <?php endif; ?>
-
-        <div class="m-navigation container s-d-t-s">
-            <button type="button" class="swiper-button-prev" aria-label="Previous slide">
-                <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/Chevron-left.svg')); ?>" alt="" aria-hidden="true">
-            </button>
-
-            <span class="m-hero__current a-text a-text--s">01</span>
-            <div class="m-hero__pagination"></div>
-            <span class="m-hero__total a-text a-text--s">
-                <?php echo esc_html(sprintf('%02d', is_array($slides) ? count($slides) : 0)); ?>
-            </span>
-
-            <button type="button" class="swiper-button-next" aria-label="Next slide">
-                <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/Chevron-right.svg')); ?>" alt="" aria-hidden="true">
-            </button>
+            </div>
         </div>
     </div>
 </section>
