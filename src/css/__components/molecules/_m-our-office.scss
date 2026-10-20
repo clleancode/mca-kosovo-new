@@ -13,6 +13,7 @@
     justify-content: center;
     min-width: 0;
     padding: 28px;
+    box-sizing: border-box;
     background: var(--dark-blue);
     color: var(--white);
 
@@ -51,13 +52,21 @@
 }
 
 .m-our-office__map {
+    position: relative;
     min-width: 0;
+    min-height: 320px;
     background: var(--grey);
 
     >img {
+        position: absolute;
+        inset: 0;
         display: block;
         width: 100%;
-        height: auto;
+        height: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        object-fit: contain;
+        transform: scale(1.08);
     }
 }
 
@@ -68,5 +77,10 @@
 
     .m-our-office__content {
         padding: clamp(28px, 4vw, 48px);
+        min-height: clamp(420px, 32vw, 600px);
+    }
+
+    .m-our-office__map {
+        min-height: 0;
     }
 }

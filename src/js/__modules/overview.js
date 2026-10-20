@@ -91,7 +91,6 @@ const overview = () => {
         };
         if (toggle && navigation) {
             section.classList.add('has-mobile-navigation');
-            navigation.dataset.textReveal = 'off';
             setOpen(false, false);
             toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
             mobile.addEventListener('change', () => setOpen(false, false));

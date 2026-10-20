@@ -18,6 +18,26 @@ export default function heroSlider() {
         let previousTime = null;
         let paused = reducedMotion || cards.length < 2;
         let frame;
+        let entranceAnimations = [];
+        const animateSlide = swiper => {
+            entranceAnimations.forEach(animation => animation.cancel());
+            entranceAnimations = [];
+            if (reducedMotion || !Element.prototype.animate) return;
+            const slide = swiper.slides[swiper.activeIndex];
+            slide?.querySelectorAll('.m-hero__copy > *').forEach((item, index) => {
+                const animation = item.animate([
+                    { opacity: 0, translate: '0 24px' },
+                    { opacity: 1, translate: '0 0' },
+                ], { duration: 700, delay: 100 + index * 160, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' });
+                entranceAnimations.push(animation);
+                animation.onfinish = () => animation.cancel();
+            });
+            const image = slide?.querySelector('.m-hero__image');
+            if (image) {
+                const animation = image.animate([{ scale: '1.04' }, { scale: '1' }], { duration: 1400, easing: 'ease-out' });
+                entranceAnimations.push(animation);
+            }
+        };
         const sync = swiper => {
             elapsed = 0;
             previousTime = null;
@@ -28,6 +48,7 @@ export default function heroSlider() {
                 if (index === swiper.realIndex) link.setAttribute('aria-current', 'true');
                 else link.removeAttribute('aria-current');
             });
+            animateSlide(swiper);
         };
         const swiper = new Swiper(element, {
             modules: [Navigation, EffectFade],
@@ -40,6 +61,15 @@ export default function heroSlider() {
             autoplay: false,
             on: { init: sync, slideChange: sync, destroy() { cancelAnimationFrame(frame); } },
         });
+        if (!reducedMotion && Element.prototype.animate) {
+            [element.querySelector('.m-hero__controls'), ...cards.map(card => card.parentElement)].filter(Boolean).forEach((item, index) => {
+                const animation = item.animate([
+                    { opacity: 0, translate: '0 24px' },
+                    { opacity: 1, translate: '0 0' },
+                ], { duration: 700, delay: 650 + index * 160, easing: 'ease-out', fill: 'both' });
+                animation.onfinish = () => animation.cancel();
+            });
+        }
         const tick = time => {
             if (swiper.destroyed) return;
             if (!paused && !document.hidden) {

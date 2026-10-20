@@ -1,10 +1,10 @@
-// Prepare text before viewport entry to avoid a visible flash when scrolling.
+// Reveal text, imagery and content panels through one ordered scroll sequence.
 const textReveal = () => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
 
     const textBlocks = 'h1, h2, h3, h4, h5, h6, p, blockquote, figcaption, li, dt, dd, address, summary, td, th, .a-heading, .a-text';
-    const buttonSelector = 'button, .a-btn, [class*="a-btn--"], .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
+    const buttonSelector = '.m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link, .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
     // Keep live countdown numbers intact: their text is replaced every second.
     const faqIconSelector = '.m-faq__item > summary > span:last-child';
     // Use the outer badge so its background, pseudo-element dot and icons
@@ -22,19 +22,34 @@ const textReveal = () => {
         '.m-newsletter-subscribe__label',
         '.m-how-to-apply__number',
     ].join(', ');
-    const decorativeSelector = `${faqIconSelector}, .m-how-to-apply__number, .m-contact-form__icon`;
-    const contactFieldSelector = '.m-contact-form__field, .m-contact-form__topics, .m-contact-form__privacy, .m-contact-form__submit';
-    const wholeElementSelector = `${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}`;
+    const decorativeSelector = `${faqIconSelector}, .m-how-to-apply__number, .m-contact-form__icon, .m-opportunities__panel-icon`;
+    const contactFieldSelector = '.m-contact-form__field, .m-contact-form__topics, .m-contact-form__privacy, .m-contact-form__submit, .m-application__field, .m-application__upload, .m-application__consent, .m-application__submit, .m-application__main-photo, .m-application__secondary-photo';
+    const panelSelectors = ['card', 'panel', 'photo', 'image', 'cover', 'fact', 'statistic', 'document', 'contact', 'album', 'way', 'step']
+        .flatMap(name => [`[class$="__${name}"]`, `[class*="__${name} "]`, `[class*="__${name}--"]`])
+        // Team panels contain many members; reveal each card independently.
+        .map(selector => `${selector}:not(.m-team__panel):not(.m-vacancies__panel):not(.m-all-documents__filter-panel)`);
+    const contentSelector = ['article', 'figure', 'picture', 'img', 'video', 'ul:not(.m-documents__document-list)', 'ol:not(.m-progress__milestones):not(.m-how-to-apply__steps):not(.m-timeline__milestones)', 'dl', 'table', '[data-aos]', '[data-scroll-reveal]', ...panelSelectors, '.m-progress__milestone', '.m-documents__document-list > li', '.m-timeline__milestone'].join(', ');
+    const barSelector = '.m-compact__funding-bar, .m-storage__capacity-bar, .m-progress__phase .a-progress-bar, .m-partnership__bar';
+    const wholeElementSelector = `${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
     // Live regions can contain ordinary articles (news, search, filtered cards).
     // Exclude feedback messages themselves, rather than all live-region content.
-    const excluded = '.o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, [data-aos], [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
+    const excluded = '#a-countdown, .o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, .swiper:not(.m-gallery-slider__swiper), .m-hero, .m-header, .fancybox__container, .m-document-preview__stage, [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
     const registered = new WeakSet();
     const revealed = new WeakSet();
     const animations = new Set();
     const pending = new WeakMap();
+    const pendingElements = new Set();
     const words = new WeakMap();
     const wholeElements = new WeakSet();
+    const sequences = new WeakMap();
+    const orderedDelay = target => {
+        const scope = target.closest('section') || target.closest('main') || document.body;
+        const now = performance.now();
+        const start = Math.max(now, sequences.get(scope) || 0);
+        sequences.set(scope, start + 160);
+        return Math.min(start - now, 1600);
+    };
     let lastScrollY = window.scrollY;
     let scrollingDown = true;
     const updateScrollDirection = () => {
@@ -78,7 +93,17 @@ const textReveal = () => {
 
     const observer = new IntersectionObserver(entries => {
         updateScrollDirection();
-        let order = 0;
+        entries.sort((a, b) => {
+            const first = a.target.getBoundingClientRect();
+            const second = b.target.getBoundingClientRect();
+            if (a.target.matches('.m-timeline__milestone') && b.target.matches('.m-timeline__milestone') && a.target.parentElement === b.target.parentElement) {
+                return a.target.compareDocumentPosition(b.target) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+            }
+            if (a.target.matches('.m-gallery-slider__figure') && b.target.matches('.m-gallery-slider__figure') && a.target.closest('[data-gallery-slider]') === b.target.closest('[data-gallery-slider]')) {
+                return first.left - second.left;
+            }
+            return Math.abs(first.top - second.top) > 24 ? first.top - second.top : first.left - second.left;
+        });
         entries.forEach(({ target, isIntersecting }) => {
             if (!target.isConnected) {
                 observer.unobserve(target);
@@ -95,17 +120,22 @@ const textReveal = () => {
                 restoreWords(target);
                 return;
             }
+            const blockDelay = orderedDelay(target);
             if (wholeElements.has(target)) {
                 // Move the whole button, including its background and icon.
                 // Individual translate leaves existing hover transforms intact.
                 animation.cancel();
                 const style = getComputedStyle(target);
-                const effect = target.animate([
-                    { opacity: 0, translate: '0 10px' },
+                const isBar = target.matches(barSelector);
+                const effect = target.animate(isBar ? [
+                    { clipPath: 'inset(0 100% 0 0)' },
+                    { clipPath: 'inset(0 0% 0 0)' },
+                ] : [
+                    { opacity: 0, translate: target.matches('.m-progress__milestone, .m-gallery-slider__figure, .m-overview__bar .a-overview-link, .m-all-documents__filters > a') ? '-24px 0' : '0 24px' },
                     { opacity: style.opacity, translate: style.translate },
                 ], {
-                    duration: 1200,
-                    delay: Math.min(order++ * 80, 240),
+                    duration: isBar ? 1400 : 700,
+                    delay: blockDelay + (target.matches('.m-our-office__map') ? 700 : 0),
                     easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
                     fill: 'both',
                 });
@@ -122,7 +152,6 @@ const textReveal = () => {
                 if (!result.length || top - result[result.length - 1] > 5) result.push(top);
                 return result;
             }, []);
-            const blockDelay = Math.min(order++ * 80, 240);
             const heading = target.matches('h1, h2, h3, h4, h5, h6, .a-heading');
             // Start all line effects in the same frame before releasing the block.
             const running = spans.map((span, index) => {
@@ -131,8 +160,8 @@ const textReveal = () => {
                     { opacity: 0, transform: 'translateY(0.65em)', clipPath: 'inset(0 0 100% 0)' },
                     { opacity: 1, transform: 'translateY(0)', clipPath: 'inset(0 0 0% 0)' },
                 ], {
-                    duration: heading ? 1300 : 1100,
-                    delay: blockDelay + line * 160,
+                    duration: heading ? 850 : 700,
+                    delay: blockDelay + Math.min(line, 5) * 80,
                     easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
                     fill: 'both',
                 });
@@ -146,7 +175,7 @@ const textReveal = () => {
                 restoreWords(target);
             });
         });
-    }, { threshold: 0, rootMargin: '0px 0px 40px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -32px 0px' });
 
     const register = root => {
         const candidates = [...root.querySelectorAll(selector)];
@@ -156,7 +185,7 @@ const textReveal = () => {
             // FAQ icons are decorative (aria-hidden) but still need a visual
             // reveal. Keep summary layout intact and reveal its children separately.
             if (element.matches('.m-faq__item > summary')) return;
-            const exclusions = element.matches(decorativeSelector)
+            const exclusions = element.matches(`${decorativeSelector}, ${barSelector}`)
                 ? excluded.replace('[aria-hidden="true"], ', '')
                 : excluded;
             if (registered.has(element) || revealed.has(element) || element.closest(exclusions)) return;
@@ -172,7 +201,7 @@ const textReveal = () => {
             while (parent && !registered.has(parent)) parent = parent.parentElement;
             if (parent) return;
             // Lists containing cards are layout containers, not text blocks.
-            if (element.matches('li') && element.querySelector('h1, h2, h3, h4, h5, h6, p, div, article')) return;
+            if (!button && element.matches('li') && element.querySelector('h1, h2, h3, h4, h5, h6, p, div, article')) return;
             registered.add(element);
             // Direct word spans become separate flex/grid items, causing
             // space-between to pull words apart until the reveal is restored.
@@ -190,10 +219,12 @@ const textReveal = () => {
                 });
                 animation.pause();
                 pending.set(element, animation);
+                pendingElements.add(element);
                 animations.add(animation);
                 const cleanup = () => {
                     animations.delete(animation);
                     pending.delete(element);
+                    pendingElements.delete(element);
                 };
                 animation.addEventListener('finish', () => animation.cancel(), { once: true });
                 animation.addEventListener('cancel', cleanup, { once: true });
@@ -203,6 +234,20 @@ const textReveal = () => {
     };
 
     register(document.body);
+    const finishForFocus = event => {
+        let parent = event.target;
+        while (parent && parent !== document.body) {
+            pending.get(parent)?.cancel();
+            if (registered.has(parent)) {
+                revealed.add(parent);
+                observer.unobserve(parent);
+                restoreWords(parent);
+                parent.getAnimations().forEach(animation => animation.cancel());
+            }
+            parent = parent.parentElement;
+        }
+    };
+    document.addEventListener('focusin', finishForFocus);
     // Filters and pagination replace cards without reloading the page.
     new MutationObserver(records => {
         records.forEach(record => {
@@ -223,6 +268,10 @@ const textReveal = () => {
         });
     }).observe(document.body, { childList: true, subtree: true });
 
+    window.addEventListener('beforeprint', () => {
+        animations.forEach(animation => animation.cancel());
+        pendingElements.forEach(element => { revealed.add(element); observer.unobserve(element); restoreWords(element); });
+    });
     motion.addEventListener('change', () => {
         if (motion.matches) {
             animations.forEach(animation => animation.cancel());

@@ -2,7 +2,6 @@ import heroSlider from "./__modules/hero-slider";
 import transparency from "./__modules/transparency";
 import header from "./__modules/header";
 import slider from "./__modules/slider";
-import AOS from "aos";
 import countdown from "./__modules/countdown";
 import cookieBanner from "./__modules/cookie-banner";
 import compact from "./__modules/compact";
@@ -88,14 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (document.querySelector(".o-cookie-banner")) {
 		cookieBanner();
 	}
-
-	AOS.init({
-		duration: 350,
-		once: true,
-		offset: 250,
-		mirror: false,
-		easing: "ease",
-	});
 
 });
 
