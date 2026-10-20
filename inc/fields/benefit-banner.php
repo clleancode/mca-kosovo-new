@@ -5,6 +5,7 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 require_once get_template_directory() . '/inc/fields/reusable/spacing.php';
 require_once get_template_directory() . '/inc/fields/reusable/device.php';
+require_once get_template_directory() . '/inc/fields/reusable/heading.php';
 
 if ( ! class_exists( FieldsBuilder::class ) ) {
     return;
@@ -58,6 +59,8 @@ $fields
         ] )
     ->endRepeater()
 
+    ->addTab( 'Heading' )
+    ->addFields( \MCA\Fields\Reusable\get_heading_fields() )
     ->addFields( \MCA\Fields\Reusable\get_spacing_fields() )
     ->addFields( \MCA\Fields\Reusable\get_device_fields() );
 

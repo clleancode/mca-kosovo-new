@@ -5,6 +5,7 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 require_once get_template_directory() . '/inc/fields/reusable/spacing.php';
 require_once get_template_directory() . '/inc/fields/reusable/device.php';
+require_once get_template_directory() . '/inc/fields/reusable/heading.php';
 
 if (class_exists(FieldsBuilder::class)) {
     $hero = new FieldsBuilder('hero_collection_fields');
@@ -60,6 +61,8 @@ if (class_exists(FieldsBuilder::class)) {
             ->addText('value', ['label' => 'Value'])
             ->addText('label', ['label' => 'Label'])
         ->endRepeater()
+        ->addTab('Heading')
+        ->addFields(\MCA\Fields\Reusable\get_heading_fields())
         ->addTab('Spacing and visibility')
         ->addFields(\MCA\Fields\Reusable\get_spacing_fields())
         ->addFields(\MCA\Fields\Reusable\get_device_fields());

@@ -10,6 +10,13 @@ if (!$visibility['show']) {
 }
 
 $layout = get_field('hero_collection_layout') ?: 'album';
+$heading = Helpers\get_block_typography([
+    'header_tag' => 'h1',
+    'header_size' => $layout === 'vacancy' ? 'h3' : 'h4',
+    'header_color' => '',
+]);
+$heading_classes = 'a-heading a-heading--' . $heading['header_size'] . ' ' . $heading['header_color'];
+if (get_field('header_line_height')) $heading_classes .= ' h--' . $heading['header_line_height'];
 $classes = ['o-hero-collection', 'o-hero-collection--' . sanitize_html_class($layout), $visibility['visibility_classes'], $block['className'] ?? ''];
 foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
     foreach (['top' => 't', 'bottom' => 'b'] as $side => $suffix) {
@@ -67,7 +74,7 @@ $render_breadcrumbs = static function () use ($link_markup, $page_id) {
                             <span><?php echo esc_html($back_link['title'] ?? ''); ?></span>
                         </a>
                     <?php endif; ?>
-                    <?php if ($value = get_field('hero_album_title')) : ?><h1 class="a-heading a-heading--h4"><?php echo esc_html($value); ?></h1><?php endif; ?>
+                    <?php if ($value = get_field('hero_album_title')) : ?><<?php echo tag_escape($heading['header_tag']); ?> class="<?php echo esc_attr(trim($heading_classes)); ?>"><?php echo esc_html($value); ?></<?php echo tag_escape($heading['header_tag']); ?>><?php endif; ?>
                     <?php $category = get_field('hero_album_category'); $year = get_field('hero_album_year'); $photo_count = get_field('hero_album_photo_count'); ?>
                     <?php if ($category || $year || $photo_count) : ?>
                     <div class="m-hero-collection__meta">
@@ -114,13 +121,13 @@ $render_breadcrumbs = static function () use ($link_markup, $page_id) {
                     <?php if ($vacancy_notice) : ?><span class="m-hero-collection__pill m-hero-collection__pill--outline"><span class="a-text a-text--xs"><?php echo esc_html($vacancy_notice); ?></span></span><?php endif; ?>
                     <?php if ($vacancy_project) : ?><span class="m-hero-collection__pill m-hero-collection__pill--blue"><span class="a-text a-text--xs"><?php echo esc_html($vacancy_project); ?></span></span><?php endif; ?>
                 </div><?php endif; ?>
-                <?php if ($value = get_field('hero_vacancy_title')) : ?><h1 class="a-heading a-heading--h3"><?php echo nl2br(wp_kses($value, ['br' => []])); ?></h1><?php endif; ?>
+                <?php if ($value = get_field('hero_vacancy_title')) : ?><<?php echo tag_escape($heading['header_tag']); ?> class="<?php echo esc_attr(trim($heading_classes)); ?>"><?php echo nl2br(wp_kses($value, ['br' => []])); ?></<?php echo tag_escape($heading['header_tag']); ?>><?php endif; ?>
             </div>
         <?php elseif ($layout === 'integrity') : ?>
             <div class="m-hero-collection m-hero-collection--integrity">
                 <div class="m-hero-collection__integrity-copy">
                     <?php if ($value = get_field('hero_integrity_label')) : ?><span class="m-hero-collection__pill m-hero-collection__pill--red"><span class="a-text a-text--xs"><?php echo esc_html($value); ?></span></span><?php endif; ?>
-                    <?php if ($value = get_field('hero_integrity_title')) : ?><h1 class="a-heading a-heading--h4"><?php echo esc_html($value); ?></h1><?php endif; ?>
+                    <?php if ($value = get_field('hero_integrity_title')) : ?><<?php echo tag_escape($heading['header_tag']); ?> class="<?php echo esc_attr(trim($heading_classes)); ?>"><?php echo esc_html($value); ?></<?php echo tag_escape($heading['header_tag']); ?>><?php endif; ?>
                     <?php if ($value = get_field('hero_integrity_description')) : ?><p class="a-text a-text--xl"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
                 </div>
                 <?php $panel_title = get_field('hero_integrity_panel_title'); $panel_description = get_field('hero_integrity_panel_description'); ?>
@@ -133,7 +140,7 @@ $render_breadcrumbs = static function () use ($link_markup, $page_id) {
         <?php elseif ($layout === 'policy') : ?>
             <div class="m-hero-collection m-hero-collection--policy">
                 <?php $render_breadcrumbs(); ?>
-                <?php if ($value = get_field('hero_policy_title')) : ?><h1 class="a-heading a-heading--h4"><?php echo esc_html($value); ?></h1><?php endif; ?>
+                <?php if ($value = get_field('hero_policy_title')) : ?><<?php echo tag_escape($heading['header_tag']); ?> class="<?php echo esc_attr(trim($heading_classes)); ?>"><?php echo esc_html($value); ?></<?php echo tag_escape($heading['header_tag']); ?>><?php endif; ?>
                 <?php $links = get_field('hero_policy_links'); ?>
                 <?php $links = is_array($links) ? array_values(array_filter($links, static function ($row) { return !empty($row['link']['url']) && !empty($row['link']['title']); })) : []; ?>
                 <?php if ($links) : ?>
@@ -151,7 +158,7 @@ $render_breadcrumbs = static function () use ($link_markup, $page_id) {
             <div class="m-hero-collection m-hero-collection--vacancies">
                 <div class="m-hero-collection__vacancies-copy">
                     <?php $render_breadcrumbs(); ?>
-                    <?php if ($value = get_field('hero_vacancies_title')) : ?><h1 class="a-heading a-heading--h4"><?php echo esc_html($value); ?></h1><?php endif; ?>
+                    <?php if ($value = get_field('hero_vacancies_title')) : ?><<?php echo tag_escape($heading['header_tag']); ?> class="<?php echo esc_attr(trim($heading_classes)); ?>"><?php echo esc_html($value); ?></<?php echo tag_escape($heading['header_tag']); ?>><?php endif; ?>
                     <?php if ($value = get_field('hero_vacancies_description')) : ?><p class="a-text a-text--xl"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
                 </div>
                 <?php $statistics = get_field('hero_vacancies_statistics'); ?>

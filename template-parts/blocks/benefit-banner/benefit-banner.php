@@ -26,6 +26,9 @@ $scroll      = get_field( 'benefit_banner_scroll_link' );
 $breadcrumb  = get_field( 'benefit_banner_breadcrumb' );
 $title       = get_field( 'benefit_banner_title' );
 $description = get_field( 'benefit_banner_description' );
+$heading = Helpers\get_block_typography(['header_tag' => 'h1', 'header_size' => 'h2', 'header_color' => 'h-white']);
+$heading_classes = 'a-heading a-heading--' . $heading['header_size'] . ' ' . $heading['header_color'];
+if (get_field('header_line_height')) $heading_classes .= ' h--' . $heading['header_line_height'];
 ?>
 <section
     class="<?php echo esc_attr( implode( ' ', array_filter( $classes ) ) ); ?>"
@@ -47,7 +50,7 @@ $description = get_field( 'benefit_banner_description' );
                 </nav>
 
                 <?php if ( $title ) : ?>
-                    <h1 class="a-heading a-heading--h2 h-white"><?php echo esc_html( $title ); ?></h1>
+                    <<?php echo tag_escape($heading['header_tag']); ?> class="<?php echo esc_attr($heading_classes); ?>"><?php echo esc_html( $title ); ?></<?php echo tag_escape($heading['header_tag']); ?>>
                 <?php endif; ?>
 
                 <?php if ( $description ) : ?>

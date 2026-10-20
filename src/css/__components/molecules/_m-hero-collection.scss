@@ -317,6 +317,11 @@
     .m-hero-collection__vacancies-copy {
         flex: 1;
         align-self: flex-start;
+        max-width: 700px;
+    }
+
+    .m-hero-collection__integrity-copy {
+        max-width: 800px;
     }
 
     .m-hero-collection__statistics {
