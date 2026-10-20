@@ -294,6 +294,10 @@ button {
     left: -27px !important;
 }
 
+.h-breadcrumbs {
+    font-weight: 500;
+}
+
 .h-breadcrumbs ol {
     display: flex;
     flex-wrap: wrap;
@@ -483,4 +487,14 @@ button {
 
 #main-content {
     scroll-margin-top: 8rem;
+}
+nav[aria-label="Breadcrumb"] [aria-current="page"] {
+    color: var(--red);
+}
+
+nav[aria-label="Breadcrumb"] a:hover,
+nav[aria-label="Breadcrumb"] a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
 }

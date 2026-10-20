@@ -35,7 +35,7 @@ $description = get_field( 'benefit_banner_description' );
         <div class="m-benefit-banner__intro">
             <div class="m-benefit-banner__content">
                 <nav class="m-benefit-banner__breadcrumbs" aria-label="Breadcrumb">
-                    <a class="a-text a-text--xs  h-uppercase" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <a class="a-text a-text--xs h-uppercase" href="<?php echo esc_url( home_url( '/' ) ); ?>">
                         <?php esc_html_e( 'Home', 'MCA' ); ?>
                     </a>
                     <span class="a-text a-text--xs" aria-hidden="true">/</span>
