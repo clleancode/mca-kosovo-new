@@ -338,6 +338,8 @@
     }
 
     >.a-btn {
+        --a-btn-hover-fill: #d11242;
+        --a-btn-hover-color: var(--white);
         min-height: 30px;
         padding: 12px 22px;
         color: #d11242;
