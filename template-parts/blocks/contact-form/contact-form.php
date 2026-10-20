@@ -71,7 +71,11 @@ $icon_files = [
                         </span>
                         <div class="m-contact-form__panel-copy">
                             <?php if ($visit_label) : ?>
-                                <span class="a-text a-text--xs"><?php echo esc_html($visit_label); ?></span>
+                                <?php if (!empty($map_link['url'])) : ?>
+                                    <a class="a-text a-text--xs" href="<?php echo esc_url($map_link['url']); ?>" target="<?php echo esc_attr($map_link['target'] ?? '_self'); ?>" <?php if (($map_link['target'] ?? '') === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($visit_label); ?></a>
+                                <?php else : ?>
+                                    <span class="a-text a-text--xs"><?php echo esc_html($visit_label); ?></span>
+                                <?php endif; ?>
                             <?php endif; ?>
                             <p class="a-text a-text--xxl"><?php echo nl2br(esc_html($address)); ?></p>
                             <?php if (!empty($map_link['url']) && !empty($map_link['title'])) : ?>
