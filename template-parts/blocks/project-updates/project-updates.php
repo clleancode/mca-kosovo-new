@@ -69,13 +69,13 @@ $archive_target = $archive['target'] ?? '';
             </div>
 
             <a
-                class="a-project-updates-all a-text a-text--m h-semibold"
+                class="a-underline a-text a-text--l"
                 href="<?php echo esc_url($archive_url); ?>"
                 target="<?php echo esc_attr($archive_target); ?>"
                 <?php if ($archive_target === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>
             >
-                <?php echo esc_html($archive['title'] ?? ''); ?>
-                <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/small-right.svg')); ?>" alt="" aria-hidden="true">
+                <span><?php echo esc_html($archive['title'] ?? ''); ?></span>
+                <i class="icon-arrow-right a-icon" aria-hidden="true"></i>
             </a>
         </div>
 

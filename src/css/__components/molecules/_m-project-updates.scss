@@ -13,14 +13,6 @@
     }
 }
 
-.a-project-updates-all {
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--navy);
-    color: var(--dark-blue);
-    display: flex;
-    gap: 5px;
-}
-
 .m-project-updates__grid {
     display: grid;
     gap: 32px 24px;
@@ -62,7 +54,6 @@
     text-decoration: underline;
 }
 
-.a-project-updates-all:focus-visible,
 .a-project-updates-title:focus-visible,
 .a-project-updates-image:focus-visible {
     outline: 2px solid var(--blue);
