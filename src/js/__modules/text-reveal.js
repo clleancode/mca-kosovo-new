@@ -38,14 +38,16 @@ const textReveal = () => {
     const words = new WeakMap();
     const wholeElements = new WeakSet();
     const sequences = new WeakMap();
+    const fundingRevealTimes = new WeakMap();
     const orderedDelay = target => {
         const transparencyCard = target.matches('.m-transparency__card');
-        const scope = (transparencyCard ? target.closest('.m-transparency__grid') : null)
+        const funding = target.closest('.m-compact__funding');
+        const scope = target.closest('.m-careers-hero__content') || funding || (transparencyCard ? target.closest('.m-transparency__grid') : null)
             || target.closest('section') || target.closest('main') || document.body;
         const now = performance.now();
         const start = Math.max(now, sequences.get(scope) || 0);
-        sequences.set(scope, start + (transparencyCard ? 400 : 160));
-        return Math.min(start - now, 1600);
+        sequences.set(scope, start + (transparencyCard ? 400 : funding ? 120 : 160));
+        return Math.max(0, Math.min(start - now, 1600) - (funding ? 100 : 0));
     };
     let lastScrollY = window.scrollY;
     let scrollingDown = true;
@@ -131,10 +133,20 @@ const textReveal = () => {
             const footerColumn = target.matches('.m-footer__brand, .m-footer__column, .m-footer__contact');
             const footerColumns = footerColumn ? [...target.closest('.m-footer__main').querySelectorAll('.m-footer__brand, .m-footer__column, .m-footer__contact')] : [];
             const footerDelay = footerColumns.indexOf(target) * 320;
-            const blockDelay = (footerColumn ? footerDelay : overviewMain ? 0 : overviewDetail ? 450 : spotlightContent ? 0 : spotlightText ? 750 + orderedDelay(target) : spotlightImage ? 1500 : documentItem ? documentDelay : orderedDelay(target)) + (structureContent ? 700 : 0) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
+            const careersPhoto = target.matches('.m-careers-hero__photo');
+            const careersStatistic = target.matches('.m-careers-hero__statistic');
+            const photoIndex = careersPhoto ? [...target.parentElement.querySelectorAll('.m-careers-hero__photo')].indexOf(target) : 0;
+            let blockDelay = (careersPhoto ? 1500 + photoIndex * 160 : careersStatistic ? 2300 : footerColumn ? footerDelay : overviewMain ? 0 : overviewDetail ? 450 : spotlightContent ? 0 : spotlightText ? 750 + orderedDelay(target) : spotlightImage ? 1500 : documentItem ? documentDelay : orderedDelay(target)) + (structureContent ? 700 : 0) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
             if (target.matches('.m-overview__benefit')) {
                 target.style.setProperty('--line-delay', `${blockDelay}ms`);
                 target.classList.add('is-line-visible');
+            }
+            const compactSection = target.closest('.o-compact');
+            if (compactSection && target.matches('.m-compact__funding-bar')) {
+                fundingRevealTimes.set(compactSection, performance.now() + blockDelay + 1200);
+            }
+            if (compactSection && target.matches('.m-compact__countdown')) {
+                blockDelay = Math.max(blockDelay, (fundingRevealTimes.get(compactSection) || 0) - performance.now());
             }
             if (wholeElements.has(target)) {
                 animation.cancel();
