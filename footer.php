@@ -98,6 +98,7 @@ $render_menu = static function ($menu) use ($menu_link_classes) {
             </div>
         </div>
         <div class="m-footer__bottom s-d-t-s s-m-t-xs">
+            <span class="m-footer__divider" aria-hidden="true"></span>
             <?php if ($disclaimer): ?><div class="m-footer__disclaimer"><p class="a-text a-text--m"><?php echo nl2br(esc_html(wp_strip_all_tags($disclaimer))); ?></p></div><?php endif; ?>
             <div class="m-footer__legal-row">
                 <div class="m-footer__copyright"><p class="a-text a-text--xs h-semibold"><?php echo $copyright ? esc_html(wp_strip_all_tags($copyright)) : esc_html(sprintf('© %s MCA Kosovo. All rights reserved.', wp_date('Y'))); ?></p></div>

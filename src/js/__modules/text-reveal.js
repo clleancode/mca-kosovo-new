@@ -26,7 +26,7 @@ const textReveal = () => {
         .flatMap(name => [`[class$="__${name}"]`, `[class*="__${name} "]`, `[class*="__${name}--"]`])
         .map(selector => `${selector}:not(.m-team__panel):not(.m-vacancies__panel):not(.m-all-documents__filter-panel)`);
     const contentSelector = ['article', 'figure', 'picture', 'img', 'video', 'ul:not(.m-documents__document-list)', 'ol:not(.m-progress__milestones):not(.m-how-to-apply__steps):not(.m-timeline__milestones)', 'dl', 'table', '[data-aos]', '[data-scroll-reveal]', ...panelSelectors, '.m-progress__milestone', '.m-documents__document-list > li', '.m-timeline__milestone'].join(', ');
-    const barSelector = '.m-compact__funding-bar, .m-storage__capacity-bar, .m-progress__phase .a-progress-bar, .m-partnership__bar, .m-join__image';
+    const barSelector = '.m-compact__funding-bar, .m-storage__capacity-bar, .m-progress__phase .a-progress-bar, .m-partnership__bar, .m-join__image, .m-footer__divider';
     const wholeElementSelector = `${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements, .m-partnership__implementation, .m-partnership__partners-header, .m-news__newsletter`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
     const excluded = '.m-timeline__board, #a-countdown, .o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, .swiper:not(.m-gallery-slider__swiper), .m-hero, .m-header, .fancybox__container, .m-document-preview__stage, [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
@@ -174,6 +174,14 @@ const textReveal = () => {
         threshold: 0, rootMargin: `0px 0px -${revealOffset()}px 0px`,
     });
     let observer = createObserver();
+    // Footer links must reveal within the full viewport: there is no more
+    // page below them to reach the normal scroll offset.
+    const footerObserver = new IntersectionObserver(onIntersection, {
+        threshold: 0, rootMargin: '0px',
+    });
+    const observeElement = element => {
+        (element.closest('.o-footer') ? footerObserver : observer).observe(element);
+    };
     let resizeFrame;
     window.addEventListener('resize', () => {
         cancelAnimationFrame(resizeFrame);
@@ -181,7 +189,7 @@ const textReveal = () => {
             observer.disconnect();
             observer = createObserver();
             pendingElements.forEach(element => {
-                if (!revealed.has(element)) observer.observe(element);
+                if (!revealed.has(element)) observeElement(element);
             });
         });
     }, { passive: true });
@@ -230,7 +238,7 @@ const textReveal = () => {
                 animation.addEventListener('finish', () => animation.cancel(), { once: true });
                 animation.addEventListener('cancel', cleanup, { once: true });
             }
-            observer.observe(element);
+            observeElement(element);
         });
     };
 
