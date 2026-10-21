@@ -8,6 +8,7 @@ const textReveal = () => {
     const buttonSelector = '.m-related-programs__action > a, .a-mission-link, .m-team__filters > a, .m-overview__bar--pills .a-overview-link[aria-current], .a-join__button, .m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link:not(.m-overview__bar--pills .a-overview-link), .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
     const faqIconSelector = '.m-faq__item > summary > span:last-child';
     const badgeSelector = [
+        '.m-small-hero__procurement-badges > div',
         '.a-badge', '.a-notices-status', '.a-opportunities-status',
         '.a-activities-pill', '.a-progress-status', '.a-progress-pill',
         '.a-project-updates-pill', '.a-spotlight-pill',
@@ -139,7 +140,7 @@ const textReveal = () => {
             const careersPhoto = target.matches('.m-careers-hero__photo');
             const careersStatistic = target.matches('.m-careers-hero__statistic');
             const photoIndex = careersPhoto ? [...target.parentElement.querySelectorAll('.m-careers-hero__photo')].indexOf(target) : 0;
-            let blockDelay = (careersPhoto ? 1500 + photoIndex * 160 : careersStatistic ? 2300 : footerColumn ? footerDelay : overviewMain ? 0 : overviewDetail ? 450 : spotlightContent ? 0 : spotlightText ? 750 + orderedDelay(target) : spotlightImage ? 1500 : documentItem ? documentDelay : orderedDelay(target)) + (structureContent || applyContent || contactSidebarText || officeText ? 700 : 0) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
+            let blockDelay = (careersPhoto ? 1200 + photoIndex * 160 : careersStatistic ? 2000 : footerColumn ? footerDelay : overviewMain ? 0 : overviewDetail ? 450 : spotlightContent ? 0 : spotlightText ? 750 + orderedDelay(target) : spotlightImage ? 1500 : documentItem ? documentDelay : orderedDelay(target)) + (structureContent || applyContent || contactSidebarText || officeText ? 700 : 0) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
             if (target.matches('.m-overview__benefit')) {
                 target.style.setProperty('--line-delay', `${blockDelay}ms`);
                 target.classList.add('is-line-visible');
@@ -153,6 +154,13 @@ const textReveal = () => {
             if (target.closest('.m-related-programs')) {
                 blockDelay += 500;
                 if (target.closest('.m-related-programs__card') && !target.matches('.m-related-programs__card')) blockDelay += 700;
+            }
+            if (target.matches('.m-about-procurement__card')) {
+                const process = target.querySelector('.m-about-procurement__process');
+                if (process) {
+                    process.style.setProperty('--process-delay', (blockDelay + 700) + 'ms');
+                    process.classList.add('is-animating');
+                }
             }
             const compactSection = target.closest('.o-compact');
             if (compactSection && target.matches('.m-compact__funding-bar')) {

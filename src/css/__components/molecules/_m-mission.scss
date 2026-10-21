@@ -46,20 +46,20 @@
     object-fit: cover;
 }
 
-.m-mission__card::after {
+.m-mission__image::after {
     content: '';
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     inset: 0;
     background: linear-gradient(0deg, rgba(66, 151, 209, .98), rgba(66, 151, 209, .45) 45%, rgba(0, 31, 84, .1));
     pointer-events: none;
 }
 
-.m-mission__card--purple::after {
+.m-mission__card--purple .m-mission__image::after {
     background: linear-gradient(0deg, rgba(99, 19, 248, .98), rgba(99, 19, 248, .55) 45%, rgba(99, 19, 248, .06));
 }
 
-.m-mission__card--green::after {
+.m-mission__card--green .m-mission__image::after {
     background: linear-gradient(0deg, rgba(28, 88, 90, .98), rgba(28, 88, 90, .55) 45%, rgba(28, 88, 90, .06));
 }
 
