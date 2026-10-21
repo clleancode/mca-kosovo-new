@@ -5,7 +5,7 @@ const textReveal = () => {
     if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
 
     const textBlocks = 'h1, h2, h3, h4, h5, h6, p, blockquote, figcaption, li, dt, dd, address, summary, td, th, .a-heading, .a-text';
-    const buttonSelector = '.m-team__filters > a[aria-current="true"], .m-overview__bar--pills .a-overview-link[aria-current], .a-join__button, .m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link:not(.m-overview__bar--pills .a-overview-link), .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
+    const buttonSelector = '.m-team__filters > a, .m-overview__bar--pills .a-overview-link[aria-current], .a-join__button, .m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link:not(.m-overview__bar--pills .a-overview-link), .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
     const faqIconSelector = '.m-faq__item > summary > span:last-child';
     const badgeSelector = [
         '.a-badge', '.a-notices-status', '.a-opportunities-status',
@@ -130,7 +130,7 @@ const textReveal = () => {
                 animation.cancel();
                 const style = getComputedStyle(target);
                 const isBar = target.matches(barSelector);
-                const isJoinButton = target.matches('.m-team__filters > a[aria-current="true"], .a-join__button, .m-overview__bar--pills .a-overview-link[aria-current]');
+                const isJoinButton = target.matches('.m-team__filters > a, .a-join__button, .m-overview__bar--pills .a-overview-link[aria-current]');
                 const effect = target.animate(isBar ? [
                     { clipPath: 'inset(0 100% 0 0)' },
                     { clipPath: 'inset(0 0% 0 0)' },
@@ -217,7 +217,7 @@ const textReveal = () => {
         if (root.matches?.(selector)) candidates.unshift(root);
         candidates.forEach(element => {
             const button = element.matches(wholeElementSelector);
-            if (element.matches('.m-overview__bar--pills .a-overview-link:not([aria-current]), .m-team__filters > a:not([aria-current="true"])')) return;
+            if (element.matches('.m-overview__bar--pills .a-overview-link:not([aria-current])')) return;
             if (element.matches('.m-faq__item > summary')) return;
             const exclusions = element.matches(`${decorativeSelector}, ${barSelector}`)
                 ? excluded.replace('[aria-hidden="true"], ', '')
