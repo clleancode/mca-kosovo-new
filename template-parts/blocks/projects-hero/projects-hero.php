@@ -114,6 +114,7 @@ $links = [
 
         <?php if ($statistics) : ?>
             <div class="m-projects-hero__statistics s-d-t-s s-m-t-xs">
+                <span class="m-projects-hero__divider" aria-hidden="true"></span>
                 <?php foreach ($statistics as $statistic) : ?>
                     <div class="m-projects-hero__statistic">
                         <div class="m-projects-hero__value">

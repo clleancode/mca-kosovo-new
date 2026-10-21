@@ -165,6 +165,9 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                     <ol class="m-overview__benefits">
                         <?php foreach ($benefits as $index => $benefit) : ?>
                             <li class="m-overview__benefit">
+                                <?php if ($index === count($benefits) - 1) : ?>
+                                    <span class="m-overview__benefit-bottom-line" aria-hidden="true"></span>
+                                <?php endif; ?>
                                 <div class="m-overview__benefit-inner a-underline">
                                     <?php
                                     $benefit_icon = $benefit['icon'] ?? null;
