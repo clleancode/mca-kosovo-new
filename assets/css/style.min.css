@@ -13126,6 +13126,8 @@ input.a-btn--white {
   display: flex;
   align-items: end;
   padding: 24px;
+  background: var(--dark-blue);
+  color: var(--white);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }

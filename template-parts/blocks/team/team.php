@@ -190,7 +190,7 @@ if ($layout === 'board') {
                                                 ?>
                                             <?php else : ?>
                                                 <div class="m-team__placeholder">
-                                                    <span class="a-text a-text--xs h-white">Photo coming soon</span>
+                                                    <span class="a-text a-text--xs h-semibold h-white">Photo coming soon</span>
                                                 </div>
                                             <?php endif; ?>
 
