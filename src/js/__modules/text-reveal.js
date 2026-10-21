@@ -1,14 +1,10 @@
-// Reveal text, imagery and content panels through one ordered scroll sequence.
 const textReveal = () => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
 
     const textBlocks = 'h1, h2, h3, h4, h5, h6, p, blockquote, figcaption, li, dt, dd, address, summary, td, th, .a-heading, .a-text';
     const buttonSelector = '.m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link, .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
-    // Keep live countdown numbers intact: their text is replaced every second.
     const faqIconSelector = '.m-faq__item > summary > span:last-child';
-    // Use the outer badge so its background, pseudo-element dot and icons
-    // reveal together. Compact project category text lives inside its number pill.
     const badgeSelector = [
         '.a-badge', '.a-notices-status', '.a-opportunities-status',
         '.a-activities-pill', '.a-progress-status', '.a-progress-pill',
@@ -26,14 +22,11 @@ const textReveal = () => {
     const contactFieldSelector = '.m-contact-form__field, .m-contact-form__topics, .m-contact-form__privacy, .m-contact-form__submit, .m-application__field, .m-application__upload, .m-application__consent, .m-application__submit, .m-application__main-photo, .m-application__secondary-photo';
     const panelSelectors = ['card', 'panel', 'photo', 'image', 'cover', 'fact', 'statistic', 'document', 'contact', 'album', 'way', 'step']
         .flatMap(name => [`[class$="__${name}"]`, `[class*="__${name} "]`, `[class*="__${name}--"]`])
-        // Team panels contain many members; reveal each card independently.
         .map(selector => `${selector}:not(.m-team__panel):not(.m-vacancies__panel):not(.m-all-documents__filter-panel)`);
     const contentSelector = ['article', 'figure', 'picture', 'img', 'video', 'ul:not(.m-documents__document-list)', 'ol:not(.m-progress__milestones):not(.m-how-to-apply__steps):not(.m-timeline__milestones)', 'dl', 'table', '[data-aos]', '[data-scroll-reveal]', ...panelSelectors, '.m-progress__milestone', '.m-documents__document-list > li', '.m-timeline__milestone'].join(', ');
     const barSelector = '.m-compact__funding-bar, .m-storage__capacity-bar, .m-progress__phase .a-progress-bar, .m-partnership__bar';
     const wholeElementSelector = `${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
-    // Live regions can contain ordinary articles (news, search, filtered cards).
-    // Exclude feedback messages themselves, rather than all live-region content.
     const excluded = '#a-countdown, .o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, .swiper:not(.m-gallery-slider__swiper), .m-hero, .m-header, .fancybox__container, .m-document-preview__stage, [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
     const registered = new WeakSet();
     const revealed = new WeakSet();
@@ -122,8 +115,6 @@ const textReveal = () => {
             }
             const blockDelay = orderedDelay(target);
             if (wholeElements.has(target)) {
-                // Move the whole button, including its background and icon.
-                // Individual translate leaves existing hover transforms intact.
                 animation.cancel();
                 const style = getComputedStyle(target);
                 const isBar = target.matches(barSelector);
@@ -145,15 +136,12 @@ const textReveal = () => {
                 return;
             }
             const spans = words.get(target) || [];
-            // Measure the actual wrapped lines at entry, including the current
-            // mobile width and font metrics. Every word on a line moves together.
             const positions = spans.map(span => span.getBoundingClientRect().top);
             const lines = [...positions].sort((a, b) => a - b).reduce((result, top) => {
                 if (!result.length || top - result[result.length - 1] > 5) result.push(top);
                 return result;
             }, []);
             const heading = target.matches('h1, h2, h3, h4, h5, h6, .a-heading');
-            // Start all line effects in the same frame before releasing the block.
             const running = spans.map((span, index) => {
                 const line = Math.max(0, lines.findIndex(top => Math.abs(top - positions[index]) <= 5));
                 const effect = span.animate([
@@ -182,8 +170,6 @@ const textReveal = () => {
         if (root.matches?.(selector)) candidates.unshift(root);
         candidates.forEach(element => {
             const button = element.matches(wholeElementSelector);
-            // FAQ icons are decorative (aria-hidden) but still need a visual
-            // reveal. Keep summary layout intact and reveal its children separately.
             if (element.matches('.m-faq__item > summary')) return;
             const exclusions = element.matches(`${decorativeSelector}, ${barSelector}`)
                 ? excluded.replace('[aria-hidden="true"], ', '')
@@ -192,19 +178,13 @@ const textReveal = () => {
             if (!button && (element.closest('form, button, input') || !element.textContent.trim())) return;
             const buttonParent = element.closest(wholeElementSelector);
             if (buttonParent && buttonParent !== element) return;
-            // Catch unclassified captions and links without treating section or
-            // card wrappers as one large text block.
             if (!button && !element.matches(textBlocks) && ![...element.childNodes].some(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim())) return;
             if (!button && element.querySelector(`h1, h2, h3, h4, h5, h6, p, div, article, section, ul, ol, dl, table, ${wholeElementSelector}`)) return;
-            // Animate the outer text block only; nested spans and links stay intact.
             let parent = element.parentElement;
             while (parent && !registered.has(parent)) parent = parent.parentElement;
             if (parent) return;
-            // Lists containing cards are layout containers, not text blocks.
             if (!button && element.matches('li') && element.querySelector('h1, h2, h3, h4, h5, h6, p, div, article')) return;
             registered.add(element);
-            // Direct word spans become separate flex/grid items, causing
-            // space-between to pull words apart until the reveal is restored.
             const display = getComputedStyle(element).display;
             const wholeElement = button || ['flex', 'inline-flex', 'grid', 'inline-grid'].includes(display);
             if (wholeElement) wholeElements.add(element);
@@ -248,7 +228,6 @@ const textReveal = () => {
         }
     };
     document.addEventListener('focusin', finishForFocus);
-    // Filters and pagination replace cards without reloading the page.
     new MutationObserver(records => {
         records.forEach(record => {
             record.removedNodes.forEach(node => {
