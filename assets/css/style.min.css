@@ -10808,7 +10808,7 @@ input.a-btn--white {
 .m-spotlight--featured .m-spotlight__buttons .a-spotlight-button {
   gap: 12px;
   padding: 4px 5px 4px 20px;
-  border: 0;
+  border: 1px solid transparent;
   background: var(--dark-blue);
   color: var(--white);
 }
@@ -10854,6 +10854,11 @@ input.a-btn--white {
   .m-spotlight--featured .a-spotlight-button:not(:disabled):not([aria-disabled=true]):hover::after, .m-spotlight--featured .a-spotlight-button:not(:disabled):not([aria-disabled=true]):focus-visible::after {
     transform: scaleX(1);
   }
+}
+
+.m-spotlight__content .m-spotlight__buttons .a-spotlight-button:hover,
+.m-spotlight__content .m-spotlight__buttons .a-spotlight-button:focus-visible {
+  border: 1px solid var(--dark-blue);
 }
 
 @media (min-width: 768px) {

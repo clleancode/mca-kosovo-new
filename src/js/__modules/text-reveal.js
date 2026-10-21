@@ -5,7 +5,7 @@ const textReveal = () => {
     if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
 
     const textBlocks = 'h1, h2, h3, h4, h5, h6, p, blockquote, figcaption, li, dt, dd, address, summary, td, th, .a-heading, .a-text';
-    const buttonSelector = '.m-related-programs__action > a, .a-mission-link, .m-team__filters > a, .m-overview__bar--pills .a-overview-link[aria-current], .a-join__button, .m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link:not(.m-overview__bar--pills .a-overview-link), .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
+    const buttonSelector = '.m-related-programs__action > a, .a-mission-link, .m-team__filters > a, .m-overview__bar--pills .a-overview-link, .a-join__button, .m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link:not(.m-overview__bar--pills .a-overview-link), .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
     const faqIconSelector = '.m-faq__item > summary > span:last-child';
     const badgeSelector = [
         '.m-small-hero__procurement-badges > div',
@@ -28,7 +28,7 @@ const textReveal = () => {
         .map(selector => `${selector}:not(.m-team__panel):not(.m-vacancies__panel):not(.m-all-documents__filter-panel)`);
     const contentSelector = ['article', 'figure', 'picture', 'img', 'video', 'ul:not(.m-notices__legend):not(.m-documents__document-list):not(.m-transparency__documents)', 'ol:not(.m-overview__benefits):not(.m-progress__milestones):not(.m-how-to-apply__steps):not(.m-timeline__milestones)', 'dl', 'table', '[data-aos]', '[data-scroll-reveal]', ...panelSelectors, '.m-progress__milestone', '.m-documents__document-list > li', '.m-timeline__milestone', '.m-transparency__documents > li'].join(', ');
     const barSelector = '.m-compact__funding-bar, .m-storage__capacity-bar, .m-progress__phase .a-progress-bar, .m-partnership__bar, .m-join__image, .m-footer__divider, .m-projects-hero__divider';
-    const wholeElementSelector = `.m-publications-banner__actions, .m-news-grid__newsletter, .m-vacancies__empty, .m-notices__legend > li, .m-small-hero__link-card, .m-filter, .m-specific-pages__action, .m-how-to-apply__signup, .m-how-to-apply__newsletter-form, .m-how-to-apply__bottom > .m-how-to-apply__contact, .m-how-to-apply__bottom > .m-how-to-apply__newsletter, .m-current-calls__tabs, .m-current-calls__message, .m-footer__brand, .m-footer__column, .m-footer__contact, .m-overview__main-image, .m-overview__detail-image, .m-activities__value, .m-overview__benefit, .m-faq__item, .m-spotlight--white > .m-spotlight__content, ${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements, .m-partnership__implementation, .m-partnership__partners-header, .m-news__newsletter, .m-team__structure`;
+    const wholeElementSelector = `.m-vacancies__filters, .m-vacancies__notice, .m-publications-banner__actions, .m-news-grid__newsletter, .m-vacancies__empty, .m-notices__legend > li, .m-small-hero__link-card, .m-filter, .m-specific-pages__action, .m-how-to-apply__signup, .m-how-to-apply__newsletter-form, .m-how-to-apply__bottom > .m-how-to-apply__contact, .m-how-to-apply__bottom > .m-how-to-apply__newsletter, .m-current-calls__tabs, .m-current-calls__message, .m-footer__brand, .m-footer__column, .m-footer__contact, .m-overview__main-image, .m-overview__detail-image, .m-activities__value, .m-overview__benefit, .m-faq__item, .m-spotlight--white > .m-spotlight__content, ${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements, .m-partnership__implementation, .m-partnership__partners-header, .m-news__newsletter, .m-team__structure`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
     const excluded = '.m-timeline__board, #a-countdown, .o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, .swiper:not(.m-gallery-slider__swiper), .m-hero, .m-header, .fancybox__container, .m-document-preview__stage, [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
     const registered = new WeakSet();
@@ -41,13 +41,14 @@ const textReveal = () => {
     const sequences = new WeakMap();
     const fundingRevealTimes = new WeakMap();
     const orderedDelay = target => {
+        const applyBox = target.matches('.m-how-to-apply__card, .m-how-to-apply__contact, .m-how-to-apply__newsletter');
         const transparencyCard = target.matches('.m-transparency__card');
         const funding = target.closest('.m-compact__funding');
         const scope = target.closest('.m-careers-hero__content') || funding || (transparencyCard ? target.closest('.m-transparency__grid') : null)
             || target.closest('section') || target.closest('main') || document.body;
         const now = performance.now();
         const start = Math.max(now, sequences.get(scope) || 0);
-        sequences.set(scope, start + (transparencyCard ? 400 : funding ? 120 : 160));
+        sequences.set(scope, start + (transparencyCard ? 400 : applyBox ? 300 : funding ? 120 : 160));
         return Math.max(0, Math.min(start - now, 1600) - (funding ? 100 : 0));
     };
     let lastScrollY = window.scrollY;
@@ -138,7 +139,6 @@ const textReveal = () => {
             const contactSidebarText = target.closest('.m-contact-form__sidebar') && !target.matches('.m-contact-form__panel');
             const structureContent = target.closest('.m-team__structure') && !target.matches('.m-team__structure');
             const officeText = target.closest('.m-our-office__content') && !target.matches('.m-our-office__content');
-            const applyContent = target.closest('.m-how-to-apply__copy') || (target.closest('.m-how-to-apply__bottom') && !target.matches('.m-how-to-apply__contact, .m-how-to-apply__newsletter'));
             const documentItem = target.matches('.m-transparency__documents > li');
             const documentCard = documentItem ? target.closest('.m-transparency__card') : null;
             const documentDelay = documentItem ? 700 + [...documentCard.parentElement.children].indexOf(documentCard) * 400 + [...target.parentElement.children].indexOf(target) * 300 : 0;
@@ -153,7 +153,7 @@ const textReveal = () => {
             const careersPhoto = target.matches('.m-careers-hero__photo');
             const careersStatistic = target.matches('.m-careers-hero__statistic');
             const photoIndex = careersPhoto ? [...target.parentElement.querySelectorAll('.m-careers-hero__photo')].indexOf(target) : 0;
-            let blockDelay = (careersPhoto ? 1200 + photoIndex * 160 : careersStatistic ? 2000 : footerColumn ? footerDelay : overviewMain ? 0 : overviewDetail ? 450 : spotlightContent ? 0 : spotlightText ? 750 + orderedDelay(target) : spotlightImage ? 1500 : documentItem ? documentDelay : orderedDelay(target)) + (structureContent || applyContent || contactSidebarText || officeText ? 700 : 0) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
+            let blockDelay = (careersPhoto ? 1200 + photoIndex * 160 : careersStatistic ? 2000 : footerColumn ? footerDelay : overviewMain ? 0 : overviewDetail ? 450 : spotlightContent ? 0 : spotlightText ? 750 + orderedDelay(target) : spotlightImage ? 1500 : documentItem ? documentDelay : orderedDelay(target)) + (structureContent || contactSidebarText || officeText ? 700 : 0) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
             if (target.matches('.m-overview__benefit')) {
                 target.style.setProperty('--line-delay', `${blockDelay}ms`);
                 target.classList.add('is-line-visible');
@@ -164,6 +164,10 @@ const textReveal = () => {
                 const headerIndex = headerItems.indexOf(target);
                 if (headerIndex >= 0) blockDelay = headerIndex * 220;
             }
+            if (target.matches('.m-how-to-apply__bottom--only > .m-how-to-apply__contact')) blockDelay = 0;
+            if (target.matches('.m-how-to-apply__bottom--only > .m-how-to-apply__newsletter')) blockDelay = 750;
+            if (target.matches('.m-vacancies__filters')) blockDelay = 0;
+            if (target.matches('.m-vacancies__notice')) blockDelay = 750;
             if (target.matches('.m-publications-banner__actions')) blockDelay += 1000;
             if (target.closest('.m-related-programs')) {
                 blockDelay += 500;
@@ -187,7 +191,7 @@ const textReveal = () => {
                 animation.cancel();
                 const style = getComputedStyle(target);
                 const isBar = target.matches(barSelector);
-                const isJoinButton = target.matches('.m-how-to-apply__signup, .m-how-to-apply__newsletter-form, .m-transparency__documents > li, .m-team__filters > a, .a-join__button, .m-overview__bar--pills .a-overview-link[aria-current]');
+                const isJoinButton = target.matches('.m-all-documents__filters > a, .m-how-to-apply__signup, .m-how-to-apply__newsletter-form, .m-transparency__documents > li, .m-team__filters > a, .a-join__button, .m-overview__bar--pills .a-overview-link');
                 const effect = target.animate(isBar ? [
                     { clipPath: 'inset(0 100% 0 0)' },
                     { clipPath: 'inset(0 0% 0 0)' },
@@ -261,7 +265,7 @@ const textReveal = () => {
         });
     }, { passive: true });
 
-    const layeredCards = '.m-our-office__content, .m-specific-pages__card, .m-contact-form__sidebar > .m-contact-form__panel, .m-related-programs__card, .m-how-to-apply__card, .m-how-to-apply__bottom > .m-how-to-apply__contact, .m-how-to-apply__bottom > .m-how-to-apply__newsletter, .m-activities__grid--three > .m-activities__card, .m-faq__item, .m-implementing__grid > article, .m-mission__grid > article, .m-team__structure, .m-transparency__card, .m-spotlight--white > .m-spotlight__content';
+    const layeredCards = '.m-our-office__content, .m-specific-pages__card, .m-contact-form__sidebar > .m-contact-form__panel, .m-related-programs__card, .m-activities__grid--three > .m-activities__card, .m-faq__item, .m-implementing__grid > article, .m-mission__grid > article, .m-team__structure, .m-transparency__card, .m-spotlight--white > .m-spotlight__content';
     const register = root => {
         root.querySelectorAll('.m-overview__bar--pills .a-overview-link, .m-team__filters > a').forEach(link => {
             if (link.querySelector('[data-overview-reveal-copy]')) return;
@@ -274,7 +278,7 @@ const textReveal = () => {
         if (root.matches?.(selector)) candidates.unshift(root);
         candidates.forEach(element => {
             const button = element.matches(wholeElementSelector);
-            if (element.matches('.m-overview__bar--pills .a-overview-link:not([aria-current])')) return;
+
             if (element.matches('.m-faq__item > summary')) return;
             const exclusions = element.matches(`${decorativeSelector}, ${barSelector}`)
                 ? excluded.replace('[aria-hidden="true"], ', '')
