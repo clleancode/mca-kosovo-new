@@ -5,7 +5,7 @@ const textReveal = () => {
     if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
 
     const textBlocks = 'h1, h2, h3, h4, h5, h6, p, blockquote, figcaption, li, dt, dd, address, summary, td, th, .a-heading, .a-text';
-    const buttonSelector = '.a-join__button, .m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link, .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
+    const buttonSelector = '.m-overview__bar--pills .a-overview-link[aria-current], .a-join__button, .m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link:not(.m-overview__bar--pills .a-overview-link), .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
     const faqIconSelector = '.m-faq__item > summary > span:last-child';
     const badgeSelector = [
         '.a-badge', '.a-notices-status', '.a-opportunities-status',
@@ -115,12 +115,13 @@ const textReveal = () => {
                 restoreWords(target);
                 return;
             }
-            const blockDelay = orderedDelay(target) + (target.closest('.m-join__content') ? 1400 : 0);
+            const cardContent = target.closest('.m-implementing__copy, .m-mission__copy');
+            const blockDelay = orderedDelay(target) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
             if (wholeElements.has(target)) {
                 animation.cancel();
                 const style = getComputedStyle(target);
                 const isBar = target.matches(barSelector);
-                const isJoinButton = target.matches('.a-join__button');
+                const isJoinButton = target.matches('.a-join__button, .m-overview__bar--pills .a-overview-link[aria-current]');
                 const effect = target.animate(isBar ? [
                     { clipPath: 'inset(0 100% 0 0)' },
                     { clipPath: 'inset(0 0% 0 0)' },
@@ -194,11 +195,20 @@ const textReveal = () => {
         });
     }, { passive: true });
 
+    const layeredCards = '.m-implementing__grid > article, .m-mission__grid > article';
     const register = root => {
+        root.querySelectorAll('.m-overview__bar--pills .a-overview-link').forEach(link => {
+            if (link.querySelector('[data-overview-reveal-copy]')) return;
+            const copy = document.createElement('span');
+            copy.dataset.overviewRevealCopy = '';
+            copy.append(...link.childNodes);
+            link.append(copy);
+        });
         const candidates = [...root.querySelectorAll(selector)];
         if (root.matches?.(selector)) candidates.unshift(root);
         candidates.forEach(element => {
             const button = element.matches(wholeElementSelector);
+            if (element.matches('.m-overview__bar--pills .a-overview-link:not([aria-current])')) return;
             if (element.matches('.m-faq__item > summary')) return;
             const exclusions = element.matches(`${decorativeSelector}, ${barSelector}`)
                 ? excluded.replace('[aria-hidden="true"], ', '')
@@ -206,11 +216,11 @@ const textReveal = () => {
             if (registered.has(element) || revealed.has(element) || element.closest(exclusions)) return;
             if (!button && (element.closest('form, button, input') || !element.textContent.trim())) return;
             const buttonParent = element.closest(wholeElementSelector);
-            if (buttonParent && buttonParent !== element) return;
+            if (buttonParent && buttonParent !== element && !buttonParent.matches(layeredCards)) return;
             if (!button && !element.matches(textBlocks) && ![...element.childNodes].some(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim())) return;
             if (!button && element.querySelector(`h1, h2, h3, h4, h5, h6, p, div, article, section, ul, ol, dl, table, ${wholeElementSelector}`)) return;
             let parent = element.parentElement;
-            while (parent && !registered.has(parent)) parent = parent.parentElement;
+            while (parent && (!registered.has(parent) || parent.matches(layeredCards))) parent = parent.parentElement;
             if (parent) return;
             if (!button && element.matches('li') && element.querySelector('h1, h2, h3, h4, h5, h6, p, div, article')) return;
             registered.add(element);
