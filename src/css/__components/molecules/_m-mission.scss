@@ -11,7 +11,9 @@
 .m-mission__description {
     max-width: 440px;
 }
-
+.m-mission__copy{
+    margin-bottom: 36px;
+}
 .m-mission__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
