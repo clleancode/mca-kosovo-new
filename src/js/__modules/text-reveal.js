@@ -5,7 +5,7 @@ const textReveal = () => {
     if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
 
     const textBlocks = 'h1, h2, h3, h4, h5, h6, p, blockquote, figcaption, li, dt, dd, address, summary, td, th, .a-heading, .a-text';
-    const buttonSelector = '.m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link, .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
+    const buttonSelector = '.a-join__button, .m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link, .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
     const faqIconSelector = '.m-faq__item > summary > span:last-child';
     const badgeSelector = [
         '.a-badge', '.a-notices-status', '.a-opportunities-status',
@@ -120,9 +120,13 @@ const textReveal = () => {
                 animation.cancel();
                 const style = getComputedStyle(target);
                 const isBar = target.matches(barSelector);
+                const isJoinButton = target.matches('.a-join__button');
                 const effect = target.animate(isBar ? [
                     { clipPath: 'inset(0 100% 0 0)' },
                     { clipPath: 'inset(0 0% 0 0)' },
+                ] : isJoinButton ? [
+                    { opacity: 0, translate: '0 0.65em', clipPath: 'inset(0 0 100% 0)' },
+                    { opacity: style.opacity, translate: style.translate, clipPath: 'inset(0 0 0% 0)' },
                 ] : [
                     { opacity: 0, translate: target.matches('.m-progress__milestone, .m-gallery-slider__figure, .m-overview__bar .a-overview-link, .m-all-documents__filters > a') ? '-24px 0' : '0 24px' },
                     { opacity: style.opacity, translate: style.translate },
