@@ -27,6 +27,7 @@ import privacyContent from "./__modules/privacy-content";
 import singleHero from "./__modules/single-hero";
 import singleContent from "./__modules/single-content";
 import newsletterSubscribe from "./__modules/newsletter-subscribe";
+import timeline from "./__modules/timeline";
 import textReveal from "./__modules/text-reveal";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -54,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     singleHero();
     singleContent();
     newsletterSubscribe();
+    timeline();
     textReveal();
 
 	if (document.querySelector(".o-header")) {

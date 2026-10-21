@@ -1,3 +1,5 @@
+import { revealOffset } from './reveal-offset';
+
 const textReveal = () => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
@@ -25,9 +27,9 @@ const textReveal = () => {
         .map(selector => `${selector}:not(.m-team__panel):not(.m-vacancies__panel):not(.m-all-documents__filter-panel)`);
     const contentSelector = ['article', 'figure', 'picture', 'img', 'video', 'ul:not(.m-documents__document-list)', 'ol:not(.m-progress__milestones):not(.m-how-to-apply__steps):not(.m-timeline__milestones)', 'dl', 'table', '[data-aos]', '[data-scroll-reveal]', ...panelSelectors, '.m-progress__milestone', '.m-documents__document-list > li', '.m-timeline__milestone'].join(', ');
     const barSelector = '.m-compact__funding-bar, .m-storage__capacity-bar, .m-progress__phase .a-progress-bar, .m-partnership__bar';
-    const wholeElementSelector = `${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements`;
+    const wholeElementSelector = `${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements, .m-partnership__implementation, .m-partnership__partners-header`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
-    const excluded = '#a-countdown, .o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, .swiper:not(.m-gallery-slider__swiper), .m-hero, .m-header, .fancybox__container, .m-document-preview__stage, [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
+    const excluded = '.m-timeline__board, #a-countdown, .o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, .swiper:not(.m-gallery-slider__swiper), .m-hero, .m-header, .fancybox__container, .m-document-preview__stage, [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
     const registered = new WeakSet();
     const revealed = new WeakSet();
     const animations = new Set();
@@ -84,7 +86,7 @@ const textReveal = () => {
         words.delete(element);
     };
 
-    const observer = new IntersectionObserver(entries => {
+    const onIntersection = entries => {
         updateScrollDirection();
         entries.sort((a, b) => {
             const first = a.target.getBoundingClientRect();
@@ -163,7 +165,22 @@ const textReveal = () => {
                 restoreWords(target);
             });
         });
-    }, { threshold: 0, rootMargin: '0px 0px -32px 0px' });
+    };
+    const createObserver = () => new IntersectionObserver(onIntersection, {
+        threshold: 0, rootMargin: `0px 0px -${revealOffset()}px 0px`,
+    });
+    let observer = createObserver();
+    let resizeFrame;
+    window.addEventListener('resize', () => {
+        cancelAnimationFrame(resizeFrame);
+        resizeFrame = requestAnimationFrame(() => {
+            observer.disconnect();
+            observer = createObserver();
+            pendingElements.forEach(element => {
+                if (!revealed.has(element)) observer.observe(element);
+            });
+        });
+    }, { passive: true });
 
     const register = root => {
         const candidates = [...root.querySelectorAll(selector)];
