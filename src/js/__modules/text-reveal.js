@@ -5,7 +5,7 @@ const textReveal = () => {
     if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
 
     const textBlocks = 'h1, h2, h3, h4, h5, h6, p, blockquote, figcaption, li, dt, dd, address, summary, td, th, .a-heading, .a-text';
-    const buttonSelector = '.m-overview__bar--pills .a-overview-link[aria-current], .a-join__button, .m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link:not(.m-overview__bar--pills .a-overview-link), .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
+    const buttonSelector = '.m-team__filters > a[aria-current="true"], .m-overview__bar--pills .a-overview-link[aria-current], .a-join__button, .m-all-documents__filters > a, button, .a-btn, [class*="a-btn--"], .m-overview__navigation .a-overview-link:not(.m-overview__bar--pills .a-overview-link), .m-overview__navigation .a-overview-factsheet, .m-transparency__documents .a-transparency-download, [role="button"], input[type="submit"], input[type="button"]';
     const faqIconSelector = '.m-faq__item > summary > span:last-child';
     const badgeSelector = [
         '.a-badge', '.a-notices-status', '.a-opportunities-status',
@@ -25,9 +25,9 @@ const textReveal = () => {
     const panelSelectors = ['card', 'panel', 'photo', 'image', 'cover', 'fact', 'statistic', 'document', 'contact', 'album', 'way', 'step']
         .flatMap(name => [`[class$="__${name}"]`, `[class*="__${name} "]`, `[class*="__${name}--"]`])
         .map(selector => `${selector}:not(.m-team__panel):not(.m-vacancies__panel):not(.m-all-documents__filter-panel)`);
-    const contentSelector = ['article', 'figure', 'picture', 'img', 'video', 'ul:not(.m-documents__document-list)', 'ol:not(.m-progress__milestones):not(.m-how-to-apply__steps):not(.m-timeline__milestones)', 'dl', 'table', '[data-aos]', '[data-scroll-reveal]', ...panelSelectors, '.m-progress__milestone', '.m-documents__document-list > li', '.m-timeline__milestone'].join(', ');
+    const contentSelector = ['article', 'figure', 'picture', 'img', 'video', 'ul:not(.m-documents__document-list):not(.m-transparency__documents)', 'ol:not(.m-progress__milestones):not(.m-how-to-apply__steps):not(.m-timeline__milestones)', 'dl', 'table', '[data-aos]', '[data-scroll-reveal]', ...panelSelectors, '.m-progress__milestone', '.m-documents__document-list > li', '.m-timeline__milestone', '.m-transparency__documents > li'].join(', ');
     const barSelector = '.m-compact__funding-bar, .m-storage__capacity-bar, .m-progress__phase .a-progress-bar, .m-partnership__bar, .m-join__image, .m-footer__divider';
-    const wholeElementSelector = `${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements, .m-partnership__implementation, .m-partnership__partners-header, .m-news__newsletter`;
+    const wholeElementSelector = `${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements, .m-partnership__implementation, .m-partnership__partners-header, .m-news__newsletter, .m-team__structure`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
     const excluded = '.m-timeline__board, #a-countdown, .o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, .swiper:not(.m-gallery-slider__swiper), .m-hero, .m-header, .fancybox__container, .m-document-preview__stage, [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
     const registered = new WeakSet();
@@ -39,10 +39,12 @@ const textReveal = () => {
     const wholeElements = new WeakSet();
     const sequences = new WeakMap();
     const orderedDelay = target => {
-        const scope = target.closest('section') || target.closest('main') || document.body;
+        const transparencyCard = target.matches('.m-transparency__card');
+        const scope = (transparencyCard ? target.closest('.m-transparency__grid') : null)
+            || target.closest('section') || target.closest('main') || document.body;
         const now = performance.now();
         const start = Math.max(now, sequences.get(scope) || 0);
-        sequences.set(scope, start + 160);
+        sequences.set(scope, start + (transparencyCard ? 400 : 160));
         return Math.min(start - now, 1600);
     };
     let lastScrollY = window.scrollY;
@@ -116,12 +118,16 @@ const textReveal = () => {
                 return;
             }
             const cardContent = target.closest('.m-implementing__copy, .m-mission__copy');
-            const blockDelay = orderedDelay(target) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
+            const structureContent = target.closest('.m-team__structure') && !target.matches('.m-team__structure');
+            const documentItem = target.matches('.m-transparency__documents > li');
+            const documentCard = documentItem ? target.closest('.m-transparency__card') : null;
+            const documentDelay = documentItem ? 700 + [...documentCard.parentElement.children].indexOf(documentCard) * 400 + [...target.parentElement.children].indexOf(target) * 300 : 0;
+            const blockDelay = (documentItem ? documentDelay : orderedDelay(target)) + (structureContent ? 700 : 0) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
             if (wholeElements.has(target)) {
                 animation.cancel();
                 const style = getComputedStyle(target);
                 const isBar = target.matches(barSelector);
-                const isJoinButton = target.matches('.a-join__button, .m-overview__bar--pills .a-overview-link[aria-current]');
+                const isJoinButton = target.matches('.m-team__filters > a[aria-current="true"], .a-join__button, .m-overview__bar--pills .a-overview-link[aria-current]');
                 const effect = target.animate(isBar ? [
                     { clipPath: 'inset(0 100% 0 0)' },
                     { clipPath: 'inset(0 0% 0 0)' },
@@ -129,7 +135,7 @@ const textReveal = () => {
                     { opacity: 0, translate: '0 0.65em', clipPath: 'inset(0 0 100% 0)' },
                     { opacity: style.opacity, translate: style.translate, clipPath: 'inset(0 0 0% 0)' },
                 ] : [
-                    { opacity: 0, translate: target.matches('.m-progress__milestone, .m-gallery-slider__figure, .m-overview__bar .a-overview-link, .m-all-documents__filters > a') ? '-24px 0' : '0 24px' },
+                    { opacity: 0, translate: target.matches('.m-team__structure') ? '0 0' : target.matches('.m-progress__milestone, .m-gallery-slider__figure, .m-overview__bar .a-overview-link, .m-all-documents__filters > a') ? '-24px 0' : '0 24px' },
                     { opacity: style.opacity, translate: style.translate },
                 ], {
                     duration: isBar ? 1400 : 700,
@@ -195,9 +201,9 @@ const textReveal = () => {
         });
     }, { passive: true });
 
-    const layeredCards = '.m-implementing__grid > article, .m-mission__grid > article';
+    const layeredCards = '.m-implementing__grid > article, .m-mission__grid > article, .m-team__structure, .m-transparency__card';
     const register = root => {
-        root.querySelectorAll('.m-overview__bar--pills .a-overview-link').forEach(link => {
+        root.querySelectorAll('.m-overview__bar--pills .a-overview-link, .m-team__filters > a').forEach(link => {
             if (link.querySelector('[data-overview-reveal-copy]')) return;
             const copy = document.createElement('span');
             copy.dataset.overviewRevealCopy = '';
@@ -208,7 +214,7 @@ const textReveal = () => {
         if (root.matches?.(selector)) candidates.unshift(root);
         candidates.forEach(element => {
             const button = element.matches(wholeElementSelector);
-            if (element.matches('.m-overview__bar--pills .a-overview-link:not([aria-current])')) return;
+            if (element.matches('.m-overview__bar--pills .a-overview-link:not([aria-current]), .m-team__filters > a:not([aria-current="true"])')) return;
             if (element.matches('.m-faq__item > summary')) return;
             const exclusions = element.matches(`${decorativeSelector}, ${barSelector}`)
                 ? excluded.replace('[aria-hidden="true"], ', '')

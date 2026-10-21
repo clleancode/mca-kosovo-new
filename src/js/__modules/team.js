@@ -41,7 +41,7 @@ const team = () => {
                 filterList.id ||= `team-filters-${sectionIndex}-${groupIndex}`;
                 toggle.setAttribute('aria-controls', filterList.id);
                 filterList.before(toggle);
-                filterList.dataset.textReveal = 'off';
+
                 group.classList.add('has-mobile-filters');
                 setOpen(false, false);
                 toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
