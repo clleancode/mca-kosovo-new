@@ -27,7 +27,7 @@ const textReveal = () => {
         .map(selector => `${selector}:not(.m-team__panel):not(.m-vacancies__panel):not(.m-all-documents__filter-panel)`);
     const contentSelector = ['article', 'figure', 'picture', 'img', 'video', 'ul:not(.m-documents__document-list):not(.m-transparency__documents)', 'ol:not(.m-overview__benefits):not(.m-progress__milestones):not(.m-how-to-apply__steps):not(.m-timeline__milestones)', 'dl', 'table', '[data-aos]', '[data-scroll-reveal]', ...panelSelectors, '.m-progress__milestone', '.m-documents__document-list > li', '.m-timeline__milestone', '.m-transparency__documents > li'].join(', ');
     const barSelector = '.m-compact__funding-bar, .m-storage__capacity-bar, .m-progress__phase .a-progress-bar, .m-partnership__bar, .m-join__image, .m-footer__divider, .m-projects-hero__divider';
-    const wholeElementSelector = `.m-how-to-apply__signup, .m-how-to-apply__newsletter-form, .m-how-to-apply__bottom > .m-how-to-apply__contact, .m-how-to-apply__bottom > .m-how-to-apply__newsletter, .m-current-calls__tabs, .m-current-calls__message, .m-footer__brand, .m-footer__column, .m-footer__contact, .m-overview__main-image, .m-overview__detail-image, .m-activities__value, .m-overview__benefit, .m-faq__item, .m-spotlight--white > .m-spotlight__content, ${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements, .m-partnership__implementation, .m-partnership__partners-header, .m-news__newsletter, .m-team__structure`;
+    const wholeElementSelector = `.m-specific-pages__action, .m-how-to-apply__signup, .m-how-to-apply__newsletter-form, .m-how-to-apply__bottom > .m-how-to-apply__contact, .m-how-to-apply__bottom > .m-how-to-apply__newsletter, .m-current-calls__tabs, .m-current-calls__message, .m-footer__brand, .m-footer__column, .m-footer__contact, .m-overview__main-image, .m-overview__detail-image, .m-activities__value, .m-overview__benefit, .m-faq__item, .m-spotlight--white > .m-spotlight__content, ${contentSelector}, ${buttonSelector}, ${badgeSelector}, .m-compact__time, ${decorativeSelector}, .m-contact-form__directions, ${contactFieldSelector}, ${barSelector}, .m-partnership__partner-card, .m-gallery-banner__search, .m-small-hero__search, .m-our-office__content, .m-our-office__map, .m-compact__countdown, .m-storage__map, .m-storage__capacity, .m-impact__description, .m-opportunities__procurements, .m-partnership__implementation, .m-partnership__partners-header, .m-news__newsletter, .m-team__structure`;
     const selector = `${textBlocks}, a, span, time, div, ${wholeElementSelector}`;
     const excluded = '.m-timeline__board, #a-countdown, .o-header, .o-cookie-banner, #wpadminbar, select, textarea, script, style, svg, [role="status"], [role="alert"], .screen-reader-text, .sr-only, [aria-hidden="true"], .mca-reveal-word, .swiper:not(.m-gallery-slider__swiper), .m-hero, .m-header, .fancybox__container, .m-document-preview__stage, [data-text-reveal="off"], .a-btn--fixed-left, .a-btn--fixed, .swiper-button-prev, .swiper-button-next, .swiper-pagination, .m-hero__pagination, .m-hero__current, .m-hero__total';
     const registered = new WeakSet();
@@ -120,8 +120,10 @@ const textReveal = () => {
                 restoreWords(target);
                 return;
             }
-            const cardContent = target.closest('.m-implementing__copy, .m-mission__copy, .m-mission__link, .m-activities__grid--three .m-activities__card-content');
+            const cardContent = target.closest('.m-specific-pages__copy, .m-implementing__copy, .m-mission__copy, .m-mission__link, .m-activities__grid--three .m-activities__card-content');
+            const contactSidebarText = target.closest('.m-contact-form__sidebar') && !target.matches('.m-contact-form__panel');
             const structureContent = target.closest('.m-team__structure') && !target.matches('.m-team__structure');
+            const officeText = target.closest('.m-our-office__content') && !target.matches('.m-our-office__content');
             const applyContent = target.closest('.m-how-to-apply__copy') || (target.closest('.m-how-to-apply__bottom') && !target.matches('.m-how-to-apply__contact, .m-how-to-apply__newsletter'));
             const documentItem = target.matches('.m-transparency__documents > li');
             const documentCard = documentItem ? target.closest('.m-transparency__card') : null;
@@ -137,7 +139,7 @@ const textReveal = () => {
             const careersPhoto = target.matches('.m-careers-hero__photo');
             const careersStatistic = target.matches('.m-careers-hero__statistic');
             const photoIndex = careersPhoto ? [...target.parentElement.querySelectorAll('.m-careers-hero__photo')].indexOf(target) : 0;
-            let blockDelay = (careersPhoto ? 1500 + photoIndex * 160 : careersStatistic ? 2300 : footerColumn ? footerDelay : overviewMain ? 0 : overviewDetail ? 450 : spotlightContent ? 0 : spotlightText ? 750 + orderedDelay(target) : spotlightImage ? 1500 : documentItem ? documentDelay : orderedDelay(target)) + (structureContent || applyContent ? 700 : 0) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
+            let blockDelay = (careersPhoto ? 1500 + photoIndex * 160 : careersStatistic ? 2300 : footerColumn ? footerDelay : overviewMain ? 0 : overviewDetail ? 450 : spotlightContent ? 0 : spotlightText ? 750 + orderedDelay(target) : spotlightImage ? 1500 : documentItem ? documentDelay : orderedDelay(target)) + (structureContent || applyContent || contactSidebarText || officeText ? 700 : 0) + (cardContent ? 500 : 0) + (target.closest('.m-join__content') ? 1400 : 0);
             if (target.matches('.m-overview__benefit')) {
                 target.style.setProperty('--line-delay', `${blockDelay}ms`);
                 target.classList.add('is-line-visible');
@@ -231,7 +233,7 @@ const textReveal = () => {
         });
     }, { passive: true });
 
-    const layeredCards = '.m-related-programs__card, .m-how-to-apply__card, .m-how-to-apply__bottom > .m-how-to-apply__contact, .m-how-to-apply__bottom > .m-how-to-apply__newsletter, .m-activities__grid--three > .m-activities__card, .m-faq__item, .m-implementing__grid > article, .m-mission__grid > article, .m-team__structure, .m-transparency__card, .m-spotlight--white > .m-spotlight__content';
+    const layeredCards = '.m-our-office__content, .m-specific-pages__card, .m-contact-form__sidebar > .m-contact-form__panel, .m-related-programs__card, .m-how-to-apply__card, .m-how-to-apply__bottom > .m-how-to-apply__contact, .m-how-to-apply__bottom > .m-how-to-apply__newsletter, .m-activities__grid--three > .m-activities__card, .m-faq__item, .m-implementing__grid > article, .m-mission__grid > article, .m-team__structure, .m-transparency__card, .m-spotlight--white > .m-spotlight__content';
     const register = root => {
         root.querySelectorAll('.m-overview__bar--pills .a-overview-link, .m-team__filters > a').forEach(link => {
             if (link.querySelector('[data-overview-reveal-copy]')) return;
