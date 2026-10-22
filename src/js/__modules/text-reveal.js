@@ -290,7 +290,7 @@ const textReveal = () => {
         });
     }, { passive: true });
 
-    const layeredCards = '.m-our-office__content, .m-specific-pages__card, .m-contact-form__sidebar > .m-contact-form__panel, .m-related-programs__card, .m-activities__grid--three > .m-activities__card, .m-faq__item, .m-implementing__grid > article, .m-mission__grid > article, .m-team__structure, .m-transparency__card, .m-spotlight--white > .m-spotlight__content';
+    const layeredCards = '.m-our-office__content, .m-specific-pages__card, .m-contact-form__sidebar > .m-contact-form__panel, .m-related-programs__card, .m-activities__grid--three > .m-activities__card, .m-faq__item, .m-implementing__grid > article, .m-mission__grid > article, .m-team__structure, .m-spotlight--white > .m-spotlight__content';
     const register = root => {
         root.querySelectorAll('.m-overview__bar--pills .a-overview-link, .m-team__filters > a').forEach(link => {
             if (link.querySelector('[data-overview-reveal-copy]')) return;

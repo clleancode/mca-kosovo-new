@@ -113,7 +113,7 @@
 
 .m-mission__link--text {
     right: auto;
-    left: 36px;
+    left: 24px;
     bottom: 32px;
 }
 
@@ -130,7 +130,7 @@
 }
 
 .m-mission__link--text .a-icon {
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .m-mission--news .m-mission__card {
@@ -158,6 +158,36 @@
 }
 
 @media (min-width: 1024px) {
+    .m-mission__link--text {
+        left: 36px;
+    }
+
+    .m-mission__link--text .a-icon {
+        font-size: 12px;
+    }
+
+    .m-mission__link--text > a {
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 100%;
+            height: 1px;
+            background: var(--white);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .25s ease;
+        }
+
+        &:hover::after,
+        &:focus-visible::after {
+            transform: scaleX(1);
+        }
+    }
+
     .m-mission__card {
         padding: 36px;
     }
