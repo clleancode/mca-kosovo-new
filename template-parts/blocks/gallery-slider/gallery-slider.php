@@ -43,7 +43,7 @@ $items = array_values(array_filter(
     data-gallery-slider
 >
     <div class="container s-d-b-xs">
-        <div class="m-gallery-slider__header s-d-b-s s-m-b-xs">
+        <div class="m-gallery-slider__header s-d-b-s s-m-b-s">
             <div class="m-gallery-slider__heading">
                 <p class="a-badge h-dark-blue h-semibold"><?php echo esc_html(get_field('gallery_slider_label')); ?></p>
                 <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">

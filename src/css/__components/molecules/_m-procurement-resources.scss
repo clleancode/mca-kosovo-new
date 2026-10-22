@@ -59,6 +59,11 @@
     color: var(--white);
 }
 
+.m-procurement-resources__action .a-btn--white:hover img,
+.m-procurement-resources__action .a-btn--white:focus-visible img {
+    filter: brightness(0) invert(1);
+}
+
 .m-procurement-resources__action .a-btn--border-white:hover {
     color: var(--dark-blue);
 }
