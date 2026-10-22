@@ -480,7 +480,7 @@
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
 
     .m-opportunities__intro,
     .m-opportunities__layout {
@@ -545,4 +545,9 @@
         width: 36px;
         height: 36px;
     }
+}
+
+.m-opportunities__layout > *,
+.m-opportunities__cards {
+    min-width: 0;
 }

@@ -52,7 +52,7 @@ $impl_link = $value('implemented_link') ?: [];
             <div class="m-partnership__heading">
                 <p class="a-badge h-blue"><?php echo esc_html($value('label')); ?></p>
                 <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?> h-medium">
-                    <?php echo nl2br(esc_html($value('title'))); ?>
+                    <?php echo nl2br(wp_kses($value('title'), ['br' => []])); ?>
                 </<?php echo tag_escape($tag); ?>>
             </div>
             <div class="m-partnership__description">

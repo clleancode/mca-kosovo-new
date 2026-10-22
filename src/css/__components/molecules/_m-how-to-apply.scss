@@ -105,7 +105,7 @@
     margin: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
     .o-how-to-apply--alerts .m-how-to-apply__bottom {
         grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
     }
@@ -239,13 +239,13 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
     .m-how-to-apply__bottom {
         grid-template-columns: minmax(0, 1.45fr) minmax(0, .95fr);
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
     .m-how-to-apply__steps {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
