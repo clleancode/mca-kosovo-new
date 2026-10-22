@@ -152,3 +152,18 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
+
+@media (min-width: 768px) {
+    .m-activities__grid--three.m-activities__grid--arrows > .m-activities__card:nth-child(2n) .a-activities-arrow {
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) {
+    .m-activities__grid--three.m-activities__grid--arrows > .m-activities__card:nth-child(2n) .a-activities-arrow {
+        display: grid;
+    }
+    .m-activities__grid--three.m-activities__grid--arrows > .m-activities__card:nth-child(3n) .a-activities-arrow {
+        display: none;
+    }
+}

@@ -214,6 +214,8 @@
 }
 
 .m-vacancies__card {
+    position: relative;
+    isolation: isolate;
     display: flex;
     flex-direction: column;
     min-height: 300px;
@@ -435,5 +437,29 @@
             flex: 0 1 auto;
             padding-inline: 18px;
         }
+    }
+}
+
+.m-vacancies__card .a-vacancies-open::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 28px;
+}
+
+.m-vacancies__card .a-vacancies-open > .a-icon {
+    transition: transform .25s ease;
+    transform-origin: center;
+}
+
+.m-vacancies__card:hover .a-vacancies-open > .a-icon,
+.m-vacancies__card:focus-within .a-vacancies-open > .a-icon {
+    transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .m-vacancies__card .a-vacancies-open > .a-icon {
+        transition: none;
     }
 }
