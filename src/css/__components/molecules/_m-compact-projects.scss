@@ -459,7 +459,7 @@
         display: flex;
         flex-direction: column;
         min-height: 430px;
-        height: 100%;
+        height: auto;
         padding: 68px 12px 18px;
     }
 
@@ -651,5 +651,23 @@
 
     .m-compact-projects__grid:not(.m-compact-projects__grid--two) .a-compact-projects__side-title--long {
         top: 44%;
+    }
+}
+
+.m-compact-projects__grid:not(.m-compact-projects__grid--two) > .m-compact-projects__card--compact {
+    height: auto;
+}
+
+.m-compact-projects__feature-content > .m-compact-projects__button {
+    margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+    .m-compact-projects__grid:not(.m-compact-projects__grid--two) > .m-compact-projects__card--compact {
+        height: 100%;
+    }
+
+    .m-compact-projects__feature-content > .m-compact-projects__button {
+        margin-top: 0;
     }
 }

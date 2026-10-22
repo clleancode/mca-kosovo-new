@@ -70,9 +70,30 @@ $description = get_field('project_documents_description');
                         }
 
                         $row_prefix = 'project_documents_' . (get_row_index() - 1) . '_';
-                        $document_type = get_sub_field('document_type');
-                        if (!in_array($document_type, ['pdf', 'xls', 'document'], true)) $document_type = 'pdf';
-                        $document_icon = $document_type === 'xls' ? 'xls' : 'pdf';
+                        $file_path = wp_parse_url($file['url'], PHP_URL_PATH) ?: '';
+                        $extension = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
+                        $mime_type = strtolower($file['mime_type'] ?? '');
+                        if (!$mime_type && !empty($file['ID'])) {
+                            $mime_type = strtolower((string) get_post_mime_type($file['ID']));
+                        }
+
+                        if (in_array($extension, ['xls', 'xlsx', 'xlsm', 'xlsb', 'xlt', 'xltx', 'xltm', 'csv'], true)) {
+                            $document_icon = 'xls';
+                        } elseif ($extension === 'pdf') {
+                            $document_icon = 'pdf';
+                        } elseif (in_array($mime_type, [
+                            'application/vnd.ms-excel',
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                            'application/vnd.ms-excel.sheet.macroenabled.12',
+                            'application/vnd.ms-excel.sheet.binary.macroenabled.12',
+                            'text/csv',
+                        ], true)) {
+                            $document_icon = 'xls';
+                        } elseif ($mime_type === 'application/pdf') {
+                            $document_icon = 'pdf';
+                        } else {
+                            $document_icon = get_sub_field('document_type') === 'xls' ? 'xls' : 'pdf';
+                        }
 
                         $document_title = $block['data'][$row_prefix . 'project_documents_title']
                             ?? $block['data'][$row_prefix . 'title']
