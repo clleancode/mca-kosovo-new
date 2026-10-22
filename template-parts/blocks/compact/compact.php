@@ -72,7 +72,7 @@ $allowed_br = ['br' => []];
                 <?php endif; ?>
             </div>
 
-            <div class="m-content s-d-t-m s-m-t-s">
+            <div class="m-content s-d-t-m s-m-t-xs">
                 <?php if ($description) : ?>
                     <p class="<?php echo esc_attr(implode(' ', array_filter($text_classes))); ?>">
                         <?php echo nl2br(esc_html($description)); ?>

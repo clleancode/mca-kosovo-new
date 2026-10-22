@@ -10,7 +10,8 @@
 .m-news__filters {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 10px;
     align-items: center;
     margin-bottom: 0;
 }
@@ -19,6 +20,13 @@
     border-bottom: 1px solid transparent;
     color: #77849b;
     text-decoration: none;
+}
+
+@media (min-width: 768px) {
+    .m-news__filters {
+        justify-content: space-between;
+        gap: 0;
+    }
 }
 
 .m-news__filters a[aria-current],
@@ -193,9 +201,9 @@
 .m-news__thumbnail {
     position: relative;
     display: block;
-    align-self: start;
+    align-self: stretch;
     width: 100%;
-    aspect-ratio: 170 / 132;
+    min-height: 70px;
     overflow: hidden;
     border-radius: 12px;
     background: #f3f4f7;
