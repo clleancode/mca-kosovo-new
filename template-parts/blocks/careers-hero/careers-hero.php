@@ -104,7 +104,7 @@ $links = [
                     </ol>
                 </nav>
                 <<?php echo tag_escape($tag); ?>
-                    class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> h-uppercase s-d-b-xs s-m-b-xs"
+                    class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> h-uppercase s-d-b-xs s-m-t-xs s-m-b-xs"
                 >
                     <?php echo nl2br(esc_html(get_field('careers_hero_title') ?: 'Careers at MCA Kosovo')); ?>
                 </<?php echo tag_escape($tag); ?>>

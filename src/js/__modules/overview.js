@@ -43,7 +43,7 @@ const overview = () => {
         const toggle = section.querySelector('.m-overview__mobile-toggle');
         const navigation = section.querySelector('.m-overview__links');
         const currentLabel = section.querySelector('[data-overview-current]');
-        const desktop = matchMedia(bar?.classList.contains('m-overview__bar--pills') ? '(min-width: 800px)' : '(min-width: 768px)');
+        const desktop = matchMedia('(min-width: 801px)');
         const sortLabel = section.querySelector('.a-overview-factsheet');
         const sortPosition = sortLabel ? document.createTextNode('') : null;
         if (sortLabel) sortLabel.before(sortPosition);

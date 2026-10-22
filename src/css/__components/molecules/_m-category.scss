@@ -209,3 +209,7 @@
         grid-template-columns: repeat(5, minmax(0, 1fr));
     }
 }
+.m-category__actions .a-btn--blue:hover img,
+.m-category__actions .a-btn--blue:focus-visible img {
+    filter: brightness(0) saturate(100%) invert(11%) sepia(63%) saturate(2637%) hue-rotate(202deg) brightness(92%) contrast(107%);
+}

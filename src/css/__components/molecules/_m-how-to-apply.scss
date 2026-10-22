@@ -20,7 +20,7 @@
 .m-how-to-apply__card {
     display: flex;
     min-width: 0;
-    height: 290px;
+    height: auto;
     flex-direction: column;
     align-items: flex-start;
     padding: 32px;
@@ -253,4 +253,10 @@
 
 .m-how-to-apply__signup button {
     @include button.surface-hover();
+}
+
+@media (min-width: 768px) {
+    .m-how-to-apply__card {
+        height: 290px;
+    }
 }

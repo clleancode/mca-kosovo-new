@@ -411,3 +411,29 @@
         text-align: left;
     }
 }
+
+.m-vacancies__tabs:has(> :nth-child(2):last-child) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border-radius: 99px;
+
+    > a,
+    > button {
+        flex: 1 1 0;
+        min-width: 0;
+        width: auto;
+        justify-content: center;
+        padding-inline: 12px;
+        white-space: nowrap;
+    }
+}
+
+@media (min-width: 768px) {
+    .m-vacancies__tabs:has(> :nth-child(2):last-child) {
+        > a,
+        > button {
+            flex: 0 1 auto;
+            padding-inline: 18px;
+        }
+    }
+}
