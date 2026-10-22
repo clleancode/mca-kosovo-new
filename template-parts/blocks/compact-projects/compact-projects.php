@@ -130,7 +130,7 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                     <?php if ($two_cards):
                         $pair_tone = in_array($project['tone'] ?? '', ['blue', 'purple', 'green'], true) ? $project['tone'] : ($index === 0 ? 'purple' : 'green');
                         ?>
-                        <article class="m-compact-projects__card m-compact-projects__card--<?php echo esc_attr($pair_tone); ?>">
+                        <<?php echo !empty($project_link['url']) ? 'a' : 'article'; ?> class="m-compact-projects__card m-compact-projects__card--<?php echo esc_attr($pair_tone); ?>"<?php if (!empty($project_link['url'])): ?> href="<?php echo esc_url($project_link['url']); ?>" target="<?php echo esc_attr(($project_link['target'] ?? '') ?: '_self'); ?>"<?php if (($project_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?><?php endif; ?>>
                             <?php if ($image) echo wp_get_attachment_image($image, 'large', false, ['class' => 'm-compact-projects__image', 'loading' => 'lazy', 'decoding' => 'async']); ?>
                             <div class="m-compact-projects__overlay"></div>
                             <div class="m-compact-projects__pair-label"><span class="a-text a-text--xs h-semibold"><?php echo esc_html($project['category'] ?: 'Project ' . $project['number']); ?></span></div>
@@ -140,8 +140,8 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                                 <?php if ($pair_caption): ?><p class="a-compact-projects-caption a-text a-text--xs h-white h-semibold"><?php echo esc_html($pair_caption); ?></p><?php endif; ?>
                                 <?php if (!empty($project['description'])): ?><p class="a-text a-text--m h-regular h-white"><?php echo esc_html(wp_trim_words($project['description'], 20)); ?></p><?php endif; ?>
                             </div>
-                            <?php if (!empty($project_link['url'])): ?><a class="a-compact-projects-pair-link" href="<?php echo esc_url($project_link['url']); ?>" target="<?php echo esc_attr(($project_link['target'] ?? '') ?: '_self'); ?>" aria-label="<?php echo esc_attr('Explore ' . $project_title); ?>"<?php if (($project_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><i class="icon-arrow-right-up a-icon" aria-hidden="true"></i></a><?php endif; ?>
-                        </article>
+                            <?php if (!empty($project_link['url'])): ?><span class="a-compact-projects-pair-link" aria-hidden="true"><i class="icon-arrow-right-up a-icon"></i></span><?php endif; ?>
+                        </<?php echo !empty($project_link['url']) ? 'a' : 'article'; ?>>
                         <?php continue; endif; ?>
                     <article class="m-compact-projects__card m-compact-projects__card--<?php echo esc_attr($layout); ?> m-compact-projects__card--<?php echo esc_attr($tone); ?>">
                         <?php if ($image): ?>
