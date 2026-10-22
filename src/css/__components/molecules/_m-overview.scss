@@ -97,19 +97,19 @@
 
 .m-overview__mobile-project { display: none; }
 
-@media (max-width: 767px) {
+.is-mobile-overview {
     .m-overview__mobile-project:not(:empty) {
         display: block;
         padding-block: 16px;
     }
 
     .m-overview__mobile-project .m-overview__project { margin: 0; }
-    .has-mobile-navigation .m-overview__bar {
+    &.has-mobile-navigation .m-overview__bar {
         gap: 0;
         padding: 0;
     }
 
-    .has-mobile-navigation .m-overview__mobile-toggle {
+    &.has-mobile-navigation .m-overview__mobile-toggle {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -139,16 +139,16 @@
         flex-shrink: 0;
     }
 
-    .is-navigation-open .m-overview__chevron { transform: rotate(225deg); }
+    &.is-navigation-open .m-overview__chevron { transform: rotate(225deg); }
 
     @media (prefers-reduced-motion: reduce) {
         .m-overview__chevron { transition: none; }
     }
 
-    .has-mobile-navigation .m-overview__links { display: none; }
+    &.has-mobile-navigation .m-overview__links { display: none; }
 
-    .has-mobile-navigation.is-navigation-open .m-overview__links,
-    .has-mobile-navigation.is-navigation-animating .m-overview__links {
+    &.has-mobile-navigation.is-navigation-open .m-overview__links,
+    &.has-mobile-navigation.is-navigation-animating .m-overview__links {
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -158,21 +158,21 @@
         box-sizing: border-box;
     }
 
-    .has-mobile-navigation.is-navigation-animating .m-overview__links { overflow: hidden; }
+    &.has-mobile-navigation.is-navigation-animating .m-overview__links { overflow: hidden; }
 
-    .has-mobile-navigation .m-overview__links > .a-overview-link {
+    &.has-mobile-navigation .m-overview__links > .a-overview-link {
         width: 100%;
         box-sizing: border-box;
     }
 
-    .has-mobile-navigation .m-overview__links > .a-overview-factsheet--sort {
+    &.has-mobile-navigation .m-overview__links > .a-overview-factsheet--sort {
         margin: 8px 0 0;
         padding: 10px 16px;
         white-space: normal;
     }
 
-    .has-mobile-navigation .m-overview__project,
-    .has-mobile-navigation .a-overview-factsheet { margin-block: 12px; }
+    &.has-mobile-navigation .m-overview__project,
+    &.has-mobile-navigation .a-overview-factsheet { margin-block: 12px; }
 }
 
 .a-overview-link {

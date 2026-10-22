@@ -106,3 +106,13 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
+
+.m-specific-pages__action .icon-arrow-right-up {
+    font-size: 10px;
+}
+
+@media (min-width: 768px) {
+    .m-specific-pages__action .icon-arrow-right-up {
+        font-size: 12px;
+    }
+}

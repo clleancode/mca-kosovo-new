@@ -43,7 +43,7 @@ const overview = () => {
         const toggle = section.querySelector('.m-overview__mobile-toggle');
         const navigation = section.querySelector('.m-overview__links');
         const currentLabel = section.querySelector('[data-overview-current]');
-        const mobile = matchMedia('(max-width: 767px)');
+        const desktop = matchMedia(bar?.classList.contains('m-overview__bar--pills') ? '(min-width: 800px)' : '(min-width: 768px)');
         const sortLabel = section.querySelector('.a-overview-factsheet');
         const sortPosition = sortLabel ? document.createTextNode('') : null;
         if (sortLabel) sortLabel.before(sortPosition);
@@ -58,13 +58,14 @@ const overview = () => {
         }
         let dropdownAnimation;
         const setOpen = (open, animate = true) => {
+            section.classList.toggle('is-mobile-overview', !desktop.matches);
             if (projectSlot) {
-                if (mobile.matches && project.parentElement !== projectSlot) projectSlot.append(project);
-                else if (!mobile.matches && project.parentElement === projectSlot) projectPosition.after(project);
+                if (!desktop.matches && project.parentElement !== projectSlot) projectSlot.append(project);
+                else if (desktop.matches && project.parentElement === projectSlot) projectPosition.after(project);
             }
             if (sortLabel && navigation) {
-                if (mobile.matches && sortLabel.parentElement !== navigation) navigation.append(sortLabel);
-                else if (!mobile.matches && sortLabel.parentElement === navigation) sortPosition.after(sortLabel);
+                if (!desktop.matches && sortLabel.parentElement !== navigation) navigation.append(sortLabel);
+                else if (desktop.matches && sortLabel.parentElement === navigation) sortPosition.after(sortLabel);
             }
             const currentHeight = navigation?.getBoundingClientRect().height ?? 0;
             const currentOpacity = navigation ? getComputedStyle(navigation).opacity : '0';
@@ -73,8 +74,8 @@ const overview = () => {
             section.classList.remove('is-navigation-animating');
             toggle?.setAttribute('aria-expanded', String(open));
             section.classList.toggle('is-navigation-open', open);
-            if (navigation) navigation.inert = mobile.matches && !open;
-            if (!navigation || !animate || !mobile.matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            if (navigation) navigation.inert = !desktop.matches && !open;
+            if (!navigation || !animate || desktop.matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             section.classList.add('is-navigation-animating');
             const targetHeight = open ? navigation.getBoundingClientRect().height : 0;
             const animation = navigation.animate([
@@ -93,9 +94,9 @@ const overview = () => {
             section.classList.add('has-mobile-navigation');
             setOpen(false, false);
             toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
-            mobile.addEventListener('change', () => setOpen(false, false));
+            desktop.addEventListener('change', () => setOpen(false, false));
             navigation.addEventListener('keydown', event => {
-                if (event.key === 'Escape' && mobile.matches) {
+                if (event.key === 'Escape' && !desktop.matches) {
                     setOpen(false);
                     toggle.focus();
                 }
@@ -108,7 +109,7 @@ const overview = () => {
                     if (item === link) item.setAttribute('aria-current', 'location');
                     else item.removeAttribute('aria-current');
                 });
-                if (mobile.matches) {
+                if (!desktop.matches) {
                     setOpen(false);
                     toggle.focus({ preventScroll: true });
                 }
