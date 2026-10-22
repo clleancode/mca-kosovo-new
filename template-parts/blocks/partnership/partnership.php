@@ -124,7 +124,7 @@ $partners = $value('partners') ?: [];
                 <div class="m-partnership__institution">
                     <p class="m-partnership__implementation-label a-badge"><?php echo esc_html($value('implemented_label')); ?></p>
                     <h3 class="a-heading a-heading--h6 h-white"><?php echo esc_html($value('implemented_name')); ?></h3>
-                    <p class="a-text a-text--l"><?php echo nl2br(esc_html($value('implemented_description'))); ?></p>
+                    <p class="a-text a-text--l"><?php echo nl2br(wp_kses($value('implemented_description'), ['br' => []])); ?></p>
                 </div>
                 <?php $impl_link = $value('implemented_link'); ?>
                 <?php if ($impl_link) : ?>

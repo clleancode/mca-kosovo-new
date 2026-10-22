@@ -403,7 +403,23 @@
 }
 
 .m-hero__action>a {
-    transition: background .25s ease, color .25s ease;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition: color .3s ease;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: #cf1e4b;
+        inset: -2px;
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform .3s ease-in-out;
+    }
 }
 
 .m-hero__action>a>span:last-child {
@@ -412,8 +428,11 @@
 
 .m-hero__action>a:hover,
 .m-hero__action>a:focus-visible {
-    background: #cf1e4b;
     color: var(--white);
+
+    &::after {
+        transform: scaleX(1);
+    }
 }
 
 .m-hero__action>a:hover>span:last-child,
@@ -425,6 +444,7 @@
 @media (prefers-reduced-motion: reduce) {
 
     .m-hero__action>a,
+    .m-hero__action>a::after,
     .m-hero__action>a>span:last-child {
         transition: none;
     }

@@ -76,6 +76,15 @@
     border-color: var(--blue);
 }
 
+.a-join__button--contact > img {
+    transition: filter .3s ease-in-out;
+}
+
+.a-join__button--contact:hover > img,
+.a-join__button--contact:focus-visible > img {
+    filter: brightness(0) invert(1);
+}
+
 .a-join__button:focus-visible {
     outline: 2px solid var(--blue);
     outline-offset: 4px;
