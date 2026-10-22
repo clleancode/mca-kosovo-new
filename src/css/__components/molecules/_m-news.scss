@@ -126,6 +126,8 @@
 
 .m-news__read {
     display: inline-flex;
+    box-sizing: border-box;
+    min-height: 44px;
     align-items: center;
     gap: 16px;
     padding: 6px 6px 6px 20px;
@@ -136,11 +138,21 @@
     color: var(--white);
     text-decoration: none;
     @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
+    border: 1px solid var(--dark-blue);
+
+    &::after {
+        inset: 0;
+    }
+
+    @media (min-width: 768px) {
+        min-height: 56px;
+    }
 
     @media (hover: hover) {
         &:hover,
         &:focus-visible {
             background-color: var(--dark-blue);
+            border: 1px solid var(--dark-blue);
         }
     }
 
@@ -290,6 +302,16 @@
     text-decoration: none;
     flex-shrink: 0;
     @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
+    border: 1px solid var(--dark-blue);
+
+    &::after {
+        inset: 0;
+    }
+
+    &:hover,
+    &:focus-visible {
+        border: 1px solid var(--dark-blue);
+    }
 }
 
 .m-news__form input {
