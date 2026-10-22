@@ -138,7 +138,7 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                                 <h3 class="a-heading a-heading--h3 h-white"><?php echo esc_html($project_title); ?></h3>
                                 <?php $pair_caption = $project['caption'] ?: $project['subtitle']; ?>
                                 <?php if ($pair_caption): ?><p class="a-compact-projects-caption a-text a-text--xs h-white h-semibold"><?php echo esc_html($pair_caption); ?></p><?php endif; ?>
-                                <?php if (!empty($project['description'])): ?><p class="a-text a-text--m h-regular h-white"><?php echo esc_html(wp_trim_words($project['description'], 20)); ?></p><?php endif; ?>
+                                <?php if (!empty($project['description'])): ?><p class="a-text a-text--m h-regular h-white"><?php echo esc_html(wp_trim_words($project['description'], 14)); ?></p><?php endif; ?>
                             </div>
                             <?php if (!empty($project_link['url'])): ?><span class="a-compact-projects-pair-link" aria-hidden="true"><i class="icon-arrow-right-up a-icon"></i></span><?php endif; ?>
                         </<?php echo !empty($project_link['url']) ? 'a' : 'article'; ?>>

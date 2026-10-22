@@ -40,7 +40,20 @@ const textReveal = () => {
     const wholeElements = new WeakSet();
     const sequences = new WeakMap();
     const fundingRevealTimes = new WeakMap();
+    const overviewBarStarts = new WeakMap();
     const orderedDelay = target => {
+        const overviewBar = target.closest('.m-overview__bar--pills');
+        if (overviewBar) {
+            const now = performance.now();
+            if (!overviewBarStarts.has(overviewBar)) overviewBarStarts.set(overviewBar, now);
+            const links = [...overviewBar.querySelectorAll('.a-overview-link')];
+            const index = links.indexOf(target);
+            const hasTitle = overviewBar.querySelector('.m-overview__project');
+            const offset = target.closest('.m-overview__project') ? 0
+                : index >= 0 ? (hasTitle ? 700 : 0) + index * 200
+                : (hasTitle ? 700 : 0) + links.length * 200;
+            return Math.max(0, overviewBarStarts.get(overviewBar) + offset - now);
+        }
         const applyBox = target.matches('.m-how-to-apply__card, .m-how-to-apply__contact, .m-how-to-apply__newsletter');
         const transparencyCard = target.matches('.m-transparency__card');
         const funding = target.closest('.m-compact__funding');
