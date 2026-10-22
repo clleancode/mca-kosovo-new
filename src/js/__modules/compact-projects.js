@@ -17,7 +17,17 @@ const compactProjects = () => {
             });
         };
         cards.forEach(card => card.addEventListener('click', event => {
-            if (!event.target.closest('a')) activate(card);
+            if (event.target.closest('a')) return;
+            if (event.target.closest('button')) {
+                activate(card);
+                return;
+            }
+            if (card.classList.contains('m-compact-projects__card--feature')) {
+                const link = card.querySelector('.m-compact-projects__button');
+                if (link && !window.getSelection()?.toString()) link.click();
+                return;
+            }
+            activate(card);
         }));
         if (cards.length) activate(cards[0]);
     });

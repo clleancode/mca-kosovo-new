@@ -357,6 +357,7 @@
     flex-grow: 3.49;
 }
 
+.m-compact-projects__card--feature:has(.m-compact-projects__button),
 .m-compact-projects__card--compact {
     cursor: pointer;
 }
@@ -572,6 +573,21 @@
 .a-compact-projects-pair-link:focus-visible {
     outline: 2px solid var(--white);
     outline-offset: 4px;
+}
+
+.a-compact-projects-pair-link > .a-icon {
+    transition: transform .25s var(--cubic-bezier);
+}
+
+.m-compact-projects__card:hover .a-compact-projects-pair-link > .a-icon,
+.m-compact-projects__card:focus-visible .a-compact-projects-pair-link > .a-icon {
+    transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .a-compact-projects-pair-link > .a-icon {
+        transition: none;
+    }
 }
 
 @media (min-width: 768px) {
