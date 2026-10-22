@@ -181,6 +181,18 @@ const textReveal = () => {
             if (target.matches('.m-how-to-apply__bottom--only > .m-how-to-apply__newsletter')) blockDelay = 750;
             if (target.matches('.m-vacancies__filters')) blockDelay = 0;
             if (target.matches('.m-vacancies__notice')) blockDelay = 750;
+            if (target.matches('.m-filter')) {
+                const filterSection = target.closest('.o-filter');
+                const hero = [...document.querySelectorAll('.m-small-hero')].reverse().find(section =>
+                    filterSection && (section.compareDocumentPosition(filterSection) & Node.DOCUMENT_POSITION_FOLLOWING));
+                if (hero) {
+                    const remaining = hero.getAnimations({ subtree: true })
+                        .filter(effect => effect.playState === 'running')
+                        .map(effect => effect.effect.getComputedTiming().endTime - (effect.currentTime || 0))
+                        .filter(Number.isFinite);
+                    blockDelay = Math.max(blockDelay, 0, ...remaining);
+                }
+            }
             if (target.matches('.m-publications-banner__actions')) blockDelay += 1000;
             if (target.closest('.m-related-programs')) {
                 blockDelay += 500;

@@ -224,11 +224,38 @@
 }
 
 .m-filter__links>a {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     color: #2f358b;
     text-decoration: none;
+    padding-bottom: 5px;
+    margin-bottom: -5px;
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .25s ease;
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+        transform: scaleX(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .m-filter__links > a::after {
+        transition: none;
+    }
 }
 
 .m-filter__footer>button {
