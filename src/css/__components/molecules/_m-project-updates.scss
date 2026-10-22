@@ -31,6 +31,18 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform .6s var(--cubic-bezier);
+}
+
+.m-project-updates__card:hover .a-project-updates-image > img,
+.m-project-updates__card:focus-within .a-project-updates-image > img {
+    transform: scale(1.035);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .a-project-updates-image > img {
+        transition: none;
+    }
 }
 
 .m-project-updates__meta {

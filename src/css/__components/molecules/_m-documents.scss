@@ -47,11 +47,18 @@
     background: var(--dark-blue);
     text-decoration: none;
     flex-shrink: 0;
+    @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
+    border: 1px solid var(--dark-blue);
+
+    &::after {
+        inset: 0;
+    }
 }
 
 .a-documents-download>img {
     width: 12px;
     height: 14px;
+    filter: brightness(0) invert(1);
     transition: filter .3s ease-in-out;
 }
 

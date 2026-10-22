@@ -45,7 +45,7 @@ const overview = () => {
         const currentLabel = section.querySelector('[data-overview-current]');
         const mobile = matchMedia('(max-width: 767px)');
         const sortLabel = section.querySelector('.a-overview-factsheet');
-        const sortPosition = sortLabel ? document.createComment('Overview desktop sort position') : null;
+        const sortPosition = sortLabel ? document.createTextNode('') : null;
         if (sortLabel) sortLabel.before(sortPosition);
         const project = section.querySelector('.m-overview__project');
         const projectPosition = project ? document.createTextNode('') : null;

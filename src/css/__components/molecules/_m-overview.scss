@@ -216,6 +216,21 @@
     white-space: nowrap;
 }
 
+a.a-overview-factsheet {
+    background-image: linear-gradient(var(--dark-blue), var(--dark-blue));
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 0 100%;
+    transition: background-size .3s ease-in-out, color .3s ease-in-out, border-color .3s ease-in-out;
+
+    &:hover,
+    &:focus-visible {
+        background-size: 100% 100%;
+        border-color: var(--dark-blue);
+        color: var(--white);
+    }
+}
+
 .a-overview-link:focus-visible,
 .a-overview-factsheet:focus-visible {
     outline: 2px solid var(--blue);
