@@ -470,6 +470,14 @@
         padding: 8px 12px;
         gap: 8px;
         box-sizing: border-box;
+        white-space: nowrap;
+        font-size: 12px;
+        line-height: 1.2;
+
+        > .a-icon {
+            flex-shrink: 0;
+            font-size: 10px;
+        }
     }
 
     .m-compact-projects__feature-content > p {

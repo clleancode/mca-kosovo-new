@@ -175,8 +175,24 @@
 }
 
 @media (max-width: 767px) {
+    .m-storage__map {
+        display: flex;
+        flex-direction: column;
+        aspect-ratio: auto;
+        box-sizing: border-box;
+        padding: 12px;
+    }
+
+    .m-storage__map-image {
+        position: static;
+        width: 100%;
+        height: clamp(240px, 70vw, 360px);
+        flex-shrink: 0;
+    }
+
     .m-storage__legend {
-        bottom: 10px;
+        position: static;
+        margin: 16px 8px 0;
     }
 }
 
