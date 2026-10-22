@@ -41,6 +41,7 @@ $main_image = $value('main_image');
 $side_image = $value('side_image');
 $logo = $value('logo');
 $partners = $value('partners') ?: [];
+$impl_link = $value('implemented_link') ?: [];
 ?>
 <section
     <?php if (!empty($block['anchor'])) : ?>id="<?php echo esc_attr($block['anchor']); ?>"<?php endif; ?>
@@ -114,7 +115,7 @@ $partners = $value('partners') ?: [];
             </div>
         </div>
 
-        <div class="m-partnership__implementation">
+        <<?php echo !empty($impl_link['url']) ? 'a' : 'div'; ?> class="m-partnership__implementation"<?php if (!empty($impl_link['url'])): ?> href="<?php echo esc_url($impl_link['url']); ?>" target="<?php echo esc_attr($impl_link['target'] ?: '_self'); ?>"<?php if (($impl_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?><?php endif; ?>>
             <div class="m-partnership__implementation-body">
                 <?php if ($logo) : ?>
                     <div class="m-partnership__logo">
@@ -126,18 +127,11 @@ $partners = $value('partners') ?: [];
                     <h3 class="a-heading a-heading--h6 h-white"><?php echo esc_html($value('implemented_name')); ?></h3>
                     <p class="a-text a-text--l"><?php echo nl2br(wp_kses($value('implemented_description'), ['br' => []])); ?></p>
                 </div>
-                <?php $impl_link = $value('implemented_link'); ?>
-                <?php if ($impl_link) : ?>
-                    <a class="m-partnership__implementation-link" href="<?php echo esc_url($impl_link['url'] ?? ''); ?>" <?php echo !empty($impl_link['target']) ? 'target="' . esc_attr($impl_link['target']) . '"' : ''; ?> aria-label="<?php echo esc_attr($value('implemented_name')); ?>">
-                        <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
-                    </a>
-                <?php else : ?>
-                    <div class="m-partnership__implementation-link" aria-hidden="true">
-                        <i class="icon-arrow-right-up a-icon"></i>
-                    </div>
-                <?php endif; ?>
+                <span class="m-partnership__implementation-link" aria-hidden="true">
+                    <i class="icon-arrow-right-up a-icon"></i>
+                </span>
             </div>
-        </div>
+        </<?php echo !empty($impl_link['url']) ? 'a' : 'div'; ?>>
 
         <div class="m-partnership__partners s-d-t-m s-m-t-s">
             <div class="m-partnership__partners-header">

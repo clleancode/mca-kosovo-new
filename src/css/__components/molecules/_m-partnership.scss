@@ -173,6 +173,11 @@
 }
 
 .m-partnership__implementation {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
     width: 100%;
     border: 1px solid rgba(108, 119, 142, .4);
     border-radius: 16px;
@@ -181,6 +186,40 @@
         radial-gradient(ellipse at center, rgba(255, 255, 255, .04), transparent),
         radial-gradient(ellipse at center, rgba(66, 151, 209, .08), transparent);
 
+}
+
+.m-partnership__implementation {
+    transition: scale .3s ease;
+}
+
+.m-partnership__implementation:hover,
+.m-partnership__implementation:focus-within {
+    scale: 1.005;
+}
+
+a.m-partnership__implementation-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 16px;
+}
+
+.m-partnership__implementation-link > i {
+    transition: transform .25s ease;
+}
+
+.m-partnership__implementation:hover .m-partnership__implementation-link > i,
+.m-partnership__implementation:focus-within .m-partnership__implementation-link > i {
+    transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .m-partnership__implementation .m-partnership__logo,
+    .m-partnership__implementation .m-partnership__institution,
+    .m-partnership__implementation-link > i {
+        transition: none;
+    }
 }
 
 .m-partnership__implementation-label {
@@ -279,12 +318,49 @@
 }
 
 .m-partnership__partner-card {
+    position: relative;
+    overflow: hidden;
     border: 1px solid rgba(108, 119, 142, .3);
     border-radius: 16px;
     padding: 28px;
     background:
         radial-gradient(ellipse at center, rgba(255, 255, 255, .03), transparent),
         radial-gradient(ellipse at center, rgba(66, 151, 209, .06), transparent);
+}
+
+.m-partnership__partner-card {
+    transition: scale .3s ease;
+}
+
+.m-partnership__partner-card:has(a.m-partnership__partner-card-link):hover,
+.m-partnership__partner-card:focus-within {
+    scale: 1.01;
+}
+
+a.m-partnership__partner-card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 16px;
+}
+
+.m-partnership__partner-card-link > i {
+    transition: transform .25s ease;
+}
+
+.m-partnership__partner-card:hover a.m-partnership__partner-card-link > i,
+.m-partnership__partner-card:focus-within a.m-partnership__partner-card-link > i {
+    transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .m-partnership__partner-card > p,
+    .m-partnership__partner-card > h4,
+    .m-partnership__partner-card-logo,
+    .m-partnership__partner-card-link > i {
+        transition: none;
+    }
 }
 
 .m-partnership__partner-card-top {
@@ -338,11 +414,6 @@
     color: var(--white);
     text-decoration: none;
     transition: border-color .2s, background .2s;
-}
-
-.m-partnership__partner-card-link:hover {
-    background: rgba(255, 255, 255, .08);
-    border-color: rgba(255, 255, 255, .4);
 }
 
 .m-partnership__partner-card-label {
@@ -445,5 +516,12 @@
 
     .m-partnership__partners-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .m-partnership__implementation,
+    .m-partnership__partner-card {
+        transition: none;
     }
 }

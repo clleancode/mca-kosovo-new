@@ -70,6 +70,9 @@
 
 .m-about-procurement__number,
 .m-about-procurement__arrow {
+    box-sizing: border-box;
+    border: 1px solid var(--dark-blue);
+    transition: background-color .2s ease, color .2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,6 +82,16 @@
     border-radius: 50%;
     background: var(--dark-blue);
     color: var(--white);
+
+    &:hover,
+    &:focus-visible {
+        background: var(--white);
+        color: var(--dark-blue);
+
+        img {
+            filter: brightness(0) saturate(100%) invert(10%) sepia(72%) saturate(1905%) hue-rotate(200deg) brightness(87%) contrast(110%);
+        }
+    }
 }
 
 .m-about-procurement__arrow img {

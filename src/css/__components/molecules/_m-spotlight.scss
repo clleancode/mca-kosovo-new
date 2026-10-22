@@ -275,6 +275,11 @@
     border: 1px solid var(--dark-blue);
 }
 
+.m-spotlight:not(.m-spotlight--featured):not(.m-spotlight--white) .m-spotlight__buttons .a-spotlight-button--primary:hover,
+.m-spotlight:not(.m-spotlight--featured):not(.m-spotlight--white) .m-spotlight__buttons .a-spotlight-button--primary:focus-visible {
+    border: 1px solid var(--white);
+}
+
 @media (min-width: 768px) {
     .m-spotlight--white {
         grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
