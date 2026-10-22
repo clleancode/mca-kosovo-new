@@ -35,10 +35,12 @@ $projects = [];
 $project_order = get_posts(['post_type' => 'project', 'post_status' => 'publish', 'posts_per_page' => -1, 'fields' => 'ids', 'orderby' => ['menu_order' => 'ASC', 'ID' => 'ASC']]);
 $block_tags = [];
 $block_labels = [];
+$block_captions = [];
 foreach ((get_field('compact_projects_tag_groups') ?: []) as $tag_group) {
     $tag_project_id = absint($tag_group['project'] ?? 0);
     if (!$tag_project_id) continue;
     $block_labels[$tag_project_id] = trim((string) ($tag_group['card_label'] ?? ''));
+    $block_captions[$tag_project_id] = trim((string) ($tag_group['card_caption'] ?? ''));
     $block_tags[$tag_project_id] = array_values(array_filter(array_map(static function ($row) {
         return trim((string) ($row['tag'] ?? ''));
     }, $tag_group['tags'] ?: [])));
@@ -64,6 +66,7 @@ foreach ($project_posts as $project_post) {
     $projects[] = [
         'number' => sprintf('%02d', array_search($project_post->ID, $project_order, true) + 1),
         'subtitle' => wp_strip_all_tags($hero['small_hero_label'] ?? ''),
+        'caption' => $block_captions[$project_post->ID] ?? '',
         'title' => get_the_title($project_post),
         'image' => absint($image) ?: get_post_thumbnail_id($project_post->ID),
         'description' => $summary,
@@ -133,8 +136,9 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                             <div class="m-compact-projects__pair-label"><span class="a-text a-text--xs h-semibold"><?php echo esc_html($project['category'] ?: 'Project ' . $project['number']); ?></span></div>
                             <div class="m-compact-projects__pair-content">
                                 <h3 class="a-heading a-heading--h3 h-white"><?php echo esc_html($project_title); ?></h3>
-                                <?php if (!empty($project['subtitle'])): ?><p class="a-compact-projects-caption a-text a-text--xs h-white h-regular"><?php echo esc_html($project['subtitle']); ?></p><?php endif; ?>
-                                <?php if (!empty($project['description'])): ?><p class="a-text a-text--s h-regular h-white"><?php echo esc_html(wp_trim_words($project['description'], 20)); ?></p><?php endif; ?>
+                                <?php $pair_caption = $project['caption'] ?: $project['subtitle']; ?>
+                                <?php if ($pair_caption): ?><p class="a-compact-projects-caption a-text a-text--xs h-white h-semibold"><?php echo esc_html($pair_caption); ?></p><?php endif; ?>
+                                <?php if (!empty($project['description'])): ?><p class="a-text a-text--m h-regular h-white"><?php echo esc_html(wp_trim_words($project['description'], 20)); ?></p><?php endif; ?>
                             </div>
                             <?php if (!empty($project_link['url'])): ?><a class="a-compact-projects-pair-link" href="<?php echo esc_url($project_link['url']); ?>" target="<?php echo esc_attr(($project_link['target'] ?? '') ?: '_self'); ?>" aria-label="<?php echo esc_attr('Explore ' . $project_title); ?>"<?php if (($project_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><i class="icon-arrow-right-up a-icon" aria-hidden="true"></i></a><?php endif; ?>
                         </article>

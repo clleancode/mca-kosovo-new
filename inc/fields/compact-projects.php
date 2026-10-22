@@ -60,6 +60,10 @@ if (class_exists(FieldsBuilder::class)) {
                     'label' => 'Top label',
                     'instructions' => 'Enter the full label, for example: 01 · ENERGY STORAGE PROJECT. Leave empty to hide the expanded label.',
                 ])
+                ->addText('card_caption', [
+                    'label' => 'Caption below title',
+                    'instructions' => 'Text below the title in the 2-card layout. Leave empty to use the label from the project Projects Hero block.',
+                ])
                 ->addRepeater('tags', [
                     'label' => 'Tags', 'max' => 3, 'layout' => 'table', 'button_label' => 'Add tag',
                 ])

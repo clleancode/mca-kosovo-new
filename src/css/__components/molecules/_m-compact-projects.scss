@@ -149,6 +149,14 @@
     margin: 0 0 10px;
 }
 
+.m-compact-projects__feature-content > p,
+.m-compact-projects__pair-content > p:last-child:not(.a-compact-projects-caption) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
 .m-compact-projects__tags {
     display: flex;
     flex-wrap: wrap;
@@ -465,7 +473,7 @@
     .m-compact-projects__feature-content > p {
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
+        -webkit-line-clamp: 3;
         overflow: hidden;
     }
 
