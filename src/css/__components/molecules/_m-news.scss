@@ -201,9 +201,9 @@
 .m-news__thumbnail {
     position: relative;
     display: block;
-    align-self: stretch;
+    align-self: start;
     width: 100%;
-    min-height: 70px;
+    aspect-ratio: 170 / 132;
     overflow: hidden;
     border-radius: 12px;
     background: #f3f4f7;

@@ -4028,6 +4028,7 @@ input.a-btn--white {
   }
 }
 .m-header__menu-mobile {
+  color: var(--dark-blue);
   --mobile-menu-inset: 15px;
   overflow: hidden;
   width: 100%;
@@ -6638,9 +6639,9 @@ input.a-btn--white {
 .m-news__thumbnail {
   position: relative;
   display: block;
-  align-self: stretch;
+  align-self: start;
   width: 100%;
-  min-height: 70px;
+  aspect-ratio: 170/132;
   overflow: hidden;
   border-radius: 12px;
   background: #f3f4f7;
@@ -7458,6 +7459,7 @@ a.m-partnership__implementation-link::after {
 }
 
 .m-partnership__implementation-link > i {
+  font-size: 10px;
   transition: transform 0.25s ease;
 }
 
@@ -7480,7 +7482,7 @@ a.m-partnership__implementation-link::after {
 .m-partnership__implementation-body {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 12px;
   align-items: flex-start;
   border-radius: 12px;
   padding: 24px;
@@ -7519,8 +7521,8 @@ a.m-partnership__implementation-link::after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: 1px solid rgba(108, 119, 142, 0.5);
   color: var(--white);
@@ -7708,7 +7710,15 @@ a.m-partnership__partner-card-link::after {
   }
   .m-partnership__implementation-body {
     flex-direction: row;
+    gap: 40px;
     align-items: center;
+  }
+  .m-partnership__implementation-link {
+    width: 44px;
+    height: 44px;
+  }
+  .m-partnership__implementation-link > i {
+    font-size: inherit;
   }
   .m-partnership__partners-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -7858,11 +7868,11 @@ a.m-partnership__partner-card-link::after {
   bottom: 24px;
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: var(--white);
-  font-size: 14px;
+  font-size: 10px;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 .m-opportunities__card-link .icon-arrow-right-up::before {
@@ -8160,8 +8170,8 @@ a.m-partnership__partner-card-link::after {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: #f3f4f7;
   color: var(--dark-blue);
@@ -8218,6 +8228,58 @@ a.m-partnership__partner-card-link::after {
   }
   .m-opportunities__description {
     justify-self: end;
+  }
+}
+@media (min-width: 768px) {
+  .m-opportunities__card-link .icon-arrow-right-up {
+    width: 52px;
+    height: 52px;
+    font-size: 14px;
+  }
+}
+@media (min-width: 768px) {
+  .a-opportunities-notice-link {
+    width: 48px;
+    height: 48px;
+  }
+}
+.m-opportunities__notice-meta .a-opportunities-status {
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.m-opportunities__notice-meta .a-opportunities-status::before {
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .m-opportunities__notice-meta .a-opportunities-status {
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    white-space: normal;
+  }
+}
+.m-opportunities__featured-action > .a-btn.a-btn--icon-red {
+  min-height: 40px;
+  padding: 4px 4px 4px 18px;
+}
+
+.m-opportunities__featured-action > .a-btn.a-btn--icon-red > .a-icon {
+  width: 30px;
+  height: 30px;
+}
+
+@media (min-width: 768px) {
+  .m-opportunities__featured-action > .a-btn.a-btn--icon-red {
+    min-height: 45px;
+    padding: 6px 6px 6px 24px;
+  }
+  .m-opportunities__featured-action > .a-btn.a-btn--icon-red > .a-icon {
+    width: 36px;
+    height: 36px;
   }
 }
 .m-gallery-slider__header {
@@ -8522,8 +8584,8 @@ a.m-partnership__partner-card-link::after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 28px;
-  min-height: 44px;
+  padding: 8px 24px;
+  min-height: 40px;
   border: 1px solid var(--white);
   border-radius: 99px;
   color: var(--dark-blue);
@@ -8635,6 +8697,12 @@ a.m-partnership__partner-card-link::after {
   color: var(--white);
 }
 
+@media (min-width: 768px) {
+  .a-projects-hero-button {
+    padding: 16px 28px;
+    min-height: 44px;
+  }
+}
 .m-overview__actions {
   display: flex;
   flex-wrap: wrap;
