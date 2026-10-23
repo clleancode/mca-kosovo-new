@@ -127,6 +127,8 @@ $section_title = get_field('how_to_report_title');
                         </ol>
                     <?php endif; ?>
 
+                    <?php if ($value = get_field('how_to_report_oig_note')) : ?><p class="a-text a-text--l"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
+
                     <?php if ($options) : ?>
                         <div class="m-how-to-report__options">
                             <?php foreach ($options as $row) : $link = $row['link']; ?>

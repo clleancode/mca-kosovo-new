@@ -35,6 +35,7 @@ if (class_exists(FieldsBuilder::class)) {
         ])
             ->addText('text', ['label' => 'Step text'])
         ->endRepeater()
+        ->addTextarea('how_to_report_oig_note', ['label' => 'Note below reporting steps', 'rows' => 4])
         ->addRepeater('how_to_report_oig_options', [
             'label' => 'Contact options', 'max' => 4, 'layout' => 'table', 'button_label' => 'Add option',
         ])
