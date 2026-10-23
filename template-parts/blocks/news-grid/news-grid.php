@@ -48,14 +48,17 @@ if ($related) {
     $current_page = 1;
     $per_page = min(3, max(2, $per_page));
 }
+$news_category = is_page('media-news') && isset($_GET['news_category']) ? absint(wp_unslash($_GET['news_category'])) : 0;
+$news_order = is_page('media-news') && ($_GET['news_sort'] ?? '') === 'oldest' ? 'ASC' : 'DESC';
 $query = new WP_Query([
     'post_type'           => 'post',
+    'cat'                 => $news_category,
     'post_status'         => 'publish',
     'posts_per_page'      => $per_page,
     'paged'               => $current_page,
     'ignore_sticky_posts' => true,
     'orderby'             => 'date',
-    'order'               => 'DESC',
+    'order'               => $news_order,
     'post__not_in'        => $related && is_singular('post') ? [get_queried_object_id()] : [],
     'no_found_rows'       => $related,
 ]);
@@ -66,12 +69,13 @@ if ($current_page > $total_pages) {
     wp_reset_postdata();
     $query = new WP_Query([
         'post_type'           => 'post',
+        'cat'                 => $news_category,
         'post_status'         => 'publish',
         'posts_per_page'      => $per_page,
         'paged'               => $current_page,
         'ignore_sticky_posts' => true,
         'orderby'             => 'date',
-        'order'               => 'DESC',
+        'order'               => $news_order,
     ]);
 }
 

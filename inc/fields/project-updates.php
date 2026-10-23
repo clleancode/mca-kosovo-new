@@ -25,12 +25,12 @@ if (class_exists(FieldsBuilder::class)) {
             'instructions' => 'Leave empty to show Latest from followed by the current project title.',
         ])
         ->addRelationship('project_updates_posts', [
-            'label'         => 'Project procurements',
-            'post_type'     => ['procurement'],
+            'label'         => 'Project news',
+            'post_type'     => ['post'],
             'return_format' => 'id',
             'max'           => 3,
             'filters'       => ['search'],
-            'instructions'  => 'Select procurements for this project. Leave empty to show the three latest published procurements.',
+            'instructions'  => 'Select news for this project. Leave empty to show the three latest published news articles.',
         ])
         ->addLink('project_updates_archive_link', [
             'label' => 'All project news link',

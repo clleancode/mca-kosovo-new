@@ -662,3 +662,17 @@ function filter_document_title( $title ) {
     return build_short_document_title( $post_title );
 }
 add_filter( 'pre_get_document_title', __NAMESPACE__ . '\\filter_document_title' );
+
+/** Require both application documents even when the request omits file fields. */
+add_filter('wpcf7_validate', function ($result, $tags) {
+    $form = \WPCF7_ContactForm::get_current();
+    if (!$form) return $result;
+    foreach ($form->scan_form_tags() as $tag) {
+        if ($tag->type !== 'file*' || !in_array($tag->name, ['application-resume', 'application-form'], true)) continue;
+        $file = $_FILES[$tag->name] ?? null;
+        if (!$file || empty($file['name']) || ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
+            $result->invalidate($tag, __('Please upload the required document.', 'MCA'));
+        }
+    }
+    return $result;
+}, 20, 2);

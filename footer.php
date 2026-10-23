@@ -12,6 +12,9 @@ $address = get_field('contact_address', 'option');
 $address_link = get_field('footer_address_link', 'option') ?: [];
 $email = get_field('contact_email', 'option');
 $report = get_field('footer_button', 'option') ?: [];
+if (empty($report['url']) || trim($report['url']) === '#') {
+    $report['url'] = home_url('/report-fraud-corruption/');
+}
 $socials = get_field('social_media_links', 'option') ?: [];
 $disclaimer = get_field('footer_disclaimer', 'option');
 $copyright = get_field('footer_copyright', 'option');

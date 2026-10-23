@@ -115,7 +115,42 @@ const overview = () => {
                 }
             }, true);
         }
-        const entries = [...section.querySelectorAll('[data-overview-link]')].map(link => {
+        let newsRequest;
+        let newsCategory = navigation?.querySelector('[data-news-category][aria-current]')?.dataset.newsCategory || '0';
+        const newsSort = section.querySelector('[data-news-sort]');
+        const loadNews = async () => {
+            const grid = document.querySelector('.o-news-grid');
+            if (!grid) return;
+            newsRequest?.abort();
+            const request = new AbortController();
+            newsRequest = request;
+            const url = new URL(location.href);
+            [...url.searchParams.keys()].filter(key => key.startsWith('news_grid_page_')).forEach(key => url.searchParams.delete(key));
+            url.searchParams.set('news_category', newsCategory);
+            url.searchParams.set('news_sort', newsSort?.value || 'newest');
+            grid.setAttribute('aria-busy', 'true');
+            try {
+                const response = await fetch(url, { signal: request.signal });
+                if (!response.ok) throw new Error('News request failed');
+                const doc = new DOMParser().parseFromString(await response.text(), 'text/html');
+                const replacement = doc.querySelector('.o-news-grid');
+                if (!replacement) throw new Error('News grid missing');
+                const featured = document.querySelector('.o-spotlight--featured');
+                const nextFeatured = doc.querySelector('.o-spotlight--featured');
+                if (featured && nextFeatured) featured.replaceWith(nextFeatured);
+                grid.replaceWith(replacement);
+            } catch (error) {
+                if (error.name !== 'AbortError') grid.removeAttribute('aria-busy');
+            }
+        };
+        navigation?.addEventListener('click', event => {
+            const button = event.target.closest('button[data-news-category]');
+            if (!button) return;
+            newsCategory = button.dataset.newsCategory;
+            loadNews();
+        });
+        newsSort?.addEventListener('change', loadNews);
+        const entries = [...section.querySelectorAll('a[data-overview-link]')].map(link => {
             const url = new URL(link.href, location.href);
             if (url.origin !== location.origin || url.pathname !== location.pathname || !url.hash) return null;
             let target;

@@ -95,6 +95,16 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                     <span class="m-overview__chevron" aria-hidden="true"></span>
                 </button>
                 <nav id="<?php echo esc_attr($content_id . '-navigation'); ?>" class="m-overview__links" aria-label="Project sections">
+                    <?php if (is_page('media-news')) : $active_news_category = isset($_GET['news_category']) ? absint(wp_unslash($_GET['news_category'])) : 0; ?>
+                        <button type="button" class="a-overview-link a-text a-text--l h-semibold" data-overview-link data-news-category="0"<?php if (!$active_news_category) : ?> aria-current="true"<?php endif; ?>><?php echo esc_html(get_field('overview_navigation_label')); ?></button>
+                        <?php foreach ($links as $row) :
+                            $label = $row['link']['title'] ?? '';
+                            $term = get_term_by('slug', sanitize_title($label), 'category');
+                            if (!$term) continue;
+                        ?>
+                            <button type="button" class="a-overview-link a-text a-text--l h-semibold" data-overview-link data-news-category="<?php echo esc_attr($term->term_id); ?>"<?php if ($active_news_category === (int) $term->term_id) : ?> aria-current="true"<?php endif; ?>><?php echo esc_html($label); ?></button>
+                        <?php endforeach; ?>
+                    <?php else : ?>
                     <a class="a-overview-link a-text a-text--l h-semibold" href="#<?php echo esc_attr($content_id); ?>" data-overview-link aria-current="location">
                         <?php echo esc_html(get_field('overview_navigation_label')); ?>
                     </a>
@@ -105,12 +115,23 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                         ?>
                         <a class="a-overview-link a-text a-text--l h-semibold" href="<?php echo esc_url($link['url']); ?>" data-overview-link target="<?php echo esc_attr($target); ?>"<?php if ($target === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($link['title'] ?? ''); ?></a>
                     <?php endforeach; ?>
+                    <?php endif; ?>
                 </nav>
 
                 <?php if ($show_sort) : ?>
+                    <?php if (is_page('media-news')) : ?>
+                    <label class="a-overview-factsheet a-overview-factsheet--sort a-text a-text--m h-semibold">
+                        <span>Sort:</span>
+                        <select data-news-sort aria-label="Sort news">
+                            <option value="newest"<?php selected($_GET['news_sort'] ?? 'newest', 'newest'); ?>>Newest first</option>
+                            <option value="oldest"<?php selected($_GET['news_sort'] ?? 'newest', 'oldest'); ?>>Oldest first</option>
+                        </select>
+                    </label>
+                    <?php else : ?>
                     <span class="a-overview-factsheet a-overview-factsheet--sort a-text a-text--m h-semibold">
                         <?php echo esc_html($sort_label); ?>
                     </span>
+                    <?php endif; ?>
                 <?php elseif (!empty($factsheet['url'])) : ?>
                     <a
                         class="a-overview-factsheet a-text a-text--m h-semibold"

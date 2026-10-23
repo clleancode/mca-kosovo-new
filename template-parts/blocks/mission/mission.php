@@ -138,6 +138,9 @@ $category_cards = (bool) get_field('mission_cards_with_category');
                                 </a>
                             </div>
                         <?php endif; ?>
+                        <?php if (!empty($link['url'])) : ?>
+                            <a class="m-mission__card-link" href="<?php echo esc_url($link['url']); ?>" target="<?php echo esc_attr($target); ?>" tabindex="-1" aria-hidden="true"<?php if ($target === '_blank') : ?> rel="noopener noreferrer"<?php endif; ?>></a>
+                        <?php endif; ?>
                     </article>
                 <?php endforeach; ?>
             </div>

@@ -51,6 +51,31 @@ $link        = get_field('gallery_filter_link') ?: [];
 $link_url    = $link['url'] ?? '';
 $link_target = $link['target'] ?? '';
 $image_id    = absint(get_field('gallery_filter_image'));
+if (is_page('media-news') && (isset($_GET['news_category']) || isset($_GET['news_sort']))) {
+    $filtered_posts = get_posts([
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'posts_per_page' => 1,
+        'cat' => isset($_GET['news_category']) ? absint(wp_unslash($_GET['news_category'])) : 0,
+        'orderby' => 'date',
+        'order' => ($_GET['news_sort'] ?? '') === 'oldest' ? 'ASC' : 'DESC',
+        'ignore_sticky_posts' => true,
+    ]);
+    if (!$filtered_posts) {
+        echo '<section class="o-spotlight o-spotlight--featured" hidden></section>';
+        return;
+    }
+    $featured_post = $filtered_posts[0];
+    $title = get_the_title($featured_post);
+    $description = get_the_excerpt($featured_post);
+    $image_id = get_post_thumbnail_id($featured_post);
+    $terms = get_the_category($featured_post->ID);
+    $category = $terms ? $terms[0]->name : '';
+    $date = get_the_date('M Y', $featured_post);
+    $link_url = get_permalink($featured_post);
+    $link_target = '';
+    $link = ['title' => 'Read the story'];
+}
 $image       = $image_id ? wp_get_attachment_image($image_id, 'large', false, [
     'loading'  => 'lazy',
     'decoding' => 'async',
@@ -84,7 +109,7 @@ if (!$link_url) {
                     <?php if ($date) : ?><span class="a-text a-text--xs"><?php echo esc_html($date); ?></span><?php endif; ?>
                 </div>
 
-                <<?php echo tag_escape($tag); ?> class="s-d-b-xs s-m-b-xs h-navy m-spotlight__featured-title a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?>">
+                <<?php echo tag_escape($tag); ?> class="s-d-b-xs s-m-b-xs h-navy m-spotlight__featured-title a-heading a-heading--h5 <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?>">
                     <?php echo esc_html($title); ?>
                 </<?php echo tag_escape($tag); ?>>
 

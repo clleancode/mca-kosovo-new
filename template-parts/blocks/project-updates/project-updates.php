@@ -38,7 +38,7 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
 ]);
 
 $args = [
-    'post_type'      => 'procurement',
+    'post_type'      => 'post',
     'post_status'    => 'publish',
     'posts_per_page' => 3,
     'no_found_rows'  => true,
@@ -46,7 +46,9 @@ $args = [
     'order'          => 'DESC',
 ];
 
-$selected = array_filter(array_map('absint', (array) get_field('project_updates_posts')));
+$selected = array_values(array_filter(array_map('absint', (array) get_field('project_updates_posts')), static function ($post_id) {
+    return get_post_type($post_id) === 'post' && get_post_status($post_id) === 'publish';
+}));
 
 if ($selected) {
     $args['post__in'] = $selected;
@@ -56,6 +58,10 @@ $query = new WP_Query($args);
 
 $archive = get_field('project_updates_archive_link') ?: [];
 $archive_url = $archive['url'] ?? '';
+if (!$archive_url || $archive_url === '#') {
+    $news_page = get_page_by_path('media-news') ?: get_page_by_path('media');
+    $archive_url = $news_page ? get_permalink($news_page) : home_url('/media-news/');
+}
 $archive_target = $archive['target'] ?? '';
 ?>
 <section id="updates" class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>">
@@ -81,31 +87,27 @@ $archive_target = $archive['target'] ?? '';
 
         <?php if ($query->posts) : ?>
             <div class="m-project-updates__grid">
-                <?php foreach ($query->posts as $procurement) : ?>
+                <?php foreach ($query->posts as $news_post) : ?>
                     <?php
-                    $type = get_field('procurement_notice_type', $procurement->ID);
-
-                    if (!$type) {
-                        $terms = get_the_terms($procurement->ID, 'procurement_status');
-                        $type = $terms && !is_wp_error($terms) ? $terms[0]->name : '';
-                    }
+                    $terms = get_the_category($news_post->ID);
+                    $type = $terms ? $terms[0]->name : '';
                     ?>
                     <article class="m-project-updates__card">
-                        <a class="a-project-updates-image" href="<?php echo esc_url(get_permalink($procurement)); ?>" aria-label="<?php echo esc_attr(get_the_title($procurement)); ?>">
-                            <?php echo get_the_post_thumbnail($procurement, 'large', ['loading' => 'lazy', 'decoding' => 'async']); ?>
+                        <a class="a-project-updates-image" href="<?php echo esc_url(get_permalink($news_post)); ?>" aria-label="<?php echo esc_attr(get_the_title($news_post)); ?>">
+                            <?php echo get_the_post_thumbnail($news_post, 'large', ['loading' => 'lazy', 'decoding' => 'async']); ?>
                         </a>
 
                         <div class="m-project-updates__meta s-d-t-xs s-d-b-xs s-m-t-xs s-m-b-xs">
                             <?php if ($type) : ?>
                                 <span class="a-project-updates-pill h-semibold a-text a-text--xs"><?php echo esc_html($type); ?></span>
                             <?php endif; ?>
-                            <time class="a-text a-text--xs h-semibold" datetime="<?php echo esc_attr(get_the_date('c', $procurement)); ?>">
-                                <?php echo esc_html(get_the_date('M Y', $procurement)); ?>
+                            <time class="a-text a-text--xs h-semibold" datetime="<?php echo esc_attr(get_the_date('c', $news_post)); ?>">
+                                <?php echo esc_html(get_the_date('M Y', $news_post)); ?>
                             </time>
                         </div>
 
                         <h3 class="a-heading a-heading--h6 l h-dark-blue">
-                            <a class="a-project-updates-title" href="<?php echo esc_url(get_permalink($procurement)); ?>"><?php echo esc_html(get_the_title($procurement)); ?></a>
+                            <a class="a-project-updates-title" href="<?php echo esc_url(get_permalink($news_post)); ?>"><?php echo esc_html(get_the_title($news_post)); ?></a>
                         </h3>
                     </article>
                 <?php endforeach; ?>

@@ -81,6 +81,13 @@ const cookieBanner = () => {
         close();
     };
 
+    document.addEventListener('click', event => {
+        if (!root.contains(event.target) && event.target.closest('[data-cookie-action="preferences"]')) {
+            event.preventDefault();
+            open();
+        }
+    });
+
     root.addEventListener('click', event => {
         const action = event.target.closest('[data-cookie-action]')?.dataset.cookieAction;
         if (action) event.preventDefault();

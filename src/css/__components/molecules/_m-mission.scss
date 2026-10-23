@@ -21,6 +21,8 @@
 }
 
 .m-mission__card {
+    box-sizing: border-box;
+    width: 100%;
     position: relative;
     background: transparent;
     isolation: isolate;
@@ -202,7 +204,12 @@
     }
 
     .m-mission--mission .m-mission__card {
-        aspect-ratio: .88;
+        aspect-ratio: auto;
+        min-height: clamp(420px, 45vw, 680px);
+    }
+
+    .m-mission--mission .m-mission__copy {
+        flex-shrink: 0;
     }
 
     .m-mission--mission .m-mission__number {
@@ -231,4 +238,15 @@
     .m-mission__grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+}
+
+.m-mission__card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+}
+
+.m-mission__link {
+    z-index: 3;
 }
