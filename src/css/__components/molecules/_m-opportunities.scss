@@ -491,6 +491,18 @@
     .m-opportunities__description {
         justify-self: end;
     }
+
+    .m-opportunities__layout {
+        align-items: stretch;
+    }
+
+    .m-opportunities__cards {
+        grid-auto-rows: 1fr;
+    }
+
+    .m-opportunities__card {
+        aspect-ratio: auto;
+    }
 }
 
 @media (min-width: 768px) {
