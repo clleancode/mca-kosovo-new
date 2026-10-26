@@ -1,3 +1,5 @@
+import { scrollToTarget } from './lenis-scroll';
+
 const notices = () => {
     const section = document.querySelector('[data-notices]');
 
@@ -45,12 +47,7 @@ const notices = () => {
             if (scroll) {
                 const headerBottom = document.querySelector('.o-header')?.getBoundingClientRect().bottom ?? 0;
                 const offset = Math.max(0, headerBottom) + 16;
-                const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-                window.scrollTo({
-                    top: Math.max(0, window.scrollY + section.getBoundingClientRect().top - offset),
-                    behavior: reducedMotion ? 'auto' : 'smooth',
-                });
+                scrollToTarget(section, { offset: -offset });
             }
         } catch (error) {
             if (error.name !== 'AbortError') {

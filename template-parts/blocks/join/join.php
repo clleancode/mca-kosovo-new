@@ -44,21 +44,21 @@ $links = [
     <div class="container">
         <div class="m-join">
             <?php if ($image) : ?>
-                <div class="m-join__image">
+                <div class="m-join__image e-reveal e-reveal--image">
                     <?php echo wp_get_attachment_image($image, 'full', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                 </div>
             <?php endif; ?>
 
             <div class="m-join__content s-d-t-m s-d-b-m s-m-t-xs s-m-b-xs">
                 <div class="m-join__label s-d-b-s s-m-b-s">
-                    <p class="a-text a-text--s h-blue"><?php echo esc_html(get_field('join_label')); ?></p>
+                    <p class="a-text a-text--s h-blue e-reveal e-reveal--text" data-delay="300"><?php echo esc_html(get_field('join_label')); ?></p>
                 </div>
 
-                <<?php echo tag_escape($tag); ?> class="h-medium a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                <<?php echo tag_escape($tag); ?> class="h-medium a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="400">
                     <?php echo nl2br(esc_html(get_field('join_title'))); ?>
                 </<?php echo tag_escape($tag); ?>>
 
-                <div class="m-join__buttons s-d-t-s s-m-t-s">
+                <div class="m-join__buttons s-d-t-s s-m-t-s e-reveal" data-delay="750">
                     <?php foreach ($links as $type => $link) : ?>
                         <?php
                         if (empty($link['url'])) {

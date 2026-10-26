@@ -10,56 +10,12 @@ const faq = () => {
 
         const toggle = (item, expanded) => {
             const summary = item.querySelector('summary');
-            const currentHeight = item.getBoundingClientRect().height;
-            const previous = states.get(item);
-
-            previous?.animation?.cancel();
-
             const state = { expanded, animation: null };
             states.set(item, state);
-
             summary.setAttribute('aria-expanded', String(expanded));
-
-            if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                item.open = expanded;
-                item.style.height = '';
-                item.style.overflow = '';
-                return;
-            }
-
+            item.open = expanded;
             item.style.height = '';
-            item.open = true;
-
-            const styles = getComputedStyle(item);
-            const closedHeight =
-                summary.getBoundingClientRect().height +
-                parseFloat(styles.paddingTop) +
-                parseFloat(styles.paddingBottom) +
-                parseFloat(styles.borderTopWidth) +
-                parseFloat(styles.borderBottomWidth);
-            const targetHeight = expanded
-                ? item.getBoundingClientRect().height
-                : closedHeight;
-
-            item.style.height = `${currentHeight}px`;
-            item.style.overflow = 'hidden';
-
-            state.animation = item.animate(
-                [
-                    { height: `${currentHeight}px` },
-                    { height: `${targetHeight}px` },
-                ],
-                { duration: 300, easing: 'ease-in-out' }
-            );
-
-            state.animation.onfinish = () => {
-                if (states.get(item) !== state) return;
-
-                item.open = expanded;
-                item.style.height = '';
-                item.style.overflow = '';
-                state.animation = null;
-            };
+            item.style.overflow = '';
         };
 
         items.forEach(item => {

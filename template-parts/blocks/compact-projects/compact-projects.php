@@ -92,14 +92,14 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
         <div class="m-compact-projects__intro s-d-b-s s-m-b-xs">
             <div class="m-compact-projects__heading">
                 <?php if ($label): ?>
-                    <p class="a-badge h-blue h-semibold"><?php echo esc_html($label); ?></p>
+                    <p class="a-badge h-blue h-semibold e-reveal e-reveal--text"><?php echo esc_html($label); ?></p>
                 <?php endif; ?>
-                <<?php echo tag_escape($heading_tag); ?> class="a-heading a-heading--<?php echo esc_attr($heading_size); ?> <?php echo esc_attr(get_field('header_color') ?: 'h-white'); ?> a-compact-projects__title">
+                <<?php echo tag_escape($heading_tag); ?> class="a-heading a-heading--<?php echo esc_attr($heading_size); ?> <?php echo esc_attr(get_field('header_color') ?: 'h-white'); ?> a-compact-projects__title e-reveal e-reveal--text" data-delay="100">
                     <?php echo nl2br(esc_html($title)); ?>
                 </<?php echo tag_escape($heading_tag); ?>>
             </div>
             <?php if ($description): ?>
-                <p class="a-text a-text--<?php echo esc_attr($description_type); ?> <?php echo esc_attr(get_field('text_color') ?: 'h-white'); ?> a-compact-projects__description">
+                <p class="a-text a-text--<?php echo esc_attr($description_type); ?> <?php echo esc_attr(get_field('text_color') ?: 'h-white'); ?> a-compact-projects__description e-reveal e-reveal--text" data-delay="350">
                     <?php echo nl2br(esc_html($description)); ?>
                 </p>
             <?php endif; ?>
@@ -130,7 +130,7 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                     <?php if ($two_cards):
                         $pair_tone = in_array($project['tone'] ?? '', ['blue', 'purple', 'green'], true) ? $project['tone'] : ($index === 0 ? 'purple' : 'green');
                         ?>
-                        <<?php echo !empty($project_link['url']) ? 'a' : 'article'; ?> class="m-compact-projects__card m-compact-projects__card--<?php echo esc_attr($pair_tone); ?>"<?php if (!empty($project_link['url'])): ?> href="<?php echo esc_url($project_link['url']); ?>" target="<?php echo esc_attr(($project_link['target'] ?? '') ?: '_self'); ?>"<?php if (($project_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?><?php endif; ?>>
+                        <<?php echo !empty($project_link['url']) ? 'a' : 'article'; ?> class="m-compact-projects__card m-compact-projects__card--<?php echo esc_attr($pair_tone); ?> e-reveal e-reveal--image" data-delay="<?php echo esc_attr(200 + $index * 150); ?>"<?php if (!empty($project_link['url'])): ?> href="<?php echo esc_url($project_link['url']); ?>" target="<?php echo esc_attr(($project_link['target'] ?? '') ?: '_self'); ?>"<?php if (($project_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?><?php endif; ?>>
                             <?php if ($image) echo wp_get_attachment_image($image, 'large', false, ['class' => 'm-compact-projects__image', 'loading' => 'lazy', 'decoding' => 'async']); ?>
                             <div class="m-compact-projects__overlay"></div>
                             <div class="m-compact-projects__pair-label"><span class="a-text a-text--xs h-semibold"><?php echo esc_html($project['category'] ?: 'Project ' . $project['number']); ?></span></div>
@@ -143,7 +143,7 @@ if (!in_array($description_type, ['xs', 's', 'm', 'l', 'xl', 'xxl'], true)) $des
                             <?php if (!empty($project_link['url'])): ?><span class="a-compact-projects-pair-link" aria-hidden="true"><i class="icon-arrow-right-up a-icon"></i></span><?php endif; ?>
                         </<?php echo !empty($project_link['url']) ? 'a' : 'article'; ?>>
                         <?php continue; endif; ?>
-                    <article class="m-compact-projects__card m-compact-projects__card--<?php echo esc_attr($layout); ?> m-compact-projects__card--<?php echo esc_attr($tone); ?>">
+                    <article class="m-compact-projects__card m-compact-projects__card--<?php echo esc_attr($layout); ?> m-compact-projects__card--<?php echo esc_attr($tone); ?> e-reveal e-reveal--image" data-delay="<?php echo esc_attr(200 + $index * 150); ?>">
                         <?php if ($image): ?>
                             <?php echo wp_get_attachment_image($image, 'large', false, ['class' => 'm-compact-projects__image', 'loading' => 'lazy', 'decoding' => 'async']); ?>
                         <?php endif; ?>

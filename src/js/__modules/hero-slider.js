@@ -1,12 +1,26 @@
 import Swiper from 'swiper';
 import { Navigation, EffectFade } from 'swiper/modules';
+import gsap from 'gsap';
+
+const zoomIn = image => {
+    gsap.fromTo(image, { scale: 1.12, transition: 'none' }, {
+        scale: 1,
+        duration: 2.2,
+        ease: 'expo.out',
+        clearProps: 'scale,transition',
+    });
+};
 
 export default function heroSlider() {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.m-hero-about__image img, [data-hero-slider] .swiper-slide:first-child .m-hero__image img').forEach(zoomIn);
+    }
+
     document.querySelectorAll('[data-hero-slider]').forEach(element => {
         if (element.swiper) return;
         const cards = [...element.querySelectorAll('[data-hero-slide]')];
         const pause = element.querySelector('[data-hero-pause]');
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
         const footer = element.querySelector('.m-hero__footer');
         const reserveFooterSpace = () => element.style.setProperty('--hero-footer-height', `${Math.ceil(footer.getBoundingClientRect().height)}px`);
         reserveFooterSpace();
@@ -18,25 +32,24 @@ export default function heroSlider() {
         let previousTime = null;
         let paused = reducedMotion || cards.length < 2;
         let frame;
-        let entranceAnimations = [];
+        // First slide is revealed by e-reveal on load; this only runs on slide changes.
         const animateSlide = swiper => {
-            entranceAnimations.forEach(animation => animation.cancel());
-            entranceAnimations = [];
-            if (reducedMotion || !Element.prototype.animate) return;
+            if (reducedMotion) return;
             const slide = swiper.slides[swiper.activeIndex];
-            slide?.querySelectorAll('.m-hero__copy > *').forEach((item, index) => {
-                const animation = item.animate([
-                    { opacity: 0, translate: '0 24px' },
-                    { opacity: 1, translate: '0 0' },
-                ], { duration: 700, delay: 100 + index * 160, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' });
-                entranceAnimations.push(animation);
-                animation.onfinish = () => animation.cancel();
-            });
-            const image = slide?.querySelector('.m-hero__image');
-            if (image) {
-                const animation = image.animate([{ scale: '1.04' }, { scale: '1' }], { duration: 1400, easing: 'ease-out' });
-                entranceAnimations.push(animation);
+            const copy = slide?.querySelectorAll('.m-hero__copy > *');
+            const image = slide?.querySelector('.m-hero__image img');
+            if (copy?.length) {
+                gsap.fromTo(copy, { opacity: 0, y: 15 }, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.9,
+                    delay: 0.25,
+                    stagger: 0.12,
+                    ease: 'power3.out',
+                    clearProps: 'opacity,transform',
+                });
             }
+            if (image) zoomIn(image);
         };
         const sync = swiper => {
             elapsed = 0;
@@ -48,28 +61,22 @@ export default function heroSlider() {
                 if (index === swiper.realIndex) link.setAttribute('aria-current', 'true');
                 else link.removeAttribute('aria-current');
             });
-            animateSlide(swiper);
         };
         const swiper = new Swiper(element, {
             modules: [Navigation, EffectFade],
             slidesPerView: 1,
             effect: 'fade',
             fadeEffect: { crossFade: true },
-            speed: reducedMotion ? 0 : 700,
+            speed: reducedMotion ? 0 : 900,
             rewind: true,
             navigation: { prevEl: element.querySelector('[data-hero-prev]'), nextEl: element.querySelector('[data-hero-next]'), addIcons: false },
             autoplay: false,
-            on: { init: sync, slideChange: sync, destroy() { cancelAnimationFrame(frame); } },
+            on: {
+                init: sync,
+                slideChange(swiper) { sync(swiper); animateSlide(swiper); },
+                destroy() { cancelAnimationFrame(frame); },
+            },
         });
-        if (!reducedMotion && Element.prototype.animate) {
-            [element.querySelector('.m-hero__controls'), ...cards.map(card => card.parentElement)].filter(Boolean).forEach((item, index) => {
-                const animation = item.animate([
-                    { opacity: 0, translate: '0 24px' },
-                    { opacity: 1, translate: '0 0' },
-                ], { duration: 700, delay: 650 + index * 160, easing: 'ease-out', fill: 'both' });
-                animation.onfinish = () => animation.cancel();
-            });
-        }
         const tick = time => {
             if (swiper.destroyed) return;
             if (!paused && !document.hidden) {

@@ -60,13 +60,13 @@ $allowed_br = ['br' => []];
         <div class="m-compact__intro s-d-b-m s-m-b-s">
             <div class="m-content">
                 <?php if (get_field('compact_label')) : ?>
-                    <p class="a-badge h-dark-blue">
+                    <p class="a-badge h-dark-blue e-reveal e-reveal--text">
                         <?php echo esc_html(get_field('compact_label')); ?>
                     </p>
                 <?php endif; ?>
 
                 <?php if ($title) : ?>
-                    <<?php echo tag_escape($heading_tag); ?> class="<?php echo esc_attr(implode(' ', array_filter($heading_classes))); ?>">
+                    <<?php echo tag_escape($heading_tag); ?> class="<?php echo esc_attr(implode(' ', array_filter($heading_classes))); ?> e-reveal e-reveal--text" data-delay="100">
                         <?php echo nl2br(esc_html($title)); ?>
                     </<?php echo tag_escape($heading_tag); ?>>
                 <?php endif; ?>
@@ -74,14 +74,15 @@ $allowed_br = ['br' => []];
 
             <div class="m-content s-d-t-m s-m-t-xs">
                 <?php if ($description) : ?>
-                    <p class="<?php echo esc_attr(implode(' ', array_filter($text_classes))); ?>">
+                    <p class="<?php echo esc_attr(implode(' ', array_filter($text_classes))); ?> e-reveal e-reveal--text" data-delay="350">
                         <?php echo nl2br(esc_html($description)); ?>
                     </p>
                 <?php endif; ?>
 
                 <?php if (!empty($link['url'])) : ?>
                     <a
-                        class="a-underline a-text a-text--l"
+                        class="a-underline a-text a-text--l e-reveal"
+                        data-delay="500"
                         href="<?php echo esc_url($link['url']); ?>"
                         target="<?php echo esc_attr(($link['target'] ?? '') ?: '_self'); ?>"
                         <?php if (($link['target'] ?? '') === '_blank') : ?>
@@ -95,7 +96,7 @@ $allowed_br = ['br' => []];
             </div>
         </div>
 
-        <div class="m-compact__investment">
+        <div class="m-compact__investment e-reveal e-reveal--image">
             <?php
             if ($image) {
                 echo wp_get_attachment_image($image, 'full', false, [
@@ -116,10 +117,11 @@ $allowed_br = ['br' => []];
 
             <?php if ($statistics) : ?>
                 <div class="m-compact__statistics">
-                    <?php foreach ($statistics as $statistic) : ?>
+                    <?php foreach ($statistics as $stat_index => $statistic) : ?>
                         <?php $accent = sanitize_hex_color($statistic['accent'] ?? ''); ?>
                         <div
-                            class="m-compact__statistic"
+                            class="m-compact__statistic e-reveal"
+                            data-delay="<?php echo esc_attr(800 + $stat_index * 150); ?>"
                             <?php if ($accent) : ?>
                                 style="--compact-accent: <?php echo esc_attr($accent); ?>"
                             <?php endif; ?>
@@ -143,7 +145,7 @@ $allowed_br = ['br' => []];
 
         <?php if (get_field('compact_total')) : ?>
             <div class="m-compact__funding s-d-t-s s-m-t-xs s-d-b-l s-m-b-s">
-                <div class="m-compact__funding-labels s-d-b-s s-m-b-xs">
+                <div class="m-compact__funding-labels s-d-b-s s-m-b-xs e-reveal">
                     <div class="m-compact__funding-total">
                         <p class="a-text a-text--xs h-semibold">Total Compact investment</p>
                         <p class="a-heading a-heading--h4 h-semibold">
@@ -179,7 +181,7 @@ $allowed_br = ['br' => []];
                 </div>
 
                 <div
-                    class="m-compact__funding-bar"
+                    class="m-compact__funding-bar e-reveal e-reveal--clip"
                     role="img"
                     aria-label="<?php echo esc_attr(sprintf('United States %s%%; Kosovo %s%%', $us_share, 100 - $us_share)); ?>"
                 >
@@ -198,10 +200,10 @@ $allowed_br = ['br' => []];
                 </div>
 
                 <div class="m-compact__funding-notes s-d-t-s s-m-t-xs">
-                    <p class="a-text a-text--s">
+                    <p class="a-text a-text--s e-reveal e-reveal--text" data-delay="500">
                         <?php echo esc_html(get_field('compact_cell_note')); ?>
                     </p>
-                    <p class="a-text a-text--s">
+                    <p class="a-text a-text--s e-reveal e-reveal--text" data-delay="650">
                         <?php echo esc_html(get_field('compact_funding_note')); ?>
                     </p>
                 </div>
@@ -210,7 +212,7 @@ $allowed_br = ['br' => []];
 
         <?php if ($end) : ?>
             <div
-                class="m-compact__countdown"
+                class="m-compact__countdown e-reveal"
                 data-compact-end="<?php echo esc_attr($end->format(DATE_ATOM)); ?>"
             >
                 <div class="m-compact__countdown-content">

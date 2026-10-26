@@ -48,11 +48,11 @@ $locations           = array_slice($locations, 0, 2);
         <div class="m-storage">
             <div class="m-storage__content">
                 <?php if ($label): ?>
-                    <p class="a-badge h-dark-blue h-semibold"><?php echo esc_html($label); ?></p>
+                    <p class="a-badge h-dark-blue h-semibold e-reveal e-reveal--text"><?php echo esc_html($label); ?></p>
                 <?php endif; ?>
 
                 <?php if ($capacity || $unit): ?>
-                    <div class="m-storage__capacity s-d-b-s s-m-b-xs s-d-t-s s-m-t-xs">
+                    <div class="m-storage__capacity s-d-b-s s-m-b-xs s-d-t-s s-m-t-xs e-reveal" data-delay="100">
                         <?php if ($capacity): ?>
                             <span class="h-dark-blue"><?php echo esc_html($capacity); ?></span>
                         <?php endif; ?>
@@ -64,14 +64,15 @@ $locations           = array_slice($locations, 0, 2);
 
                 <?php if ($heading): ?>
                     <<?php echo tag_escape($heading_tag); ?>
-                        class="a-heading a-heading--<?php echo esc_attr($heading_size); ?> <?php echo esc_attr($heading_color); ?> h-text-l h--<?php echo esc_attr($heading_line_height); ?>"
+                        class="a-heading a-heading--<?php echo esc_attr($heading_size); ?> <?php echo esc_attr($heading_color); ?> h-text-l h--<?php echo esc_attr($heading_line_height); ?> e-reveal e-reveal--text"
+                        data-delay="250"
                     >
                         <?php echo nl2br(esc_html($heading)); ?>
                     </<?php echo tag_escape($heading_tag); ?>>
                 <?php endif; ?>
 
                 <?php if ($description): ?>
-                    <p class="a-text a-text--<?php echo esc_attr($text_type); ?> <?php echo esc_attr($text_color); ?> s-d-t-s s-m-t-xs s-d-b-s s-m-b-xs h-text-l h--<?php echo esc_attr($text_line_height); ?>">
+                    <p class="a-text a-text--<?php echo esc_attr($text_type); ?> <?php echo esc_attr($text_color); ?> s-d-t-s s-m-t-xs s-d-b-s s-m-b-xs h-text-l h--<?php echo esc_attr($text_line_height); ?> e-reveal e-reveal--text" data-delay="500">
                         <?php echo nl2br(esc_html($description)); ?>
                     </p>
                 <?php endif; ?>
@@ -86,7 +87,7 @@ $locations           = array_slice($locations, 0, 2);
                     $percentage = $total_capacity > 0 ? max(0, min(100, round($numeric_capacity / $total_capacity * 100))) : 0;
                     $filled_cells = (int) round($percentage * 34 / 100);
                     ?>
-                    <div class="m-storage__location">
+                    <div class="m-storage__location e-reveal" data-delay="<?php echo esc_attr(600 + $index * 150); ?>">
                         <div class="m-storage__location-heading">
                             <div class="m-storage__site">
                                 <span class="a-text a-text--xs h-pink h-semibold">Site <?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
@@ -97,7 +98,7 @@ $locations           = array_slice($locations, 0, 2);
                                 <span class="a-text a-text--m h-blue h-semibold"><?php echo esc_html($location_unit); ?></span>
                             </div>
                         </div>
-                        <div class="m-storage__capacity-bar" role="img" aria-label="<?php echo esc_attr($percentage . '% of total storage capacity'); ?>">
+                        <div class="m-storage__capacity-bar e-reveal e-reveal--clip" data-delay="<?php echo esc_attr(750 + $index * 150); ?>" role="img" aria-label="<?php echo esc_attr($percentage . '% of total storage capacity'); ?>">
                             <?php for ($cell = 0; $cell < 34; $cell++): ?><span<?php if ($cell < $filled_cells): ?> class="a-storage-cell--filled" style="opacity: <?php echo esc_attr(.55 + .45 * $cell / max(1, $filled_cells - 1)); ?>;"<?php endif; ?> aria-hidden="true"></span><?php endfor; ?>
                         </div>
                         <div class="m-storage__location-notes">
@@ -108,7 +109,7 @@ $locations           = array_slice($locations, 0, 2);
                 <?php endforeach; ?>
             </div>
 
-            <div class="m-storage__map">
+            <div class="m-storage__map e-reveal e-reveal--image" data-delay="150">
                 <?php if ($map_image): ?>
                     <?php echo wp_get_attachment_image($map_image, 'large', false, [
                         'class'    => 'm-storage__map-image',

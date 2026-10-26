@@ -90,7 +90,7 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                 </div>
                 <?php endif; ?>
 
-                <button type="button" class="m-overview__mobile-toggle" aria-expanded="false" aria-controls="<?php echo esc_attr($content_id . '-navigation'); ?>" data-text-reveal="off">
+                <button type="button" class="m-overview__mobile-toggle" aria-expanded="false" aria-controls="<?php echo esc_attr($content_id . '-navigation'); ?>">
                     <span data-overview-current><?php echo esc_html(get_field('overview_navigation_label')); ?></span>
                     <span class="m-overview__chevron" aria-hidden="true"></span>
                 </button>

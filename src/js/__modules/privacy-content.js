@@ -1,3 +1,5 @@
+import { scrollToTarget } from './lenis-scroll';
+
 export default function privacyContent() {
     document.querySelectorAll('[data-privacy-content]').forEach(root => {
         const sections = [...root.querySelectorAll('[data-privacy-section]')];
@@ -25,7 +27,7 @@ export default function privacyContent() {
             const target = sections.find(section => `#${section.id}` === link.hash);
             if (!target) return;
             event.preventDefault();
-            target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+            scrollToTarget(target);
             history.replaceState(null, '', link.hash);
         }));
         update();

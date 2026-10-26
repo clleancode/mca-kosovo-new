@@ -124,7 +124,7 @@ $meta = static function ($story, $is_feature = false) use ($selected) {
         }
     }
     ?>
-    <div class="m-news__meta<?php echo $is_feature ? ' m-news__meta--featured' : ''; ?>">
+    <div class="m-news__meta<?php echo $is_feature ? ' m-news__meta--featured e-reveal' : ''; ?>"<?php if ($is_feature) : ?> data-delay="250"<?php endif; ?>>
         <?php if ($category) : ?>
             <span class="a-text a-text--xs"><?php echo esc_html($category->name); ?></span>
         <?php endif; ?>
@@ -137,7 +137,7 @@ $meta = static function ($story, $is_feature = false) use ($selected) {
 
 $render_filters = static function () use ($base_url, $selected, $categories, $filter_key, $archive_url, $archive) {
     ?>
-    <nav class="m-news__filters" aria-label="News categories">
+    <nav class="m-news__filters e-reveal" data-delay="300" aria-label="News categories">
         <a class="a-text a-text--l" href="<?php echo esc_url($base_url); ?>" data-news-filter<?php if (!$selected) : ?> aria-current="true"<?php endif; ?>>All</a>
         <?php foreach ($categories as $category) : ?>
             <a class="a-text a-text--l" href="<?php echo esc_url(add_query_arg($filter_key, $category->term_id, $base_url)); ?>" data-news-filter<?php if ($selected === $category->term_id) : ?> aria-current="true"<?php endif; ?>>
@@ -160,8 +160,8 @@ $render_filters = static function () use ($base_url, $selected, $categories, $fi
     <div class="container">
         <div class="m-news__header">
             <div class="m-news__heading">
-                <p class="a-badge"><?php echo esc_html(get_field('news_label')); ?></p>
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?>">
+                <p class="a-badge e-reveal e-reveal--text"><?php echo esc_html(get_field('news_label')); ?></p>
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?> e-reveal e-reveal--text" data-delay="100">
                     <?php echo esc_html(get_field('news_title')); ?>
                 </<?php echo tag_escape($tag); ?>>
             </div>
@@ -173,33 +173,33 @@ $render_filters = static function () use ($base_url, $selected, $categories, $fi
                 <?php $lead = $stories[0]; ?>
 
                 <article class="m-news__feature">
-                    <a class="m-news__image" href="<?php echo esc_url(get_permalink($lead)); ?>" aria-label="<?php echo esc_attr(get_the_title($lead)); ?>">
+                    <a class="m-news__image e-reveal e-reveal--image" href="<?php echo esc_url(get_permalink($lead)); ?>" aria-label="<?php echo esc_attr(get_the_title($lead)); ?>">
                         <?php echo get_the_post_thumbnail($lead, 'large', ['loading' => 'lazy', 'decoding' => 'async']); ?>
                     </a>
 
                     <?php $meta($lead, true); ?>
 
                     <div class="m-news__feature-title">
-                        <h3 class="a-heading a-heading--h5 h-dark-blue">
+                        <h3 class="a-heading a-heading--h5 h-dark-blue e-reveal e-reveal--text" data-delay="350">
                             <a href="<?php echo esc_url(get_permalink($lead)); ?>"><?php echo esc_html(get_the_title($lead)); ?></a>
                         </h3>
                     </div>
 
                     <div class="m-news__excerpt">
-                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="500">
                             <?php echo esc_html(wp_strip_all_tags(get_the_excerpt($lead))); ?>
                         </p>
                     </div>
 
-                    <a class="m-news__read a-text a-text--m h-semibold" href="<?php echo esc_url(get_permalink($lead)); ?>">
+                    <a class="m-news__read a-text a-text--m h-semibold e-reveal" data-delay="700" href="<?php echo esc_url(get_permalink($lead)); ?>">
                         Read the story <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
                     </a>
                 </article>
 
                 <div class="m-news__sidebar">
                     <div class="m-news__list">
-                        <?php foreach (array_slice($stories, 1) as $story) : ?>
-                            <article class="m-news__item">
+                        <?php foreach (array_slice($stories, 1) as $story_index => $story) : ?>
+                            <article class="m-news__item e-reveal" data-delay="<?php echo esc_attr(200 + $story_index * 150); ?>">
                                 <div class="m-news__item-content">
                                     <?php $meta($story); ?>
                                     <h3 class="a-text a-text--xxl h-dark-blue">
@@ -213,7 +213,7 @@ $render_filters = static function () use ($base_url, $selected, $categories, $fi
                         <?php endforeach; ?>
                     </div>
 
-                    <div class="m-news__newsletter">
+                    <div class="m-news__newsletter e-reveal" data-delay="650">
                         <div class="m-news__newsletter-header">
                             <div class="m-news__newsletter-icon" aria-hidden="true">
                                 <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/pics/icons/message.svg'); ?>" alt="" width="24" height="24">
@@ -265,7 +265,7 @@ $render_filters = static function () use ($base_url, $selected, $categories, $fi
                 </div>
             <?php else : ?>
                 <div class="m-news__empty">
-                    <p class="a-text a-text--m">No news has been published in this category yet.</p>
+                    <p class="a-text a-text--m e-reveal e-reveal--text">No news has been published in this category yet.</p>
                 </div>
             <?php endif; ?>
         </div>

@@ -1,3 +1,5 @@
+import eReveal from './e-reveal';
+
 const news = () => {
     document.querySelectorAll('[data-news]').forEach(section => {
         if (section.dataset.newsInitialized) return;
@@ -22,6 +24,7 @@ const news = () => {
                 const newsletter = stories.querySelector('.m-news__newsletter');
                 stories.innerHTML = content.innerHTML;
                 if (newsletter) stories.querySelector('.m-news__newsletter')?.replaceWith(newsletter);
+                eReveal();
                 section.querySelectorAll('[data-news-filter]').forEach(filter => {
                     filter.removeAttribute('aria-current');
                     if (filter === link) filter.setAttribute('aria-current', 'true');

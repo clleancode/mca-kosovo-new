@@ -33,19 +33,20 @@ $items = array_slice(get_field('impact_items') ?: [], 0, 4);
 
             <div class="m-impact__intro s-d-b-l s-m-b-s">
                 <div class="m-impact__heading">
-                    <p class="a-badge h-dark-blue"><?php echo esc_html($label); ?></p>
-                    <<?php echo tag_escape($heading_tag); ?> class="a-heading a-heading--<?php echo esc_attr($heading_size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?>"><?php echo nl2br(esc_html($title)); ?></<?php echo tag_escape($heading_tag); ?>>
+                    <p class="a-badge h-dark-blue e-reveal e-reveal--text"><?php echo esc_html($label); ?></p>
+                    <<?php echo tag_escape($heading_tag); ?> class="a-heading a-heading--<?php echo esc_attr($heading_size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?> e-reveal e-reveal--text" data-delay="100"><?php echo nl2br(esc_html($title)); ?></<?php echo tag_escape($heading_tag); ?>>
                 </div>
                 <div class="m-impact__description">
-                    <p class="a-text a-text--<?php echo esc_attr($text_type); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>"><?php echo nl2br(esc_html($description)); ?></p>
+                    <p class="a-text a-text--<?php echo esc_attr($text_type); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="350"><?php echo nl2br(esc_html($description)); ?></p>
                 </div>
             </div>
 
             <?php if ($items): ?>
                 <div class="m-impact__grid">
                     <?php foreach ($items as $index => $item): ?>
-                        <article class="m-impact__card">
-                            <div class="m-impact__image">
+                        <?php $card_delay = 150 + $index * 150; ?>
+                        <article class="m-impact__card e-reveal" data-delay="<?php echo esc_attr($card_delay); ?>">
+                            <div class="m-impact__image e-reveal e-reveal--image" data-delay="<?php echo esc_attr($card_delay); ?>">
                                 <?php if (!empty($item['image'])) echo wp_get_attachment_image($item['image'], 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                             </div>
 

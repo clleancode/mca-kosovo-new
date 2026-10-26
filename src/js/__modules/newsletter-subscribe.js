@@ -1,3 +1,5 @@
+import { scrollToTarget } from './lenis-scroll';
+
 const newsletterSubscribe = () => {
     document.addEventListener('wpcf7mailsent', event => {
         const section = event.target.closest('[data-newsletter-subscribe]');
@@ -7,7 +9,7 @@ const newsletterSubscribe = () => {
         if (!success) return;
 
         success.hidden = false;
-        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        scrollToTarget(success, { duration: 0.8 });
     });
 };
 

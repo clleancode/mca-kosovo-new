@@ -30,7 +30,7 @@ get_header();
 <section class="o-hero-banner o-hero--half s-d-t-3xl s-d-b-m s-m-t-xl s-m-b-m">
     <div class="m-content h-text-center">
         <div class="m-tag h-text-center h-no-margin m-tag--center">
-            <a href="<?php echo esc_url($posts_page_url); ?>" class="a-tag a-tag--purple" data-aos="fade-up">
+            <a href="<?php echo esc_url($posts_page_url); ?>" class="a-tag a-tag--purple">
                 <span>News</span>
             </a>
             <?php
@@ -50,11 +50,11 @@ get_header();
             }
             ?>
         </div>
-        <h1 class="a-heading a-heading--h3" data-aos="fade-up" data-aos-delay="100"><?php echo esc_html( $post_title ); ?></h1>
-        <p class="a-text a-text--xl h-semibold" data-aos="fade-up" data-aos-delay="200"><?php echo get_the_date(); ?></p>
+        <h1 class="a-heading a-heading--h3"><?php echo esc_html( $post_title ); ?></h1>
+        <p class="a-text a-text--xl h-semibold"><?php echo get_the_date(); ?></p>
     </div>
     <?php if ( $featured_img_url ) : ?>
-        <img src="<?php echo esc_url( $featured_img_url ); ?>" class="a-img" loading="lazy" decoding="async" alt="<?php echo esc_attr( $post_title ); ?>"  data-aos="fade-up" data-aos-delay="300">
+        <img src="<?php echo esc_url( $featured_img_url ); ?>" class="a-img" loading="lazy" decoding="async" alt="<?php echo esc_attr( $post_title ); ?>">
     <?php endif; ?>
 </section>
 <?php endif; ?>

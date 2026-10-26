@@ -45,14 +45,14 @@ $items = array_values(array_filter(
     <div class="container s-d-b-xs">
         <div class="m-gallery-slider__header s-d-b-s s-m-b-s">
             <div class="m-gallery-slider__heading">
-                <p class="a-badge h-dark-blue h-semibold"><?php echo esc_html(get_field('gallery_slider_label')); ?></p>
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                <p class="a-badge h-dark-blue h-semibold e-reveal e-reveal--text"><?php echo esc_html(get_field('gallery_slider_label')); ?></p>
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                     <?php echo esc_html(get_field('gallery_slider_title')); ?>
                 </<?php echo tag_escape($tag); ?>>
             </div>
 
             <?php if (count($items) > 1) : ?>
-                <div class="m-gallery-slider__navigation">
+                <div class="m-gallery-slider__navigation e-reveal" data-delay="350">
                     <button class="m-gallery-slider__previous" type="button" aria-label="Previous image">
                         <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/left.svg')); ?>" alt="" aria-hidden="true">
                     </button>
@@ -65,7 +65,7 @@ $items = array_values(array_filter(
     </div>
 
     <?php if ($items) : ?>
-        <div class="swiper m-gallery-slider__swiper" role="region" aria-label="Compact photo gallery">
+        <div class="swiper m-gallery-slider__swiper e-reveal e-reveal--image" data-delay="200" role="region" aria-label="Compact photo gallery">
             <div class="swiper-wrapper">
                 <?php foreach ($items as $item) : ?>
                     <?php $layout = ($item['layout'] ?? '') === 'portrait' ? 'portrait' : 'landscape'; ?>

@@ -70,22 +70,22 @@ $active_label = get_field('timeline_active_label');
             <div class="m-timeline__intro">
                 <div class="m-timeline__heading">
                     <?php if ($label) : ?>
-                        <p class="a-badge h-white"><?php echo esc_html($label); ?></p>
+                        <p class="a-badge h-white e-reveal e-reveal--text"><?php echo esc_html($label); ?></p>
                     <?php endif; ?>
                     <?php if ($title) : ?>
-                        <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                        <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                             <?php echo esc_html($title); ?>
                         </<?php echo tag_escape($tag); ?>>
                     <?php endif; ?>
                     <?php if ($description) : ?>
                         <div class="m-timeline__description s-d-t-xs s-m-t-xs">
-                            <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                            <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="350">
                                 <?php echo nl2br(esc_html($description)); ?>
                             </p>
                         </div>
                     <?php endif; ?>
                 </div>
-                <ul class="m-timeline__legend s-m-t-xs" aria-label="Milestone statuses">
+                <ul class="m-timeline__legend s-m-t-xs e-reveal" data-delay="450" aria-label="Milestone statuses">
                     <?php foreach (['complete' => 'Completed', 'active' => 'In progress', 'upcoming' => 'Upcoming'] as $state => $legend_label) : ?>
                         <li class="m-timeline__legend-item m-timeline__legend-item--<?php echo esc_attr($state); ?>">
                             <span class="a-text a-text--xs"><?php echo esc_html($legend_label); ?></span>
@@ -99,22 +99,22 @@ $active_label = get_field('timeline_active_label');
                     style="--timeline-progress: <?php echo esc_attr($progress); ?>%; --timeline-count: <?php echo esc_attr($item_count); ?>;"
                 >
                     <img
-                        class="m-timeline__decoration"
+                        class="m-timeline__decoration e-reveal"
                         src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/timeline.svg')); ?>"
                         alt=""
                         aria-hidden="true"
                     >
-                    <div class="m-timeline__line" aria-hidden="true">
+                    <div class="m-timeline__line e-reveal e-reveal--clip" data-delay="150" aria-hidden="true">
                         <span><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16406 10H15.8307M10.8307 15L15.8307 10L10.8307 5" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                     <ol class="m-timeline__milestones">
-                        <?php foreach ($items as $item) : ?>
+                        <?php foreach ($items as $item_index => $item) : ?>
                             <?php
                             $status = in_array($item['status'] ?? '', ['complete', 'active', 'upcoming'], true)
                                 ? $item['status']
                                 : 'upcoming';
                             ?>
-                            <li class="m-timeline__milestone m-timeline__milestone--<?php echo esc_attr($status); ?>">
+                            <li class="m-timeline__milestone m-timeline__milestone--<?php echo esc_attr($status); ?> e-reveal" data-delay="<?php echo esc_attr(400 + $item_index * 200); ?>">
                                 <div class="m-timeline__copy">
                                     <div class="m-timeline__year">
                                         <span class="a-heading a-heading--h2 <?php echo $status === 'active' ? 'h-pink' : 'h-white'; ?>">

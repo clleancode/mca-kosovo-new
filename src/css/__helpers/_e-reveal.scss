@@ -1,0 +1,80 @@
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+    pointer-events: none;
+}
+
+// Keyframe has no `to`, so the element settles into its own opacity/filter.
+@keyframes e-reveal-fade {
+    from {
+        opacity: 0;
+        filter: blur(6px);
+    }
+}
+
+.e-reveal:not(.visible) {
+    opacity: 0;
+}
+
+// Animation instead of transition, so component hover transitions stay intact.
+.e-reveal.visible:not(.e-reveal--clip):not(.e-reveal--text) {
+    animation: e-reveal-fade 1.4s cubic-bezier(0.16, 1, 0.3, 1) var(--e-reveal-delay, 0ms) backwards;
+}
+
+.e-reveal__line,
+.e-reveal__mask {
+    overflow: hidden;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
+}
+
+.e-reveal__line {
+    display: block;
+}
+
+.e-reveal__mask {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.e-reveal__word {
+    display: inline-block;
+    vertical-align: top;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .e-reveal,
+    .e-reveal__word {
+        opacity: 1 !important;
+        clip-path: none !important;
+        transform: none !important;
+        animation: none !important;
+    }
+}
+
+@media print {
+    .e-reveal,
+    .e-reveal__word {
+        opacity: 1 !important;
+        clip-path: none !important;
+        transform: none !important;
+        animation: none !important;
+    }
+}

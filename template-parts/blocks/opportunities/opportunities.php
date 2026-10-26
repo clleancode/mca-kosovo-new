@@ -55,13 +55,13 @@ $email_link  = get_field('opportunities_email_link') ?: [];
     <div class="container">
         <div class="m-opportunities__intro">
             <div class="m-opportunities__heading">
-                <p class="a-badge h-dark-blue"><?php echo esc_html(get_field('opportunities_label')); ?></p>
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?>">
+                <p class="a-badge h-dark-blue e-reveal e-reveal--text"><?php echo esc_html(get_field('opportunities_label')); ?></p>
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?> e-reveal e-reveal--text" data-delay="100">
                     <?php echo esc_html(get_field('opportunities_title')); ?>
                 </<?php echo tag_escape($tag); ?>>
             </div>
             <div class="m-opportunities__description">
-                <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="350">
                     <?php echo nl2br(esc_html(get_field('opportunities_description'))); ?>
                 </p>
             </div>
@@ -76,7 +76,7 @@ $email_link  = get_field('opportunities_email_link') ?: [];
                     $label  = $card['label'] ?? '';
                     $target = $link['target'] ?? '';
                     ?>
-                    <article class="m-opportunities__card">
+                    <article class="m-opportunities__card e-reveal e-reveal--image" data-delay="<?php echo esc_attr($index * 150); ?>">
                         <?php if (!empty($card['image'])) : ?>
                             <?php
                             echo wp_get_attachment_image($card['image'], 'large', false, [
@@ -113,7 +113,7 @@ $email_link  = get_field('opportunities_email_link') ?: [];
                 <?php endforeach; ?>
             </div>
             <div class="m-opportunities__procurements">
-                <div class="m-opportunities__panel-header">
+                <div class="m-opportunities__panel-header e-reveal" data-delay="200">
                     <div class="m-opportunities__panel-icon">
                         <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/document.svg')); ?>" alt="" aria-hidden="true">
                     </div>
@@ -164,7 +164,7 @@ $email_link  = get_field('opportunities_email_link') ?: [];
                                 ? 'testimonial.svg'
                                 : 'timeline.svg';
                             ?>
-                            <article class="m-opportunities__featured">
+                            <article class="m-opportunities__featured e-reveal e-reveal--clip" data-delay="350">
                                 <img
                                     class="m-opportunities__featured-decoration"
                                     src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/' . $decoration)); ?>"
@@ -219,7 +219,7 @@ $email_link  = get_field('opportunities_email_link') ?: [];
                                 </div>
                             </article>
                         <?php else : ?>
-                            <article class="m-opportunities__notice">
+                            <article class="m-opportunities__notice e-reveal" data-delay="<?php echo esc_attr(400 + $index * 150); ?>">
                                 <?php if ($deadline_date) : ?>
                                     <div class="m-opportunities__deadline">
                                         <span class="a-text a-text--xs">Deadline</span>
@@ -260,7 +260,7 @@ $email_link  = get_field('opportunities_email_link') ?: [];
                         <p class="a-text a-text--m">No procurement notices have been published yet.</p>
                     <?php endif; ?>
                 </div>
-                <a class="a-opportunities-email a-text a-text--s" href="<?php echo esc_url($email_link['url'] ?? ''); ?>">
+                <a class="a-opportunities-email a-text a-text--s e-reveal" data-delay="300" href="<?php echo esc_url($email_link['url'] ?? ''); ?>">
                     <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/mail.svg')); ?>" alt="" aria-hidden="true">
                     <span class="h-semibold"><?php echo esc_html($email_link['title'] ?? ''); ?></span>
                     <i class="icon-arrow-right a-icon" aria-hidden="true"></i>

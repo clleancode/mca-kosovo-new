@@ -1,3 +1,5 @@
+import { scrollToTarget } from './lenis-scroll';
+
 const overview = () => {
     document.querySelectorAll('[data-overview]').forEach(section => {
         if (section.dataset.overviewInitialized) return;
@@ -56,8 +58,7 @@ const overview = () => {
             projectSlot.className = 'm-overview__mobile-project container';
             bar.parentElement.before(projectSlot);
         }
-        let dropdownAnimation;
-        const setOpen = (open, animate = true) => {
+        const setOpen = open => {
             section.classList.toggle('is-mobile-overview', !desktop.matches);
             if (projectSlot) {
                 if (!desktop.matches && project.parentElement !== projectSlot) projectSlot.append(project);
@@ -67,34 +68,16 @@ const overview = () => {
                 if (!desktop.matches && sortLabel.parentElement !== navigation) navigation.append(sortLabel);
                 else if (desktop.matches && sortLabel.parentElement === navigation) sortPosition.after(sortLabel);
             }
-            const currentHeight = navigation?.getBoundingClientRect().height ?? 0;
-            const currentOpacity = navigation ? getComputedStyle(navigation).opacity : '0';
-            dropdownAnimation?.cancel();
-            dropdownAnimation = null;
             section.classList.remove('is-navigation-animating');
             toggle?.setAttribute('aria-expanded', String(open));
             section.classList.toggle('is-navigation-open', open);
             if (navigation) navigation.inert = !desktop.matches && !open;
-            if (!navigation || !animate || desktop.matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-            section.classList.add('is-navigation-animating');
-            const targetHeight = open ? navigation.getBoundingClientRect().height : 0;
-            const animation = navigation.animate([
-                { height: `${currentHeight}px`, opacity: currentHeight ? currentOpacity : 0, paddingTop: currentHeight ? '8px' : '0px', paddingBottom: currentHeight ? '16px' : '0px' },
-                { height: `${targetHeight}px`, opacity: open ? 1 : 0, paddingTop: open ? '8px' : '0px', paddingBottom: open ? '16px' : '0px' },
-            ], { duration: 550, easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)', fill: 'both' });
-            dropdownAnimation = animation;
-            animation.onfinish = () => {
-                if (dropdownAnimation !== animation) return;
-                section.classList.remove('is-navigation-animating');
-                animation.cancel();
-                dropdownAnimation = null;
-            };
         };
         if (toggle && navigation) {
             section.classList.add('has-mobile-navigation');
-            setOpen(false, false);
+            setOpen(false);
             toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
-            desktop.addEventListener('change', () => setOpen(false, false));
+            desktop.addEventListener('change', () => setOpen(false));
             navigation.addEventListener('keydown', event => {
                 if (event.key === 'Escape' && !desktop.matches) {
                     setOpen(false);
@@ -170,7 +153,7 @@ const overview = () => {
         entries.forEach(({ link, target }) => link.addEventListener('click', event => {
             if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0 || link.target === '_blank') return;
             event.preventDefault();
-            window.scrollTo({ top: Math.max(0, window.scrollY + target.getBoundingClientRect().top - offset()), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+            scrollToTarget(target, { offset: -offset() });
             activate(link);
         }));
         activate(entries[0].link);

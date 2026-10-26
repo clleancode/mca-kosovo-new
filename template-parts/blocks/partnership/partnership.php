@@ -50,28 +50,28 @@ $impl_link = $value('implemented_link') ?: [];
     <div class="container">
         <div class="m-partnership__intro s-d-b-2xl s-m-b-s">
             <div class="m-partnership__heading">
-                <p class="a-badge h-blue"><?php echo esc_html($value('label')); ?></p>
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?> h-medium">
+                <p class="a-badge h-blue e-reveal e-reveal--text"><?php echo esc_html($value('label')); ?></p>
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?> h-medium e-reveal e-reveal--text" data-delay="100">
                     <?php echo nl2br(wp_kses($value('title'), ['br' => []])); ?>
                 </<?php echo tag_escape($tag); ?>>
             </div>
             <div class="m-partnership__description">
-                <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="350">
                     <?php echo nl2br(esc_html($value('description'))); ?>
                 </p>
             </div>
         </div>
 
         <div class="m-partnership__images">
-            <div class="m-partnership__main-image">
+            <div class="m-partnership__main-image e-reveal e-reveal--image">
                 <?php if ($main_image) : ?>
                     <?php echo wp_get_attachment_image($main_image, 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                 <?php endif; ?>
                 <div class="m-partnership__caption">
-                    <h3 class="a-heading a-heading--h5 h-white"><?php echo esc_html($value('image_caption')); ?></h3>
+                    <h3 class="a-heading a-heading--h5 h-white e-reveal e-reveal--text" data-delay="900"><?php echo esc_html($value('image_caption')); ?></h3>
                 </div>
             </div>
-            <div class="m-partnership__side-image">
+            <div class="m-partnership__side-image e-reveal e-reveal--image" data-delay="250">
                 <?php if ($side_image) : ?>
                     <?php echo wp_get_attachment_image($side_image, 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                 <?php endif; ?>
@@ -81,19 +81,19 @@ $impl_link = $value('implemented_link') ?: [];
         <div class="m-partnership__funding s-d-t-l s-m-t-s s-d-b-l s-m-b-s">
             <div class="m-partnership__funding-top">
                 <div class="m-partnership__funding-headline">
-                    <p class="m-partnership__funding-label a-badge"><?php echo esc_html($value('total_label')); ?></p>
-                    <p class="m-partnership__funding-total a-heading a-heading--h1 h-white"><?php echo esc_html($value('total_amount')); ?></p>
+                    <p class="m-partnership__funding-label a-badge e-reveal e-reveal--text"><?php echo esc_html($value('total_label')); ?></p>
+                    <p class="m-partnership__funding-total a-heading a-heading--h1 h-white e-reveal e-reveal--text" data-delay="100"><?php echo esc_html($value('total_amount')); ?></p>
                 </div>
-                <p class="m-partnership__funding-desc a-text a-text--l h-white"><?php echo nl2br(esc_html($value('funding_description'))); ?></p>
+                <p class="m-partnership__funding-desc a-text a-text--l h-white e-reveal e-reveal--text" data-delay="300"><?php echo nl2br(esc_html($value('funding_description'))); ?></p>
             </div>
 
-            <div class="m-partnership__bar" aria-hidden="true">
+            <div class="m-partnership__bar e-reveal e-reveal--clip" data-delay="200" aria-hidden="true">
                 <div class="m-partnership__bar-fill m-partnership__bar-fill--red" style="width:<?php echo esc_attr($value('funding_percent') ?: '85'); ?>%"></div>
                 <div class="m-partnership__bar-fill m-partnership__bar-fill--blue" style="width:<?php echo esc_attr($value('government_percent') ?: '15'); ?>%"></div>
             </div>
 
             <div class="m-partnership__partners-row">
-                <div class="m-partnership__partner">
+                <div class="m-partnership__partner e-reveal" data-delay="450">
                     <p class="m-partnership__partner-label a-text a-text--xs"><?php echo esc_html($value('funding_label')); ?></p>
                     <div class="m-partnership__partner-amount">
                         <span class="a-heading a-heading--h3 h-white"><?php echo esc_html($value('funding_amount')); ?></span>
@@ -103,7 +103,7 @@ $impl_link = $value('implemented_link') ?: [];
                     <p class="m-partnership__partner-sub a-text a-text--m"><?php echo esc_html($value('funding_sub')); ?></p>
                 </div>
 
-                <div class="m-partnership__partner m-partnership__partner--government">
+                <div class="m-partnership__partner m-partnership__partner--government e-reveal" data-delay="600">
                     <p class="m-partnership__partner-label a-text a-text--xs"><?php echo esc_html($value('government_label')); ?></p>
                     <div class="m-partnership__partner-amount m-partnership__partner-amount--right">
                         <span class="m-partnership__badge m-partnership__badge--blue a-text a-text--s"><?php echo esc_html($value('government_percent') ?: '15'); ?>%</span>
@@ -115,7 +115,7 @@ $impl_link = $value('implemented_link') ?: [];
             </div>
         </div>
 
-        <<?php echo !empty($impl_link['url']) ? 'a' : 'div'; ?> class="m-partnership__implementation"<?php if (!empty($impl_link['url'])): ?> href="<?php echo esc_url($impl_link['url']); ?>" target="<?php echo esc_attr($impl_link['target'] ?: '_self'); ?>"<?php if (($impl_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?><?php endif; ?>>
+        <<?php echo !empty($impl_link['url']) ? 'a' : 'div'; ?> class="m-partnership__implementation e-reveal"<?php if (!empty($impl_link['url'])): ?> href="<?php echo esc_url($impl_link['url']); ?>" target="<?php echo esc_attr($impl_link['target'] ?: '_self'); ?>"<?php if (($impl_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?><?php endif; ?>>
             <div class="m-partnership__implementation-body">
                 <?php if ($logo) : ?>
                     <div class="m-partnership__logo">
@@ -134,7 +134,7 @@ $impl_link = $value('implemented_link') ?: [];
         </<?php echo !empty($impl_link['url']) ? 'a' : 'div'; ?>>
 
         <div class="m-partnership__partners s-d-t-m s-m-t-s">
-            <div class="m-partnership__partners-header">
+            <div class="m-partnership__partners-header e-reveal">
                 <p class="a-badge"><?php echo esc_html($value('partners_label')); ?></p>
                 <span class="m-partnership__partners-sep" aria-hidden="true"></span>
                 <?php $partners_count = $value('partners_count'); if ($partners_count) : ?>
@@ -142,8 +142,8 @@ $impl_link = $value('implemented_link') ?: [];
                 <?php endif; ?>
             </div>
             <div class="m-partnership__partners-grid">
-                <?php foreach ($partners as $partner) : ?>
-                    <div class="m-partnership__partner-card">
+                <?php foreach ($partners as $partner_index => $partner) : ?>
+                    <div class="m-partnership__partner-card e-reveal" data-delay="<?php echo esc_attr(150 + ($partner_index % 4) * 120); ?>">
                         <div class="m-partnership__partner-card-top">
                             <div class="m-partnership__partner-card-logo<?php echo !empty($partner['logo_wide']) ? ' m-partnership__partner-card-logo--wide' : ''; ?>">
                                 <?php if (!empty($partner['image'])) : ?>

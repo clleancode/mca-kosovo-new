@@ -27,10 +27,18 @@ import privacyContent from "./__modules/privacy-content";
 import singleHero from "./__modules/single-hero";
 import singleContent from "./__modules/single-content";
 import newsletterSubscribe from "./__modules/newsletter-subscribe";
-import timeline from "./__modules/timeline";
-import textReveal from "./__modules/text-reveal";
+import initLenis, { getLenis } from "./__modules/lenis-scroll";
+import eReveal from "./__modules/e-reveal";
 
 document.addEventListener("DOMContentLoaded", () => {
+    initLenis();
+    eReveal();
+
+    const lenis = getLenis();
+    if (lenis) lenis.on("scroll", updateHeaderScroll);
+    else window.addEventListener("scroll", updateHeaderScroll, { passive: true });
+    updateHeaderScroll();
+
     transparency();
     compact();
     compactProjects();
@@ -55,8 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
     singleHero();
     singleContent();
     newsletterSubscribe();
-    timeline();
-    textReveal();
 
 	if (document.querySelector(".o-header")) {
 		header();
@@ -95,8 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const updateHeaderScroll = () => {
 	const oHeader = document.querySelector(".o-header");
 	if (!oHeader) return;
-	oHeader.classList.toggle("o-header--scrolled", window.scrollY > 0);
+	const scrollY = getLenis()?.scroll ?? window.scrollY;
+	oHeader.classList.toggle("o-header--scrolled", scrollY > 0);
 };
 
-document.addEventListener("DOMContentLoaded", updateHeaderScroll);
-window.addEventListener("scroll", updateHeaderScroll, { passive: true });

@@ -27,7 +27,6 @@ const allDocuments = () => {
             toggle = document.createElement('button');
             toggle.type = 'button';
             toggle.className = 'm-all-documents__filter-toggle a-text a-text--m';
-            toggle.dataset.textReveal = 'off';
             filters.id ||= `document-filters-${sectionIndex}`;
             toggle.setAttribute('aria-controls', filters.id);
             panel.before(toggle);
