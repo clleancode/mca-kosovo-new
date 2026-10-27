@@ -85,6 +85,17 @@
     }
 }
 
+@media (min-width: 1024px) and (max-width: 1080px) {
+    .m-hero-about__statistic {
+        padding: 16px;
+    }
+
+    .m-hero-about__statistic>span:first-child {
+        font-size: clamp(32px, 3.8vw, 40px);
+        line-height: 1.1;
+    }
+}
+
 .m-hero-about__copy .h-breadcrumbs {
     color: var(--white);
 }
