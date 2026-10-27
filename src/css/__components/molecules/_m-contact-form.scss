@@ -170,13 +170,34 @@
         cursor: pointer;
     }
 
-    .wpcf7-not-valid-tip,
-    .wpcf7-response-output {
+    .wpcf7-not-valid-tip {
         color: var(--pink);
     }
 
     .wpcf7-response-output {
-        margin: 8px 0 0;
+        display: block !important;
+        margin: 0;
+        padding: 14px 18px;
+        border: 1px solid #b42318;
+        border-radius: 12px;
+        color: #b42318;
+        background: #fff4f2;
+    }
+
+    form:is(.init, .submitting, .resetting) .wpcf7-response-output,
+    .wpcf7-response-output:empty {
+        display: none !important;
+    }
+
+    form.sent .wpcf7-response-output {
+        border-color: #067647;
+        color: #067647;
+        background: #ecfdf3;
+    }
+
+    .wpcf7-submit:disabled {
+        cursor: not-allowed;
+        opacity: .6;
     }
 
     .m-contact-form__privacy,
