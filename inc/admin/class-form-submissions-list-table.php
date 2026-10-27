@@ -19,9 +19,7 @@ class Form_Submissions_List_Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 		return array(
-			'full_name' => __( 'Name Surname', 'MCA' ),
-			'email'     => __( 'Email', 'MCA' ),
-			'industry'  => __( 'Industry', 'MCA' ),
+			'email'      => __( 'Email', 'MCA' ),
 			'created_at' => __( 'Submitted', 'MCA' ),
 		);
 	}
@@ -40,7 +38,7 @@ class Form_Submissions_List_Table extends \WP_List_Table {
 		$params = array();
 
 		if ( '' !== $search ) {
-			$where = ' WHERE full_name LIKE %s';
+			$where = ' WHERE email LIKE %s';
 			$params[] = '%' . $wpdb->esc_like( $search ) . '%';
 		}
 
@@ -50,12 +48,12 @@ class Form_Submissions_List_Table extends \WP_List_Table {
 			: (int) $wpdb->get_var( $count_sql );
 
 		$offset = ( $current_page - 1 ) * $per_page;
-		$items_sql = "SELECT id, full_name, email, industry, created_at FROM {$table}{$where} ORDER BY created_at DESC LIMIT %d OFFSET %d";
+		$items_sql = "SELECT id, email, created_at FROM {$table}{$where} ORDER BY created_at DESC LIMIT %d OFFSET %d";
 		$item_params = array_merge( $params, array( $per_page, $offset ) );
 		$this->items = $wpdb->get_results( $wpdb->prepare( $items_sql, $item_params ), ARRAY_A );
 
 		$columns = $this->get_columns();
-		$this->_column_headers = array( $columns, array(), array(), 'full_name' );
+		$this->_column_headers = array( $columns, array(), array(), 'email' );
 		$this->set_pagination_args(
 			array(
 				'total_items' => $total_items,

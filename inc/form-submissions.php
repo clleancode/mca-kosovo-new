@@ -210,7 +210,7 @@ function render_admin_page() {
 		<form method="get">
 			<input type="hidden" name="page" value="mca-form-submissions" />
 			<?php
-			$table->search_box( __( 'Search by name / last name', 'MCA' ), 'mca-form-submission' );
+			$table->search_box( __( 'Search by email', 'MCA' ), 'mca-form-submission' );
 			$table->display();
 			?>
 		</form>
@@ -232,12 +232,12 @@ function export_csv() {
 
 	$table  = table_name();
 	$search = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : '';
-	$sql    = "SELECT full_name, email, industry, created_at FROM {$table}";
+	$sql    = "SELECT email, created_at FROM {$table}";
 	$params = array();
 
 	if ( '' !== $search ) {
 		$like     = '%' . $wpdb->esc_like( $search ) . '%';
-		$sql     .= ' WHERE full_name LIKE %s';
+		$sql     .= ' WHERE email LIKE %s';
 		$params[] = $like;
 	}
 
@@ -257,18 +257,14 @@ function export_csv() {
 	fwrite( $output, "\xEF\xBB\xBF" );
 
 	fputcsv( $output, array(
-		__( 'Name Surname', 'MCA' ),
 		__( 'Email', 'MCA' ),
-		__( 'Industry', 'MCA' ),
 		__( 'Submitted', 'MCA' ),
 	), ',', '"', '' );
 
 	if ( $rows ) {
 		foreach ( $rows as $row ) {
 			fputcsv( $output, array(
-				csv_text( $row['full_name'] ),
 				csv_text( $row['email'] ),
-				csv_text( $row['industry'] ),
 				$row['created_at'],
 			), ',', '"', '' );
 		}
