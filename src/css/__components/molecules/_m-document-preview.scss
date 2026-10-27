@@ -66,6 +66,10 @@
     min-height: 420px;
     height: 65vh;
     background: #dce0ea;
+
+    iframe {
+        height: 65vh;
+    }
 }
 
 @media (max-width: 767px) {
