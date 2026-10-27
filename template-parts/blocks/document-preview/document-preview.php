@@ -83,12 +83,19 @@ $page_id = wp_unique_id('document-page-');
                 <div class="m-document-preview__stage e-reveal" data-delay="300">
                     <?php if ($is_pdf) : ?>
                         <div
-                            data-document-pdf="<?php echo esc_url($file_url); ?>"
-                            hidden
-                            role="img"
-                            aria-label="<?php echo esc_attr(sprintf(__('Document preview: %s', 'MCA'), get_the_title($id))); ?>"
-                        ><canvas></canvas></div>
-                        <p class="a-text a-text--m" data-document-status role="status">Loading document…</p>
+                            class="m-document-preview__embed"
+                            data-document-embed
+                            data-lenis-prevent
+                            data-lenis-prevent-touch
+                        >
+                            <div
+                                data-document-pdf="<?php echo esc_url($file_url); ?>"
+                                hidden
+                                role="img"
+                                aria-label="<?php echo esc_attr(sprintf(__('Document preview: %s', 'MCA'), get_the_title($id))); ?>"
+                            ></div>
+                            <p class="a-text a-text--m" data-document-status role="status">Loading document…</p>
+                        </div>
                     <?php elseif ($cover) : ?>
                         <div class="m-document-preview__page" data-document-image>
                             <?php echo wp_get_attachment_image($cover, 'large'); ?>

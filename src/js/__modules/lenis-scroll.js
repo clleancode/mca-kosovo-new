@@ -33,6 +33,7 @@ export default function initLenis() {
         lerp: 0.055,
         smoothWheel: true,
         syncTouch: false,
+        allowNestedScroll: true,
         wheelMultiplier: 0.85,
         touchMultiplier: 1.35,
     });
