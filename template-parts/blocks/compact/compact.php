@@ -212,7 +212,7 @@ $allowed_br = ['br' => []];
 
         <?php if ($end) : ?>
             <div
-                class="m-compact__countdown"
+                class="m-compact__countdown e-reveal e-reveal--clip" data-offset="15"
                 data-compact-end="<?php echo esc_attr($end->format(DATE_ATOM)); ?>"
             >
                 <div class="m-compact__countdown-content">

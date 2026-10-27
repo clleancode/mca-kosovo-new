@@ -5,7 +5,7 @@ import SplitType from 'split-type';
 gsap.registerPlugin(ScrollTrigger);
 
 const DESKTOP = '(min-width: 768px)';
-const DEFAULT_OFFSET = { desktop: 30, mobile: 15 };
+const DEFAULT_OFFSET = { desktop: 25, mobile: 15 };
 const FONT_TIMEOUT = 1200;
 const MAX_TEXT_STAGGER = 0.9;
 const TEXT_OFFSET = 15;
@@ -134,8 +134,6 @@ const playText = split => {
     });
 };
 
-// Reveals inside a `[data-e-reveal-sequence]` container that fire together are queued one step apart,
-// in on-screen order, so a grid entering the viewport at once still opens item by item.
 const sequences = new Map();
 const flushSequence = group => {
     const { items, step } = sequences.get(group);
@@ -193,7 +191,6 @@ const scheduleRefresh = () => {
     refreshTimer = setTimeout(() => ScrollTrigger.refresh(), REFRESH_DEBOUNCE);
 };
 
-// Show more, accordions, AJAX filters and late images shift everything below; trigger positions must follow.
 let heightObserver;
 const watchPageHeight = () => {
     if (heightObserver) return;
@@ -207,7 +204,6 @@ const watchPageHeight = () => {
     heightObserver.observe(document.body);
 };
 
-// Collapsed groups and inactive tabs have no layout yet: measuring them would fire the trigger instantly.
 const waiting = new Map();
 let renderObserver;
 const whenRendered = (element, callback) => {

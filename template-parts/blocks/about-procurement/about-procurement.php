@@ -241,13 +241,13 @@ $url = get_permalink($id);
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
-                    <div class="m-about-procurement__card is-contact">
-                        <h2 class="a-heading a-heading--h6 e-reveal e-reveal--text">Questions?</h2>
-                        <p class="a-text a-text--m e-reveal e-reveal--text" data-delay="150">
+                    <div class="m-about-procurement__card is-contact e-reveal">
+                        <h2 class="a-heading a-heading--h6">Questions?</h2>
+                        <p class="a-text a-text--m">
                             <?php echo esc_html($value('ap_contact_intro', 'Contact the MCA Kosovo Procurement Agent.')); ?>
                         </p>
                         <?php if ($email = $value('ap_email', 'MCAKosovoPA@adt-global.com')) : ?>
-                            <div class="m-about-procurement__contact-detail e-reveal" data-delay="300">
+                            <div class="m-about-procurement__contact-detail">
                                 <p class="a-text a-text--xs h-uppercase">Email</p>
                                 <a class="a-text a-text--m" href="<?php echo esc_url('mailto:' . sanitize_email($email)); ?>">
                                     <?php echo esc_html($email); ?>
@@ -255,18 +255,18 @@ $url = get_permalink($id);
                             </div>
                         <?php endif; ?>
                         <?php if ($address = $value('ap_address', 'Migjeni Str. No. 21, 10000 Pristina, Republic of Kosovo')) : ?>
-                            <div class="m-about-procurement__contact-detail e-reveal" data-delay="420">
+                            <div class="m-about-procurement__contact-detail">
                                 <p class="a-text a-text--xs h-uppercase">Address</p>
                                 <p class="a-text a-text--m"><?php echo nl2br(esc_html($address)); ?></p>
                             </div>
                         <?php endif; ?>
                     </div>
-                    <div class="m-about-procurement__card is-share">
-                        <h2 class="a-text a-text--xxl h-semibold e-reveal e-reveal--text">Share this notice</h2>
+                    <div class="m-about-procurement__card is-share e-reveal">
+                        <h2 class="a-text a-text--xxl h-semibold">Share this notice</h2>
                         <div class="m-about-procurement__share s-d-t-xs s-m-t-xs">
-                            <button type="button" class="a-text a-text--m e-reveal" data-delay="150" data-procurement-copy="<?php echo esc_url($url); ?>">Copy link</button>
-                            <a class="a-text a-text--m e-reveal" data-delay="240" href="<?php echo esc_url('https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlencode($url)); ?>" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                            <a class="a-text a-text--m e-reveal" data-delay="330" href="<?php echo esc_url('mailto:?subject=' . rawurlencode(get_the_title($id)) . '&body=' . rawurlencode($url)); ?>">Email</a>
+                            <button type="button" class="a-text a-text--m" data-delay="150" data-procurement-copy="<?php echo esc_url($url); ?>">Copy link</button>
+                            <a class="a-text a-text--m" data-delay="240" href="<?php echo esc_url('https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlencode($url)); ?>" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <a class="a-text a-text--m" data-delay="330" href="<?php echo esc_url('mailto:?subject=' . rawurlencode(get_the_title($id)) . '&body=' . rawurlencode($url)); ?>">Email</a>
                         </div>
                         <span class="a-text a-text--m" data-copy-status role="status"></span>
                     </div>
