@@ -18863,7 +18863,8 @@ button.a-overview-link[data-news-category] {
 }
 
 .m-publications-banner__actions > a,
-.m-publications-banner__share > summary {
+.m-publications-banner__share > summary,
+.m-publications-banner__share > div > a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -18873,6 +18874,7 @@ button.a-overview-link[data-news-category] {
   border-radius: 99px;
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .m-publications-banner__actions > a {
@@ -18917,7 +18919,21 @@ button.a-overview-link[data-news-category] {
   }
 }
 
-.m-publications-banner__share > summary {
+.m-publications-banner__share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.m-publications-banner__share > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.m-publications-banner__share > summary,
+.m-publications-banner__share > div > a {
   background: transparent;
   color: var(--white);
   position: relative;
@@ -18926,7 +18942,8 @@ button.a-overview-link[data-news-category] {
   border: 1px solid var(--white);
   transition: color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), scale var(--duration-fast) var(--ease-out);
 }
-.m-publications-banner__share > summary::after {
+.m-publications-banner__share > summary::after,
+.m-publications-banner__share > div > a::after {
   content: "";
   position: absolute;
   inset: -1px;
@@ -18938,15 +18955,20 @@ button.a-overview-link[data-news-category] {
   transition: transform 0.4s var(--ease-out);
   border-radius: inherit;
 }
-.m-publications-banner__share > summary:not(:disabled):not([aria-disabled=true]):active {
+.m-publications-banner__share > summary:not(:disabled):not([aria-disabled=true]):active,
+.m-publications-banner__share > div > a:not(:disabled):not([aria-disabled=true]):active {
   scale: 0.97;
 }
 @media (hover: hover) {
-  .m-publications-banner__share > summary:not(:disabled):not([aria-disabled=true]):hover, .m-publications-banner__share > summary:not(:disabled):not([aria-disabled=true]):focus-visible {
+  .m-publications-banner__share > summary:not(:disabled):not([aria-disabled=true]):hover, .m-publications-banner__share > summary:not(:disabled):not([aria-disabled=true]):focus-visible,
+  .m-publications-banner__share > div > a:not(:disabled):not([aria-disabled=true]):hover,
+  .m-publications-banner__share > div > a:not(:disabled):not([aria-disabled=true]):focus-visible {
     color: var(--dark-blue);
     border-color: var(--dark-blue);
   }
-  .m-publications-banner__share > summary:not(:disabled):not([aria-disabled=true]):hover::after, .m-publications-banner__share > summary:not(:disabled):not([aria-disabled=true]):focus-visible::after {
+  .m-publications-banner__share > summary:not(:disabled):not([aria-disabled=true]):hover::after, .m-publications-banner__share > summary:not(:disabled):not([aria-disabled=true]):focus-visible::after,
+  .m-publications-banner__share > div > a:not(:disabled):not([aria-disabled=true]):hover::after,
+  .m-publications-banner__share > div > a:not(:disabled):not([aria-disabled=true]):focus-visible::after {
     transform: scaleX(1);
   }
 }
