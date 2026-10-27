@@ -1,5 +1,5 @@
 import eReveal from './e-reveal';
-import { scrollToTarget } from './lenis-scroll';
+import { getLenis, scrollToTarget } from './lenis-scroll';
 
 const overview = () => {
     document.querySelectorAll('[data-overview]').forEach(section => {
@@ -135,21 +135,29 @@ const overview = () => {
             loadNews();
         });
         newsSort?.addEventListener('change', loadNews);
+        const normalizePath = path => path.replace(/\/$/, '') || '/';
         const entries = [...section.querySelectorAll('a[data-overview-link]')].map(link => {
             const url = new URL(link.href, location.href);
-            if (url.origin !== location.origin || url.pathname !== location.pathname || !url.hash) return null;
+            if (url.origin !== location.origin || normalizePath(url.pathname) !== normalizePath(location.pathname) || !url.hash) return null;
             let target;
-            try { target = document.getElementById(decodeURIComponent(url.hash.slice(1))); } catch { return null; }
+            try {
+                const id = decodeURIComponent(url.hash.slice(1));
+                target = document.getElementById(id) || document.querySelector(`#${CSS.escape(id)}`);
+            } catch { return null; }
             return target ? { link, target } : null;
         }).filter(Boolean);
         if (!entries.length) return;
+        entries.sort((a, b) => {
+            const top = element => element.getBoundingClientRect().top + window.scrollY;
+            return top(a.target) - top(b.target);
+        });
         const offset = () => Math.max(0, document.querySelector('.o-header')?.getBoundingClientRect().bottom ?? 0)
             + (bar?.getBoundingClientRect().height ?? 0) + 16;
         const activate = selected => {
             if (currentLabel) currentLabel.textContent = selected.textContent.trim();
             entries.forEach(({ link }) => {
-            if (link === selected) link.setAttribute('aria-current', 'location');
-            else link.removeAttribute('aria-current');
+                if (link === selected) link.setAttribute('aria-current', 'location');
+                else link.removeAttribute('aria-current');
             });
         };
         entries.forEach(({ link, target }) => link.addEventListener('click', event => {
@@ -158,7 +166,34 @@ const overview = () => {
             scrollToTarget(target, { offset: -offset() });
             activate(link);
         }));
-        activate(entries[0].link);
+
+        let scrollScheduled = false;
+        const updateActiveFromScroll = () => {
+            scrollScheduled = false;
+            const line = offset();
+            const scrollY = getLenis()?.scroll ?? window.scrollY;
+            const atPageEnd = scrollY + window.innerHeight >= document.documentElement.scrollHeight - 8;
+
+            if (atPageEnd) {
+                activate(entries[entries.length - 1].link);
+                return;
+            }
+
+            let current = entries[0];
+            for (const entry of entries) {
+                if (entry.target.getBoundingClientRect().top <= line + 4) current = entry;
+            }
+            activate(current.link);
+        };
+        const scheduleActiveFromScroll = () => {
+            if (scrollScheduled) return;
+            scrollScheduled = true;
+            requestAnimationFrame(updateActiveFromScroll);
+        };
+        window.addEventListener('scroll', scheduleActiveFromScroll, { passive: true });
+        window.addEventListener('resize', scheduleActiveFromScroll);
+        getLenis()?.on('scroll', scheduleActiveFromScroll);
+        scheduleActiveFromScroll();
     });
 };
 export default overview;
