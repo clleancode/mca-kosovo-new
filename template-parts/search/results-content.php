@@ -52,7 +52,7 @@ if (!$query instanceof WP_Query) {
                 ? __('Notice', 'mca-kosovo')
                 : ($is_attachment && $mime_type === 'application/pdf' ? __('PDF', 'mca-kosovo') : $type_label);
             ?>
-            <article class="m-search-results__item">
+            <article class="m-search-results__item e-reveal" data-delay="150">
                 <a class="m-search-results__item-link" href="<?php echo esc_url($result_url); ?>">
                     <span class="m-search-results__media">
                         <?php if (has_post_thumbnail($result_id)) : ?>
@@ -76,7 +76,7 @@ if (!$query instanceof WP_Query) {
     </div>
 
     <?php if ($query->max_num_pages > 1) : ?>
-        <nav class="m-search-results__pagination" aria-label="<?php esc_attr_e('Search results pages', 'mca-kosovo'); ?>">
+        <nav class="m-search-results__pagination e-reveal" aria-label="<?php esc_attr_e('Search results pages', 'mca-kosovo'); ?>">
             <ul>
                 <?php if ($page > 1) : ?>
                     <?php $previous_url = add_query_arg(['s' => $term, 'search_type' => $type, 'paged' => $page - 1], home_url('/')); ?>
@@ -100,5 +100,5 @@ if (!$query instanceof WP_Query) {
         </nav>
     <?php endif; ?>
 <?php else : ?>
-    <p class="a-text a-text--m"><?php esc_html_e('No results found. Please try a different search.', 'mca-kosovo'); ?></p>
+    <p class="a-text a-text--m e-reveal e-reveal--text"><?php esc_html_e('No results found. Please try a different search.', 'mca-kosovo'); ?></p>
 <?php endif; ?>

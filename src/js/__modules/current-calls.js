@@ -1,3 +1,5 @@
+import eReveal from './e-reveal';
+
 const currentCalls = () => {
     const section = document.querySelector('[data-current-calls]');
 
@@ -35,6 +37,7 @@ const currentCalls = () => {
             }
 
             section.innerHTML = updated.innerHTML;
+            eReveal();
 
             if (updateHistory) {
                 window.history.pushState({}, '', url);

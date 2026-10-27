@@ -4,7 +4,7 @@
     width: 100%;
     position: fixed;
     transform: translateY(20px);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out);
     color: var(--dark-blue);
     
     .container {display: block;}

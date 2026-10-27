@@ -57,11 +57,11 @@ $page_id = wp_unique_id('document-page-');
         <div class="m-document-preview" data-document-preview>
             <div class="m-document-preview__viewer">
                 <div class="m-document-preview__toolbar">
-                    <h2 class="a-text a-text--m h-semibold">
+                    <h2 class="a-text a-text--m h-semibold e-reveal e-reveal--text">
                         <?php echo esc_html(get_field('dp_title') ?: __('Document preview', 'MCA')); ?>
                     </h2>
                     <?php if ($is_pdf || $cover) : ?>
-                        <div class="m-document-preview__controls">
+                        <div class="m-document-preview__controls e-reveal" data-delay="200">
                             <button type="button" data-document-zoom="-1" aria-label="Zoom out">−</button>
                             <output class="a-text a-text--m h-semibold" data-document-scale aria-live="polite">100%</output>
                             <button type="button" data-document-zoom="1" aria-label="Zoom in">+</button>
@@ -80,7 +80,7 @@ $page_id = wp_unique_id('document-page-');
                         </div>
                     <?php endif; ?>
                 </div>
-                <div class="m-document-preview__stage">
+                <div class="m-document-preview__stage e-reveal" data-delay="300">
                     <?php if ($is_pdf) : ?>
                         <div
                             data-document-pdf="<?php echo esc_url($file_url); ?>"
@@ -100,27 +100,29 @@ $page_id = wp_unique_id('document-page-');
             </div>
             <aside class="m-document-preview__aside">
                 <div class="m-document-preview__details">
-                    <h2 class="a-heading a-heading--h6 h-semibold"><?php esc_html_e('Details', 'MCA'); ?></h2>
+                    <h2 class="a-heading a-heading--h6 h-semibold e-reveal e-reveal--text" data-delay="150"><?php esc_html_e('Details', 'MCA'); ?></h2>
                     <dl>
                         <?php
+                        $detail_index = 0;
                         foreach ($details as $label => $value) :
                             if (!$value) {
                                 continue;
                             }
                             ?>
-                            <div>
+                            <div class="e-reveal" data-delay="<?php echo esc_attr(300 + $detail_index * 100); ?>">
                                 <dt class="a-text a-text--m h-semibold"><?php echo esc_html($label); ?></dt>
                                 <dd class="a-text a-text--m h-semibold"><?php echo esc_html($value); ?></dd>
                             </div>
+                            <?php $detail_index++; ?>
                         <?php endforeach; ?>
                     </dl>
                 </div>
                 <?php if ($email) : ?>
                     <div class="m-document-preview__contact">
-                        <h2 class="a-text a-text--xxl h-semibold">
+                        <h2 class="a-text a-text--xxl h-semibold e-reveal e-reveal--text">
                             <?php echo esc_html(get_field('dp_contact_title') ?: __('Questions about this document?', 'MCA')); ?>
                         </h2>
-                        <p class="a-text a-text--m">
+                        <p class="a-text a-text--m e-reveal e-reveal--text" data-delay="250">
                             Contact <a href="<?php echo esc_url('mailto:' . $email); ?>"><?php echo esc_html($email); ?></a>
                         </p>
                     </div>

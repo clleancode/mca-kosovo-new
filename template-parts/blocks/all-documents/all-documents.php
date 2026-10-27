@@ -147,11 +147,11 @@ $base = remove_query_arg($page_key);
     <div class="container">
         <div class="m-all-documents">
             <div class="m-all-documents__header s-d-b-xs s-m-b-xs">
-                <h2 class="a-heading a-heading--h4 h-dark-blue">
+                <h2 class="a-heading a-heading--h4 h-dark-blue e-reveal e-reveal--text">
                     <?php echo esc_html(get_field('all_documents_title') ?: ($related ? 'Related documents' : 'All documents')); ?>
                 </h2>
                 <?php if (!$related): ?>
-                <label class="a-text a-text--m h-semibold">
+                <label class="a-text a-text--m h-semibold e-reveal" data-delay="150">
                     Sort:
                     <select class="a-text a-text--m h-semibold" data-documents-sort aria-label="Sort documents">
                         <option value="newest"<?php selected($sort, 'newest'); ?>>Newest first</option>
@@ -162,9 +162,11 @@ $base = remove_query_arg($page_key);
             </div>
             <?php if (!$related): ?>
             <nav class="m-all-documents__filters" aria-label="Document filters">
+                <?php $filter_index = 0; ?>
                 <?php foreach ($filters as $value => $label) : ?>
                     <a
-                        class="a-text a-text--m h-semibold"
+                        class="a-text a-text--m h-semibold e-reveal"
+                        data-delay="<?php echo esc_attr(250 + min($filter_index++, 10) * 80); ?>"
                         href="<?php echo esc_url(add_query_arg($filter_key, $value, $base)); ?>"
                         data-document-filter="<?php echo esc_attr($value); ?>"
                         <?php if ($selected === $value) : ?>
@@ -178,12 +180,17 @@ $base = remove_query_arg($page_key);
             <?php endif; ?>
             <div class="m-all-documents__results" aria-live="polite">
                 <div class="m-all-documents__grid">
-                    <?php foreach ($query->posts as $publication) :
+                    <?php
+                    $document_index = 0;
+
+                    foreach ($query->posts as $publication) :
                         $file = get_field('publication_pdf', $publication->ID) ?: [];
 
                         if (empty($file['url'])) {
                             continue;
                         }
+
+                        $document_delay = 150 + ($document_index++ % 4) * 120;
 
                         $extension         = strtolower(pathinfo(parse_url($file['url'], PHP_URL_PATH) ?: '', PATHINFO_EXTENSION));
                         $spreadsheet       = in_array($extension, ['xls', 'xlsx'], true);
@@ -197,7 +204,7 @@ $base = remove_query_arg($page_key);
                             ? (['policies' => 'pink', 'board-records' => 'purple', 'legal-framework' => 'navy'][$term->slug] ?? 'blue')
                             : 'blue';
                         ?>
-                        <article class="m-all-documents__card m-all-documents__card--<?php echo esc_attr($tone); ?>" data-document-id="<?php echo esc_attr($publication->ID); ?>">
+                        <article class="m-all-documents__card m-all-documents__card--<?php echo esc_attr($tone); ?> e-reveal" data-delay="<?php echo esc_attr($document_delay); ?>" data-document-id="<?php echo esc_attr($publication->ID); ?>">
                             <div class="m-all-documents__card-top">
                                 <div class="m-all-documents__icon">
                                     <svg width="52" height="64" viewBox="0 0 52 64" role="img" aria-label="<?php echo esc_attr($file_type); ?>">
@@ -233,11 +240,11 @@ $base = remove_query_arg($page_key);
                 </div>
                 <?php if (!$query->posts) : ?>
                     <div class="m-all-documents__empty">
-                        <p class="a-text a-text--l">No documents found for this filter.</p>
+                        <p class="a-text a-text--l e-reveal e-reveal--text">No documents found for this filter.</p>
                     </div>
                 <?php endif; ?>
                 <?php if (!$related): ?>
-                <div class="m-all-documents__more s-d-t-s s-m-t-xs">
+                <div class="m-all-documents__more s-d-t-s s-m-t-xs e-reveal" data-delay="200">
                     <?php if ($paged < $query->max_num_pages) : ?>
                         <a class="a-btn a-btn--border-blue" href="<?php echo esc_url(add_query_arg([$filter_key => $selected, $sort_key => $sort, $page_key => $paged + 1], $base)); ?>" data-documents-more>
                             <span><?php echo esc_html(get_field('all_documents_more_label') ?: 'Load more documents'); ?></span>

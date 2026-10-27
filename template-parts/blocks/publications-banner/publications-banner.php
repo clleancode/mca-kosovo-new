@@ -44,7 +44,7 @@ $url         = get_permalink($id);
 >
     <div class="container">
         <div class="m-publications-banner">
-            <div class="m-publications-banner__cover">
+            <div class="m-publications-banner__cover e-reveal e-reveal--image" data-offset="0">
                 <?php
                 if ($cover) {
                     echo wp_get_attachment_image($cover, 'large', false, ['loading' => 'eager']);
@@ -53,7 +53,7 @@ $url         = get_permalink($id);
             </div>
             <div class="m-publications-banner__content">
                 <?php if ($back_url) : ?>
-                    <div class="m-publications-banner__back">
+                    <div class="m-publications-banner__back e-reveal" data-offset="0" data-delay="150">
                         <a class="a-text a-text--m h-semibold" href="<?php echo esc_url($back_url); ?>">
                             <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/left-arrow.svg')); ?>" alt="" aria-hidden="true">
                             <?php echo esc_html($back['title'] ?? __('All resources', 'MCA')); ?>
@@ -61,27 +61,29 @@ $url         = get_permalink($id);
                     </div>
                 <?php endif; ?>
                 <div class="m-publications-banner__meta">
-                    <?php foreach ($terms as $term) : ?>
-                        <span class="a-text a-text--xs h-semibold"><?php echo esc_html($term->name); ?></span>
+                    <?php foreach ($terms as $term_index => $term) : ?>
+                        <span class="a-text a-text--xs h-semibold e-reveal" data-offset="0" data-delay="<?php echo esc_attr(250 + $term_index * 80); ?>"><?php echo esc_html($term->name); ?></span>
                     <?php endforeach; ?>
                     <?php if ($project) : ?>
-                        <span class="a-text a-text--xs h-semibold is-project"><?php echo esc_html(get_the_title($project)); ?></span>
+                        <span class="a-text a-text--xs h-semibold is-project e-reveal" data-offset="0" data-delay="<?php echo esc_attr(250 + count($terms) * 80); ?>"><?php echo esc_html(get_the_title($project)); ?></span>
                     <?php endif; ?>
-                    <time class="a-text a-text--xs h-semibold" datetime="<?php echo esc_attr(get_the_date('c', $id)); ?>">
+                    <time class="a-text a-text--xs h-semibold e-reveal e-reveal--text" data-offset="0" data-delay="<?php echo esc_attr(250 + (count($terms) + ($project ? 1 : 0)) * 80); ?>" datetime="<?php echo esc_attr(get_the_date('c', $id)); ?>">
                         <?php echo esc_html(get_the_date('j M Y', $id)); ?>
                     </time>
                     <?php if (!empty($pdf['url'])) : ?>
-                        <span class="a-text a-text--xs is-format">PDF</span>
+                        <span class="a-text a-text--xs is-format e-reveal" data-offset="0" data-delay="<?php echo esc_attr(330 + (count($terms) + ($project ? 1 : 0)) * 80); ?>">PDF</span>
                     <?php endif; ?>
                 </div>
-                <h1 class="a-heading a-heading--h3 h-white"><?php echo esc_html($title); ?></h1>
+                <h1 class="a-heading a-heading--h3 h-white e-reveal e-reveal--text" data-offset="0" data-delay="400"><?php echo esc_html($title); ?></h1>
                 <?php if ($description) : ?>
-                    <p class="a-text a-text--xl h-white"><?php echo nl2br(esc_html($description)); ?></p>
+                    <p class="a-text a-text--xl h-white e-reveal e-reveal--text" data-offset="0" data-delay="600"><?php echo nl2br(esc_html($description)); ?></p>
                 <?php endif; ?>
                 <div class="m-publications-banner__actions">
                     <?php if (!empty($pdf['url'])) : ?>
                         <a
-                            class="a-text a-text--m h-semibold"
+                            class="a-text a-text--m h-semibold e-reveal"
+                            data-offset="0"
+                            data-delay="750"
                             href="<?php echo esc_url($pdf['url']); ?>"
                             download
                         >
@@ -93,7 +95,7 @@ $url         = get_permalink($id);
                             >
                         </a>
                     <?php endif; ?>
-                    <details class="m-publications-banner__share">
+                    <details class="m-publications-banner__share e-reveal" data-offset="0" data-delay="850">
                         <summary class="a-text a-text--m">Share</summary>
                         <div>
                             <a

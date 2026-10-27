@@ -52,7 +52,7 @@ $links = [
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
 >
     <?php if ($image) : ?>
-        <div class="m-projects-hero__image">
+        <div class="m-projects-hero__image" data-parallax>
             <?php echo wp_get_attachment_image($image, 'full', false, ['loading' => 'eager', 'fetchpriority' => 'high', 'decoding' => 'async']); ?>
         </div>
     <?php endif; ?>
@@ -61,8 +61,8 @@ $links = [
         <div class="m-projects-hero__content">
             <nav class="h-breadcrumbs s-d-b-s s-m-b-xs" aria-label="Breadcrumb">
                 <ol>
-                    <?php foreach ($breadcrumbs as $breadcrumb) : ?>
-                        <li>
+                    <?php foreach ($breadcrumbs as $crumb_index => $breadcrumb) : ?>
+                        <li class="e-reveal" data-offset="0" data-delay="<?php echo esc_attr($crumb_index * 60); ?>">
                             <?php if (!empty($breadcrumb['url'])) : ?>
                                 <a class="a-text a-text--xs" href="<?php echo esc_url($breadcrumb['url']); ?>"><?php echo esc_html($breadcrumb['title']); ?></a>
                             <?php else : ?>
@@ -74,18 +74,18 @@ $links = [
             </nav>
 
             <?php if ($label) : ?>
-                <div class="m-projects-hero__label">
+                <div class="m-projects-hero__label e-reveal" data-offset="0" data-delay="80">
                     <span class="a-text a-text--xs h-semibold"><?php echo esc_html($label); ?></span>
                 </div>
             <?php endif; ?>
 
-            <<?php echo tag_escape($tag); ?> class="s-d-b-s s-d-t-s s-m-b-xs s-m-t-xs a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+            <<?php echo tag_escape($tag); ?> class="s-d-b-s s-d-t-s s-m-b-xs s-m-t-xs a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-offset="0" data-delay="150">
                 <?php echo nl2br(esc_html($title)); ?>
             </<?php echo tag_escape($tag); ?>>
 
             <?php if ($description) : ?>
                 <div class="m-projects-hero__description s-d-b-s s-m-b-xs">
-                    <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                    <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-offset="0" data-delay="380">
                         <?php echo nl2br(esc_html($description)); ?>
                     </p>
                 </div>
@@ -101,7 +101,9 @@ $links = [
                     $target = $link['target'] ?? '';
                     ?>
                     <a
-                        class="h-semibold a-projects-hero-button a-projects-hero-button--<?php echo esc_attr($type); ?> a-text a-text--m"
+                        class="h-semibold a-projects-hero-button a-projects-hero-button--<?php echo esc_attr($type); ?> a-text a-text--m e-reveal"
+                        data-offset="0"
+                        data-delay="<?php echo esc_attr($type === 'primary' ? 480 : 580); ?>"
                         href="<?php echo esc_url($link['url']); ?>"
                         target="<?php echo esc_attr($target); ?>"
                         <?php if ($target === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>
@@ -114,9 +116,9 @@ $links = [
 
         <?php if ($statistics) : ?>
             <div class="m-projects-hero__statistics s-d-t-s s-m-t-xs">
-                <span class="m-projects-hero__divider" aria-hidden="true"></span>
-                <?php foreach ($statistics as $statistic) : ?>
-                    <div class="m-projects-hero__statistic">
+                <span class="m-projects-hero__divider e-reveal e-reveal--clip" data-offset="0" data-delay="560" aria-hidden="true"></span>
+                <?php foreach ($statistics as $stat_index => $statistic) : ?>
+                    <div class="m-projects-hero__statistic e-reveal" data-offset="0" data-delay="<?php echo esc_attr(680 + $stat_index * 120); ?>">
                         <div class="m-projects-hero__value">
                             <span class="a-heading a-heading--h3 h-white"><?php echo esc_html($statistic['value'] ?? ''); ?></span>
                             <?php if (!empty($statistic['unit'])) : ?>

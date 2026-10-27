@@ -259,6 +259,16 @@
     outline-offset: 2px;
 }
 
+.m-application__field input,
+.m-application__field textarea,
+.m-application__field select {
+    transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.m-application__field .wpcf7-not-valid {
+    border-color: #b42318;
+}
+
 @media (min-width: 600px) {
     .m-application__row {
         grid-template-columns: repeat(2, minmax(0, 1fr));

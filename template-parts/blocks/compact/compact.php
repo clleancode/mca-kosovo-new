@@ -145,16 +145,16 @@ $allowed_br = ['br' => []];
 
         <?php if (get_field('compact_total')) : ?>
             <div class="m-compact__funding s-d-t-s s-m-t-xs s-d-b-l s-m-b-s">
-                <div class="m-compact__funding-labels s-d-b-s s-m-b-xs e-reveal">
+                <div class="m-compact__funding-labels s-d-b-s s-m-b-xs">
                     <div class="m-compact__funding-total">
-                        <p class="a-text a-text--xs h-semibold">Total Compact investment</p>
-                        <p class="a-heading a-heading--h4 h-semibold">
+                        <p class="a-text a-text--xs h-semibold e-reveal e-reveal--text">Total Compact investment</p>
+                        <p class="a-heading a-heading--h4 h-semibold e-reveal e-reveal--text" data-delay="100">
                             <?php echo esc_html(get_field('compact_total')); ?>
                         </p>
                     </div>
 
                     <div class="m-compact__funding-donors">
-                        <div class="m-compact__donor m-compact__donor--us">
+                        <div class="m-compact__donor m-compact__donor--us e-reveal" data-delay="250">
                             <p class="a-text a-text--xs h-semibold">United States</p>
                             <div>
                                 <span class="a-heading a-heading--h6 h-medium">
@@ -166,7 +166,7 @@ $allowed_br = ['br' => []];
                             </div>
                         </div>
 
-                        <div class="m-compact__donor m-compact__donor--kosovo">
+                        <div class="m-compact__donor m-compact__donor--kosovo e-reveal" data-delay="370">
                             <p class="a-text a-text--xs h-semibold">Kosovo</p>
                             <div>
                                 <span class="a-heading a-heading--h6 h-medium">
@@ -212,19 +212,19 @@ $allowed_br = ['br' => []];
 
         <?php if ($end) : ?>
             <div
-                class="m-compact__countdown e-reveal"
+                class="m-compact__countdown"
                 data-compact-end="<?php echo esc_attr($end->format(DATE_ATOM)); ?>"
             >
                 <div class="m-compact__countdown-content">
-                    <p class="a-text a-text--xs a-compact__live h-semibold s-d-b-xs s-m-b-xs">Compact countdown · Live</p>
-                    <h3 class="a-text a-text--xxl">
+                    <p class="a-text a-text--xs a-compact__live h-semibold s-d-b-xs s-m-b-xs e-reveal e-reveal--text">Compact countdown · Live</p>
+                    <h3 class="a-text a-text--xxl e-reveal e-reveal--text" data-delay="100">
                         <?php echo esc_html(get_field('compact_countdown_title')); ?>
                     </h3>
                 </div>
 
                 <div class="m-compact__clock" role="timer" aria-label="Time remaining until Compact completion">
-                    <?php foreach (['years', 'months', 'days', 'hours', 'minutes', 'seconds'] as $unit) : ?>
-                        <div class="m-compact__time">
+                    <?php foreach (['years', 'months', 'days', 'hours', 'minutes', 'seconds'] as $unit_index => $unit) : ?>
+                        <div class="m-compact__time e-reveal" data-delay="<?php echo esc_attr(250 + $unit_index * 100); ?>">
                             <span class="a-heading a-heading--h3" data-compact-unit="<?php echo esc_attr($unit); ?>">00</span>
                             <span class="a-text a-text--xs"><?php echo esc_html(ucfirst($unit)); ?></span>
                         </div>

@@ -75,6 +75,20 @@ add_filter('script_loader_tag', function($tag, $handle) {
     return $tag;
 }, 10, 2);
 
+// Scroll reveals hide content only under `has-js`; if the main bundle never starts, the class is removed again.
+add_action('wp_head', function () {
+    ?>
+    <script>
+    (function (root) {
+      root.classList.add('has-js');
+      setTimeout(function () {
+        if (!root.classList.contains('is-reveal-ready')) root.classList.remove('has-js');
+      }, 4000);
+    })(document.documentElement);
+    </script>
+    <?php
+}, 1);
+
 add_action('wp_head', function () {
     ?>
     <script>

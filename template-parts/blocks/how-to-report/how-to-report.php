@@ -43,24 +43,24 @@ $section_title = get_field('how_to_report_title');
         <div class="m-how-to-report">
             <?php if ($section_title) : ?>
                 <div class="m-how-to-report__heading">
-                    <h2 class="a-heading a-heading--h4"><?php echo esc_html($section_title); ?></h2>
+                    <h2 class="a-heading a-heading--h4 e-reveal e-reveal--text"><?php echo esc_html($section_title); ?></h2>
                 </div>
             <?php endif; ?>
 
             <div class="m-how-to-report__main-grid">
                 <article class="m-how-to-report__card m-how-to-report__card--mcc">
                     <?php if (get_field('how_to_report_mcc_label')) : ?>
-                        <div class="m-how-to-report__eyebrow">
+                        <div class="m-how-to-report__eyebrow e-reveal">
                             <span class="m-how-to-report__eyebrow-number"><span class="a-text a-text--m">01</span></span>
                             <span class="a-text a-text--s"><?php echo esc_html(get_field('how_to_report_mcc_label')); ?></span>
                         </div>
                     <?php endif; ?>
-                    <?php if ($value = get_field('how_to_report_mcc_title')) : ?><h3 class="a-heading a-heading--h5"><?php echo nl2br(esc_html($value)); ?></h3><?php endif; ?>
-                    <?php if ($value = get_field('how_to_report_mcc_description')) : ?><p class="a-text a-text--l"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
+                    <?php if ($value = get_field('how_to_report_mcc_title')) : ?><h3 class="a-heading a-heading--h5 e-reveal e-reveal--text" data-delay="100"><?php echo nl2br(esc_html($value)); ?></h3><?php endif; ?>
+                    <?php if ($value = get_field('how_to_report_mcc_description')) : ?><p class="a-text a-text--l e-reveal e-reveal--text" data-delay="350"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
 
                     <?php if ($contacts) : ?>
                         <div class="m-how-to-report__contacts">
-                            <?php foreach ($contacts as $contact) : ?>
+                            <?php foreach ($contacts as $contact_index => $contact) : ?>
                                 <?php
                                 $contact_label  = strtolower(trim((string) ($contact['label'] ?? '')));
                                 $contact_value  = trim((string) ($contact['value'] ?? ''));
@@ -86,7 +86,7 @@ $section_title = get_field('how_to_report_title');
                                     $contact_url = $contact_link['url'];
                                 }
                                 ?>
-                                <div class="m-how-to-report__contact">
+                                <div class="m-how-to-report__contact e-reveal" data-delay="<?php echo esc_attr(500 + $contact_index * 100); ?>">
                                     <div class="m-how-to-report__contact-copy">
                                         <?php if (!empty($contact['label'])) : ?><span class="a-text a-text--xs"><?php echo esc_html($contact['label']); ?></span><?php endif; ?>
                                         <?php if ($contact_value && $contact_url) : ?>
@@ -108,18 +108,18 @@ $section_title = get_field('how_to_report_title');
 
                 <article class="m-how-to-report__card m-how-to-report__card--oig">
                     <?php if (get_field('how_to_report_oig_label')) : ?>
-                        <div class="m-how-to-report__eyebrow">
+                        <div class="m-how-to-report__eyebrow e-reveal" data-delay="150">
                             <span class="m-how-to-report__eyebrow-number"><span class="a-text a-text--m">02</span></span>
                             <span class="a-text a-text--s"><?php echo esc_html(get_field('how_to_report_oig_label')); ?></span>
                         </div>
                     <?php endif; ?>
-                    <?php if ($value = get_field('how_to_report_oig_title')) : ?><h3 class="a-heading a-heading--h5"><?php echo nl2br(esc_html($value)); ?></h3><?php endif; ?>
-                    <?php if ($value = get_field('how_to_report_oig_description')) : ?><p class="a-text a-text--l"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
+                    <?php if ($value = get_field('how_to_report_oig_title')) : ?><h3 class="a-heading a-heading--h5 e-reveal e-reveal--text" data-delay="250"><?php echo nl2br(esc_html($value)); ?></h3><?php endif; ?>
+                    <?php if ($value = get_field('how_to_report_oig_description')) : ?><p class="a-text a-text--l e-reveal e-reveal--text" data-delay="500"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
 
                     <?php if ($steps) : ?>
                         <ol class="m-how-to-report__steps">
                             <?php foreach ($steps as $index => $step) : ?>
-                                <li>
+                                <li class="e-reveal" data-delay="<?php echo esc_attr(150 + $index * 100); ?>">
                                     <span class="m-how-to-report__step-number"><span class="a-text a-text--s"><?php echo esc_html($index + 1); ?></span></span>
                                     <span class="a-text a-text--l"><?php echo esc_html($step['text']); ?></span>
                                 </li>
@@ -127,12 +127,12 @@ $section_title = get_field('how_to_report_title');
                         </ol>
                     <?php endif; ?>
 
-                    <?php if ($value = get_field('how_to_report_oig_note')) : ?><p class="a-text a-text--l"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
+                    <?php if ($value = get_field('how_to_report_oig_note')) : ?><p class="a-text a-text--l e-reveal e-reveal--text"><?php echo nl2br(esc_html($value)); ?></p><?php endif; ?>
 
                     <?php if ($options) : ?>
                         <div class="m-how-to-report__options">
-                            <?php foreach ($options as $row) : $link = $row['link']; ?>
-                                <span class="m-how-to-report__option">
+                            <?php foreach ($options as $option_index => $row) : $link = $row['link']; ?>
+                                <span class="m-how-to-report__option e-reveal" data-delay="<?php echo esc_attr(150 + $option_index * 80); ?>">
                                     <a class="a-text a-text--m" href="<?php echo esc_url($link['url']); ?>" target="<?php echo esc_attr($link['target'] ?? '_self'); ?>" <?php if (($link['target'] ?? '') === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($link['title']); ?></a>
                                 </span>
                             <?php endforeach; ?>
@@ -141,7 +141,7 @@ $section_title = get_field('how_to_report_title');
 
                     <?php $cta = get_field('how_to_report_oig_cta'); ?>
                     <?php if (!empty($cta['url']) && !empty($cta['title'])) : ?>
-                        <div class="m-how-to-report__cta">
+                        <div class="m-how-to-report__cta e-reveal" data-delay="300">
                             <a class="a-text a-text--m h-semibold" href="<?php echo esc_url($cta['url']); ?>" target="<?php echo esc_attr($cta['target'] ?? '_self'); ?>" <?php if (($cta['target'] ?? '') === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>>
                                 <span><?php echo esc_html($cta['title']); ?></span>
                                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
@@ -154,7 +154,7 @@ $section_title = get_field('how_to_report_title');
             <div class="m-how-to-report__footer-grid">
                 <?php $anonymous_title = get_field('how_to_report_anonymous_title'); $anonymous_description = get_field('how_to_report_anonymous_description'); ?>
                 <?php if ($anonymous_title || $anonymous_description) : ?>
-                    <aside class="m-how-to-report__anonymous">
+                    <aside class="m-how-to-report__anonymous e-reveal" data-delay="150">
                         <span class="m-how-to-report__alert-icon"><span class="a-text a-text--xxl">!</span></span>
                         <div>
                             <?php if ($anonymous_title) : ?><h3 class="a-heading a-heading--h6"><?php echo esc_html($anonymous_title); ?></h3><?php endif; ?>
@@ -163,9 +163,9 @@ $section_title = get_field('how_to_report_title');
                     </aside>
                 <?php endif; ?>
 
-                <?php foreach ($resources as $resource) : ?>
+                <?php foreach ($resources as $resource_index => $resource) : ?>
                     <?php $pdf = $resource['pdf'] ?? []; $link = $resource['link'] ?? []; ?>
-                    <article class="m-how-to-report__resource">
+                    <article class="m-how-to-report__resource e-reveal" data-delay="<?php echo esc_attr(150 + (($resource_index + ($anonymous_title || $anonymous_description ? 1 : 0)) % 3) * 120); ?>">
                         <?php if (!empty($pdf['url'])) : ?>
                             <a class="m-how-to-report__resource-download" href="<?php echo esc_url($pdf['url']); ?>" download aria-label="<?php echo esc_attr($resource['title'] ?? ''); ?>"></a>
                         <?php endif; ?>

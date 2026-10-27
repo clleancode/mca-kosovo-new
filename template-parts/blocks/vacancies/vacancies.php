@@ -105,7 +105,7 @@ $get_job_state = static function ($job_id) {
 $render_cards = static function ($jobs, $state) use ($get_job_state) {
     ?>
     <div class="m-vacancies__grid">
-        <?php foreach ($jobs as $job) : ?>
+        <?php foreach (array_values($jobs) as $job_index => $job) : ?>
             <?php
             $deadline   = Notices\get_deadline($job->ID);
             $card_state = $state;
@@ -117,7 +117,7 @@ $render_cards = static function ($jobs, $state) use ($get_job_state) {
             $tone       = in_array($tone, ['blue', 'purple', 'green'], true) ? $tone : 'blue';
             $url        = get_permalink($job);
             ?>
-            <article class="m-vacancies__card">
+            <article class="m-vacancies__card e-reveal" data-delay="<?php echo esc_attr(150 + ($job_index % 3) * 120); ?>">
                 <div class="m-vacancies__card-top">
                     <div class="m-vacancies__meta">
                         <div class="m-vacancies__status m-vacancies__status--<?php echo esc_attr($card_state); ?>">
@@ -184,12 +184,12 @@ if ($archive_search) {
         <div class="m-vacancies">
 
             <div class="m-vacancies__header">
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?>">
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> e-reveal e-reveal--text">
                     <?php echo esc_html(get_field('vacancies_title') ?: ($other_positions ? __('Other positions', 'MCA') : '')); ?>
                 </<?php echo tag_escape($tag); ?>>
 
                 <?php if (!$other_positions): ?>
-                <nav class="m-vacancies__tabs" aria-label="Vacancy status">
+                <nav class="m-vacancies__tabs e-reveal" data-delay="150" aria-label="Vacancy status">
                     <?php foreach (['ongoing' => 'Ongoing', 'closed' => 'Closed'] as $state => $label) : ?>
                         <a
                             class="a-text a-text--m h-semibold"
@@ -209,7 +209,7 @@ if ($archive_search) {
 
             <?php if ($other_positions): ?>
                 <?php if ($other_jobs): $render_cards($other_jobs, null); else: ?>
-                    <p class="a-text a-text--l"><?php esc_html_e('No other positions found.', 'MCA'); ?></p>
+                    <p class="a-text a-text--l e-reveal e-reveal--text"><?php esc_html_e('No other positions found.', 'MCA'); ?></p>
                 <?php endif; ?>
             <?php endif; ?>
             <?php foreach ($other_positions ? [] : ['ongoing', 'closed'] as $state) : ?>
@@ -232,7 +232,7 @@ if ($archive_search) {
                         ];
                         ?>
                         <div class="m-vacancies__empty">
-                            <div class="m-vacancies__empty-icon">
+                            <div class="m-vacancies__empty-icon e-reveal e-reveal--scale">
                                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
                                     <rect x="3" y="7" width="18" height="14" rx="2"/>
                                     <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
@@ -240,10 +240,10 @@ if ($archive_search) {
                             </div>
 
                             <div class="m-vacancies__empty-copy">
-                                <h3 class="a-heading a-heading--h5 h-dark-blue">
+                                <h3 class="a-heading a-heading--h5 h-dark-blue e-reveal e-reveal--text" data-delay="120">
                                     <?php echo esc_html(get_field('vacancies_empty_title')); ?>
                                 </h3>
-                                <p class="a-text a-text--l">
+                                <p class="a-text a-text--l e-reveal e-reveal--text" data-delay="350">
                                     <?php echo esc_html(get_field('vacancies_empty_description')); ?>
                                 </p>
                             </div>
@@ -260,7 +260,8 @@ if ($archive_search) {
                                     $btn    = $type === 'alerts' ? 'a-btn--blue' : 'a-btn--border-blue';
                                     ?>
                                     <a
-                                        class="a-btn a-btn--smallest <?php echo esc_attr($btn); ?>"
+                                        class="a-btn a-btn--smallest <?php echo esc_attr($btn); ?> e-reveal"
+                                        data-delay="<?php echo esc_attr($type === 'alerts' ? 500 : 600); ?>"
                                         href="<?php echo esc_url($link['url']); ?>"
                                         target="<?php echo esc_attr($target); ?>"
                                         <?php if ($target === '_blank') : ?>
@@ -275,11 +276,12 @@ if ($archive_search) {
 
                         <?php if ($queries['closed']->posts) : ?>
                             <div class="m-vacancies__closed-heading">
-                                <h3 class="a-heading a-heading--h6 h-dark-blue">
+                                <h3 class="a-heading a-heading--h6 h-dark-blue e-reveal e-reveal--text">
                                     <?php echo esc_html(get_field('vacancies_closed_title')); ?>
                                 </h3>
                                 <a
-                                    class="a-text a-text--m h-semibold"
+                                    class="a-text a-text--m h-semibold e-reveal"
+                                    data-delay="120"
                                     href="<?php echo esc_url(add_query_arg($status_key, 'closed', $base)); ?>"
                                     data-vacancy-switch="closed"
                                 >
@@ -291,11 +293,11 @@ if ($archive_search) {
                         <?php endif; ?>
 
                     <?php else : ?>
-                        <p class="a-text a-text--l">No closed positions yet.</p>
+                        <p class="a-text a-text--l e-reveal e-reveal--text">No closed positions yet.</p>
                     <?php endif; ?>
 
                     <?php if ($query->max_num_pages > 1) : ?>
-                        <nav class="m-vacancies__pagination" aria-label="Vacancy pages">
+                        <nav class="m-vacancies__pagination e-reveal" data-delay="150" aria-label="Vacancy pages">
                             <?php
                             echo paginate_links([
                                 'base'      => str_replace('999999999', '%#%', add_query_arg([$status_key => $state, $page_key => 999999999], $base)),

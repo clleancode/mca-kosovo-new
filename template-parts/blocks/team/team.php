@@ -72,16 +72,16 @@ if ($layout === 'board') {
             <div class="m-team__header s-d-b-s s-m-b-xs">
                 <div class="m-team__heading">
                     <?php if (get_field('team_label')) : ?>
-                        <p class="a-badge h-dark-blue s-d-b-xs s-m-b-xs h-semibold"><?php echo esc_html(get_field('team_label')); ?></p>
+                        <p class="a-badge h-dark-blue s-d-b-xs s-m-b-xs h-semibold e-reveal e-reveal--text"><?php echo esc_html(get_field('team_label')); ?></p>
                     <?php endif; ?>
 
-                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                         <?php echo esc_html(get_field('team_title')); ?>
                     </<?php echo tag_escape($tag); ?>>
                 </div>
 
                 <?php if ($layout === 'board' && count($tabs) > 1) : ?>
-                    <div class="m-team__tabs" role="tablist" aria-label="Leadership groups">
+                    <div class="m-team__tabs e-reveal" data-delay="350" role="tablist" aria-label="Leadership groups">
                         <?php foreach ($tabs as $key => $label) : ?>
                             <button
                                 class="a-text a-text--m"
@@ -148,7 +148,7 @@ if ($layout === 'board') {
                             <?php if ($alternate) : ?>data-team-alternate<?php endif; ?>
                         >
                             <?php if (!empty($group['title'])) : ?>
-                                <div class="m-team__group-heading">
+                                <div class="m-team__group-heading e-reveal">
                                     <h3 class="a-text a-text--xxl h-dark-blue"><?php echo esc_html($group['title']); ?></h3>
                                     <span class="a-text a-text--xs" aria-label="<?php echo esc_attr(count($members) . ' members'); ?>">
                                         <?php echo esc_html(count($members)); ?>
@@ -158,10 +158,11 @@ if ($layout === 'board') {
 
                             <?php if ($show_filters) : ?>
                                 <div class="m-team__filters" aria-label="Filter members by department">
-                                    <a class="a-text a-text--s h-semibold" href="#" data-team-department="" aria-current="true">All</a>
-                                    <?php foreach (array_keys($departments) as $department) : ?>
+                                    <a class="a-text a-text--s h-semibold e-reveal" data-delay="100" href="#" data-team-department="" aria-current="true">All</a>
+                                    <?php foreach (array_keys($departments) as $department_index => $department) : ?>
                                         <a
-                                            class="a-text a-text--m h-semibold"
+                                            class="a-text a-text--m h-semibold e-reveal"
+                                            data-delay="<?php echo esc_attr(180 + $department_index * 80); ?>"
                                             href="#"
                                             data-team-department="<?php echo esc_attr($department); ?>"
                                             aria-current="false"
@@ -173,13 +174,13 @@ if ($layout === 'board') {
                             <?php endif; ?>
 
                             <div class="m-team__grid">
-                                <?php foreach ($members as $member) : ?>
+                                <?php foreach (array_values($members) as $member_index => $member) : ?>
                                     <?php
                                     $link       = $member['link'] ?? [];
                                     $target     = $link['target'] ?? '';
                                     $department = trim((string) ($member['department'] ?? ''));
                                     ?>
-                                    <article class="m-team__card" data-team-member-department="<?php echo esc_attr($department); ?>">
+                                    <article class="m-team__card e-reveal" data-delay="<?php echo esc_attr(150 + ($member_index % ($columns === 'six' ? 6 : (($columns === 'three' || $layout === 'people') ? 3 : 4))) * 120); ?>" data-team-member-department="<?php echo esc_attr($department); ?>">
                                         <div class="m-team__image">
                                             <?php if (!empty($member['image'])) : ?>
                                                 <?php
@@ -236,7 +237,7 @@ if ($layout === 'board') {
                     <?php endforeach; ?>
 
                     <?php if ($has_alternates) : ?>
-                        <div class="m-team__more" data-team-more hidden>
+                        <div class="m-team__more e-reveal" data-team-more hidden>
                             <span class="a-text a-text--xxl h-semibold h-dark-blue">
                                 <?php echo esc_html(implode(' and ', $alternate_summaries)); ?>
                             </span>
@@ -255,7 +256,7 @@ if ($layout === 'board') {
             $structure_button_label = get_field('team_structure_button_label');
             ?>
             <?php if (!empty($structure_pdf['url'])) : ?>
-                <div class="m-team__structure">
+                <div class="m-team__structure e-reveal">
                     <div class="m-team__structure-copy">
                         <?php if ($structure_title) : ?>
                             <h3 class="a-heading a-heading--h6 h-white s-d-b-xs s-m-b-xs"><?php echo esc_html($structure_title); ?></h3>

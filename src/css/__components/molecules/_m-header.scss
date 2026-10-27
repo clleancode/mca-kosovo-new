@@ -2,7 +2,7 @@
     position: relative;
     width: calc(100% - 30px);
     margin: 0 auto;
-    transition: width .3s var(--ease);
+    transition: width .5s var(--ease-out);
 
     @media(min-width: 992px) {
         width: 88%;
@@ -14,7 +14,7 @@
     padding: 21px;
     border-radius: 100px;
     background-color: var(--grey);
-    transition: border-radius 0.35s ease;
+    transition: border-radius .5s var(--ease-out);
     display: flex;
     justify-content: space-between;
     gap: 21px;
@@ -29,7 +29,7 @@
 
     .icon-search {
         transform-origin: center center;
-        transition: transform .3s var(--ease);
+        transition: transform var(--duration-base) var(--ease-out);
         color: var(--dark-blue);
         font-size: 22px;
 
@@ -80,7 +80,7 @@
     //display: none;
     opacity: 0;
     visibility: hidden;
-    transition: opacity .3s var(--ease), visibility .3s var(--ease), z-index .3s var(--ease);
+    transition: opacity var(--duration-base) var(--ease-out), visibility var(--duration-base) var(--ease-out), z-index var(--duration-base) var(--ease-out);
 
     input {
         height: 100%;

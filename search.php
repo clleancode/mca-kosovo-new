@@ -41,14 +41,14 @@ $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_ty
         <div class="container">
             <form class="m-search-results__form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
                 <input type="hidden" name="search_type" value="<?php echo esc_attr($selected_type); ?>">
-                <label class="a-text a-text--s" for="search-results-query"><?php esc_html_e('Search', 'mca-kosovo'); ?></label>
-                <div class="m-search-results__input-wrap">
+                <label class="a-text a-text--s e-reveal e-reveal--text" for="search-results-query"><?php esc_html_e('Search', 'mca-kosovo'); ?></label>
+                <div class="m-search-results__input-wrap e-reveal" data-delay="100">
                     <input class="a-heading a-heading--h6" id="search-results-query" type="search" name="s" value="<?php echo esc_attr($search_term); ?>" required>
                     <a class="m-search-results__clear" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('Clear search', 'mca-kosovo'); ?>">&times;</a>
                     <button class="a-text a-text--m" type="submit"><?php esc_html_e('Search', 'mca-kosovo'); ?></button>
                 </div>
                 <?php if ($search_term) : ?>
-                    <p class="a-text a-text--l"><?php printf(esc_html__('Showing results for “%s”', 'mca-kosovo'), esc_html($search_term)); ?></p>
+                    <p class="a-text a-text--l e-reveal e-reveal--text" data-delay="350"><?php printf(esc_html__('Showing results for “%s”', 'mca-kosovo'), esc_html($search_term)); ?></p>
                 <?php endif; ?>
             </form>
         </div>
@@ -57,12 +57,14 @@ $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_ty
     <section class="m-search-results">
         <div class="container">
             <nav class="m-search-results__filters" aria-label="<?php esc_attr_e('Filter search results', 'mca-kosovo'); ?>">
+                <?php $filter_index = 0; ?>
                 <?php foreach ($search_types as $type_key => $type_data) : ?>
                     <?php $filter_url = add_query_arg(['s' => $search_term, 'search_type' => $type_key], home_url('/')); ?>
-                    <a class="m-search-results__filter<?php echo $selected_type === $type_key ? ' is-active' : ''; ?>" href="<?php echo esc_url($filter_url); ?>" <?php echo $selected_type === $type_key ? 'aria-current="page"' : ''; ?>>
+                    <a class="m-search-results__filter e-reveal<?php echo $selected_type === $type_key ? ' is-active' : ''; ?>" data-delay="<?php echo esc_attr($filter_index * 100); ?>" href="<?php echo esc_url($filter_url); ?>" <?php echo $selected_type === $type_key ? 'aria-current="page"' : ''; ?>>
                         <span class="a-text a-text--m"><?php echo esc_html($type_data['label']); ?></span>
                         <span class="a-text a-text--xs"><?php echo esc_html(number_format_i18n($search_counts[$type_key])); ?></span>
                     </a>
+                    <?php $filter_index++; ?>
                 <?php endforeach; ?>
             </nav>
 
@@ -109,6 +111,11 @@ $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_ty
             if (!response.ok || !result.success) throw new Error('Search pagination failed');
 
             content.innerHTML = result.data.content;
+            // e-reveal only binds on page load, so swapped-in results must be revealed here or they stay hidden.
+            content.querySelectorAll('.e-reveal').forEach(element => {
+                element.style.setProperty('--e-reveal-delay', `${element.dataset.delay || 0}ms`);
+                element.classList.add('visible');
+            });
             if (updateHistory) window.history.pushState({}, '', result.data.url);
             content.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } catch (error) {

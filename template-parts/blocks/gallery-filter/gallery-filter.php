@@ -92,7 +92,7 @@ if (!$link_url) {
 >
     <div class="container">
         <article class="m-spotlight m-spotlight--featured">
-            <div class="m-spotlight__image">
+            <div class="m-spotlight__image e-reveal e-reveal--image">
                 <?php if ($image) : ?>
                     <?php echo $image; ?>
                 <?php else : ?>
@@ -103,24 +103,24 @@ if (!$link_url) {
             <div class="m-spotlight__content">
                 <div class="m-spotlight__label m-spotlight__featured-meta">
                     <?php if ($badge) : ?>
-                        <span class="a-spotlight-pill a-text a-text--xs h-semibold"><?php echo esc_html($badge); ?></span>
+                        <span class="a-spotlight-pill a-text a-text--xs h-semibold e-reveal" data-delay="150"><?php echo esc_html($badge); ?></span>
                     <?php endif; ?>
-                    <?php if ($category) : ?><span class="a-text a-text--xs"><?php echo esc_html($category); ?></span><?php endif; ?>
-                    <?php if ($date) : ?><span class="a-text a-text--xs"><?php echo esc_html($date); ?></span><?php endif; ?>
+                    <?php if ($category) : ?><span class="a-text a-text--xs e-reveal e-reveal--text" data-delay="230"><?php echo esc_html($category); ?></span><?php endif; ?>
+                    <?php if ($date) : ?><span class="a-text a-text--xs e-reveal e-reveal--text" data-delay="310"><?php echo esc_html($date); ?></span><?php endif; ?>
                 </div>
 
-                <<?php echo tag_escape($tag); ?> class="s-d-b-xs s-m-b-xs h-navy m-spotlight__featured-title a-heading a-heading--h5 <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?>">
+                <<?php echo tag_escape($tag); ?> class="s-d-b-xs s-m-b-xs h-navy m-spotlight__featured-title a-heading a-heading--h5 <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?> e-reveal e-reveal--text" data-delay="300">
                     <?php echo esc_html($title); ?>
                 </<?php echo tag_escape($tag); ?>>
 
                 <?php if ($description) : ?>
-                    <p class="m-spotlight__featured-description a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                    <p class="m-spotlight__featured-description a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="550">
                         <?php echo esc_html($description); ?>
                     </p>
                 <?php endif; ?>
 
                 <?php if ($link_url) : ?>
-                    <div class="m-spotlight__buttons">
+                    <div class="m-spotlight__buttons e-reveal" data-delay="700">
                         <a class="a-spotlight-button a-spotlight-button--primary a-text a-text--s h-white" href="<?php echo esc_url($link_url); ?>" target="<?php echo esc_attr($link_target); ?>"<?php if ($link_target === '_blank') : ?> rel="noopener noreferrer"<?php endif; ?>>
                             <?php echo esc_html(!empty($link['title']) ? $link['title'] : 'Read the story'); ?>
                             <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>

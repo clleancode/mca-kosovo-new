@@ -94,27 +94,30 @@ $notify_link = get_field('current_calls_notify_link') ?: [];
     <div class="container">
         <div class="m-current-calls">
             <div class="m-current-calls__header">
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?>">
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_height); ?> e-reveal e-reveal--text">
                     <?php echo esc_html(get_field('current_calls_title')); ?>
                 </<?php echo tag_escape($tag); ?>>
 
                 <nav class="m-current-calls__tabs" aria-label="Call status">
+                    <?php $tab_index = 0; ?>
                     <?php foreach ($statuses as $status => $config) : ?>
                         <?php $tab_url = add_query_arg('call_status', $status, $base_url); ?>
                         <a
-                            class="m-current-calls__tab<?php echo $active_status === $status ? ' is-active' : ''; ?>"
+                            class="m-current-calls__tab<?php echo $active_status === $status ? ' is-active' : ''; ?> e-reveal"
+                            data-delay="<?php echo esc_attr(150 + $tab_index * 90); ?>"
                             href="<?php echo esc_url($tab_url); ?>"
                             <?php if ($active_status === $status) : ?>aria-current="page"<?php endif; ?>
                         >
                             <span><?php echo esc_html($config['label']); ?></span>
                                 <span class="m-current-calls__count"><?php echo esc_html($counts[$status]); ?></span>
                         </a>
+                        <?php $tab_index++; ?>
                     <?php endforeach; ?>
                 </nav>
             </div>
 
             <div class="m-current-calls__layout">
-                <div class="m-current-calls__message">
+                <div class="m-current-calls__message e-reveal">
                     <?php
                     $has_calls = $counts[$active_status] > 0;
                     $message_label = [
@@ -186,7 +189,7 @@ $notify_link = get_field('current_calls_notify_link') ?: [];
                         $project_name = $project_id ? get_the_title($project_id) : '';
                         $category_label = $category ?: trim(implode(' · ', array_filter([$project_name, get_field('procurement_notice_type', $post_id)])));
                         ?>
-                        <article class="m-current-calls__card">
+                        <article class="m-current-calls__card e-reveal" data-delay="250">
                             <div class="m-current-calls__card-top">
                                 <div class="m-current-calls__meta">
                                     <span class="a-notices-status a-notices-status--<?php echo esc_attr($state); ?> a-text a-text--xs h-semibold">
@@ -225,7 +228,7 @@ $notify_link = get_field('current_calls_notify_link') ?: [];
                         </article>
                     <?php endwhile; ?>
                 <?php else : ?>
-                    <article class="m-current-calls__card m-current-calls__card--empty">
+                    <article class="m-current-calls__card m-current-calls__card--empty e-reveal" data-delay="250">
                         <span class="a-text a-text--xs h-semibold">
                             <?php echo esc_html($statuses[$active_status]['label']); ?>
                         </span>

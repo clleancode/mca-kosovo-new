@@ -55,7 +55,7 @@ $type_options = [
     <div class="container">
         <form class="m-filter" data-procurement-filter role="search" aria-label="Procurement notice filters">
             <div class="m-filter__body">
-                <div class="m-filter__search">
+                <div class="m-filter__search e-reveal">
                     <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/search.svg')); ?>" alt="" aria-hidden="true">
                     <input
                         class="a-text a-text--l"
@@ -73,7 +73,7 @@ $type_options = [
                 </div>
 
                 <div class="m-filter__controls">
-                    <fieldset class="m-filter__group">
+                    <fieldset class="m-filter__group e-reveal" data-delay="150">
                         <legend class="a-text a-text--xs h-semibold">Status</legend>
                         <div class="m-filter__options m-filter__options--status">
                             <?php foreach ($status_options as $value => $label) : ?>
@@ -91,7 +91,7 @@ $type_options = [
                         <input type="hidden" name="status" value="all">
                     </fieldset>
 
-                    <fieldset class="m-filter__group">
+                    <fieldset class="m-filter__group e-reveal" data-delay="270">
                         <legend class="a-text a-text--xs h-semibold">Notice type</legend>
                         <div class="m-filter__options m-filter__options--type">
                             <?php foreach ($type_options as $value => $label) : ?>
@@ -110,7 +110,7 @@ $type_options = [
                         <input type="hidden" name="notice_type" value="all">
                     </fieldset>
 
-                    <div class="m-filter__group">
+                    <div class="m-filter__group e-reveal" data-delay="390">
                         <label class="a-text a-text--xs h-semibold" for="<?php echo esc_attr($id . '-project'); ?>">Project</label>
                         <div class="m-filter__select">
                             <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/strike.svg')); ?>" alt="" aria-hidden="true">
@@ -125,7 +125,7 @@ $type_options = [
                         </div>
                     </div>
 
-                    <div class="m-filter__group">
+                    <div class="m-filter__group e-reveal" data-delay="510">
                         <label class="a-text a-text--xs h-semibold" for="<?php echo esc_attr($id . '-sort'); ?>">Sort by</label>
                         <div class="m-filter__select">
                             <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/sort.svg')); ?>" alt="" aria-hidden="true">
@@ -139,10 +139,10 @@ $type_options = [
             </div>
 
             <div class="m-filter__footer">
-                <span class="a-text a-text--xs h-semibold"><?php echo esc_html(get_field('filter_links_label')); ?></span>
+                <span class="a-text a-text--xs h-semibold e-reveal e-reveal--text"><?php echo esc_html(get_field('filter_links_label')); ?></span>
 
                 <div class="m-filter__links">
-                    <?php foreach ($links as $row) : ?>
+                    <?php foreach ($links as $link_index => $row) : ?>
                         <?php
                         $link = $row['link'] ?? [];
 
@@ -159,7 +159,8 @@ $type_options = [
                         $target = $link['target'] ?? '';
                         ?>
                         <a
-                            class="a-text a-text--l"
+                            class="a-text a-text--l e-reveal"
+                            data-delay="<?php echo esc_attr(100 + $link_index * 100); ?>"
                             href="<?php echo esc_url($link['url']); ?>"
                             target="<?php echo esc_attr($target); ?>"
                             <?php if ($target === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>
@@ -173,7 +174,7 @@ $type_options = [
                     <?php endforeach; ?>
                 </div>
 
-                <button class="a-text a-text--l" type="reset">
+                <button class="a-text a-text--l e-reveal" data-delay="<?php echo esc_attr(100 + count($links) * 100); ?>" type="reset">
                     <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/close.svg')); ?>" alt="" aria-hidden="true">
                     Reset filters
                 </button>

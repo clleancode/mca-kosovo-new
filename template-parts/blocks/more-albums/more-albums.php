@@ -62,14 +62,14 @@ $icon_url = get_template_directory_uri() . '/assets/img/pics/icons/album.svg';
 >
     <div class="container">
         <div class="m-more-albums">
-            <h2 class="a-heading a-heading--h5 h-dark-blue"><?php echo esc_html($title); ?></h2>
+            <h2 class="a-heading a-heading--h5 h-dark-blue e-reveal e-reveal--text"><?php echo esc_html($title); ?></h2>
             <div class="m-more-albums__grid">
                 <?php
-                foreach ($albums as $album) :
+                foreach ($albums as $album_index => $album) :
                     $photos = Helpers\mca_get_album_photos($album->ID);
                     $cover  = get_post_thumbnail_id($album->ID) ?: ($photos[0] ?? 0);
                     ?>
-                    <div class="m-more-albums__card">
+                    <div class="m-more-albums__card e-reveal e-reveal--image" data-delay="<?php echo esc_attr(150 + ($album_index % 2) * 120); ?>">
                         <a
                             href="<?php echo esc_url(get_permalink($album)); ?>"
                             aria-label="<?php echo esc_attr(sprintf(__('View album: %s', 'MCA'), get_the_title($album))); ?>"

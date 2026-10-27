@@ -54,7 +54,7 @@ if (!$photos && empty($is_preview)) {
     <?php endif; ?>
 >
     <div class="container">
-        <div class="m-gallery">
+        <div class="m-gallery" data-e-reveal-sequence="220">
             <?php foreach ($columns as $column) : ?>
                 <div class="m-gallery__column">
                     <?php
@@ -68,7 +68,7 @@ if (!$photos && empty($is_preview)) {
                         $photo_caption  = '<span>' . esc_html(wp_get_attachment_caption($photo) ?: $caption) . '</span>';
                         $photo_caption .= '<a href="' . esc_url($full) . '" download>' . esc_html__('Download', 'MCA') . '</a>';
                         ?>
-                        <div class="m-gallery__photo">
+                        <div class="m-gallery__photo e-reveal e-reveal--image">
                             <a
                                 href="<?php echo esc_url($full); ?>"
                                 data-fancybox="<?php echo esc_attr($group); ?>"

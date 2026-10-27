@@ -46,14 +46,14 @@ if (!$items) {
         <div class="m-specific-pages">
             <?php if ($title) : ?>
                 <div class="m-specific-pages__header">
-                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?>">
+                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> e-reveal e-reveal--text">
                         <?php echo esc_html($title); ?>
                     </<?php echo tag_escape($tag); ?>>
                 </div>
             <?php endif; ?>
 
             <div class="m-specific-pages__grid">
-                <?php foreach ($items as $item) : ?>
+                <?php foreach ($items as $item_index => $item) : ?>
                     <?php
                     $card_title = $item['title'] ?? '';
                     $card_description = $item['description'] ?? '';
@@ -61,7 +61,7 @@ if (!$items) {
                     $card_link = $item['link'] ?? [];
                     $image_id = is_array($card_image) ? absint($card_image['ID'] ?? $card_image['id'] ?? 0) : absint($card_image);
                     ?>
-                    <article class="m-specific-pages__card">
+                    <article class="m-specific-pages__card e-reveal" data-delay="<?php echo esc_attr(150 + ($item_index % 4) * 120); ?>">
                         <?php if (!empty($card_link['url'])) : ?>
                             <a class="m-specific-pages__link" href="<?php echo esc_url($card_link['url']); ?>" target="<?php echo esc_attr($card_link['target'] ?? ''); ?>" <?php if (($card_link['target'] ?? '') === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>>
                         <?php else : ?>

@@ -50,17 +50,17 @@ $category_cards = (bool) get_field('mission_cards_with_category');
             <div class="m-mission__intro s-d-b-s s-m-b-xs">
                 <div class="m-mission__heading">
                     <?php if ($layout === 'mission' && $label) : ?>
-                        <p class="a-badge h-dark-blue s-d-b-xs s-m-b-xs"><?php echo esc_html($label); ?></p>
+                        <p class="a-badge h-dark-blue s-d-b-xs s-m-b-xs e-reveal e-reveal--text"><?php echo esc_html($label); ?></p>
                     <?php endif; ?>
 
-                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                         <?php echo esc_html(get_field('mission_title')); ?>
                     </<?php echo tag_escape($tag); ?>>
                 </div>
 
                 <?php if ($description) : ?>
                     <div class="m-mission__description">
-                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="350">
                             <?php echo nl2br(esc_html($description)); ?>
                         </p>
                     </div>
@@ -76,7 +76,7 @@ $category_cards = (bool) get_field('mission_cards_with_category');
                     $show_category = $layout === 'mission' && $category_cards;
                     $link_title = trim($link['title'] ?? '');
                     ?>
-                    <article class="m-mission__card<?php echo $tone ? ' m-mission__card--' . esc_attr($tone) : ''; ?><?php echo $show_category ? ' m-mission__card--category' : ''; ?>">
+                    <article class="m-mission__card<?php echo $tone ? ' m-mission__card--' . esc_attr($tone) : ''; ?><?php echo $show_category ? ' m-mission__card--category' : ''; ?> e-reveal" data-delay="<?php echo esc_attr(150 + ($index % 3) * 120); ?>">
                         <div class="m-mission__image">
                             <?php
                             if (!empty($item['image'])) {

@@ -38,22 +38,22 @@ $items = array_slice(get_field('expected_items') ?: [], 0, 4);
 ?>
 <section id="impact" class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>">
     <?php if ($image) : ?>
-        <div class="m-expected__image">
+        <div class="m-expected__image e-reveal e-reveal--image">
             <?php echo wp_get_attachment_image($image, 'full', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
         </div>
     <?php endif; ?>
     <div class="container">
         <div class="m-expected__content">
             <div class="m-expected__heading s-m-b-s">
-                <p class="a-badge h-blue h-semibold"><?php echo esc_html(get_field('expected_label')); ?></p>
-                <<?php echo tag_escape($tag); ?> class="s-d-t-xs a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                <p class="a-badge h-blue h-semibold e-reveal e-reveal--text"><?php echo esc_html(get_field('expected_label')); ?></p>
+                <<?php echo tag_escape($tag); ?> class="s-d-t-xs a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                     <?php echo nl2br(esc_html(get_field('expected_title'))); ?>
                 </<?php echo tag_escape($tag); ?>>
             </div>
             <?php if ($items) : ?>
                 <div class="m-expected__grid">
                     <?php foreach ($items as $index => $item) : ?>
-                        <article class="m-expected__card">
+                        <article class="m-expected__card e-reveal" data-delay="<?php echo esc_attr(150 + ($index % 4) * 120); ?>">
                             <div class="m-expected__number">
                                 <span class="a-text a-text--s h-semibold h-blue"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
                             </div>

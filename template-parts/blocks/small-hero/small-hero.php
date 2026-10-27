@@ -56,7 +56,7 @@ $links       = array_slice(get_field('small_page_hero_links') ?: [], 0, 3);
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
 >
     <?php if ($image) : ?>
-        <div class="m-small-hero__image">
+        <div class="m-small-hero__image" data-parallax>
             <?php
             echo wp_get_attachment_image($image, 'full', false, [
                 'loading'       => 'eager',
@@ -70,7 +70,7 @@ $links       = array_slice(get_field('small_page_hero_links') ?: [], 0, 3);
     <div class="container">
         <div class="m-small-hero">
             <div class="m-small-hero__content">
-                <nav class="h-breadcrumbs s-d-b-xs s-m-b-xs" aria-label="Breadcrumb">
+                <nav class="h-breadcrumbs s-d-b-xs s-m-b-xs e-reveal" data-offset="0" aria-label="Breadcrumb">
                     <ol>
                         <li>
                             <a class="a-text a-text--xs h-white" href="<?php echo esc_url(home_url('/')); ?>">Home</a>
@@ -92,19 +92,19 @@ $links       = array_slice(get_field('small_page_hero_links') ?: [], 0, 3);
                     </ol>
                 </nav>
 
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> h-uppercase s-d-b-xs s-m-b-xs">
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> h-uppercase s-d-b-xs s-m-b-xs e-reveal e-reveal--text" data-offset="0" data-delay="120">
                     <?php echo esc_html(get_field('small_page_hero_title') ?: get_the_title($page_id)); ?>
                 </<?php echo tag_escape($tag); ?>>
 
                 <?php if ($description) : ?>
-                    <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                    <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-offset="0" data-delay="350">
                         <?php echo nl2br(esc_html($description)); ?>
                     </p>
                 <?php endif; ?>
             </div>
 
             <?php if (get_field('small_page_hero_right') === 'search'): ?>
-                <div class="m-small-hero__search">
+                <div class="m-small-hero__search e-reveal" data-offset="0" data-delay="450">
                     <form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>" data-document-search>
                         <input class="a-text a-text--l" type="search" name="s" placeholder="<?php echo esc_attr(get_field('small_page_hero_search_placeholder') ?: 'Search documents'); ?>" aria-label="Search documents" required>
                         <input type="hidden" name="search_scope" value="documents">
@@ -113,7 +113,7 @@ $links       = array_slice(get_field('small_page_hero_links') ?: [], 0, 3);
                 </div>
             <?php elseif ($links) : ?>
                 <div class="m-small-hero__links">
-                    <?php foreach ($links as $row) : ?>
+                    <?php foreach ($links as $link_index => $row) : ?>
                         <?php
                         $link = $row['link'] ?? [];
 
@@ -123,7 +123,7 @@ $links       = array_slice(get_field('small_page_hero_links') ?: [], 0, 3);
 
                         $target = $link['target'] ?? '';
                         ?>
-                        <div class="m-small-hero__link-card">
+                        <div class="m-small-hero__link-card e-reveal" data-offset="0" data-delay="<?php echo esc_attr(450 + $link_index * 100); ?>">
                             <div class="m-small-hero__link-copy">
                                 <h2 class="a-text a-text--xxl h-white h-semibold"><?php echo esc_html($link['title'] ?? ''); ?></h2>
                                 <?php if (!empty($row['description'])) : ?>

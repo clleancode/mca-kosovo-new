@@ -163,7 +163,7 @@
             height: 17px;
             border-radius: 50%;
             background: var(--white);
-            transition: transform .2s ease;
+            transition: transform var(--duration-base) var(--ease-out);
         }
 
         &:checked {
@@ -234,11 +234,50 @@
     }
 }
 
+@keyframes cookie-banner-in {
+    from {
+        opacity: 0;
+        translate: 0 16px;
+    }
+}
+
+@keyframes cookie-overlay-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes cookie-dialog-in {
+    from {
+        opacity: 0;
+        scale: .96;
+        translate: 0 12px;
+    }
+}
+
+.m-cookie-banner:not([hidden]) {
+    animation: cookie-banner-in .6s var(--ease-out) .3s backwards;
+}
+
+.m-cookie-banner__overlay:not([hidden]) {
+    animation: cookie-overlay-in var(--duration-base) var(--ease-out);
+
+    .m-cookie-banner__dialog {
+        animation: cookie-dialog-in .45s var(--ease-out);
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
 
     .m-cookie-banner__category input::before,
     .m-cookie-banner__actions [data-cookie-action] {
         transition: none;
+    }
+
+    .m-cookie-banner:not([hidden]),
+    .m-cookie-banner__overlay:not([hidden]),
+    .m-cookie-banner__overlay:not([hidden]) .m-cookie-banner__dialog {
+        animation: none;
     }
 }
 

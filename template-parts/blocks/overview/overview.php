@@ -85,42 +85,42 @@ $has_content = trim((string) get_field('overview_title')) !== ''
         <div class="container">
             <div class="m-overview__bar<?php echo $navigation_pills ? ' m-overview__bar--pills' : ''; ?>">
                 <?php if (trim((string) get_field('overview_project_name')) !== ''): ?>
-                <div class="m-overview__project">
+                <div class="m-overview__project e-reveal e-reveal--left">
                     <span class="a-text a-text--m h-semibold"><?php echo esc_html(get_field('overview_project_name')); ?></span>
                 </div>
                 <?php endif; ?>
 
-                <button type="button" class="m-overview__mobile-toggle" aria-expanded="false" aria-controls="<?php echo esc_attr($content_id . '-navigation'); ?>">
+                <button type="button" class="m-overview__mobile-toggle e-reveal" data-delay="100" aria-expanded="false" aria-controls="<?php echo esc_attr($content_id . '-navigation'); ?>">
                     <span data-overview-current><?php echo esc_html(get_field('overview_navigation_label')); ?></span>
                     <span class="m-overview__chevron" aria-hidden="true"></span>
                 </button>
                 <nav id="<?php echo esc_attr($content_id . '-navigation'); ?>" class="m-overview__links" aria-label="Project sections">
                     <?php if (is_page('media-news')) : $active_news_category = isset($_GET['news_category']) ? absint(wp_unslash($_GET['news_category'])) : 0; ?>
-                        <button type="button" class="a-overview-link a-text a-text--l h-semibold" data-overview-link data-news-category="0"<?php if (!$active_news_category) : ?> aria-current="true"<?php endif; ?>><?php echo esc_html(get_field('overview_navigation_label')); ?></button>
-                        <?php foreach ($links as $row) :
+                        <button type="button" class="a-overview-link a-text a-text--l h-semibold e-reveal" data-delay="150" data-overview-link data-news-category="0"<?php if (!$active_news_category) : ?> aria-current="true"<?php endif; ?>><?php echo esc_html(get_field('overview_navigation_label')); ?></button>
+                        <?php foreach ($links as $link_index => $row) :
                             $label = $row['link']['title'] ?? '';
                             $term = get_term_by('slug', sanitize_title($label), 'category');
                             if (!$term) continue;
                         ?>
-                            <button type="button" class="a-overview-link a-text a-text--l h-semibold" data-overview-link data-news-category="<?php echo esc_attr($term->term_id); ?>"<?php if ($active_news_category === (int) $term->term_id) : ?> aria-current="true"<?php endif; ?>><?php echo esc_html($label); ?></button>
+                            <button type="button" class="a-overview-link a-text a-text--l h-semibold e-reveal" data-delay="<?php echo esc_attr(230 + $link_index * 80); ?>" data-overview-link data-news-category="<?php echo esc_attr($term->term_id); ?>"<?php if ($active_news_category === (int) $term->term_id) : ?> aria-current="true"<?php endif; ?>><?php echo esc_html($label); ?></button>
                         <?php endforeach; ?>
                     <?php else : ?>
-                    <a class="a-overview-link a-text a-text--l h-semibold" href="#<?php echo esc_attr($content_id); ?>" data-overview-link aria-current="location">
+                    <a class="a-overview-link a-text a-text--l h-semibold e-reveal" data-delay="150" href="#<?php echo esc_attr($content_id); ?>" data-overview-link aria-current="location">
                         <?php echo esc_html(get_field('overview_navigation_label')); ?>
                     </a>
-                    <?php foreach ($links as $row):
+                    <?php foreach ($links as $link_index => $row):
                         $link = $row['link'] ?? [];
                         if (empty($link['url'])) continue;
                         $target = ($link['target'] ?? '') ?: '_self';
                         ?>
-                        <a class="a-overview-link a-text a-text--l h-semibold" href="<?php echo esc_url($link['url']); ?>" data-overview-link target="<?php echo esc_attr($target); ?>"<?php if ($target === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($link['title'] ?? ''); ?></a>
+                        <a class="a-overview-link a-text a-text--l h-semibold e-reveal" data-delay="<?php echo esc_attr(230 + $link_index * 80); ?>" href="<?php echo esc_url($link['url']); ?>" data-overview-link target="<?php echo esc_attr($target); ?>"<?php if ($target === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($link['title'] ?? ''); ?></a>
                     <?php endforeach; ?>
                     <?php endif; ?>
                 </nav>
 
                 <?php if ($show_sort) : ?>
                     <?php if (is_page('media-news')) : ?>
-                    <label class="a-overview-factsheet a-overview-factsheet--sort a-text a-text--m h-semibold">
+                    <label class="a-overview-factsheet a-overview-factsheet--sort a-text a-text--m h-semibold e-reveal" data-delay="<?php echo esc_attr(max(500, 230 + count($links) * 80)); ?>">
                         <span>Sort:</span>
                         <select data-news-sort aria-label="Sort news">
                             <option value="newest"<?php selected($_GET['news_sort'] ?? 'newest', 'newest'); ?>>Newest first</option>
@@ -128,13 +128,14 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                         </select>
                     </label>
                     <?php else : ?>
-                    <span class="a-overview-factsheet a-overview-factsheet--sort a-text a-text--m h-semibold">
+                    <span class="a-overview-factsheet a-overview-factsheet--sort a-text a-text--m h-semibold e-reveal" data-delay="<?php echo esc_attr(max(500, 230 + count($links) * 80)); ?>">
                         <?php echo esc_html($sort_label); ?>
                     </span>
                     <?php endif; ?>
                 <?php elseif (!empty($factsheet['url'])) : ?>
                     <a
-                        class="a-overview-factsheet a-text a-text--m h-semibold"
+                        class="a-overview-factsheet a-text a-text--m h-semibold e-reveal"
+                        data-delay="<?php echo esc_attr(max(500, 230 + count($links) * 80)); ?>"
                         href="<?php echo esc_url($factsheet['url']); ?>"
                         target="<?php echo esc_attr($factsheet_target); ?>"
                         <?php if ($factsheet_target === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>
@@ -152,16 +153,16 @@ $has_content = trim((string) get_field('overview_title')) !== ''
         <div id="<?php echo esc_attr($content_id); ?>" class="m-overview__content">
             <div class="m-overview__copy">
                 <?php if (trim((string) get_field('overview_label')) !== ''): ?>
-                    <p class="a-badge h-dark-blue s-d-b-xs h-semibold"><?php echo esc_html(get_field('overview_label')); ?></p>
+                    <p class="a-badge h-dark-blue s-d-b-xs h-semibold e-reveal e-reveal--text"><?php echo esc_html(get_field('overview_label')); ?></p>
                 <?php endif; ?>
 
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                     <?php echo nl2br(esc_html(get_field('overview_title'))); ?>
                 </<?php echo tag_escape($tag); ?>>
 
                 <?php if ($description) : ?>
                     <div class="m-overview__description s-d-t-s s-m-t-xs">
-                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="350">
                             <?php echo nl2br(esc_html($description)); ?>
                         </p>
                     </div>
@@ -170,12 +171,12 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                 <?php if ($is_activities && (!empty($download['url']) || !empty($content_link['url']))) : ?>
                     <div class="m-overview__actions s-d-t-s s-m-t-xs">
                         <?php if (!empty($download['url'])) : ?>
-                            <a class="a-btn a-btn--blue" href="<?php echo esc_url($download['url']); ?>"<?php if (($download['target'] ?? '') === '_blank') : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>>
+                            <a class="a-btn a-btn--blue e-reveal" data-delay="500" href="<?php echo esc_url($download['url']); ?>"<?php if (($download['target'] ?? '') === '_blank') : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>>
                                 <span><?php echo esc_html($download['title'] ?: __('Download', 'MCA')); ?> <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/white-download.svg')); ?>" width="18" height="18" alt="" aria-hidden="true"></span>
                             </a>
                         <?php endif; ?>
                         <?php if (!empty($content_link['url'])) : ?>
-                            <a class="a-underline a-text a-text--m h-dark-blue" href="<?php echo esc_url($content_link['url']); ?>"<?php if (($content_link['target'] ?? '') === '_blank') : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>>
+                            <a class="a-underline a-text a-text--m h-dark-blue e-reveal" data-delay="600" href="<?php echo esc_url($content_link['url']); ?>"<?php if (($content_link['target'] ?? '') === '_blank') : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>>
                                 <span><?php echo esc_html($content_link['title'] ?? ''); ?></span><i class="icon-arrow-right a-icon" aria-hidden="true"></i>
                             </a>
                         <?php endif; ?>
@@ -185,7 +186,7 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                 <?php if ($benefits && !$is_activities) : ?>
                     <ol class="m-overview__benefits">
                         <?php foreach ($benefits as $index => $benefit) : ?>
-                            <li class="m-overview__benefit">
+                            <li class="m-overview__benefit e-reveal" data-delay="<?php echo esc_attr(500 + $index * 100); ?>">
                                 <?php if ($index === count($benefits) - 1) : ?>
                                     <span class="m-overview__benefit-bottom-line" aria-hidden="true"></span>
                                 <?php endif; ?>
@@ -221,19 +222,19 @@ $has_content = trim((string) get_field('overview_title')) !== ''
 
             <div class="m-overview__visual">
                 <?php if ($main_image) : ?>
-                    <div class="m-overview__main-image">
+                    <div class="m-overview__main-image e-reveal e-reveal--image" data-delay="200">
                         <?php echo wp_get_attachment_image($main_image, 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                     </div>
                 <?php endif; ?>
 
                 <?php if ($detail_image) : ?>
-                    <div class="m-overview__detail-image">
+                    <div class="m-overview__detail-image e-reveal e-reveal--image" data-delay="450">
                         <?php echo wp_get_attachment_image($detail_image, 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                     </div>
                 <?php endif; ?>
 
                 <?php if ($statistic !== '' || $statistic_unit !== '' || $statistic_label !== '') : ?>
-                    <div class="m-overview__statistic m-overview__statistic--<?php echo esc_attr($statistic_color); ?>">
+                    <div class="m-overview__statistic m-overview__statistic--<?php echo esc_attr($statistic_color); ?> e-reveal" data-delay="750">
                         <?php if ($statistic !== '' || $statistic_unit !== ''): ?>
                             <div class="m-overview__value">
                                 <?php $unit_first = is_singular('project') && get_post_field('post_name', get_queried_object_id()) === 'jeta'; ?>

@@ -17,11 +17,11 @@ if (!isset($sort_options[$sort])) { $sort = 'most_recent'; }
     <div class="container">
         <div class="flex grid--span-3 s-m-b-s s-d-b-s">
             <div>
-                <h1 class="a-heading a-heading--h2 h-green"><?php echo esc_html(wp_strip_all_tags($title)); ?></h1>
-                <p class="a-text a-text--l"><?php printf(esc_html(_n('%s result found', '%s results found', $total, 'MCA')), esc_html(number_format_i18n($total))); ?></p>
+                <h1 class="a-heading a-heading--h2 h-green e-reveal e-reveal--text" data-delay="100"><?php echo esc_html(wp_strip_all_tags($title)); ?></h1>
+                <p class="a-text a-text--l e-reveal e-reveal--text" data-delay="350"><?php printf(esc_html(_n('%s result found', '%s results found', $total, 'MCA')), esc_html(number_format_i18n($total))); ?></p>
             </div>
             <?php if ($total > 1): ?>
-                <form class="o-filter flex" method="get" action="<?php echo esc_url(get_pagenum_link(1, false)); ?>">
+                <form class="o-filter flex e-reveal" data-delay="500" method="get" action="<?php echo esc_url(get_pagenum_link(1, false)); ?>">
                     <?php
                     foreach (['post_type', 'taxonomy', 'term', 'tag', 'tag_id', 'author', 'author_name', 'm', 'year', 'monthnum', 'day'] as $key) {
                         $value = get_query_var($key);
@@ -40,11 +40,11 @@ if (!isset($sort_options[$sort])) { $sort = 'most_recent'; }
                 </form>
             <?php endif; ?>
         </div>
-        <div class="m-separator s-m-t-xs s-m-b-s s-d-t-xs s-d-b-m"><div class="a-separator"></div></div>
+        <div class="m-separator s-m-t-xs s-m-b-s s-d-t-xs s-d-b-m"><div class="a-separator e-reveal e-reveal--clip"></div></div>
         <?php if (have_posts()): ?>
             <div class="o-cards--inner row--1-3 s-m-t-m s-d-t-m">
                 <?php while (have_posts()): the_post(); ?>
-                    <article class="m-archive-card" data-post-type="<?php echo esc_attr(get_post_type()); ?>">
+                    <article class="m-archive-card e-reveal" data-delay="150" data-post-type="<?php echo esc_attr(get_post_type()); ?>">
                         <a href="<?php the_permalink(); ?>">
                             <?php if (has_post_thumbnail()): ?>
                                 <?php the_post_thumbnail('medium_large', ['loading' => 'lazy', 'decoding' => 'async']); ?>
@@ -62,7 +62,7 @@ if (!isset($sort_options[$sort])) { $sort = 'most_recent'; }
                 'add_args' => isset($_GET['sorting']) ? ['sorting' => $sort] : false,
             ]); ?>
         <?php else: ?>
-            <p class="no-results a-text a-text--m"><?php esc_html_e('No records found in this archive.', 'MCA'); ?></p>
+            <p class="no-results a-text a-text--m e-reveal e-reveal--text"><?php esc_html_e('No records found in this archive.', 'MCA'); ?></p>
         <?php endif; ?>
     </div>
 </div>

@@ -1,3 +1,5 @@
+import eReveal from './e-reveal';
+
 const category = () => {
     document.querySelectorAll('[data-resource-category]').forEach(section => {
         if (section.dataset.initialized) return;
@@ -19,6 +21,7 @@ const category = () => {
                 const updated = [...page.querySelectorAll('[data-resource-category]')].find(item => item.dataset.resourceCategory === section.dataset.resourceCategory);
                 if (!updated) throw new Error('Category block missing');
                 results.innerHTML = updated.querySelector('.m-category__results').innerHTML;
+                eReveal();
                 const active = updated.querySelector('[data-category-filter][aria-current]');
                 section.querySelectorAll('[data-category-filter]').forEach(item => {
                     item.removeAttribute('aria-current');

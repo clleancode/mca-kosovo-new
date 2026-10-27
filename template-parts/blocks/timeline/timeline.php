@@ -85,9 +85,9 @@ $active_label = get_field('timeline_active_label');
                         </div>
                     <?php endif; ?>
                 </div>
-                <ul class="m-timeline__legend s-m-t-xs e-reveal" data-delay="450" aria-label="Milestone statuses">
+                <ul class="m-timeline__legend s-m-t-xs" aria-label="Milestone statuses">
                     <?php foreach (['complete' => 'Completed', 'active' => 'In progress', 'upcoming' => 'Upcoming'] as $state => $legend_label) : ?>
-                        <li class="m-timeline__legend-item m-timeline__legend-item--<?php echo esc_attr($state); ?>">
+                        <li class="m-timeline__legend-item m-timeline__legend-item--<?php echo esc_attr($state); ?> e-reveal" data-delay="<?php echo esc_attr(['complete' => 450, 'active' => 530, 'upcoming' => 610][$state]); ?>">
                             <span class="a-text a-text--xs"><?php echo esc_html($legend_label); ?></span>
                         </li>
                     <?php endforeach; ?>

@@ -54,13 +54,13 @@ $numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--
             <?php if ($title || $label) : ?>
                 <div class="m-implementing__heading">
                     <?php if ($label) : ?>
-                        <p class="a-badge h-dark-blue s-d-b-s s-m-b-xs h-semibold">
+                        <p class="a-badge h-dark-blue s-d-b-s s-m-b-xs h-semibold e-reveal e-reveal--text">
                             <?php echo esc_html($label); ?>
                         </p>
                     <?php endif; ?>
 
                     <?php if ($title) : ?>
-                        <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> s-d-b-xs s-m-b-xs">
+                        <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> s-d-b-xs s-m-b-xs e-reveal e-reveal--text" data-delay="100">
                             <?php echo esc_html($title); ?>
                         </<?php echo tag_escape($tag); ?>>
                     <?php endif; ?>
@@ -81,7 +81,7 @@ $numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--
                     $media_download = $layout === 'media' && $tone === 'purple';
                     $media_plain_link = $layout === 'media' && ($tone === 'purple' || ($tone === 'white' && !$image));
 
-                    $card_classes = ['m-implementing__card'];
+                    $card_classes = ['m-implementing__card', 'e-reveal'];
 
                     if ($tone) {
                         $card_classes[] = 'm-implementing__card--' . $tone;
@@ -101,7 +101,7 @@ $numbered_class = $show_numbers && $layout === 'five-cards' ? ' m-implementing--
                         $item_title_class = 'a-heading a-heading--' . ($layout === 'five-cards' ? 'h5' : $card_size);
                     }
                     ?>
-                    <article class="<?php echo esc_attr(implode(' ', $card_classes)); ?>">
+                    <article class="<?php echo esc_attr(implode(' ', $card_classes)); ?>" data-delay="<?php echo esc_attr(150 + $index * 120); ?>">
 
                         <?php if ($image) : ?>
                             <div class="m-implementing__image">

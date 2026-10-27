@@ -87,23 +87,23 @@ $locations           = array_slice($locations, 0, 2);
                     $percentage = $total_capacity > 0 ? max(0, min(100, round($numeric_capacity / $total_capacity * 100))) : 0;
                     $filled_cells = (int) round($percentage * 34 / 100);
                     ?>
-                    <div class="m-storage__location e-reveal" data-delay="<?php echo esc_attr(600 + $index * 150); ?>">
+                    <div class="m-storage__location">
                         <div class="m-storage__location-heading">
                             <div class="m-storage__site">
-                                <span class="a-text a-text--xs h-pink h-semibold">Site <?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
-                                <h3 class="a-heading a-heading--h6 h-dark-blue"><?php echo esc_html($location['name'] ?? ''); ?></h3>
+                                <span class="a-text a-text--xs h-pink h-semibold e-reveal e-reveal--text" data-delay="<?php echo esc_attr(600 + $index * 150); ?>">Site <?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
+                                <h3 class="a-heading a-heading--h6 h-dark-blue e-reveal e-reveal--text" data-delay="<?php echo esc_attr(700 + $index * 150); ?>"><?php echo esc_html($location['name'] ?? ''); ?></h3>
                             </div>
-                            <div class="m-storage__location-capacity">
+                            <div class="m-storage__location-capacity e-reveal" data-delay="<?php echo esc_attr(800 + $index * 150); ?>">
                                 <span class="a-heading a-heading--h4 h-dark-blue"><?php echo esc_html($location_value); ?></span>
                                 <span class="a-text a-text--m h-blue h-semibold"><?php echo esc_html($location_unit); ?></span>
                             </div>
                         </div>
-                        <div class="m-storage__capacity-bar e-reveal e-reveal--clip" data-delay="<?php echo esc_attr(750 + $index * 150); ?>" role="img" aria-label="<?php echo esc_attr($percentage . '% of total storage capacity'); ?>">
+                        <div class="m-storage__capacity-bar e-reveal e-reveal--clip" data-delay="<?php echo esc_attr(850 + $index * 150); ?>" role="img" aria-label="<?php echo esc_attr($percentage . '% of total storage capacity'); ?>">
                             <?php for ($cell = 0; $cell < 34; $cell++): ?><span<?php if ($cell < $filled_cells): ?> class="a-storage-cell--filled" style="opacity: <?php echo esc_attr(.55 + .45 * $cell / max(1, $filled_cells - 1)); ?>;"<?php endif; ?> aria-hidden="true"></span><?php endfor; ?>
                         </div>
                         <div class="m-storage__location-notes">
-                            <?php if (!empty($location['note'])): ?><p class="a-text a-text--m"><?php echo esc_html($location['note']); ?></p><?php endif; ?>
-                            <?php if ($total_capacity > 0): ?><span class="a-text a-text--xs h-semibold"><?php echo esc_html($percentage . '% of ' . $capacity . ' ' . ($unit ?: 'MWh')); ?></span><?php endif; ?>
+                            <?php if (!empty($location['note'])): ?><p class="a-text a-text--m e-reveal e-reveal--text" data-delay="<?php echo esc_attr(950 + $index * 150); ?>"><?php echo esc_html($location['note']); ?></p><?php endif; ?>
+                            <?php if ($total_capacity > 0): ?><span class="a-text a-text--xs h-semibold e-reveal e-reveal--text" data-delay="<?php echo esc_attr(1050 + $index * 150); ?>"><?php echo esc_html($percentage . '% of ' . $capacity . ' ' . ($unit ?: 'MWh')); ?></span><?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>

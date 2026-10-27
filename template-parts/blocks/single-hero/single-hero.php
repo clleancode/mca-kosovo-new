@@ -74,7 +74,7 @@ $x_url = 'https://twitter.com/intent/tweet?url=' . rawurlencode($post_url) . '&t
     <div class="container">
         <div class="m-single-hero">
             <div class="m-single-hero__content">
-                <nav class="m-single-hero__breadcrumbs" aria-label="Breadcrumb">
+                <nav class="m-single-hero__breadcrumbs e-reveal" data-offset="0" aria-label="Breadcrumb">
                     <ol>
                         <li><a class="a-text a-text--xs" href="<?php echo esc_url(home_url('/')); ?>"><?php echo esc_html($home_label); ?></a></li>
                         <li><a class="a-text a-text--xs" href="<?php echo esc_url($media_url); ?>"><?php echo esc_html($media_label); ?></a></li>
@@ -83,35 +83,37 @@ $x_url = 'https://twitter.com/intent/tweet?url=' . rawurlencode($post_url) . '&t
                 </nav>
 
                 <div class="m-single-hero__meta">
-                    <?php foreach ($news_terms as $term) : ?>
+                    <?php foreach ($news_terms as $term_index => $term) : ?>
                         <?php $term_url = get_term_link($term); ?>
                         <?php if (is_wp_error($term_url)) : continue; endif; ?>
-                        <span class="m-single-hero__badge">
+                        <span class="m-single-hero__badge e-reveal" data-offset="0" data-delay="<?php echo esc_attr(100 + $term_index * 80); ?>">
                             <a class="a-text a-text--xs" href="<?php echo esc_url($term_url); ?>">
                                 <?php echo esc_html($term->name); ?>
                             </a>
                         </span>
                     <?php endforeach; ?>
-                    <time class="a-text a-text--xs" datetime="<?php echo esc_attr(get_the_date('c', $post_id)); ?>">
+                    <time class="a-text a-text--xs e-reveal e-reveal--text" data-offset="0" data-delay="260" datetime="<?php echo esc_attr(get_the_date('c', $post_id)); ?>">
                         <?php echo esc_html(get_the_date('j F Y', $post_id)); ?>
                     </time>
-                    <span class="a-text a-text--xs"><?php echo esc_html($read_time . ' ' . $read_time_label); ?></span>
+                    <span class="a-text a-text--xs e-reveal e-reveal--text" data-offset="0" data-delay="340"><?php echo esc_html($read_time . ' ' . $read_time_label); ?></span>
                 </div>
 
-                <h1 class="a-heading a-heading--h3"><?php echo esc_html($post_title); ?></h1>
+                <h1 class="a-heading a-heading--h3 e-reveal e-reveal--text" data-offset="0" data-delay="400"><?php echo esc_html($post_title); ?></h1>
 
                 <?php if ($description) : ?>
-                    <p class="a-text a-text--xl"><?php echo esc_html($description); ?></p>
+                    <p class="a-text a-text--xl e-reveal e-reveal--text" data-offset="0" data-delay="600"><?php echo esc_html($description); ?></p>
                 <?php endif; ?>
 
                 <div class="m-single-hero__share">
-                    <span class="a-text a-text--xs"><?php echo esc_html($share_label); ?></span>
+                    <span class="a-text a-text--xs e-reveal e-reveal--text" data-offset="0" data-delay="750"><?php echo esc_html($share_label); ?></span>
                     <div class="m-single-hero__share-links">
-                        <a class="a-text a-text--m" href="<?php echo esc_url($linkedin_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($linkedin_label); ?></a>
-                        <a class="a-text a-text--m" href="<?php echo esc_url($facebook_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($facebook_label); ?></a>
-                        <a class="a-text a-text--m" href="<?php echo esc_url($x_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($x_label); ?></a>
+                        <a class="a-text a-text--m e-reveal" data-offset="0" data-delay="830" href="<?php echo esc_url($linkedin_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($linkedin_label); ?></a>
+                        <a class="a-text a-text--m e-reveal" data-offset="0" data-delay="910" href="<?php echo esc_url($facebook_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($facebook_label); ?></a>
+                        <a class="a-text a-text--m e-reveal" data-offset="0" data-delay="990" href="<?php echo esc_url($x_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($x_label); ?></a>
                         <button
-                            class="a-text a-text--m"
+                            class="a-text a-text--m e-reveal"
+                            data-offset="0"
+                            data-delay="1070"
                             type="button"
                             data-single-hero-copy="<?php echo esc_url($post_url); ?>"
                             data-copy-success="<?php echo esc_attr($copy_success); ?>"
@@ -123,7 +125,7 @@ $x_url = 'https://twitter.com/intent/tweet?url=' . rawurlencode($post_url) . '&t
             </div>
 
             <?php if ($image_id) : ?>
-                <figure class="m-single-hero__image">
+                <figure class="m-single-hero__image e-reveal e-reveal--image" data-offset="0" data-delay="200">
                     <?php echo wp_get_attachment_image($image_id, 'large', false, [
                         'loading' => 'eager',
                         'fetchpriority' => 'high',

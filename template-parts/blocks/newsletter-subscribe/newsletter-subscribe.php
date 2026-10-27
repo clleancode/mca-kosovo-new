@@ -40,15 +40,15 @@ $section_title = get_field('newsletter_subscribe_title');
             <div class="m-newsletter-subscribe__panel">
                 <div class="m-newsletter-subscribe__content">
                     <?php if ($label = get_field('newsletter_subscribe_label')) : ?>
-                        <div class="m-newsletter-subscribe__label"><span class="a-text a-text--xs"><?php echo esc_html($label); ?></span></div>
+                        <div class="m-newsletter-subscribe__label e-reveal"><span class="a-text a-text--xs"><?php echo esc_html($label); ?></span></div>
                     <?php endif; ?>
-                    <?php if ($section_title) : ?><h2 class="a-heading a-heading--h3"><?php echo nl2br(esc_html($section_title)); ?></h2><?php endif; ?>
-                    <?php if ($description = get_field('newsletter_subscribe_description')) : ?><p class="a-text a-text--xl"><?php echo nl2br(esc_html($description)); ?></p><?php endif; ?>
+                    <?php if ($section_title) : ?><h2 class="a-heading a-heading--h3 e-reveal e-reveal--text" data-delay="100"><?php echo nl2br(esc_html($section_title)); ?></h2><?php endif; ?>
+                    <?php if ($description = get_field('newsletter_subscribe_description')) : ?><p class="a-text a-text--xl e-reveal e-reveal--text" data-delay="350"><?php echo nl2br(esc_html($description)); ?></p><?php endif; ?>
 
                     <?php if ($benefits) : ?>
                         <ul class="m-newsletter-subscribe__benefits">
-                            <?php foreach ($benefits as $benefit) : ?>
-                                <li>
+                            <?php foreach ($benefits as $benefit_index => $benefit) : ?>
+                                <li class="e-reveal" data-delay="<?php echo esc_attr(450 + $benefit_index * 100); ?>">
                                     <span class="m-newsletter-subscribe__check" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="m4 8 2.5 2.5L12 5"/></svg></span>
                                     <span class="a-text a-text--l"><?php echo esc_html($benefit['text']); ?></span>
                                 </li>
@@ -57,7 +57,7 @@ $section_title = get_field('newsletter_subscribe_title');
                     <?php endif; ?>
 
                     <?php if ($form_shortcode) : ?>
-                        <div class="m-newsletter-subscribe__form">
+                        <div class="m-newsletter-subscribe__form e-reveal" data-delay="<?php echo esc_attr($benefits ? 450 + count($benefits) * 100 : 600); ?>">
                             <?php echo do_shortcode($form_shortcode); ?>
                             <?php if ($error_message = get_field('newsletter_subscribe_error_message')) : ?>
                                 <div class="m-newsletter-subscribe__error" data-newsletter-error hidden role="alert" aria-live="assertive">
@@ -67,7 +67,7 @@ $section_title = get_field('newsletter_subscribe_title');
                             <?php endif; ?>
                         </div>
                     <?php elseif (!empty($form_action['url']) && !empty($form_action['title'])) : ?>
-                        <form class="m-newsletter-subscribe__signup" action="<?php echo esc_url($form_action['url']); ?>" method="get">
+                        <form class="m-newsletter-subscribe__signup e-reveal" data-delay="<?php echo esc_attr($benefits ? 450 + count($benefits) * 100 : 600); ?>" action="<?php echo esc_url($form_action['url']); ?>" method="get">
                             <div class="m-newsletter-subscribe__signup-row">
                                 <input class="a-text a-text--s" type="email" name="email" placeholder="<?php echo esc_attr(get_field('newsletter_subscribe_placeholder')); ?>" aria-label="<?php echo esc_attr(get_field('newsletter_subscribe_placeholder')); ?>" autocomplete="email" required>
                                 <button class="a-text a-text--xs" type="submit"><?php echo esc_html($form_action['title']); ?></button>
@@ -84,11 +84,11 @@ $section_title = get_field('newsletter_subscribe_title');
 
                 <div class="m-newsletter-subscribe__preview">
                     <?php if ($preview_background) : ?>
-                        <div class="m-newsletter-subscribe__background">
+                        <div class="m-newsletter-subscribe__background e-reveal e-reveal--image" data-delay="150">
                             <?php echo wp_get_attachment_image($preview_background, 'large', false, ['alt' => '', 'aria-hidden' => 'true', 'loading' => 'lazy', 'decoding' => 'async']); ?>
                         </div>
                     <?php endif; ?>
-                    <article class="m-newsletter-subscribe__story">
+                    <article class="m-newsletter-subscribe__story e-reveal" data-delay="500">
                         <?php if ($label = get_field('newsletter_subscribe_preview_label')) : ?><p class="a-text a-text--xs"><?php echo esc_html($label); ?></p><?php endif; ?>
                         <?php if ($preview_image) : ?>
                             <div class="m-newsletter-subscribe__story-image">

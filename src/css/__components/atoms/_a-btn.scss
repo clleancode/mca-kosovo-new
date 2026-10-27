@@ -12,7 +12,7 @@
     padding: 0 20px;
     font-family: var(--red-hat-display);
     font-size: clamp(13px, 2.8vw, 16px);
-    transition: color 0.3s ease-in-out;
+    transition: color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), scale var(--duration-fast) var(--ease-out);
     position: relative;
     overflow: hidden;
     isolation: isolate;
@@ -20,7 +20,7 @@
 
     i {
         font-size: clamp(10px, 2vw, 12px);
-        transition: transform 0.3s ease-in-out;
+        transition: transform var(--duration-base) var(--ease-out);
         transform-origin: left center;
     }
 
@@ -39,10 +39,19 @@
         background-color: var(--a-btn-hover-fill);
         transform: scaleX(0);
         transform-origin: left;
-        transition: transform 0.3s ease-in-out;
+        transition: transform .4s var(--ease-out);
         z-index: -1;
         pointer-events: none;
         border-radius: inherit;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--blue);
+        outline-offset: 3px;
+    }
+
+    &:not(:disabled):not([aria-disabled="true"]):active {
+        scale: .97;
     }
 
     @media (hover: hover) {
@@ -171,7 +180,7 @@
     overflow: hidden;
     isolation: isolate;
     border: 1px solid var(--white);
-    transition: color .3s ease-in-out;
+    transition: color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), scale var(--duration-fast) var(--ease-out);
 
     &::after {
         content: '';
@@ -182,8 +191,12 @@
         transform: scaleX(0);
         transform-origin: left center;
         pointer-events: none;
-        transition: transform .3s ease-in-out;
+        transition: transform .4s var(--ease-out);
         border-radius: inherit;
+    }
+
+    &:not(:disabled):not([aria-disabled="true"]):active {
+        scale: .97;
     }
 
     @media (hover: hover) {
@@ -207,7 +220,11 @@
     background-position: left center;
     background-repeat: no-repeat;
     background-size: 0% 100%;
-    transition: background-size .3s ease-in-out, color .3s ease-in-out, border-color .3s ease-in-out;
+    transition: background-size .4s var(--ease-out), color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), scale var(--duration-fast) var(--ease-out);
+
+    &:not(:disabled):not([aria-disabled="true"]):active {
+        scale: .98;
+    }
 
     @media (hover: hover) {
 

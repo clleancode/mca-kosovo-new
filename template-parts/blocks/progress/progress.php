@@ -52,18 +52,18 @@ $status_labels = [
     <div class="container">
         <div class="m-progress__intro s-d-b-m s-m-b-s">
             <div class="m-progress__heading">
-                <p class="a-badge h-dark-blue h-semibold s-d-b-xs"><?php echo esc_html(get_field('progress_label')); ?></p>
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                <p class="a-badge h-dark-blue h-semibold s-d-b-xs e-reveal e-reveal--text"><?php echo esc_html(get_field('progress_label')); ?></p>
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                     <?php echo esc_html(get_field('progress_title')); ?>
                 </<?php echo tag_escape($tag); ?>>
             </div>
 
             <div class="m-progress__phase">
-                <div class="m-progress__phase-labels">
+                <div class="m-progress__phase-labels e-reveal" data-delay="350">
                     <span class="a-text a-text--xs h-semibold"><?php echo esc_html(get_field('progress_phase_label')); ?></span>
                     <span class="a-text a-text--xs h-semibold h-dark-blue"><?php echo esc_html($phase); ?></span>
                 </div>
-                <progress class="a-progress-bar" max="100" value="<?php echo esc_attr($percentage); ?>" aria-label="<?php echo esc_attr($phase); ?>">
+                <progress class="a-progress-bar e-reveal e-reveal--clip" data-delay="450" max="100" value="<?php echo esc_attr($percentage); ?>" aria-label="<?php echo esc_attr($phase); ?>">
                     <?php echo esc_html($percentage); ?>%
                 </progress>
             </div>
@@ -71,12 +71,12 @@ $status_labels = [
 
         <?php if ($milestones) : ?>
             <ol class="m-progress__milestones">
-                <?php foreach ($milestones as $milestone) : ?>
+                <?php foreach ($milestones as $milestone_index => $milestone) : ?>
                     <?php
                     $status = in_array($milestone['status'] ?? '', ['complete', 'active', 'upcoming'], true) ? $milestone['status'] : 'upcoming';
                     $description_color = $status === 'active' ? 'h-white' : $text_color;
                     ?>
-                    <li class="m-progress__milestone m-progress__milestone--<?php echo esc_attr($status); ?>">
+                    <li class="m-progress__milestone m-progress__milestone--<?php echo esc_attr($status); ?> e-reveal" data-delay="<?php echo esc_attr(150 + $milestone_index * 120); ?>">
                         <div class="m-progress__card-top">
                             <span class="a-text a-text--xs h-semibold"><?php echo esc_html($milestone['date'] ?? ''); ?></span>
                             <span class="a-progress-status" aria-label="<?php echo esc_attr($status_labels[$status]); ?>">

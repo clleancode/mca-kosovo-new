@@ -104,6 +104,12 @@
 	--cubic-bezier: cubic-bezier(.3,.86,.36,.95);
 	--cubic-bezier2: cubic-bezier(.4,0,0,1);
 	--ease: ease;
+	--ease-out: cubic-bezier(.22, 1, .36, 1);
+	--ease-in-out: cubic-bezier(.65, 0, .35, 1);
+
+	--duration-fast: .2s;
+	--duration-base: .3s;
+	--duration-slow: .6s;
 
 	--mobile-height: 100vh;
 }

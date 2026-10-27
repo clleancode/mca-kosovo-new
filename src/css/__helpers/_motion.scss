@@ -1,0 +1,75 @@
+//
+// ----------------------------------------
+// MOTION
+//
+// Page transitions and image loading.
+// Scroll reveals live in _e-reveal.scss.
+//
+
+// Cross-document fade between same-origin pages; unsupported browsers navigate as usual.
+@view-transition {
+    navigation: auto;
+}
+
+@keyframes page-fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes page-fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+::view-transition-old(root) {
+    animation: page-fade-out .2s var(--ease-out) both;
+}
+
+::view-transition-new(root) {
+    animation: page-fade-in .35s var(--ease-out) both;
+}
+
+@keyframes image-fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+img.is-image-loading {
+    opacity: 0;
+}
+
+img.is-image-loaded {
+    animation: image-fade-in .5s var(--ease-out);
+}
+
+@keyframes field-error-in {
+    from {
+        opacity: 0;
+        translate: 0 -4px;
+    }
+}
+
+.wpcf7-not-valid-tip {
+    animation: field-error-in var(--duration-base) var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wpcf7-not-valid-tip {
+        animation: none;
+    }
+
+    @view-transition {
+        navigation: none;
+    }
+
+    img.is-image-loading {
+        opacity: 1;
+    }
+
+    img.is-image-loaded {
+        animation: none;
+    }
+}

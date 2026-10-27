@@ -71,14 +71,14 @@ $upload_fields = [
         <div class="m-application">
             <div class="m-application__tile">
                 <div class="m-application__heading">
-                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?>">
+                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> e-reveal e-reveal--text">
                         <?php echo esc_html(get_field('application_title')); ?>
                     </<?php echo tag_escape($tag); ?>>
-                    <p class="a-text a-text--m">
+                    <p class="a-text a-text--m e-reveal e-reveal--text" data-delay="150">
                         <?php echo esc_html(get_field('application_note')); ?>
                     </p>
                 </div>
-                <div class="m-application__form">
+                <div class="m-application__form e-reveal" data-delay="300">
                     <?php if ($shortcode) : ?>
                         <?php echo do_shortcode($shortcode); ?>
                     <?php else : ?>
@@ -166,7 +166,7 @@ $upload_fields = [
             <aside class="m-application__sidebar">
                 <div class="m-application__photos">
                     <?php if ($main_image) : ?>
-                        <div class="m-application__main-photo">
+                        <div class="m-application__main-photo e-reveal e-reveal--image" data-delay="150">
                             <?php
                             echo wp_get_attachment_image($main_image, 'large', false, [
                                 'loading'  => 'lazy',
@@ -176,7 +176,7 @@ $upload_fields = [
                         </div>
                     <?php endif; ?>
                     <?php if ($secondary_image) : ?>
-                        <div class="m-application__secondary-photo">
+                        <div class="m-application__secondary-photo e-reveal e-reveal--image" data-delay="300">
                             <?php
                             echo wp_get_attachment_image($secondary_image, 'large', false, [
                                 'loading'  => 'lazy',
@@ -187,10 +187,10 @@ $upload_fields = [
                     <?php endif; ?>
                 </div>
                 <div class="m-application__contact">
-                    <h2 class="a-heading a-heading--h6 h-white h-semibold">
+                    <h2 class="a-heading a-heading--h6 h-white h-semibold e-reveal e-reveal--text">
                         <?php echo esc_html(get_field('application_contact_title')); ?>
                     </h2>
-                    <p class="a-text a-text--m h-white s-d-t-xs s-m-t-xs">
+                    <p class="a-text a-text--m h-white s-d-t-xs s-m-t-xs e-reveal e-reveal--text" data-delay="150">
                         <?php echo esc_html(get_field('application_contact_description')); ?>
                         <?php if ($contact_email) : ?>
                             <a class="a-text a-text--s h-white" href="<?php echo esc_url('mailto:' . sanitize_email($contact_email)); ?>">
@@ -199,7 +199,7 @@ $upload_fields = [
                         <?php endif; ?>
                     </p>
                     <?php if (!empty($form_file['url'])) : ?>
-                        <div class="m-application__download s-d-t-xs s-m-t-xs">
+                        <div class="m-application__download s-d-t-xs s-m-t-xs e-reveal" data-delay="300">
                             <a class="a-btn a-btn--white a-btn--smallest" href="<?php echo esc_url($form_file['url']); ?>" download>
                                 <span class="a-text a-text--m h-dark-blue">
                                     <?php echo esc_html(get_field('application_download_label')); ?>

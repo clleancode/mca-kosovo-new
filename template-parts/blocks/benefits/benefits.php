@@ -50,11 +50,12 @@ $typography = Helpers\get_block_typography( [
 
             <?php if ( $notice ) : ?>
                 <div class="m-benefits__notice">
-                    <p class="a-text a-text--m"><?php echo esc_html( $notice ); ?></p>
+                    <p class="a-text a-text--m e-reveal"><?php echo esc_html( $notice ); ?></p>
 
                     <?php if ( ! empty( $notice_link['url'] ) ) : ?>
                         <a
-                            class="a-text a-text--m"
+                            class="a-text a-text--m e-reveal"
+                            data-delay="100"
                             href="<?php echo esc_url( $notice_link['url'] ); ?>"
                             <?php if ( ( $notice_link['target'] ?? '' ) === '_blank' ) : ?>target="_blank" rel="noopener noreferrer"<?php endif; ?>
                         >
@@ -68,12 +69,13 @@ $typography = Helpers\get_block_typography( [
             <div class="m-benefits__header">
                 <div class="m-benefits__heading s-d-t-l s-m-t-s">
                     <?php if ( $label ) : ?>
-                        <p class="a-badge h-dark-blue h-semibold"><?php echo esc_html( $label ); ?></p>
+                        <p class="a-badge h-dark-blue h-semibold e-reveal e-reveal--text"><?php echo esc_html( $label ); ?></p>
                     <?php endif; ?>
 
                     <?php if ( $title ) : ?>
                         <<?php echo tag_escape( $typography['header_tag'] ); ?>
-                            class="a-heading a-heading--<?php echo esc_attr( $typography['header_size'] ); ?> <?php echo esc_attr( $typography['header_color'] ); ?> h--<?php echo esc_attr( $typography['header_line_height'] ); ?>"
+                            class="a-heading a-heading--<?php echo esc_attr( $typography['header_size'] ); ?> <?php echo esc_attr( $typography['header_color'] ); ?> h--<?php echo esc_attr( $typography['header_line_height'] ); ?> e-reveal e-reveal--text"
+                            data-delay="100"
                         >
                             <?php echo esc_html( $title ); ?>
                         </<?php echo tag_escape( $typography['header_tag'] ); ?>>
@@ -81,7 +83,7 @@ $typography = Helpers\get_block_typography( [
                 </div>
 
                 <?php if ( $description ) : ?>
-                    <p class="a-text a-text--<?php echo esc_attr( $typography['text_type'] ); ?> <?php echo esc_attr( $typography['text_color'] ); ?> h--<?php echo esc_attr( $typography['text_line_height'] ); ?>">
+                    <p class="a-text a-text--<?php echo esc_attr( $typography['text_type'] ); ?> <?php echo esc_attr( $typography['text_color'] ); ?> h--<?php echo esc_attr( $typography['text_line_height'] ); ?> e-reveal e-reveal--text" data-delay="350">
                         <?php echo nl2br( esc_html( $description ) ); ?>
                     </p>
                 <?php endif; ?>
@@ -89,7 +91,7 @@ $typography = Helpers\get_block_typography( [
 
             <div class="m-benefits__layout s-d-t-s s-m-t-xs">
                 <?php if ( $image ) : ?>
-                    <div class="m-benefits__image">
+                    <div class="m-benefits__image e-reveal e-reveal--image">
                         <?php echo wp_get_attachment_image( $image, 'large', false, [ 'loading' => 'lazy' ] ); ?>
                     </div>
                 <?php endif; ?>
@@ -99,7 +101,7 @@ $typography = Helpers\get_block_typography( [
                         $tone = in_array( $card['badge_color'] ?? '', [ 'blue', 'purple', 'teal' ], true ) ? $card['badge_color'] : 'blue';
                         $link = $card['link'] ?? [];
                         ?>
-                        <div class="m-benefits__card<?php echo 0 === $index ? ' is-featured' : ''; ?>">
+                        <div class="m-benefits__card<?php echo 0 === $index ? ' is-featured' : ''; ?> e-reveal" data-delay="<?php echo esc_attr( 150 + ( $index % 2 ) * 120 ); ?>">
                             <div class="m-benefits__meta">
                                 <?php if ( ! empty( $card['badge'] ) ) : ?>
                                     <div class="m-benefits__badge is-<?php echo esc_attr( $tone ); ?>">
@@ -137,11 +139,14 @@ $typography = Helpers\get_block_typography( [
             <?php if ( $ways ) : ?>
                 <div class="m-benefits__ways s-d-t-m s-m-t-s">
                     <?php if ( $ways_title ) : ?>
-                        <h2 class="a-heading a-heading--h5 h-dark-blue"><?php echo esc_html( $ways_title ); ?></h2>
+                        <h2 class="a-heading a-heading--h5 h-dark-blue e-reveal e-reveal--text"><?php echo esc_html( $ways_title ); ?></h2>
                     <?php endif; ?>
 
                     <div class="m-benefits__ways-grid">
-                        <?php foreach ( array_slice( $ways, 0, 4 ) as $way ) :
+                        <?php
+                        $way_index = 0;
+
+                        foreach ( array_slice( $ways, 0, 4 ) as $way ) :
                             $way_link = $way['link'] ?? [];
 
                             if ( empty( $way_link['url'] ) ) {
@@ -149,8 +154,9 @@ $typography = Helpers\get_block_typography( [
                             }
 
                             $way_color = in_array( $way['color'] ?? '', [ 'navy', 'blue', 'purple', 'pink' ], true ) ? $way['color'] : 'navy';
+                            $way_delay = 150 + ( $way_index++ % 4 ) * 120;
                             ?>
-                            <div class="m-benefits__way is-<?php echo esc_attr( $way_color ); ?>">
+                            <div class="m-benefits__way is-<?php echo esc_attr( $way_color ); ?> e-reveal" data-delay="<?php echo esc_attr( $way_delay ); ?>">
                                 <a
                                     href="<?php echo esc_url( $way_link['url'] ); ?>"
                                     <?php if ( ( $way_link['target'] ?? '' ) === '_blank' ) : ?>target="_blank" rel="noopener noreferrer"<?php endif; ?>

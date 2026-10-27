@@ -45,15 +45,15 @@ $description = get_field('project_documents_description');
         <?php if ($documents) : ?>
             <div class="m-documents__documents">
                 <div class="m-documents__documents-heading">
-                    <p class="a-badge h-dark-blue h-semibold"><?php echo esc_html(get_field('project_documents_label')); ?></p>
+                    <p class="a-badge h-dark-blue h-semibold e-reveal e-reveal--text"><?php echo esc_html(get_field('project_documents_label')); ?></p>
 
-                    <h2 class="s-d-b-xs s-m-b-xs s-d-t-xs a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                    <h2 class="s-d-b-xs s-m-b-xs s-d-t-xs a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                         <?php echo esc_html(get_field('project_documents_title')); ?>
                     </h2>
 
                     <?php if ($description) : ?>
                         <div class="m-documents__documents-description">
-                            <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                            <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="350">
                                 <?php echo nl2br(esc_html($description)); ?>
                             </p>
                         </div>
@@ -61,6 +61,7 @@ $description = get_field('project_documents_description');
                 </div>
 
                 <ul class="m-documents__document-list">
+                    <?php $document_index = 0; ?>
                     <?php while (have_rows('project_documents')) : the_row(); ?>
                         <?php
                         $file = get_sub_field('file') ?: [];
@@ -103,7 +104,7 @@ $description = get_field('project_documents_description');
                             ?? $block['data'][$row_prefix . 'description']
                             ?? get_sub_field('project_documents_description');
                         ?>
-                        <li>
+                        <li class="e-reveal" data-delay="<?php echo esc_attr(250 + $document_index * 100); ?>">
                             <img class="a-documents-pdf" src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/' . $document_icon . '.svg')); ?>" alt="" aria-hidden="true">
 
                             <div class="m-documents__document-copy">
@@ -123,6 +124,7 @@ $description = get_field('project_documents_description');
                                 <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/download.svg')); ?>" alt="" aria-hidden="true">
                             </a>
                         </li>
+                        <?php $document_index++; ?>
                     <?php endwhile; ?>
                 </ul>
             </div>

@@ -53,7 +53,7 @@ $background  = get_theme_file_uri('/assets/img/pics/gallery/media-hero.png');
     <div class="container">
         <div class="m-gallery-banner">
             <div class="m-gallery-banner__content">
-                <nav class="h-breadcrumbs s-d-b-s s-m-b-xs" aria-label="Breadcrumb">
+                <nav class="h-breadcrumbs s-d-b-s s-m-b-xs e-reveal" data-offset="0" aria-label="Breadcrumb">
                     <ol>
                         <li>
                             <a class="a-text a-text--xs h-white" href="<?php echo esc_url(home_url('/')); ?>">Home</a>
@@ -66,18 +66,18 @@ $background  = get_theme_file_uri('/assets/img/pics/gallery/media-hero.png');
                     </ol>
                 </nav>
 
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> s-d-b-s s-m-b-xs">
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> s-d-b-s s-m-b-xs e-reveal e-reveal--text" data-offset="0" data-delay="100">
                     <?php echo esc_html($title); ?>
                 </<?php echo tag_escape($tag); ?>>
 
                 <?php if ($description) : ?>
-                    <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                    <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-offset="0" data-delay="350">
                         <?php echo nl2br(esc_html($description)); ?>
                     </p>
                 <?php endif; ?>
             </div>
 
-            <form class="m-gallery-banner__search" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+            <form class="m-gallery-banner__search e-reveal" data-offset="0" data-delay="500" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
                 <input
                     id="<?php echo esc_attr($search_id); ?>"
                     type="search"

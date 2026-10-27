@@ -92,12 +92,12 @@ $base = remove_query_arg($page_key);
     <div class="container">
         <div class="m-category">
             <div class="m-category__heading s-d-b-s s-m-b-xs">
-                <h2 class="a-heading a-heading--h5 h-dark-blue">
+                <h2 class="a-heading a-heading--h5 h-dark-blue e-reveal e-reveal--text">
                     <?php echo esc_html(get_field('resource_category_title')); ?>
                 </h2>
             </div>
             <nav class="m-category__cards" aria-label="Publication categories">
-                <?php foreach ($cards as $card) :
+                <?php foreach ($cards as $card_index => $card) :
                     $term = $card['term_object'] ?? null;
                     $link = $card['link'] ?? [];
                     $url  = $term ? add_query_arg($filter_key, $term->term_id, $base) : ($link['url'] ?? '');
@@ -110,7 +110,7 @@ $base = remove_query_arg($page_key);
                     $dark  = $tone !== 'white';
                     $title = ($card['title'] ?? '') ?: ($term->name ?? ($link['title'] ?? ''));
                     ?>
-                    <div class="m-category__card m-category__card--<?php echo esc_attr($tone); ?>">
+                    <div class="m-category__card m-category__card--<?php echo esc_attr($tone); ?> e-reveal" data-delay="<?php echo esc_attr(150 + ($card_index % 5) * 120); ?>">
                         <div class="m-category__card-top">
                             <div class="m-category__icon">
                                 <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/' . ($dark ? 'rectangle.svg' : 'rectangle-blue.svg'))); ?>" alt="" aria-hidden="true">
@@ -156,7 +156,7 @@ $base = remove_query_arg($page_key);
                     $terms   = $terms && !is_wp_error($terms) ? $terms : [];
                     ?>
                     <article class="m-category__publication">
-                        <div class="m-category__cover">
+                        <div class="m-category__cover e-reveal e-reveal--image">
                             <?php if (has_post_thumbnail($publication)) : ?>
                                 <?php echo get_the_post_thumbnail($publication, 'large', ['loading' => 'lazy', 'decoding' => 'async']); ?>
                             <?php else : ?>
@@ -167,29 +167,29 @@ $base = remove_query_arg($page_key);
                         </div>
                         <div class="m-category__publication-copy">
                             <div class="m-category__meta">
-                                <?php foreach ($terms as $term) : ?>
-                                    <span class="a-text a-text--xs h-semibold"><?php echo esc_html($term->name); ?></span>
+                                <?php foreach ($terms as $term_index => $term) : ?>
+                                    <span class="a-text a-text--xs h-semibold e-reveal" data-delay="<?php echo esc_attr(150 + $term_index * 80); ?>"><?php echo esc_html($term->name); ?></span>
                                 <?php endforeach; ?>
                                 <?php if ($project) : ?>
-                                    <span class="a-text a-text--xs h-semibold"><?php echo esc_html(get_the_title($project)); ?></span>
+                                    <span class="a-text a-text--xs h-semibold e-reveal" data-delay="<?php echo esc_attr(150 + count($terms) * 80); ?>"><?php echo esc_html(get_the_title($project)); ?></span>
                                 <?php endif; ?>
                                 <?php if (!empty($pdf['url'])) : ?>
-                                    <span class="a-text a-text--xs h-semibold">PDF</span>
+                                    <span class="a-text a-text--xs h-semibold e-reveal" data-delay="<?php echo esc_attr(150 + (count($terms) + ($project ? 1 : 0)) * 80); ?>">PDF</span>
                                 <?php endif; ?>
                             </div>
-                            <h3 class="a-heading a-heading--h4 h-dark-blue s-d-t-xs s-m-t-xs s-d-b-xs s-m-b-xs">
+                            <h3 class="a-heading a-heading--h4 h-dark-blue s-d-t-xs s-m-t-xs s-d-b-xs s-m-b-xs e-reveal e-reveal--text" data-delay="250">
                                 <?php echo esc_html(get_the_title($publication)); ?>
                             </h3>
-                            <p class="a-text a-text--l">
+                            <p class="a-text a-text--l e-reveal e-reveal--text" data-delay="400">
                                 <?php echo esc_html(wp_strip_all_tags(get_the_excerpt($publication))); ?>
                             </p>
                             <div class="m-category__actions s-d-t-s s-m-t-xs">
                                 <?php if (!empty($pdf['url'])) : ?>
-                                    <a class="a-btn a-btn--blue" href="<?php echo esc_url($pdf['url']); ?>" download>
+                                    <a class="a-btn a-btn--blue e-reveal" data-delay="550" href="<?php echo esc_url($pdf['url']); ?>" download>
                                         <span>Download PDF <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/white-download.svg')); ?>" alt="" aria-hidden="true"></span>
                                     </a>
                                 <?php endif; ?>
-                                <a class="a-btn a-btn--border-blue" href="<?php echo esc_url(get_permalink($publication)); ?>">
+                                <a class="a-btn a-btn--border-blue e-reveal" data-delay="<?php echo esc_attr(empty($pdf['url']) ? 550 : 650); ?>" href="<?php echo esc_url(get_permalink($publication)); ?>">
                                     <span>View publication</span>
                                 </a>
                             </div>
@@ -197,10 +197,10 @@ $base = remove_query_arg($page_key);
                     </article>
                 <?php endforeach; ?>
                 <?php if (!$query->posts) : ?>
-                    <p class="a-text a-text--l">No publications in this category yet.</p>
+                    <p class="a-text a-text--l e-reveal e-reveal--text">No publications in this category yet.</p>
                 <?php endif; ?>
                 <?php if ($query->max_num_pages > 1) : ?>
-                    <nav class="m-category__pagination" aria-label="Publication pages">
+                    <nav class="m-category__pagination e-reveal" data-delay="150" aria-label="Publication pages">
                         <?php
                         echo paginate_links([
                             'base'      => str_replace('999999999', '%#%', add_query_arg($page_key, 999999999, $base)),

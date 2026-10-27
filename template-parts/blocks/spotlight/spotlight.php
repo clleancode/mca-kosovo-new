@@ -59,7 +59,7 @@ $links = [
     <div class="container">
         <div class="m-spotlight m-spotlight--<?php echo esc_attr($layout); ?>">
 
-            <div class="m-spotlight__image">
+            <div class="m-spotlight__image e-reveal e-reveal--image" data-delay="<?php echo esc_attr($layout === 'purple' ? 0 : 250); ?>">
                 <?php
                 if ($image) {
                     echo wp_get_attachment_image($image, 'large', false, [
@@ -70,7 +70,7 @@ $links = [
                 ?>
             </div>
 
-            <div class="m-spotlight__content">
+            <div class="m-spotlight__content e-reveal">
 
                 <?php if ($label) : ?>
                     <div class="m-spotlight__label m-spotlight__label--<?php echo esc_attr($pill_color); ?> s-d-b-s s-m-b-xs">
@@ -97,13 +97,13 @@ $links = [
                 <?php endif; ?>
 
                 <?php if ($layout === 'white' && get_field('spotlight_mission')): ?>
-                    <div class="m-spotlight__mission"><p class="h-semibold a-text a-text--<?php echo esc_attr($text_size); ?> h--<?php echo esc_attr($text_height); ?>"><?php echo nl2br(esc_html(get_field('spotlight_mission'))); ?></p></div>
+                    <div class="m-spotlight__mission"><p class="h-semibold a-text a-text--<?php echo esc_attr($text_size); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="450"><?php echo nl2br(esc_html(get_field('spotlight_mission'))); ?></p></div>
                 <?php endif; ?>
                 <?php if ($tags) : ?>
                     <ul class="m-spotlight__tags s-d-b-s s-m-b-xs">
-                        <?php foreach ($tags as $row) : ?>
+                        <?php foreach ($tags as $pill_index => $row) : ?>
                             <?php if (empty($row['tag'])) continue; ?>
-                            <li>
+                            <li class="e-reveal" data-delay="<?php echo esc_attr(500 + $pill_index * 80); ?>">
                                 <span class="a-text a-text--xs h-semibold">
                                     <?php echo esc_html($row['tag']); ?>
                                 </span>
@@ -116,7 +116,8 @@ $links = [
                     <?php foreach ($links as $type => $link) : ?>
                         <?php if (empty($link['url'])) continue; ?>
                         <a
-                            class="h-semibold a-spotlight-button a-spotlight-button--<?php echo esc_attr($type); ?> a-text a-text--m"
+                            class="h-semibold a-spotlight-button a-spotlight-button--<?php echo esc_attr($type); ?> a-text a-text--m e-reveal"
+                            data-delay="<?php echo esc_attr($type === 'primary' ? 700 : 800); ?>"
                             href="<?php echo esc_url($link['url']); ?>"
                             target="<?php echo esc_attr(($link['target'] ?? '') ?: '_self'); ?>"
                             <?php if (($link['target'] ?? '') === '_blank') : ?>

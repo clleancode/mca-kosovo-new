@@ -31,7 +31,7 @@
                     height: 2px;
                     border-radius: 25%;
                     background-color: #2F358B;
-                    transition: transform .3s var(--ease);
+                    transition: transform .4s var(--ease-out);
                     transform: scaleX(0);
                     transform-origin: right center;
                 }
@@ -62,6 +62,8 @@
                         opacity: 1;
                         visibility: visible;
                         pointer-events: auto;
+                        translate: none;
+                        transition: opacity var(--duration-base) var(--ease-out) .1s, translate .45s var(--ease-out) .1s, visibility 0s linear .1s;
                     }
                 }
             }
@@ -114,8 +116,8 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: all .4s var(--cubic-bezier);
-    transition-delay: .1s;
+    translate: 0 10px;
+    transition: opacity var(--duration-base) var(--ease-out) .1s, translate .45s var(--ease-out) .1s, visibility 0s linear .4s;
     gap: 20px !important;
     background-color: var(--grey);
 
@@ -459,6 +461,42 @@
     }
 }
 
+@media (min-width: 1200px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .m-sub-menu__intro,
+    .m-sub-menu__project-list > li,
+    .m-sub-menu__resources-groups > section,
+    .m-sub-menu__featured {
+        opacity: 0;
+        translate: 0 12px;
+        transition: opacity var(--duration-base) var(--ease-out), translate .5s var(--ease-out);
+    }
+
+    .m-menu > ul > li:is(.is-submenu-open, :focus-within) > .m-sub-menu {
+        .m-sub-menu__intro,
+        .m-sub-menu__project-list > li,
+        .m-sub-menu__resources-groups > section,
+        .m-sub-menu__featured {
+            opacity: 1;
+            translate: none;
+            transition-delay: .15s;
+        }
+
+        .m-sub-menu__project-list > li:nth-child(2),
+        .m-sub-menu__resources-groups > section:nth-child(2) {
+            transition-delay: .2s;
+        }
+
+        .m-sub-menu__project-list > li:nth-child(3),
+        .m-sub-menu__resources-groups > section:nth-child(3) {
+            transition-delay: .25s;
+        }
+
+        .m-sub-menu__featured {
+            transition-delay: .3s;
+        }
+    }
+}
+
 
 .m-header__menu-mobile {
     color: var(--dark-blue);
@@ -476,10 +514,34 @@
     padding-top: 102px;
     padding-inline: var(--mobile-menu-inset);
     background-color: var(--white);
-    transition: transform 0.45s var(--cubic-bezier);
+    visibility: hidden;
+    transition: transform 0.45s var(--cubic-bezier), visibility 0s linear .45s;
 
     &.active {
         transform: translateX(0);
+        visibility: visible;
+        transition: transform 0.45s var(--cubic-bezier), visibility 0s;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        // Items reset only after the panel has slid away; a mid-close translate would also re-anchor the absolute submenus.
+        .m-header__menu-list > li {
+            opacity: 0;
+            translate: -16px 0;
+            transition: opacity 0s linear .45s, translate 0s linear .45s;
+        }
+
+        &.active .m-header__menu-list > li {
+            opacity: 1;
+            translate: none;
+            transition: opacity var(--duration-base) var(--ease-out), translate .5s var(--ease-out);
+
+            @for $i from 1 through 8 {
+                &:nth-child(#{$i}) {
+                    transition-delay: #{0.12 + $i * 0.04}s;
+                }
+            }
+        }
     }
 
     ul {
@@ -550,17 +612,19 @@
     position: absolute;
     width: 100%;
     background: var(--white);
-    right: -100%;
+    right: 0;
+    translate: 100% 0;
     height: 100%;
     top: 0;
     padding: 170px var(--mobile-menu-inset, 15px) 0;
-    transition: all .45s var(--cubic-bezier);
+    transition: translate .45s var(--cubic-bezier), visibility 0s linear .45s;
     @extend %container !optional;
     display: block;
 
     &.active {
         visibility: visible;
-        right: 0;
+        translate: none;
+        transition: translate .45s var(--cubic-bezier), visibility 0s;
     }
 }
 

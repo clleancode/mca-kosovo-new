@@ -73,17 +73,18 @@ $legend = [
         <div class="m-notices">
             <div class="m-notices__header s-d-b-s s-m-b-xs">
                 <div class="m-notices__heading">
-                    <h2 class="a-heading a-heading--h5 h-dark-blue">
+                    <h2 class="a-heading a-heading--h5 h-dark-blue e-reveal e-reveal--text">
                         <?php echo esc_html(get_field('notices_title') ?: ($compact ? 'More procurement notices' : 'Latest notices')); ?>
                     </h2>
-                    <?php if (!$compact): ?><span class="a-text a-text--xs">
+                    <?php if (!$compact): ?><span class="a-text a-text--xs e-reveal e-reveal--text" data-delay="100">
                         Page <?php echo esc_html($filters['page']); ?> of <?php echo esc_html($total_pages); ?>
                     </span><?php endif; ?>
                 </div>
 
                 <?php if (!$compact): ?><ul class="m-notices__legend" aria-label="Notice statuses">
+                    <?php $legend_index = 0; ?>
                     <?php foreach ($legend as $state => $label) : ?>
-                        <li>
+                        <li class="e-reveal" data-delay="<?php echo esc_attr(200 + $legend_index++ * 80); ?>">
                             <span class="h-semibold a-notices-status a-notices-status--<?php echo esc_attr($state); ?> a-text a-text--xs">
                                 <?php echo esc_html($label); ?>
                             </span>
@@ -91,7 +92,7 @@ $legend = [
                     <?php endforeach; ?>
                 </ul><?php endif; ?>
                 <?php if (!empty($header_link['url'])): ?>
-                    <a class="a-btn a-btn--border-blue a-btn--smallest" href="<?php echo esc_url($header_link['url']); ?>"<?php if (($header_link['target'] ?? '') === '_blank'): ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>><span><?php echo esc_html($header_link['title'] ?: 'All procurements'); ?><span aria-hidden="true">&rarr;</span></span></a>
+                    <a class="a-btn a-btn--border-blue a-btn--smallest e-reveal" data-delay="<?php echo esc_attr($compact ? 300 : 200 + count($legend) * 80); ?>" href="<?php echo esc_url($header_link['url']); ?>"<?php if (($header_link['target'] ?? '') === '_blank'): ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>><span><?php echo esc_html($header_link['title'] ?: 'All procurements'); ?><span aria-hidden="true">&rarr;</span></span></a>
                 <?php endif; ?>
             </div>
 
@@ -110,8 +111,9 @@ $legend = [
                             $project_id   = absint(get_field('procurement_project', $notice->ID));
                             $project_name = $project_id ? get_the_title($project_id) : '';
                             $phase        = get_field('procurement_phase', $notice->ID);
+                            $column       = ($featured && $filters['page'] === 1 && $index > 0 ? $index + 1 : $index) % 3;
                             ?>
-                            <article class="m-notices__card<?php echo $is_featured ? ' m-notices__card--featured' : ''; ?>">
+                            <article class="m-notices__card<?php echo $is_featured ? ' m-notices__card--featured' : ''; ?> e-reveal" data-delay="<?php echo esc_attr(150 + $column * 120); ?>">
                                 <?php if ($is_featured) : ?>
                                     <div class="m-notices__image">
                                         <?php
@@ -206,12 +208,12 @@ $legend = [
                     </div>
                 <?php else : ?>
                     <div class="m-notices__empty">
-                        <p class="a-text a-text--l">No notices match your filters. Try a different search or reset the filters.</p>
+                        <p class="a-text a-text--l e-reveal e-reveal--text">No notices match your filters. Try a different search or reset the filters.</p>
                     </div>
                 <?php endif; ?>
 
                 <?php if ($total_pages > 1) : ?>
-                    <nav class="m-notices__pagination" aria-label="Notice pages">
+                    <nav class="m-notices__pagination e-reveal" data-delay="200" aria-label="Notice pages">
                         <?php
                         echo paginate_links([
                             'base'      => str_replace('999999999', '%#%', add_query_arg('notice_page', 999999999, $base_url)),

@@ -124,11 +124,11 @@ $meta = static function ($story, $is_feature = false) use ($selected) {
         }
     }
     ?>
-    <div class="m-news__meta<?php echo $is_feature ? ' m-news__meta--featured e-reveal' : ''; ?>"<?php if ($is_feature) : ?> data-delay="250"<?php endif; ?>>
+    <div class="m-news__meta<?php echo $is_feature ? ' m-news__meta--featured' : ''; ?>">
         <?php if ($category) : ?>
-            <span class="a-text a-text--xs"><?php echo esc_html($category->name); ?></span>
+            <span class="a-text a-text--xs<?php echo $is_feature ? ' e-reveal' : ''; ?>"<?php if ($is_feature) : ?> data-delay="250"<?php endif; ?>><?php echo esc_html($category->name); ?></span>
         <?php endif; ?>
-        <time class="a-text a-text--xs" datetime="<?php echo esc_attr(get_the_date('c', $story)); ?>">
+        <time class="a-text a-text--xs<?php echo $is_feature ? ' e-reveal e-reveal--text' : ''; ?>"<?php if ($is_feature) : ?> data-delay="330"<?php endif; ?> datetime="<?php echo esc_attr(get_the_date('c', $story)); ?>">
             <?php echo esc_html(get_the_date('M Y', $story)); ?>
         </time>
     </div>
@@ -137,14 +137,14 @@ $meta = static function ($story, $is_feature = false) use ($selected) {
 
 $render_filters = static function () use ($base_url, $selected, $categories, $filter_key, $archive_url, $archive) {
     ?>
-    <nav class="m-news__filters e-reveal" data-delay="300" aria-label="News categories">
-        <a class="a-text a-text--l" href="<?php echo esc_url($base_url); ?>" data-news-filter<?php if (!$selected) : ?> aria-current="true"<?php endif; ?>>All</a>
-        <?php foreach ($categories as $category) : ?>
-            <a class="a-text a-text--l" href="<?php echo esc_url(add_query_arg($filter_key, $category->term_id, $base_url)); ?>" data-news-filter<?php if ($selected === $category->term_id) : ?> aria-current="true"<?php endif; ?>>
+    <nav class="m-news__filters" aria-label="News categories">
+        <a class="a-text a-text--l e-reveal" data-delay="300" href="<?php echo esc_url($base_url); ?>" data-news-filter<?php if (!$selected) : ?> aria-current="true"<?php endif; ?>>All</a>
+        <?php foreach ($categories as $category_index => $category) : ?>
+            <a class="a-text a-text--l e-reveal" data-delay="<?php echo esc_attr(380 + $category_index * 80); ?>" href="<?php echo esc_url(add_query_arg($filter_key, $category->term_id, $base_url)); ?>" data-news-filter<?php if ($selected === $category->term_id) : ?> aria-current="true"<?php endif; ?>>
                 <?php echo esc_html($category->name); ?>
             </a>
         <?php endforeach; ?>
-        <a class="a-underline a-text a-text--l" href="<?php echo esc_url($archive_url); ?>">
+        <a class="a-underline a-text a-text--l e-reveal" data-delay="<?php echo esc_attr(380 + count($categories) * 80); ?>" href="<?php echo esc_url($archive_url); ?>">
             <span><?php echo esc_html($archive['title'] ?? ''); ?></span>
             <i class="icon-arrow-right a-icon" aria-hidden="true"></i>
         </a>

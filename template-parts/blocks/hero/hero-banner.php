@@ -60,7 +60,7 @@ if (get_field('hero_layout') === 'about') {
     >
         <div class="m-hero-about">
             <?php if (!empty($slide['background_image'])) : ?>
-                <div class="m-hero-about__image">
+                <div class="m-hero-about__image" data-parallax>
                     <?php
                     echo wp_get_attachment_image($slide['background_image'], 'full', false, [
                         'loading'       => 'eager',
@@ -87,12 +87,12 @@ if (get_field('hero_layout') === 'about') {
                             </ol>
                         </nav>
 
-                        <<?php echo tag_escape($about_tag); ?> class="a-heading a-heading--<?php echo esc_attr($about_size); ?> <?php echo esc_attr($about_color); ?> h--<?php echo esc_attr($about_height); ?> h-uppercase s-d-b-xs s-m-b-xs e-reveal e-reveal--text" data-offset="0" data-delay="150">
+                        <<?php echo tag_escape($about_tag); ?> class="a-heading a-heading--<?php echo esc_attr($about_size); ?> <?php echo esc_attr($about_color); ?> h--<?php echo esc_attr($about_height); ?> h-uppercase s-d-b-xs s-m-b-xs e-reveal e-reveal--text" data-offset="0" data-delay="120">
                             <?php echo wp_kses_post($slide['title'] ?? ''); ?>
                         </<?php echo tag_escape($about_tag); ?>>
 
                         <?php if (!empty($slide['description'])) : ?>
-                            <p class="a-text a-text--<?php echo esc_attr($about_text); ?> <?php echo esc_attr($about_text_color); ?> h--<?php echo esc_attr($about_text_height); ?> e-reveal e-reveal--text" data-offset="0" data-delay="500">
+                            <p class="a-text a-text--<?php echo esc_attr($about_text); ?> <?php echo esc_attr($about_text_color); ?> h--<?php echo esc_attr($about_text_height); ?> e-reveal e-reveal--text" data-offset="0" data-delay="380">
                                 <?php echo wp_kses_post($slide['description']); ?>
                             </p>
                         <?php endif; ?>
@@ -101,7 +101,7 @@ if (get_field('hero_layout') === 'about') {
                     <?php if ($statistics) : ?>
                         <div class="m-hero-about__statistics">
                             <?php foreach ($statistics as $stat_index => $statistic) : ?>
-                                <div class="m-hero-about__statistic e-reveal" data-offset="0" data-delay="<?php echo esc_attr(650 + $stat_index * 120); ?>">
+                                <div class="m-hero-about__statistic e-reveal" data-offset="0" data-delay="<?php echo esc_attr(500 + $stat_index * 100); ?>">
                                     <span class="a-heading a-heading--h3 h-white"><?php echo esc_html($statistic['value'] ?? ''); ?></span>
                                     <span class="a-text a-text--xs h-white"><?php echo esc_html($statistic['caption'] ?? ''); ?></span>
                                 </div>
@@ -191,7 +191,7 @@ $type = Helpers\get_block_typography([
             <?php foreach ($items as $index => $project) : ?>
                 <?php $tag = $index === 0 ? $type['header_tag'] : 'h2'; ?>
                 <div class="swiper-slide m-hero__inner">
-                    <div class="m-hero__image">
+                    <div class="m-hero__image" data-parallax>
                         <?php
                         echo get_the_post_thumbnail($project, 'full', [
                             'loading'       => $index === 0 ? 'eager' : 'lazy',
@@ -202,9 +202,9 @@ $type = Helpers\get_block_typography([
 
                     <div class="container">
                         <div class="m-hero__copy">
-                            <div class="m-hero__meta e-reveal" data-offset="0" data-delay="100">
-                                <?php if ($slide_labels[$project->ID]): ?><span class="a-text a-text--xs h-uppercase"><?php echo esc_html($slide_labels[$project->ID]); ?></span><?php endif; ?>
-                                <time class="a-text a-text--xs h-uppercase"><?php echo esc_html(get_the_date('M Y', $project)); ?></time>
+                            <div class="m-hero__meta<?php echo $index > 0 ? ' e-reveal' : ''; ?>" data-offset="0" data-delay="100">
+                                <?php if ($slide_labels[$project->ID]): ?><span class="a-text a-text--xs h-uppercase<?php echo $index === 0 ? ' e-reveal' : ''; ?>" data-offset="0" data-delay="100"><?php echo esc_html($slide_labels[$project->ID]); ?></span><?php endif; ?>
+                                <time class="a-text a-text--xs h-uppercase<?php echo $index === 0 ? ' e-reveal e-reveal--text' : ''; ?>" data-offset="0" data-delay="180"><?php echo esc_html(get_the_date('M Y', $project)); ?></time>
                             </div>
 
                             <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($type['header_size']); ?> h-white h--<?php echo esc_attr($type['header_line_height']); ?> e-reveal e-reveal--text" data-offset="0" data-delay="200">
@@ -212,12 +212,12 @@ $type = Helpers\get_block_typography([
                             </<?php echo tag_escape($tag); ?>>
 
                             <?php if ($excerpt = $summaries[$project->ID]) : ?>
-                                <p class="a-text a-text--<?php echo esc_attr($type['text_type']); ?> h-white e-reveal e-reveal--text" data-offset="0" data-delay="550">
+                                <p class="a-text a-text--<?php echo esc_attr($type['text_type']); ?> h-white e-reveal e-reveal--text" data-offset="0" data-delay="420">
                                     <?php echo esc_html(wp_trim_words($excerpt, 28)); ?>
                                 </p>
                             <?php endif; ?>
 
-                            <div class="m-hero__action e-reveal" data-offset="0" data-delay="700">
+                            <div class="m-hero__action e-reveal" data-offset="0" data-delay="560">
                                 <a class="a-text a-text--m h-semibold" href="<?php echo esc_url(get_permalink($project)); ?>">
                                     <span>
                                         <?php echo esc_html($project->post_type === 'project' ? __('Explore project', 'MCA') : __('Read the story', 'MCA')); ?>
@@ -233,31 +233,31 @@ $type = Helpers\get_block_typography([
 
         <div class="m-hero__footer">
             <div class="container">
-                <div class="m-hero__controls e-reveal" data-offset="0" data-delay="850">
-                    <div class="m-hero__fraction">
+                <div class="m-hero__controls">
+                    <div class="m-hero__fraction e-reveal" data-offset="0" data-delay="650">
                         <span class="a-text a-text--s" data-hero-current>01</span>
                         <span class="a-text a-text--s">/</span>
                         <span class="a-text a-text--s"><?php echo esc_html(sprintf('%02d', count($items))); ?></span>
                     </div>
 
-                    <a href="#" role="button" data-hero-pause aria-label="Pause slideshow" aria-pressed="false">
+                    <a class="e-reveal" data-offset="0" data-delay="730" href="#" role="button" data-hero-pause aria-label="Pause slideshow" aria-pressed="false">
                         <span data-hero-pause-icon aria-hidden="true">
                             <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/stop.svg')); ?>" alt="">
                         </span>
                     </a>
 
-                    <a href="#" role="button" data-hero-prev aria-label="Previous slide">
+                    <a class="e-reveal" data-offset="0" data-delay="810" href="#" role="button" data-hero-prev aria-label="Previous slide">
                         <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/left-hero.svg')); ?>" alt="">
                     </a>
 
-                    <a href="#" role="button" data-hero-next aria-label="Next slide">
+                    <a class="e-reveal" data-offset="0" data-delay="890" href="#" role="button" data-hero-next aria-label="Next slide">
                         <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/right-hero.svg')); ?>" alt="">
                     </a>
                 </div>
 
                 <div class="m-hero__cards">
                     <?php foreach ($items as $index => $project) : ?>
-                        <div class="m-hero__card<?php echo $index === 0 ? ' is-active' : ''; ?> e-reveal" data-offset="0" data-delay="<?php echo esc_attr(950 + $index * 120); ?>">
+                        <div class="m-hero__card<?php echo $index === 0 ? ' is-active' : ''; ?> e-reveal" data-offset="0" data-delay="<?php echo esc_attr(720 + $index * 100); ?>">
                             <a
                                 href="<?php echo esc_url(get_permalink($project)); ?>"
                                 data-hero-slide="<?php echo esc_attr($index); ?>"

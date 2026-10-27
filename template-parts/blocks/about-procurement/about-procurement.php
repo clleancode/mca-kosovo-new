@@ -103,7 +103,7 @@ $url = get_permalink($id);
         <div class="m-about-procurement">
             <div class="m-about-procurement__facts">
                 <?php foreach ($facts as $index => [$label, $fact, $note]) : ?>
-                    <div class="m-about-procurement__fact<?php echo $index === 3 ? ' is-deadline' : ''; ?>">
+                    <div class="m-about-procurement__fact<?php echo $index === 3 ? ' is-deadline' : ''; ?> e-reveal" data-delay="<?php echo esc_attr(150 + ($index % 5) * 120); ?>">
                         <p class="a-text a-text--xs h-semibold h-uppercase"><?php echo esc_html($label); ?></p>
                         <p class="h-semibold a-heading a-heading--<?php echo $index === 3 ? 'h3' : 'h6'; ?>"><?php echo esc_html($fact); ?></p>
                         <?php if ($note) : ?>
@@ -117,29 +117,29 @@ $url = get_permalink($id);
                 <div class="m-about-procurement__main">
                     <?php if ($has_about) : ?>
                     <div class="m-about-procurement__card">
-                        <h2 class="a-heading a-heading--h5">
+                        <h2 class="a-heading a-heading--h5 e-reveal e-reveal--text">
                             <?php echo esc_html($value('ap_about_title', 'About this procurement')); ?>
                         </h2>
                         <?php if ($intro = $value('ap_intro')) : ?>
-                            <p class="a-text a-text--xl"><?php echo nl2br(esc_html($intro)); ?></p>
+                            <p class="a-text a-text--xl e-reveal e-reveal--text" data-delay="150"><?php echo nl2br(esc_html($intro)); ?></p>
                         <?php endif; ?>
                         <?php if ($description = $value('ap_description')) : ?>
-                            <p class="a-text a-text--m"><?php echo nl2br(esc_html($description)); ?></p>
+                            <p class="a-text a-text--m e-reveal e-reveal--text" data-delay="300"><?php echo nl2br(esc_html($description)); ?></p>
                         <?php endif; ?>
                     <?php if ($content = $value('ap_content')) : ?>
-                        <div class="a-text a-text--l"><?php echo wp_kses_post($content); ?></div>
+                        <div class="a-text a-text--l e-reveal" data-delay="400"><?php echo wp_kses_post($content); ?></div>
                     <?php endif; ?>
                     </div>
                     <?php endif; ?>
                     <?php if ($has_participation) : ?>
                     <div class="m-about-procurement__card">
-                        <h2 class="a-heading a-heading--h5">
+                        <h2 class="a-heading a-heading--h5 e-reveal e-reveal--text">
                             <?php echo esc_html($value('ap_participation_title', 'How to take part')); ?>
                         </h2>
                         <?php if ($steps) : ?>
                             <div class="m-about-procurement__steps">
                                 <?php foreach ($steps as $index => $step) : ?>
-                                    <div class="m-about-procurement__step">
+                                    <div class="m-about-procurement__step e-reveal" data-delay="<?php echo esc_attr(150 + ($index % 3) * 120); ?>">
                                         <div class="m-about-procurement__number">
                                             <span class="a-text a-text--xs"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
                                         </div>
@@ -169,7 +169,7 @@ $url = get_permalink($id);
                             </div>
                         <?php endif; ?>
                         <?php if ($warning = $value('ap_warning')) : ?>
-                            <div class="m-about-procurement__warning">
+                            <div class="m-about-procurement__warning e-reveal" data-delay="300">
                                 <p class="a-text a-text--m h-semibold"><?php echo esc_html($warning); ?></p>
                             </div>
                         <?php endif; ?>
@@ -177,13 +177,14 @@ $url = get_permalink($id);
                     <?php endif; ?>
                     <?php if ($has_process) : ?>
                     <div class="m-about-procurement__card">
-                        <h2 class="a-heading a-heading--h5">
+                        <h2 class="a-heading a-heading--h5 e-reveal e-reveal--text">
                             <?php echo esc_html($value('ap_process_title', 'Procurement process')); ?>
                         </h2>
                         <ol class="m-about-procurement__process">
                             <?php foreach ($process as $index => [$label, $note]) : ?>
                                 <li
-                                    <?php echo $index + 1 <= $stage ? 'class="is-complete' . ($index + 1 < $stage ? ' is-connected' : '') . '"' : ''; ?>
+                                    class="e-reveal<?php echo $index + 1 <= $stage ? ' is-complete' . ($index + 1 < $stage ? ' is-connected' : '') : ''; ?>"
+                                    data-delay="<?php echo esc_attr(150 + $index * 120); ?>"
                                     <?php echo $index + 1 === $stage ? 'aria-current="step"' : ''; ?>
                                 >
                                     <h3 class="a-text a-text--xxl h-semibold"><?php echo esc_html($label); ?></h3>
@@ -198,8 +199,8 @@ $url = get_permalink($id);
                 <aside class="m-about-procurement__aside">
                     <?php if ($documents = get_field('ap_documents')) : ?>
                         <div class="m-about-procurement__card">
-                            <h2 class="a-heading a-heading--h6 h-semibold">Documents</h2>
-                            <?php foreach ($documents as $document) :
+                            <h2 class="a-heading a-heading--h6 h-semibold e-reveal e-reveal--text" data-delay="120">Documents</h2>
+                            <?php foreach ($documents as $document_index => $document) :
                                 $file         = $document['file'] ?? [];
                                 $link         = $document['link'] ?? [];
                                 $document_url = $file['url'] ?? ($link['url'] ?? '');
@@ -212,7 +213,7 @@ $url = get_permalink($id);
                                     ? strtoupper(pathinfo(parse_url($file['url'], PHP_URL_PATH), PATHINFO_EXTENSION))
                                     : 'LINK';
                                 ?>
-                                <div class="m-about-procurement__document">
+                                <div class="m-about-procurement__document e-reveal" data-delay="<?php echo esc_attr(150 + ($document_index % 4) * 120); ?>">
                                     <div class="m-about-procurement__file">
                                         <span class="a-text a-text--xs h-semibold"><?php echo esc_html($format); ?></span>
                                     </div>
@@ -241,12 +242,12 @@ $url = get_permalink($id);
                         </div>
                     <?php endif; ?>
                     <div class="m-about-procurement__card is-contact">
-                        <h2 class="a-heading a-heading--h6">Questions?</h2>
-                        <p class="a-text a-text--m">
+                        <h2 class="a-heading a-heading--h6 e-reveal e-reveal--text">Questions?</h2>
+                        <p class="a-text a-text--m e-reveal e-reveal--text" data-delay="150">
                             <?php echo esc_html($value('ap_contact_intro', 'Contact the MCA Kosovo Procurement Agent.')); ?>
                         </p>
                         <?php if ($email = $value('ap_email', 'MCAKosovoPA@adt-global.com')) : ?>
-                            <div class="m-about-procurement__contact-detail">
+                            <div class="m-about-procurement__contact-detail e-reveal" data-delay="300">
                                 <p class="a-text a-text--xs h-uppercase">Email</p>
                                 <a class="a-text a-text--m" href="<?php echo esc_url('mailto:' . sanitize_email($email)); ?>">
                                     <?php echo esc_html($email); ?>
@@ -254,18 +255,18 @@ $url = get_permalink($id);
                             </div>
                         <?php endif; ?>
                         <?php if ($address = $value('ap_address', 'Migjeni Str. No. 21, 10000 Pristina, Republic of Kosovo')) : ?>
-                            <div class="m-about-procurement__contact-detail">
+                            <div class="m-about-procurement__contact-detail e-reveal" data-delay="420">
                                 <p class="a-text a-text--xs h-uppercase">Address</p>
                                 <p class="a-text a-text--m"><?php echo nl2br(esc_html($address)); ?></p>
                             </div>
                         <?php endif; ?>
                     </div>
                     <div class="m-about-procurement__card is-share">
-                        <h2 class="a-text a-text--xxl h-semibold">Share this notice</h2>
+                        <h2 class="a-text a-text--xxl h-semibold e-reveal e-reveal--text">Share this notice</h2>
                         <div class="m-about-procurement__share s-d-t-xs s-m-t-xs">
-                            <button type="button" class="a-text a-text--m" data-procurement-copy="<?php echo esc_url($url); ?>">Copy link</button>
-                            <a class="a-text a-text--m" href="<?php echo esc_url('https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlencode($url)); ?>" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                            <a class="a-text a-text--m" href="<?php echo esc_url('mailto:?subject=' . rawurlencode(get_the_title($id)) . '&body=' . rawurlencode($url)); ?>">Email</a>
+                            <button type="button" class="a-text a-text--m e-reveal" data-delay="150" data-procurement-copy="<?php echo esc_url($url); ?>">Copy link</button>
+                            <a class="a-text a-text--m e-reveal" data-delay="240" href="<?php echo esc_url('https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlencode($url)); ?>" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <a class="a-text a-text--m e-reveal" data-delay="330" href="<?php echo esc_url('mailto:?subject=' . rawurlencode(get_the_title($id)) . '&body=' . rawurlencode($url)); ?>">Email</a>
                         </div>
                         <span class="a-text a-text--m" data-copy-status role="status"></span>
                     </div>

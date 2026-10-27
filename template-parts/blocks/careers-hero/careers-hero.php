@@ -84,19 +84,20 @@ $links = [
             <div class="m-careers-hero__content">
                 <nav class="h-breadcrumbs s-d-b-xs" aria-label="Breadcrumb">
                     <ol>
-                        <li>
+                        <li class="e-reveal" data-offset="0">
                             <a class="a-text a-text--xs h-white" href="<?php echo esc_url(home_url('/')); ?>">
                                 Home
                             </a>
                         </li>
+                        <?php $crumb_index = 0; ?>
                         <?php foreach (array_reverse(get_post_ancestors($page_id)) as $parent_id) : ?>
-                            <li>
+                            <li class="e-reveal" data-offset="0" data-delay="<?php echo esc_attr(++$crumb_index * 80); ?>">
                                 <a class="a-text a-text--xs h-white" href="<?php echo esc_url(get_permalink($parent_id)); ?>">
                                     <?php echo esc_html(get_the_title($parent_id)); ?>
                                 </a>
                             </li>
                         <?php endforeach; ?>
-                        <li>
+                        <li class="e-reveal" data-offset="0" data-delay="<?php echo esc_attr(($crumb_index + 1) * 80); ?>">
                             <span class="a-text a-text--xs h-white" aria-current="page">
                                 <?php echo esc_html(get_the_title($page_id)); ?>
                             </span>
@@ -104,19 +105,22 @@ $links = [
                     </ol>
                 </nav>
                 <<?php echo tag_escape($tag); ?>
-                    class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> h-uppercase s-d-b-xs s-m-t-xs s-m-b-xs"
+                    class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> h-uppercase s-d-b-xs s-m-t-xs s-m-b-xs e-reveal e-reveal--text"
+                    data-offset="0"
+                    data-delay="120"
                 >
                     <?php echo nl2br(esc_html(get_field('careers_hero_title') ?: 'Careers at MCA Kosovo')); ?>
                 </<?php echo tag_escape($tag); ?>>
                 <?php if ($description) : ?>
                     <div class="m-careers-hero__description s-d-t-s s-d-b-s s-m-b-xs s-m-t-xs">
-                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-offset="0" data-delay="350">
                             <?php echo nl2br(esc_html($description)); ?>
                         </p>
                     </div>
                 <?php endif; ?>
 
                 <div class="m-careers-hero__buttons">
+                    <?php $button_index = 0; ?>
                     <?php foreach ($links as $type => $link) : ?>
                         <?php
                         if (empty($link['url'])) {
@@ -127,7 +131,9 @@ $links = [
                         $btn    = $type === 'primary' ? 'a-btn--white' : 'a-btn--border-white h-white';
                         ?>
                         <a
-                            class="a-btn h-semibold <?php echo esc_attr($btn); ?>"
+                            class="a-btn h-semibold <?php echo esc_attr($btn); ?> e-reveal"
+                            data-offset="0"
+                            data-delay="<?php echo esc_attr(500 + $button_index++ * 100); ?>"
                             href="<?php echo esc_url($link['url']); ?>"
                             target="<?php echo esc_attr($target); ?>"
                             <?php if ($target === '_blank') : ?>
@@ -141,8 +147,8 @@ $links = [
             </div>
             <?php if ($photos) : ?>
                 <div class="m-careers-hero__collage">
-                    <?php foreach ($photos as $photo) : ?>
-                        <div class="m-careers-hero__photo">
+                    <?php foreach ($photos as $photo_index => $photo) : ?>
+                        <div class="m-careers-hero__photo e-reveal e-reveal--image" data-offset="0" data-delay="<?php echo esc_attr(200 + $photo_index * 100); ?>">
                             <?php
                             if (!empty($photo['image'])) {
                                 $image_attributes = [
@@ -158,7 +164,7 @@ $links = [
                         </div>
                     <?php endforeach; ?>
                     <?php if ($statistic || $caption) : ?>
-                        <div class="m-careers-hero__statistic">
+                        <div class="m-careers-hero__statistic e-reveal e-reveal--scale" data-offset="0" data-delay="900">
                             <?php if ($statistic) : ?>
                                 <span class="a-heading a-heading--h6 h-white h-semibold">
                                     <?php echo wp_kses_post(nl2br($statistic)); ?>

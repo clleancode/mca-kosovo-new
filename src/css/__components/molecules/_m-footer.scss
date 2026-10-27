@@ -35,6 +35,14 @@
     border-radius: 50%;
     color: var(--dark-blue);
     text-decoration: none;
+    transition: border-color var(--duration-base) var(--ease-out), translate var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+    .a-footer-social:hover {
+        border-color: var(--dark-blue);
+        translate: 0 -2px;
+    }
 }
 
 .a-footer-social>img {
@@ -61,11 +69,13 @@
 
 .a-footer-link {
     color: var(--dark-blue);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color var(--duration-base) var(--ease-out);
 }
 
 .a-footer-link:hover {
-    text-decoration: underline;
+    text-decoration-color: currentColor;
 }
 
 .a-footer-link:focus-visible,

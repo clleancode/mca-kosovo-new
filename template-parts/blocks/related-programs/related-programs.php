@@ -46,11 +46,11 @@ $query = new WP_Query([
     <div class="container">
         <div class="m-related-programs">
             <div class="m-related-programs__header">
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?>">
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> e-reveal e-reveal--text">
                     <?php echo esc_html(get_field('related_programs_title')); ?>
                 </<?php echo tag_escape($tag); ?>>
                 <?php if (get_field('related_programs_note')) : ?>
-                    <p class="a-text a-text--m">
+                    <p class="a-text a-text--m e-reveal e-reveal--text" data-delay="200">
                         <?php echo esc_html(get_field('related_programs_note')); ?>
                     </p>
                 <?php endif; ?>
@@ -81,7 +81,7 @@ $query = new WP_Query([
                         $status_label = $status_labels[$status] ?? '';
                         $excerpt = get_the_excerpt();
                         ?>
-                        <article class="m-related-programs__card">
+                        <article class="m-related-programs__card e-reveal" data-delay="<?php echo esc_attr(150 + ($query->current_post % 3) * 120); ?>">
                             <div class="m-related-programs__meta">
                                 <?php if ($project_title) : ?>
                                     <div class="m-related-programs__project m-related-programs__project--<?php echo esc_attr($project_color); ?>">

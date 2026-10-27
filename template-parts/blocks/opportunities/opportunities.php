@@ -76,7 +76,7 @@ $email_link  = get_field('opportunities_email_link') ?: [];
                     $label  = $card['label'] ?? '';
                     $target = $link['target'] ?? '';
                     ?>
-                    <article class="m-opportunities__card e-reveal e-reveal--image" data-delay="<?php echo esc_attr($index * 150); ?>">
+                    <article class="m-opportunities__card e-reveal e-reveal--image" data-delay="<?php echo esc_attr(150 + ($index % 2) * 120); ?>">
                         <?php if (!empty($card['image'])) : ?>
                             <?php
                             echo wp_get_attachment_image($card['image'], 'large', false, [
@@ -113,19 +113,19 @@ $email_link  = get_field('opportunities_email_link') ?: [];
                 <?php endforeach; ?>
             </div>
             <div class="m-opportunities__procurements">
-                <div class="m-opportunities__panel-header e-reveal" data-delay="200">
-                    <div class="m-opportunities__panel-icon">
+                <div class="m-opportunities__panel-header">
+                    <div class="m-opportunities__panel-icon e-reveal e-reveal--scale" data-delay="390">
                         <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/document.svg')); ?>" alt="" aria-hidden="true">
                     </div>
 
-                    <div class="m-opportunities__panel-heading">
+                    <div class="m-opportunities__panel-heading e-reveal" data-delay="470">
                         <span class="a-text a-text--xs h-semibold">Latest procurement</span>
                         <h3 class="a-text a-text--xxl h-dark-blue h-semibold">
                             <?php echo esc_html(get_field('opportunities_procurement_label')); ?>
                         </h3>
                     </div>
 
-                    <a class="a-text a-text--s h-semibold" href="<?php echo esc_url($archive_url); ?>">
+                    <a class="a-text a-text--s h-semibold e-reveal" data-delay="550" href="<?php echo esc_url($archive_url); ?>">
                         <?php echo esc_html($archive['title'] ?? ''); ?>
                         <i class="h-semibold icon-arrow-right a-icon" aria-hidden="true"></i>
                     </a>
@@ -164,7 +164,7 @@ $email_link  = get_field('opportunities_email_link') ?: [];
                                 ? 'testimonial.svg'
                                 : 'timeline.svg';
                             ?>
-                            <article class="m-opportunities__featured e-reveal e-reveal--clip" data-delay="350">
+                            <article class="m-opportunities__featured e-reveal e-reveal--clip" data-delay="630">
                                 <img
                                     class="m-opportunities__featured-decoration"
                                     src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/' . $decoration)); ?>"
@@ -219,7 +219,7 @@ $email_link  = get_field('opportunities_email_link') ?: [];
                                 </div>
                             </article>
                         <?php else : ?>
-                            <article class="m-opportunities__notice e-reveal" data-delay="<?php echo esc_attr(400 + $index * 150); ?>">
+                            <article class="m-opportunities__notice e-reveal" data-delay="<?php echo esc_attr(630 + $index * 120); ?>">
                                 <?php if ($deadline_date) : ?>
                                     <div class="m-opportunities__deadline">
                                         <span class="a-text a-text--xs">Deadline</span>
@@ -257,7 +257,7 @@ $email_link  = get_field('opportunities_email_link') ?: [];
                         <?php endif; ?>
                     <?php endforeach; ?>
                     <?php if (!$query->posts) : ?>
-                        <p class="a-text a-text--m">No procurement notices have been published yet.</p>
+                        <p class="a-text a-text--m e-reveal e-reveal--text">No procurement notices have been published yet.</p>
                     <?php endif; ?>
                 </div>
                 <a class="a-opportunities-email a-text a-text--s e-reveal" data-delay="300" href="<?php echo esc_url($email_link['url'] ?? ''); ?>">

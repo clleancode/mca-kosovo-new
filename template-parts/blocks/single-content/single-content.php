@@ -59,7 +59,7 @@ $add_heading = static function ($heading, $level = 'h2') use (&$toc_items, &$hea
     $size = $tag === 'h3' ? 'h6' : 'h5';
     $toc_items[] = ['id' => $heading_id, 'title' => $plain_heading];
 
-    return '<' . $tag . ' id="' . esc_attr($heading_id) . '" class="a-heading a-heading--' . $size . '">' . nl2br(esc_html($heading)) . '</' . $tag . '>';
+    return '<' . $tag . ' id="' . esc_attr($heading_id) . '" class="a-heading a-heading--' . $size . ' e-reveal e-reveal--text">' . nl2br(esc_html($heading)) . '</' . $tag . '>';
 };
 
 foreach ($sections as $section) {
@@ -69,7 +69,7 @@ foreach ($sections as $section) {
         $about_label = trim((string) ($section['compact_about_label'] ?? ''));
         $about_text = trim((string) ($section['compact_about_text'] ?? ''));
         if ($about_text !== '') {
-            $article_markup .= '<div class="m-single-content__compact-about">';
+            $article_markup .= '<div class="m-single-content__compact-about e-reveal">';
             if ($about_label !== '') $article_markup .= '<span class="a-text a-text--xs">' . esc_html($about_label) . '</span>';
             $article_markup .= '<div class="m-single-content__compact-about-text a-text a-text--xl">' . wp_kses_post(wpautop($about_text)) . '</div></div>';
         }
@@ -100,7 +100,7 @@ foreach ($sections as $section) {
 
                 return '<p' . $attributes . '>';
             }, $formatted_content);
-            $article_markup .= '<div class="m-single-content__rich-text">' . $formatted_content . '</div>';
+            $article_markup .= '<div class="m-single-content__rich-text e-reveal" data-delay="150">' . $formatted_content . '</div>';
         }
         $article_markup .= '</div>';
         continue;
@@ -115,7 +115,7 @@ foreach ($sections as $section) {
         $author_image = absint($section['quote_author_image'] ?? 0);
         $author_name = trim((string) ($section['quote_author_name'] ?? ''));
         $author_role = trim((string) ($section['quote_author_role'] ?? ''));
-        $article_markup .= '<figure class="m-single-content__quote m-single-content__quote--' . esc_attr($quote_style) . '">';
+        $article_markup .= '<figure class="m-single-content__quote m-single-content__quote--' . esc_attr($quote_style) . ' e-reveal">';
         $article_markup .= '<blockquote><p class="a-heading a-heading--h6">' . nl2br(esc_html($quote_text)) . '</p></blockquote>';
         if ($author_name !== '' || $author_role !== '' || $author_image) {
             $article_markup .= '<figcaption class="m-single-content__quote-author">';
@@ -144,10 +144,10 @@ foreach ($sections as $section) {
         $list_tag = $is_bullet_list ? 'ul' : 'ol';
         $list_class = 'm-single-content__list' . ($use_numbered_rows ? ' m-single-content__list--rows' : '');
         $article_markup .= '<' . $list_tag . ' class="' . esc_attr($list_class) . '">';
-        foreach ((array) ($section['items'] ?? []) as $item) {
+        foreach ((array) ($section['items'] ?? []) as $item_index => $item) {
             $item_text = trim((string) ($item['text'] ?? ''));
             if ($item_text !== '') {
-                $article_markup .= '<li class="a-text a-text--xl">' . nl2br(esc_html($item_text)) . '</li>';
+                $article_markup .= '<li class="a-text a-text--xl e-reveal" data-delay="' . esc_attr(150 + min($item_index, 6) * 100) . '">' . nl2br(esc_html($item_text)) . '</li>';
             }
         }
         $article_markup .= '</' . $list_tag . '></div>';
@@ -160,7 +160,7 @@ foreach ($sections as $section) {
             continue;
         }
         $caption = trim((string) ($section['caption'] ?? ''));
-        $article_markup .= '<figure class="m-single-content__image">' . wp_get_attachment_image($image_id, 'large', false, ['loading' => 'lazy', 'decoding' => 'async']);
+        $article_markup .= '<figure class="m-single-content__image e-reveal e-reveal--image">' . wp_get_attachment_image($image_id, 'large', false, ['loading' => 'lazy', 'decoding' => 'async']);
         if ($caption !== '') {
             $article_markup .= '<figcaption class="a-text a-text--m">' . esc_html($caption) . '</figcaption>';
         }
@@ -214,7 +214,7 @@ foreach ($sections as $section) {
             'src' => true,
             'type' => true,
         ];
-        $article_markup .= '<figure class="m-single-content__video"><div>' . wp_kses($video_markup, $allowed_video_html) . '</div>';
+        $article_markup .= '<figure class="m-single-content__video e-reveal"><div>' . wp_kses($video_markup, $allowed_video_html) . '</div>';
         if ($caption !== '') {
             $article_markup .= '<figcaption class="a-text a-text--m">' . esc_html($caption) . '</figcaption>';
         }
@@ -237,15 +237,15 @@ foreach ($sections as $section) {
         }, (array) ($section['gallery_tags'] ?? []))));
         $article_markup .= '<div class="m-single-content__gallery-section">';
         $article_markup .= '<div class="m-single-content__gallery-heading">' . $add_heading($heading, 'h3');
-        $article_markup .= '<span class="a-text a-text--xs">' . esc_html(count($images) . ' ' . $photos_label) . '</span></div>';
+        $article_markup .= '<span class="a-text a-text--xs e-reveal" data-delay="150">' . esc_html(count($images) . ' ' . $photos_label) . '</span></div>';
         $article_markup .= '<div class="m-single-content__gallery">';
         foreach (array_slice($images, 0, 3) as $index => $image_id) {
             $image_url = wp_get_attachment_image_url($image_id, 'full');
-            $gallery_image_class = 'm-single-content__gallery-image m-single-content__gallery-image--' . ($index + 1);
+            $gallery_image_class = 'm-single-content__gallery-image m-single-content__gallery-image--' . ($index + 1) . ' e-reveal e-reveal--image';
             if ($index === 2 && count($images) > 3) {
                 $gallery_image_class .= ' m-single-content__gallery-image--more';
             }
-            $article_markup .= '<a class="' . esc_attr($gallery_image_class) . '" href="' . esc_url($image_url) . '" target="_blank" rel="noopener">';
+            $article_markup .= '<a class="' . esc_attr($gallery_image_class) . '" data-delay="' . esc_attr($index * 150) . '" href="' . esc_url($image_url) . '" target="_blank" rel="noopener">';
             $article_markup .= wp_get_attachment_image($image_id, 'large', false, ['loading' => 'lazy', 'decoding' => 'async']);
             if ($index === 2 && count($images) > 3) {
                 $article_markup .= '<span class="m-single-content__gallery-more a-heading a-heading--h2">+' . esc_html((string) (count($images) - 3)) . '</span>';
@@ -253,16 +253,16 @@ foreach ($sections as $section) {
             $article_markup .= '</a>';
         }
         $article_markup .= '</div><div class="m-single-content__gallery-thumbs">';
-        foreach ($images as $image_id) {
+        foreach ($images as $thumb_index => $image_id) {
             $image_url = wp_get_attachment_image_url($image_id, 'full');
-            $article_markup .= '<a href="' . esc_url($image_url) . '" target="_blank" rel="noopener">' . wp_get_attachment_image($image_id, 'thumbnail', false, ['loading' => 'lazy', 'decoding' => 'async']) . '</a>';
+            $article_markup .= '<a class="e-reveal e-reveal--image" data-delay="' . esc_attr(300 + min($thumb_index, 8) * 80) . '" href="' . esc_url($image_url) . '" target="_blank" rel="noopener">' . wp_get_attachment_image($image_id, 'thumbnail', false, ['loading' => 'lazy', 'decoding' => 'async']) . '</a>';
         }
         $article_markup .= '</div></div>';
         if ($gallery_followup_text !== '') {
-            $article_markup .= '<p class="a-text a-text--xl m-single-content__gallery-followup">' . nl2br(esc_html($gallery_followup_text)) . '</p>';
+            $article_markup .= '<p class="a-text a-text--xl m-single-content__gallery-followup e-reveal e-reveal--text">' . nl2br(esc_html($gallery_followup_text)) . '</p>';
         }
         if ($compact_about_label !== '' || $compact_about_text !== '') {
-            $article_markup .= '<div class="m-single-content__compact-about">';
+            $article_markup .= '<div class="m-single-content__compact-about e-reveal">';
             if ($compact_about_label !== '') {
                 $article_markup .= '<span class="a-text a-text--xs">' . esc_html($compact_about_label) . '</span>';
             }
@@ -273,8 +273,8 @@ foreach ($sections as $section) {
         }
         if ($gallery_tags) {
             $article_markup .= '<ul class="m-single-content__tags">';
-            foreach ($gallery_tags as $tag) {
-                $article_markup .= '<li class="a-text a-text--m">' . esc_html($tag) . '</li>';
+            foreach ($gallery_tags as $tag_index => $tag) {
+                $article_markup .= '<li class="a-text a-text--m e-reveal" data-delay="' . esc_attr(100 + $tag_index * 80) . '">' . esc_html($tag) . '</li>';
             }
             $article_markup .= '</ul>';
         }
@@ -306,11 +306,11 @@ if (get_post_type($post_id) === 'procurement' && has_block('acf/documents', $pos
     <div class="container">
         <div class="m-single-content">
             <aside class="m-single-content__share" aria-label="<?php echo esc_attr($share_label); ?>">
-                <span class="a-text a-text--xs"><?php echo esc_html($share_label); ?></span>
-                <a class="a-text a-text--m" href="<?php echo esc_url($linkedin_url); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr($linkedin_label); ?>">in</a>
-                <a class="a-text a-text--m" href="<?php echo esc_url($facebook_url); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr($facebook_label); ?>">f</a>
-                <a class="a-text a-text--m" href="<?php echo esc_url($x_url); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr($x_label); ?>">x</a>
-                <button class="a-text a-text--m" type="button" id="<?php echo esc_attr($copy_id); ?>" data-single-content-copy="<?php echo esc_url($post_url); ?>" data-copy-success="<?php echo esc_attr($copy_success); ?>" data-copy-error="<?php echo esc_attr($copy_error); ?>" aria-label="<?php echo esc_attr($copy_label); ?>">⧉</button>
+                <span class="a-text a-text--xs e-reveal"><?php echo esc_html($share_label); ?></span>
+                <a class="a-text a-text--m e-reveal" data-delay="100" href="<?php echo esc_url($linkedin_url); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr($linkedin_label); ?>">in</a>
+                <a class="a-text a-text--m e-reveal" data-delay="200" href="<?php echo esc_url($facebook_url); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr($facebook_label); ?>">f</a>
+                <a class="a-text a-text--m e-reveal" data-delay="300" href="<?php echo esc_url($x_url); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr($x_label); ?>">x</a>
+                <button class="a-text a-text--m e-reveal" data-delay="400" type="button" id="<?php echo esc_attr($copy_id); ?>" data-single-content-copy="<?php echo esc_url($post_url); ?>" data-copy-success="<?php echo esc_attr($copy_success); ?>" data-copy-error="<?php echo esc_attr($copy_error); ?>" aria-label="<?php echo esc_attr($copy_label); ?>">⧉</button>
                 <span class="a-text a-text--xs" data-single-content-copy-status role="status" aria-live="polite"></span>
             </aside>
 
@@ -320,7 +320,7 @@ if (get_post_type($post_id) === 'procurement' && has_block('acf/documents', $pos
 
             <aside class="m-single-content__sidebar">
                 <?php if ($toc_items) : ?>
-                    <nav class="m-single-content__toc" aria-label="<?php echo esc_attr($toc_title); ?>">
+                    <nav class="m-single-content__toc e-reveal" data-delay="250" aria-label="<?php echo esc_attr($toc_title); ?>">
                         <span class="a-text a-text--xs"><?php echo esc_html($toc_title); ?></span>
                         <ul>
                             <?php foreach ($toc_items as $index => $toc_item) : ?>
@@ -331,7 +331,7 @@ if (get_post_type($post_id) === 'procurement' && has_block('acf/documents', $pos
                 <?php endif; ?>
 
                 <?php if ($related_project_id && $related_project_url && $related_project_title) : ?>
-                    <a class="m-single-content__project" href="<?php echo esc_url($related_project_url); ?>">
+                    <a class="m-single-content__project e-reveal" data-delay="400" href="<?php echo esc_url($related_project_url); ?>">
                         <?php if ($related_project_image_id) : ?>
                             <?php echo wp_get_attachment_image($related_project_image_id, 'medium_large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                         <?php endif; ?>

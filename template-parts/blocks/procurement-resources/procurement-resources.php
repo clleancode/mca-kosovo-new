@@ -45,7 +45,7 @@ $signup_link = get_field('procurement_resources_signup_link') ?: [];
     <div class="container">
         <div class="m-procurement-resources">
             <div class="m-procurement-resources__heading s-d-b-s s-m-b-xs">
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text">
                     <?php echo esc_html(get_field('procurement_resources_title')); ?>
                 </<?php echo tag_escape($tag); ?>>
             </div>
@@ -56,7 +56,7 @@ $signup_link = get_field('procurement_resources_signup_link') ?: [];
                     $link   = $card['link'] ?? [];
                     $target = $link['target'] ?? '';
                     ?>
-                    <article class="m-procurement-resources__card<?php echo $index === 0 ? ' m-procurement-resources__card--image' : ''; ?>">
+                    <article class="m-procurement-resources__card<?php echo $index === 0 ? ' m-procurement-resources__card--image' : ''; ?> e-reveal" data-delay="<?php echo esc_attr(150 + $index * 120); ?>">
                         <?php if (!empty($card['image'])) : ?>
                             <div class="m-procurement-resources__image">
                                 <?php
@@ -100,7 +100,7 @@ $signup_link = get_field('procurement_resources_signup_link') ?: [];
                     </article>
                 <?php endforeach; ?>
 
-                <div class="m-procurement-resources__signup">
+                <div class="m-procurement-resources__signup e-reveal" data-delay="<?php echo esc_attr(150 + count($cards) * 120); ?>">
                     <div class="m-procurement-resources__signup-copy">
                         <h3 class="a-heading a-heading--h6 h-dark-blue s-d-b-xs">
                             <?php echo esc_html(get_field('procurement_resources_signup_title')); ?>

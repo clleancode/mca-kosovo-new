@@ -48,16 +48,16 @@ $icon_files = [
         <div class="m-contact-form">
             <div class="m-contact-form__main">
                 <div class="m-contact-form__heading">
-                    <h2 class="a-heading a-heading--h3">
+                    <h2 class="a-heading a-heading--h3 e-reveal e-reveal--text">
                         <?php echo esc_html(get_field('contact_form_title')); ?>
                     </h2>
                     <?php if (get_field('contact_form_note')) : ?>
-                        <p class="a-text a-text--m"><?php echo esc_html(get_field('contact_form_note')); ?></p>
+                        <p class="a-text a-text--m e-reveal e-reveal--text" data-delay="150"><?php echo esc_html(get_field('contact_form_note')); ?></p>
                     <?php endif; ?>
                 </div>
 
                 <?php if ($form_shortcode) : ?>
-                    <div class="m-contact-form__form m-form">
+                    <div class="m-contact-form__form m-form e-reveal" data-delay="300">
                         <?php echo do_shortcode($form_shortcode); ?>
                     </div>
                 <?php endif; ?>
@@ -65,7 +65,7 @@ $icon_files = [
 
             <aside class="m-contact-form__sidebar">
                 <?php if ($address) : ?>
-                    <article class="m-contact-form__panel m-contact-form__visit">
+                    <article class="m-contact-form__panel m-contact-form__visit e-reveal" data-delay="200">
                         <span class="m-contact-form__icon" aria-hidden="true">
                             <svg viewBox="0 0 24 24" focusable="false"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
                         </span>
@@ -91,7 +91,7 @@ $icon_files = [
                 <?php endif; ?>
 
                 <?php if ($email) : ?>
-                    <article class="m-contact-form__panel m-contact-form__email">
+                    <article class="m-contact-form__panel m-contact-form__email e-reveal" data-delay="300">
                         <span class="m-contact-form__icon" aria-hidden="true">
                             <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/mail.svg')); ?>" alt="">
                         </span>
@@ -105,7 +105,7 @@ $icon_files = [
                 <?php endif; ?>
 
                 <?php if ($social_links) : ?>
-                    <article class="m-contact-form__panel m-contact-form__social">
+                    <article class="m-contact-form__panel m-contact-form__social e-reveal" data-delay="400">
                         <?php if ($social_title) : ?>
                             <h3 class="a-heading a-heading--h6"><?php echo esc_html($social_title); ?></h3>
                         <?php endif; ?>
@@ -128,7 +128,7 @@ $icon_files = [
                 <?php endif; ?>
 
                 <?php if (!empty($fraud_link['url'])) : ?>
-                    <article class="m-contact-form__panel m-contact-form__fraud">
+                    <article class="m-contact-form__panel m-contact-form__fraud e-reveal" data-delay="500">
                         <h3 class="a-heading a-heading--h6"><?php echo esc_html(get_field('contact_form_fraud_title')); ?></h3>
                         <?php if (get_field('contact_form_fraud_description')) : ?>
                             <p class="a-text a-text--m"><?php echo esc_html(get_field('contact_form_fraud_description')); ?></p>

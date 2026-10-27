@@ -29,10 +29,14 @@ import singleContent from "./__modules/single-content";
 import newsletterSubscribe from "./__modules/newsletter-subscribe";
 import initLenis, { getLenis } from "./__modules/lenis-scroll";
 import eReveal from "./__modules/e-reveal";
+import eParallax from "./__modules/e-parallax";
+import imageLoading from "./__modules/image-loading";
 
 document.addEventListener("DOMContentLoaded", () => {
     initLenis();
     eReveal();
+    eParallax();
+    imageLoading();
 
     const lenis = getLenis();
     if (lenis) lenis.on("scroll", updateHeaderScroll);

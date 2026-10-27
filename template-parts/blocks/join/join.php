@@ -58,7 +58,8 @@ $links = [
                     <?php echo nl2br(esc_html(get_field('join_title'))); ?>
                 </<?php echo tag_escape($tag); ?>>
 
-                <div class="m-join__buttons s-d-t-s s-m-t-s e-reveal" data-delay="750">
+                <div class="m-join__buttons s-d-t-s s-m-t-s">
+                    <?php $button_index = 0; ?>
                     <?php foreach ($links as $type => $link) : ?>
                         <?php
                         if (empty($link['url'])) {
@@ -68,7 +69,8 @@ $links = [
                         $target = $link['target'] ?? '';
                         ?>
                         <a
-                            class="a-join__button a-join__button--<?php echo esc_attr($type); ?> a-text a-text--m"
+                            class="a-join__button a-join__button--<?php echo esc_attr($type); ?> a-text a-text--m e-reveal"
+                            data-delay="<?php echo esc_attr(750 + $button_index++ * 100); ?>"
                             href="<?php echo esc_url($link['url']); ?>"
                             target="<?php echo esc_attr($target); ?>"
                             <?php if ($target === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>

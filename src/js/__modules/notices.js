@@ -1,4 +1,5 @@
 import { scrollToTarget } from './lenis-scroll';
+import eReveal from './e-reveal';
 
 const notices = () => {
     const section = document.querySelector('[data-notices]');
@@ -39,6 +40,7 @@ const notices = () => {
             }
 
             section.innerHTML = updated.innerHTML;
+            eReveal();
 
             if (history) {
                 window.history.pushState({}, '', url);

@@ -1,3 +1,5 @@
+import eReveal from './e-reveal';
+
 const allDocuments = () => {
     document.querySelectorAll('[data-all-documents]').forEach((section, sectionIndex) => {
         if (section.dataset.initialized) return;
@@ -64,8 +66,12 @@ const allDocuments = () => {
                     incoming.querySelectorAll('[data-document-id]').forEach(card => {
                         if (!ids.has(card.dataset.documentId)) grid.append(card);
                     });
+                    eReveal();
                     results.querySelector('.m-all-documents__more').innerHTML = incoming.querySelector('.m-all-documents__more').innerHTML;
-                } else results.innerHTML = incoming.innerHTML;
+                } else {
+                    results.innerHTML = incoming.innerHTML;
+                    eReveal();
+                }
                 selected = updated.dataset.selectedFilter;
                 section.querySelectorAll('[data-document-filter]').forEach(link => {
                     link.removeAttribute('aria-current');

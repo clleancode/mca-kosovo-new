@@ -72,7 +72,7 @@ $section_title = get_field('how_to_apply_title');
     <div class="container">
         <div class="m-how-to-apply">
             <?php if ($section_title && $steps) : ?>
-                <<?php echo tag_escape($tag); ?> class="m-how-to-apply__title a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                <<?php echo tag_escape($tag); ?> class="m-how-to-apply__title a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text">
                     <?php echo esc_html($section_title); ?>
                 </<?php echo tag_escape($tag); ?>>
             <?php endif; ?>
@@ -80,7 +80,7 @@ $section_title = get_field('how_to_apply_title');
             <?php if ($steps) : ?>
                 <ol class="m-how-to-apply__steps">
                     <?php foreach ($steps as $index => $step) : ?>
-                        <li class="m-how-to-apply__card<?php echo $index === 3 ? ' m-how-to-apply__card--last' : ''; ?><?php echo $style === 'blue' && $index === 3 ? ' m-how-to-apply__card--blue' : ''; ?>">
+                        <li class="m-how-to-apply__card<?php echo $index === 3 ? ' m-how-to-apply__card--last' : ''; ?><?php echo $style === 'blue' && $index === 3 ? ' m-how-to-apply__card--blue' : ''; ?> e-reveal" data-delay="<?php echo esc_attr(150 + ($index % 4) * 120); ?>">
                             <span class="m-how-to-apply__number a-text a-text--s" aria-hidden="true"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
                             <div class="m-how-to-apply__copy">
                                 <h3 class="a-heading a-heading--h6 h-semibold h-dark-blue"><?php echo esc_html($step['title'] ?? ''); ?></h3>
@@ -97,7 +97,7 @@ $section_title = get_field('how_to_apply_title');
 
             <?php if ($style !== 'standard') : ?>
                 <div class="m-how-to-apply__bottom<?php echo !$steps ? ' m-how-to-apply__bottom--only' : ''; ?>">
-                    <div class="m-how-to-apply__contact">
+                    <div class="m-how-to-apply__contact e-reveal" data-delay="150">
                         <?php if ($contact_image) : ?>
                             <?php echo wp_get_attachment_image($contact_image, 'thumbnail', false, ['class' => 'm-how-to-apply__contact-image', 'loading' => 'lazy', 'decoding' => 'async']); ?>
                         <?php endif; ?>
@@ -120,7 +120,7 @@ $section_title = get_field('how_to_apply_title');
                         </div>
                     </div>
 
-                    <aside class="m-how-to-apply__newsletter">
+                    <aside class="m-how-to-apply__newsletter e-reveal" data-delay="270">
                         <?php if ($newsletter_title) : ?><h3 class="a-heading a-heading--h6 h-white h-semibold"><?php echo esc_html($newsletter_title); ?></h3><?php endif; ?>
                         <?php if ($newsletter_shortcode) : ?>
                             <div class="m-how-to-apply__newsletter-form"><?php echo do_shortcode($newsletter_shortcode); ?></div>

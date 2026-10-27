@@ -52,11 +52,11 @@ $items = array_values(array_filter(
             </div>
 
             <?php if (count($items) > 1) : ?>
-                <div class="m-gallery-slider__navigation e-reveal" data-delay="350">
-                    <button class="m-gallery-slider__previous" type="button" aria-label="Previous image">
+                <div class="m-gallery-slider__navigation">
+                    <button class="m-gallery-slider__previous e-reveal" data-delay="350" type="button" aria-label="Previous image">
                         <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/left.svg')); ?>" alt="" aria-hidden="true">
                     </button>
-                    <button class="m-gallery-slider__next" type="button" aria-label="Next image">
+                    <button class="m-gallery-slider__next e-reveal" data-delay="450" type="button" aria-label="Next image">
                         <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/right.svg')); ?>" alt="" aria-hidden="true">
                     </button>
                 </div>
@@ -65,16 +65,16 @@ $items = array_values(array_filter(
     </div>
 
     <?php if ($items) : ?>
-        <div class="swiper m-gallery-slider__swiper e-reveal e-reveal--image" data-delay="200" role="region" aria-label="Compact photo gallery">
+        <div class="swiper m-gallery-slider__swiper" role="region" aria-label="Compact photo gallery">
             <div class="swiper-wrapper">
-                <?php foreach ($items as $item) : ?>
+                <?php foreach ($items as $slide_index => $item) : ?>
                     <?php $layout = ($item['layout'] ?? '') === 'portrait' ? 'portrait' : 'landscape'; ?>
                     <div class="swiper-slide m-gallery-slider__slide m-gallery-slider__slide--<?php echo esc_attr($layout); ?>">
                         <figure class="m-gallery-slider__figure">
-                            <div class="m-gallery-slider__image">
+                            <div class="m-gallery-slider__image e-reveal e-reveal--image" data-delay="<?php echo esc_attr(200 + min($slide_index, 4) * 120); ?>">
                                 <?php echo wp_get_attachment_image($item['image'], 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                             </div>
-                            <figcaption class="a-text a-text--xs"><?php echo esc_html($item['caption'] ?? ''); ?></figcaption>
+                            <figcaption class="a-text a-text--xs e-reveal e-reveal--text" data-delay="<?php echo esc_attr(500 + min($slide_index, 4) * 120); ?>"><?php echo esc_html($item['caption'] ?? ''); ?></figcaption>
                         </figure>
                     </div>
                 <?php endforeach; ?>

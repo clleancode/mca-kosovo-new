@@ -106,13 +106,13 @@ $category_color_map = [
 >
     <div class="container">
         <div class="m-news-grid__header">
-            <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($heading_size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_line_height); ?>">
+            <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($heading_size); ?> <?php echo esc_attr($heading_color); ?> h--<?php echo esc_attr($heading_line_height); ?> e-reveal e-reveal--text">
                 <?php echo esc_html(get_field('news_grid_title') ?: 'Latest news'); ?>
             </<?php echo tag_escape($tag); ?>>
             <?php if ($related): ?>
-                <?php if (!empty($all_news_link['url'])): ?><a class="a-btn a-btn--border-blue a-btn--smallest" href="<?php echo esc_url($all_news_link['url']); ?>" target="<?php echo esc_attr($all_news_link['target'] ?: '_self'); ?>"<?php if (($all_news_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($all_news_link['title'] ?: 'All news'); ?> &rarr;</a><?php endif; ?>
+                <?php if (!empty($all_news_link['url'])): ?><a class="a-btn a-btn--border-blue a-btn--smallest e-reveal" data-delay="150" href="<?php echo esc_url($all_news_link['url']); ?>" target="<?php echo esc_attr($all_news_link['target'] ?: '_self'); ?>"<?php if (($all_news_link['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($all_news_link['title'] ?: 'All news'); ?> &rarr;</a><?php endif; ?>
             <?php else: ?>
-            <p class="m-news-grid__page-count a-text a-text--xs" aria-live="polite">
+            <p class="m-news-grid__page-count a-text a-text--xs e-reveal e-reveal--text" data-delay="150" aria-live="polite">
                 PAGE <?php echo esc_html($current_page); ?> OF <?php echo esc_html($total_pages); ?>
             </p>
             <?php endif; ?>
@@ -131,7 +131,7 @@ $category_color_map = [
                         ? ($category_color_map[$category->slug] ?? $category_colors[$color_index])
                         : $category_colors[0];
                     ?>
-                    <article class="m-news-grid__card">
+                    <article class="m-news-grid__card e-reveal" data-delay="<?php echo esc_attr(150 + ($query->current_post % 3) * 120); ?>">
                         <a class="m-news-grid__image" href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr(get_the_title()); ?>">
                             <?php if (has_post_thumbnail()) : ?>
                                 <?php the_post_thumbnail('large', ['loading' => 'lazy', 'decoding' => 'async']); ?>
@@ -161,11 +161,11 @@ $category_color_map = [
                     </article>
                 <?php endwhile; ?>
             <?php else : ?>
-                <p class="m-news-grid__empty a-text a-text--m">No news has been published yet.</p>
+                <p class="m-news-grid__empty a-text a-text--m e-reveal e-reveal--text">No news has been published yet.</p>
             <?php endif; ?>
 
             <?php if (!$related): ?>
-            <aside class="m-news-grid__newsletter">
+            <aside class="m-news-grid__newsletter e-reveal" data-delay="<?php echo esc_attr(150 + ($query->post_count % 3) * 120); ?>">
                 <p class="m-news-grid__newsletter-label a-text a-text--xs h-semibold"><?php echo esc_html($newsletter_label); ?></p>
                 <h2 class="m-news-grid__newsletter-title a-heading a-heading--h5 h-white h-semibold"><?php echo esc_html($newsletter_title); ?></h2>
                 <p class="m-news-grid__newsletter-description a-text a-text--m h-white"><?php echo esc_html($newsletter_description); ?></p>
@@ -185,23 +185,23 @@ $category_color_map = [
         <?php if (!$related && $total_pages > 1) : ?>
             <nav class="m-news-grid__pagination" aria-label="News pages">
                 <?php if ($current_page > 1) : ?>
-                    <a class="m-news-grid__page m-news-grid__page--arrow a-text a-text--xs" href="<?php echo esc_url(add_query_arg($page_key, $current_page - 1, $base_url) . $anchor); ?>" aria-label="Previous page">&larr;</a>
+                    <a class="m-news-grid__page m-news-grid__page--arrow a-text a-text--xs e-reveal" data-delay="200" href="<?php echo esc_url(add_query_arg($page_key, $current_page - 1, $base_url) . $anchor); ?>" aria-label="Previous page">&larr;</a>
                 <?php else : ?>
-                    <span class="m-news-grid__page m-news-grid__page--arrow a-text a-text--xs" aria-disabled="true">&larr;</span>
+                    <span class="m-news-grid__page m-news-grid__page--arrow a-text a-text--xs e-reveal" data-delay="200" aria-disabled="true">&larr;</span>
                 <?php endif; ?>
 
                 <?php for ($page = 1; $page <= $total_pages; $page++) : ?>
                     <?php if ($page === $current_page) : ?>
-                        <span class="m-news-grid__page m-news-grid__page--current a-text a-text--xs" aria-current="page"><?php echo esc_html($page); ?></span>
+                        <span class="m-news-grid__page m-news-grid__page--current a-text a-text--xs e-reveal" data-delay="<?php echo esc_attr(200 + min($page, 10) * 80); ?>" aria-current="page"><?php echo esc_html($page); ?></span>
                     <?php else : ?>
-                        <a class="m-news-grid__page a-text a-text--xs" href="<?php echo esc_url(add_query_arg($page_key, $page, $base_url) . $anchor); ?>"><?php echo esc_html($page); ?></a>
+                        <a class="m-news-grid__page a-text a-text--xs e-reveal" data-delay="<?php echo esc_attr(200 + min($page, 10) * 80); ?>" href="<?php echo esc_url(add_query_arg($page_key, $page, $base_url) . $anchor); ?>"><?php echo esc_html($page); ?></a>
                     <?php endif; ?>
                 <?php endfor; ?>
 
                 <?php if ($current_page < $total_pages) : ?>
-                    <a class="m-news-grid__page m-news-grid__page--arrow a-text a-text--xs" href="<?php echo esc_url(add_query_arg($page_key, $current_page + 1, $base_url) . $anchor); ?>" aria-label="Next page">&rarr;</a>
+                    <a class="m-news-grid__page m-news-grid__page--arrow a-text a-text--xs e-reveal" data-delay="<?php echo esc_attr(200 + min($total_pages + 1, 11) * 80); ?>" href="<?php echo esc_url(add_query_arg($page_key, $current_page + 1, $base_url) . $anchor); ?>" aria-label="Next page">&rarr;</a>
                 <?php else : ?>
-                    <span class="m-news-grid__page m-news-grid__page--arrow a-text a-text--xs" aria-disabled="true">&rarr;</span>
+                    <span class="m-news-grid__page m-news-grid__page--arrow a-text a-text--xs e-reveal" data-delay="<?php echo esc_attr(200 + min($total_pages + 1, 11) * 80); ?>" aria-disabled="true">&rarr;</span>
                 <?php endif; ?>
             </nav>
         <?php endif; ?>

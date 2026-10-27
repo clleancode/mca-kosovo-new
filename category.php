@@ -12,7 +12,7 @@
 	    <div class="container">
 	        <div class="m-content">
 				<nav aria-label="Breadcrumb">
-					<div class="m-breadcrumbs s-m-b-m s-d-b-s">
+					<div class="m-breadcrumbs s-m-b-m s-d-b-s e-reveal">
 						<span>
 							<span>
 								<a href="<?php echo esc_url($archive_parent_url); ?>"><?php echo esc_html($archive_parent_title); ?></a>
@@ -50,7 +50,7 @@
 					echo '<script type="application/ld+json">' . wp_json_encode($breadcrumbs, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
 					}
 				?>
-	            <h1 class="a-heading a-heading--l"><?php single_cat_title();?></h1>
+	            <h1 class="a-heading a-heading--l e-reveal e-reveal--text" data-delay="100"><?php single_cat_title();?></h1>
 	            <div class="a-seperator"></div>
 				<?php
 					$description = get_the_archive_description();
@@ -96,7 +96,7 @@
                                 $category_link = !empty($categories) ? get_category_link($categories[0]->term_id) : '';
                                 $category_name = !empty($categories) ? $categories[0]->name : '';
                         ?>
-                                <article class="m-card-news" itemscope itemtype="https://schema.org/BlogPosting">
+                                <article class="m-card-news e-reveal" data-delay="150" itemscope itemtype="https://schema.org/BlogPosting">
                                     <a href="<?php echo esc_url($link); ?>" class="m-card-news__img" itemprop="url">
                                         <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($alt_text ?: $title); ?>" class="a-img" loading="lazy" decoding="async" itemprop="image">
                                     </a>
@@ -117,7 +117,7 @@
                         <?php
                             endwhile;
                         ?>
-                        <div class="m-pagination">
+                        <div class="m-pagination e-reveal">
                             <?php
                                 $total_pages = $wp_query->max_num_pages;
                                 if ( $total_pages > 1 ) {

@@ -30,7 +30,7 @@ get_header();
 <section class="o-hero-banner o-hero--half s-d-t-3xl s-d-b-m s-m-t-xl s-m-b-m">
     <div class="m-content h-text-center">
         <div class="m-tag h-text-center h-no-margin m-tag--center">
-            <a href="<?php echo esc_url($posts_page_url); ?>" class="a-tag a-tag--purple">
+            <a href="<?php echo esc_url($posts_page_url); ?>" class="a-tag a-tag--purple e-reveal">
                 <span>News</span>
             </a>
             <?php
@@ -45,16 +45,16 @@ get_header();
                         $class = 'a-tag--purple';
                     }
                     $category_link = get_category_link($cat->term_id);
-                    echo '<a href="' . esc_url($category_link) . '" class="a-tag ' . esc_attr($class) . '">' . esc_html($cat->name) . '</a> ';
+                    echo '<a href="' . esc_url($category_link) . '" class="a-tag ' . esc_attr($class) . ' e-reveal" data-delay="' . esc_attr($pos * 100) . '">' . esc_html($cat->name) . '</a> ';
                 }
             }
             ?>
         </div>
-        <h1 class="a-heading a-heading--h3"><?php echo esc_html( $post_title ); ?></h1>
-        <p class="a-text a-text--xl h-semibold"><?php echo get_the_date(); ?></p>
+        <h1 class="a-heading a-heading--h3 e-reveal e-reveal--text" data-delay="100"><?php echo esc_html( $post_title ); ?></h1>
+        <p class="a-text a-text--xl h-semibold e-reveal e-reveal--text" data-delay="350"><?php echo get_the_date(); ?></p>
     </div>
     <?php if ( $featured_img_url ) : ?>
-        <img src="<?php echo esc_url( $featured_img_url ); ?>" class="a-img" loading="lazy" decoding="async" alt="<?php echo esc_attr( $post_title ); ?>">
+        <img src="<?php echo esc_url( $featured_img_url ); ?>" class="a-img e-reveal" data-delay="500" loading="lazy" decoding="async" alt="<?php echo esc_attr( $post_title ); ?>">
     <?php endif; ?>
 </section>
 <?php endif; ?>

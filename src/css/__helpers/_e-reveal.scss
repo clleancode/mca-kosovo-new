@@ -21,21 +21,54 @@ html.lenis body {
     pointer-events: none;
 }
 
-// Keyframe has no `to`, so the element settles into its own opacity/filter.
-@keyframes e-reveal-fade {
+@keyframes e-reveal-in {
     from {
         opacity: 0;
-        filter: blur(6px);
+        translate: var(--e-reveal-x, 0) var(--e-reveal-y, 0);
+        scale: var(--e-reveal-scale, 1);
     }
 }
 
-.e-reveal:not(.visible) {
+.e-reveal {
+    --e-reveal-shift: 24px;
+    --e-reveal-duration: .45s;
+    --e-reveal-ease: ease-in;
+
+    @media (min-width: 768px) {
+        --e-reveal-shift: 40px;
+    }
+}
+
+@media (min-width: 768px) {
+    .e-reveal--left {
+        --e-reveal-x: calc(var(--e-reveal-shift) * -1);
+    }
+
+    .e-reveal--right {
+        --e-reveal-x: var(--e-reveal-shift);
+    }
+}
+
+.e-reveal--scale {
+    --e-reveal-scale: .96;
+}
+
+// Content is only hidden once the inline head script has confirmed JS is running.
+.has-js .e-reveal:not(.visible) {
     opacity: 0;
 }
 
-// Animation instead of transition, so component hover transitions stay intact.
-.e-reveal.visible:not(.e-reveal--clip):not(.e-reveal--text) {
-    animation: e-reveal-fade 1.4s cubic-bezier(0.16, 1, 0.3, 1) var(--e-reveal-delay, 0ms) backwards;
+// Animation instead of transition: it honours each element's `--e-reveal-delay` (set from `data-delay`)
+// and leaves component hover transitions intact.
+.e-reveal.visible:not(.e-reveal--clip):not(.e-reveal--text):not(.e-reveal--image) {
+    animation: e-reveal-in var(--e-reveal-duration) var(--e-reveal-ease) var(--e-reveal-delay, 0ms) backwards;
+}
+
+.e-reveal--image.visible {
+    --e-reveal-x: 0;
+    --e-reveal-y: 0;
+    --e-reveal-scale: 1;
+    animation: e-reveal-in .6s var(--e-reveal-ease) backwards;
 }
 
 .e-reveal__line,

@@ -51,15 +51,15 @@ $section_id = $section_id ?: ($block['anchor'] ?? '');
         <div class="m-featured-programs">
             <div class="m-featured-programs__intro s-d-b-m s-m-b-s">
                 <div class="m-featured-programs__heading">
-                    <p class="a-badge h-purple h-semibold"><?php echo esc_html(get_field('featured_programs_label')); ?></p>
-                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                    <p class="a-badge h-purple h-semibold e-reveal e-reveal--text"><?php echo esc_html(get_field('featured_programs_label')); ?></p>
+                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                         <?php echo nl2br(esc_html(get_field('featured_programs_title'))); ?>
                     </<?php echo tag_escape($tag); ?>>
                 </div>
 
                 <?php if ($description) : ?>
                     <div class="m-featured-programs__description">
-                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="350">
                             <?php echo nl2br(esc_html($description)); ?>
                         </p>
                     </div>
@@ -67,16 +67,16 @@ $section_id = $section_id ?: ($block['anchor'] ?? '');
             </div>
 
             <div class="m-featured-programs__layout">
-                <article class="m-featured-programs__feature">
+                <article class="m-featured-programs__feature e-reveal e-reveal--image">
                     <?php if ($image) : ?>
                         <?php echo wp_get_attachment_image($image, 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                     <?php endif; ?>
 
                     <div class="m-featured-programs__feature-copy">
-                        <h3 class="a-heading a-heading--h5 h-white"><?php echo nl2br(esc_html(get_field('featured_programs_feature_title'))); ?></h3>
+                        <h3 class="a-heading a-heading--h5 h-white e-reveal e-reveal--text" data-delay="700"><?php echo nl2br(esc_html(get_field('featured_programs_feature_title'))); ?></h3>
 
                         <?php if ($feature_description) : ?>
-                            <p class="a-text a-text--<?php echo esc_attr($text_size); ?> h-white h--<?php echo esc_attr($text_height); ?>">
+                            <p class="a-text a-text--<?php echo esc_attr($text_size); ?> h-white h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="850">
                                 <?php echo nl2br(esc_html($feature_description)); ?>
                             </p>
                         <?php endif; ?>
@@ -86,7 +86,7 @@ $section_id = $section_id ?: ($block['anchor'] ?? '');
                 <?php if ($items) : ?>
                     <div class="m-featured-programs__grid">
                         <?php foreach ($items as $index => $item) : ?>
-                            <article class="m-featured-programs__card">
+                            <article class="m-featured-programs__card e-reveal" data-delay="<?php echo esc_attr(150 + ($index % 2) * 120); ?>">
                                 <div class="m-featured-programs__image">
                                     <?php if (!empty($item['image'])) : ?>
                                         <?php echo wp_get_attachment_image($item['image'], 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>

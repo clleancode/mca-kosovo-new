@@ -43,15 +43,15 @@ $description = get_field('activities_description');
     <div class="container">
         <div class="m-activities__intro s-d-b-m s-m-b-s">
             <div class="m-activities__heading">
-                <p class="a-badge h-blue"><?php echo esc_html(get_field('activities_label')); ?></p>
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                <p class="a-badge h-blue e-reveal e-reveal--text"><?php echo esc_html(get_field('activities_label')); ?></p>
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                     <?php echo nl2br(esc_html($title)); ?>
                 </<?php echo tag_escape($tag); ?>>
             </div>
 
             <?php if ($description) : ?>
                 <div class="m-activities__description">
-                    <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                    <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="350">
                         <?php echo nl2br(esc_html($description)); ?>
                     </p>
                 </div>
@@ -66,7 +66,7 @@ $description = get_field('activities_description');
                     $unit = $item['unit'] ?? '';
                     $label = $item['label'] ?? '';
                     ?>
-                    <article class="m-activities__card">
+                    <article class="m-activities__card e-reveal" data-delay="<?php echo esc_attr(150 + $index * 120); ?>">
                         <div class="m-activities__image">
                             <?php if ($show_arrows && $index < count($items) - 1): ?>
                                 <span class="a-activities-arrow" aria-hidden="true"><img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/right.svg')); ?>" alt=""></span>

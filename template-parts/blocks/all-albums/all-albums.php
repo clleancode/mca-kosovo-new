@@ -121,14 +121,17 @@ $icon_url   = get_template_directory_uri() . '/assets/img/pics/icons/album.svg';
             <div class="m-all-albums__header">
                 <nav class="m-all-albums__filters" aria-label="Album categories">
                     <a
-                        class="a-text a-text--m h-semibold"
+                        class="a-text a-text--m h-semibold e-reveal"
                         href="<?php echo esc_url(add_query_arg('album_category', 'all', $album_base)); ?>"
                         data-album-category="all"
                         <?php if ($album_category === 'all') : ?>aria-current="true"<?php endif; ?>
                     >All albums</a>
+                    <?php $filter_index = 0; ?>
                     <?php foreach ($categories as $term_id => $name) : ?>
+                        <?php $filter_index++; ?>
                         <a
-                            class="a-text a-text--m h-semibold"
+                            class="a-text a-text--m h-semibold e-reveal"
+                            data-delay="<?php echo esc_attr($filter_index * 80); ?>"
                             href="<?php echo esc_url(add_query_arg('album_category', $term_id, $album_base)); ?>"
                             data-album-category="<?php echo esc_attr($term_id); ?>"
                             <?php if ((string) $album_category === (string) $term_id) : ?>aria-current="true"<?php endif; ?>
@@ -137,7 +140,7 @@ $icon_url   = get_template_directory_uri() . '/assets/img/pics/icons/album.svg';
                         </a>
                     <?php endforeach; ?>
                 </nav>
-                <div class="m-all-albums__year">
+                <div class="m-all-albums__year e-reveal" data-delay="<?php echo esc_attr(min(800, (count($categories) + 1) * 80)); ?>">
                     <label class="a-text a-text--m" for="<?php echo esc_attr($year_id); ?>">Year:</label>
                     <select class="a-text a-text--m" id="<?php echo esc_attr($year_id); ?>" data-album-year>
                         <option value="all">All</option>
@@ -163,7 +166,8 @@ $icon_url   = get_template_directory_uri() . '/assets/img/pics/icons/album.svg';
                     }
                     ?>
                     <article
-                        class="m-all-albums__album<?php echo $featured ? ' is-featured' : ''; ?>"
+                        class="m-all-albums__album<?php echo $featured ? ' is-featured' : ''; ?> e-reveal"
+                        data-delay="<?php echo esc_attr(150 + ($album_index % 2) * 120); ?>"
                         data-album-card
                         <?php if (!$matches_category) : ?>hidden<?php endif; ?>
                         data-categories="<?php echo esc_attr(implode(' ', $data['terms'])); ?>"
@@ -221,11 +225,11 @@ $icon_url   = get_template_directory_uri() . '/assets/img/pics/icons/album.svg';
             <?php if (get_field('all_albums_show_photos') && $photo_pool) : ?>
                 <div class="m-all-albums__latest">
                     <div class="m-all-albums__header">
-                        <h2 class="a-heading a-heading--h5">
+                        <h2 class="a-heading a-heading--h5 e-reveal e-reveal--text">
                             <?php echo esc_html(get_field('all_albums_photos_title')); ?>
                         </h2>
                         <?php if ($source && $photo_albums) : ?>
-                            <p class="a-text a-text--xs h-semibold h-uppercase">
+                            <p class="a-text a-text--xs h-semibold h-uppercase e-reveal e-reveal--text" data-delay="150">
                                 From “<?php echo esc_html(get_the_title($source)); ?>”;
                             </p>
                         <?php endif; ?>
@@ -236,7 +240,7 @@ $icon_url   = get_template_directory_uri() . '/assets/img/pics/icons/album.svg';
                         data-photo-count="<?php echo esc_attr($count); ?>"
                     >
                         <?php foreach ($photo_pool as $index => $photo) : ?>
-                            <div class="m-all-albums__photo" data-album-photo <?php echo $index >= $count ? 'hidden' : ''; ?>>
+                            <div class="m-all-albums__photo e-reveal e-reveal--image" data-delay="<?php echo esc_attr(150 + ($index % 5) * 120); ?>" data-album-photo <?php echo $index >= $count ? 'hidden' : ''; ?>>
                                 <a
                                     href="<?php echo esc_url($photo['url']); ?>"
                                     aria-label="<?php echo esc_attr('View album: ' . $photo['album']); ?>"

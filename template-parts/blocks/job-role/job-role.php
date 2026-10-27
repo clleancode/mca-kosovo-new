@@ -81,7 +81,7 @@ if ($closed) {
         <div class="m-job-role">
             <div class="m-job-role__facts">
                 <?php foreach ($facts as $index => [$label, $fact, $note]) : ?>
-                    <div class="m-job-role__fact<?php echo $index === 3 ? ' is-deadline' : ''; ?>">
+                    <div class="m-job-role__fact<?php echo $index === 3 ? ' is-deadline' : ''; ?> e-reveal" data-delay="<?php echo esc_attr(150 + ($index % 4) * 120); ?>">
                         <p class="a-text a-text--xs h-semibold h-uppercase"><?php echo esc_html($label); ?></p>
                         <p class="h-semibold a-heading a-heading--<?php echo $index === 3 ? 'h3' : 'h6'; ?>"><?php echo esc_html($fact); ?></p>
                         <?php if ($note) : ?>
@@ -92,7 +92,7 @@ if ($closed) {
             </div>
             <div class="m-job-role__layout">
                 <div class="m-job-role__main">
-                    <div class="m-job-role__card">
+                    <div class="m-job-role__card e-reveal">
                         <h2 class="a-heading a-heading--h5">
                             <?php echo esc_html(get_field('jr_about_title')); ?>
                         </h2>
@@ -103,7 +103,7 @@ if ($closed) {
                     </div>
                     <?php $duties = get_field('jr_duties'); ?>
                     <?php if ($duties) : ?>
-                        <div class="m-job-role__card">
+                        <div class="m-job-role__card e-reveal">
                             <h2 class="a-heading a-heading--h5">
                                 <?php echo esc_html(get_field('jr_duties_title')); ?>
                             </h2>
@@ -115,7 +115,7 @@ if ($closed) {
                         </div>
                     <?php endif; ?>
                     <?php if (get_field('jr_required') || get_field('jr_preferred')) : ?>
-                        <div class="m-job-role__card">
+                        <div class="m-job-role__card e-reveal">
                             <h2 class="a-heading a-heading--h5">
                                 <?php echo esc_html(get_field('jr_qualifications_title')); ?>
                             </h2>
@@ -142,7 +142,7 @@ if ($closed) {
                     <?php endif; ?>
                 </div>
                 <aside class="m-job-role__aside">
-                    <div class="m-job-role__card is-application">
+                    <div class="m-job-role__card is-application e-reveal" data-delay="200">
                         <h2 class="h-semibold a-heading a-heading--h6"><?php echo esc_html($application_title); ?></h2>
                         <p class="a-text a-text--m"><?php echo esc_html($application_text); ?></p>
                         <div class="m-job-role__actions">
@@ -172,7 +172,7 @@ if ($closed) {
                     </div>
                     <?php $documents = get_field('jr_documents'); ?>
                     <?php if ($documents) : ?>
-                        <div class="m-job-role__card">
+                        <div class="m-job-role__card e-reveal" data-delay="300">
                             <h2 class="h-semibold a-heading a-heading--h6"><?php esc_html_e('Documents', 'MCA'); ?></h2>
                             <?php
                             foreach ($documents as $document) :
@@ -202,7 +202,7 @@ if ($closed) {
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
-                    <div class="m-job-role__card">
+                    <div class="m-job-role__card e-reveal" data-delay="400">
                         <h2 class="h-semibold a-heading a-heading--h6"><?php esc_html_e('Share this vacancy', 'MCA'); ?></h2>
                         <div class="m-job-role__share">
                             <a

@@ -83,18 +83,18 @@ $render_documents = static function (array $items) {
 
             <div class="m-transparency__heading">
                 <?php if ($label): ?>
-                    <p class="a-badge h-dark-blue s-d-b-xs s-m-b-xs h-semibold">
+                    <p class="a-badge h-dark-blue s-d-b-xs s-m-b-xs h-semibold e-reveal e-reveal--text">
                         <?php echo esc_html($label); ?>
                     </p>
                 <?php endif; ?>
 
-                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                     <?php echo esc_html(get_field('transparency_title')); ?>
                 </<?php echo tag_escape($tag); ?>>
             </div>
 
             <div class="m-transparency__grid">
-                <?php foreach ($collections as $collection):
+                <?php foreach ($collections as $collection_index => $collection):
                     $documents = is_array($collection['documents'] ?? null)
                         ? array_values(array_filter($collection['documents'], static function ($document) {
                             return is_array($document) && !empty($document['file']['url']);
@@ -104,7 +104,7 @@ $render_documents = static function (array $items) {
                     $limit    = max(1, min(20, (int) $collection['visible_count']));
                     $view_all = $collection['view_all'] ?? [];
                     ?>
-                    <article class="m-transparency__card">
+                    <article class="m-transparency__card e-reveal" data-delay="<?php echo esc_attr(150 + ($collection_index % 3) * 120); ?>">
 
                         <div class="m-transparency__card-heading">
                             <h3 class="a-heading a-heading--h6 h-dark-blue h-semibold">

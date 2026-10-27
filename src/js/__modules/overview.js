@@ -1,3 +1,4 @@
+import eReveal from './e-reveal';
 import { scrollToTarget } from './lenis-scroll';
 
 const overview = () => {
@@ -122,6 +123,7 @@ const overview = () => {
                 const nextFeatured = doc.querySelector('.o-spotlight--featured');
                 if (featured && nextFeatured) featured.replaceWith(nextFeatured);
                 grid.replaceWith(replacement);
+                eReveal();
             } catch (error) {
                 if (error.name !== 'AbortError') grid.removeAttribute('aria-busy');
             }

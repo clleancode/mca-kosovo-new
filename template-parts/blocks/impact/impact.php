@@ -44,23 +44,23 @@ $items = array_slice(get_field('impact_items') ?: [], 0, 4);
             <?php if ($items): ?>
                 <div class="m-impact__grid">
                     <?php foreach ($items as $index => $item): ?>
-                        <?php $card_delay = 150 + $index * 150; ?>
-                        <article class="m-impact__card e-reveal" data-delay="<?php echo esc_attr($card_delay); ?>">
+                        <?php $card_delay = 150 + ($index % 4) * 120; ?>
+                        <article class="m-impact__card">
                             <div class="m-impact__image e-reveal e-reveal--image" data-delay="<?php echo esc_attr($card_delay); ?>">
                                 <?php if (!empty($item['image'])) echo wp_get_attachment_image($item['image'], 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
                             </div>
 
-                            <div class="m-impact__number s-d-t-xs s-d-b-xs s-m-t-xs s-m-b-xs">
+                            <div class="m-impact__number s-d-t-xs s-d-b-xs s-m-t-xs s-m-b-xs e-reveal" data-delay="<?php echo esc_attr($card_delay + 150); ?>">
                                 <span class="a-text a-text--xs h-semibold"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
                             </div>
 
                             <div class="m-impact__card-title">
-                                <h3 class="a-heading a-heading--h6 h-dark-blue h-semibold"><?php echo esc_html($item['title'] ?? ''); ?></h3>
+                                <h3 class="a-heading a-heading--h6 h-dark-blue h-semibold e-reveal e-reveal--text" data-delay="<?php echo esc_attr($card_delay + 200); ?>"><?php echo esc_html($item['title'] ?? ''); ?></h3>
                             </div>
 
                             <?php if (!empty($item['description'])): ?>
                                 <div class="m-impact__card-description s-d-t-s s-m-t-xs">
-                                    <p class="a-text a-text--<?php echo esc_attr($text_type); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>"><?php echo nl2br(esc_html($item['description'])); ?></p>
+                                    <p class="a-text a-text--<?php echo esc_attr($text_type); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="<?php echo esc_attr($card_delay + 350); ?>"><?php echo nl2br(esc_html($item['description'])); ?></p>
                                 </div>
                             <?php endif; ?>
                         </article>

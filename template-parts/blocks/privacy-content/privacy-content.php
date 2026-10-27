@@ -44,12 +44,13 @@ $link     = get_field('privacy_settings_link');
     <div class="container">
         <div class="m-privacy-content" data-privacy-content>
             <nav class="m-privacy-content__contents" aria-label="<?php esc_attr_e('Privacy policy contents', 'MCA'); ?>">
-                <h2 class="a-text a-text--m h-semibold h-uppercase">
+                <h2 class="a-text a-text--m h-semibold h-uppercase e-reveal e-reveal--text">
                     <?php echo esc_html(get_field('privacy_contents_title') ?: __('Contents', 'MCA')); ?>
                 </h2>
                 <?php foreach ($sections as $index => $section) : ?>
                     <a
-                        class="a-text a-text--l"
+                        class="a-text a-text--l e-reveal"
+                        data-delay="<?php echo esc_attr(150 + min($index, 7) * 90); ?>"
                         href="#<?php echo esc_attr($instance . '-' . ($index + 1)); ?>"
                         <?php if ($index === 0) : ?>aria-current="location"<?php endif; ?>
                     >
@@ -65,14 +66,14 @@ $link     = get_field('privacy_settings_link');
                         id="<?php echo esc_attr($instance . '-' . ($index + 1)); ?>"
                         data-privacy-section
                     >
-                        <h2 class="a-heading a-heading--h5 h-dark-blue">
+                        <h2 class="a-heading a-heading--h5 h-dark-blue e-reveal e-reveal--text" data-delay="<?php echo esc_attr($index ? 0 : 200); ?>">
                             <?php echo esc_html(sprintf('%02d', $index + 1) . ' ' . $section['title']); ?>
                         </h2>
-                        <div class="m-privacy-content__body<?php echo !empty($section['dashed_content']) ? ' is-dashed' : ''; ?>">
+                        <div class="m-privacy-content__body<?php echo !empty($section['dashed_content']) ? ' is-dashed' : ''; ?> e-reveal" data-delay="<?php echo esc_attr($index ? 150 : 350); ?>">
                             <?php echo wp_kses_post($section['content'] ?? ''); ?>
                         </div>
                         <?php if (!empty($section['details'])) : ?>
-                            <div class="m-privacy-content__details">
+                            <div class="m-privacy-content__details e-reveal" data-delay="250">
                                 <dl>
                                     <?php foreach ($section['details'] as $detail) : ?>
                                         <div>
@@ -93,13 +94,14 @@ $link     = get_field('privacy_settings_link');
                             </div>
                         <?php endif; ?>
                         <?php if (!empty($section['additional_content'])) : ?>
-                            <div class="m-privacy-content__body">
+                            <div class="m-privacy-content__body e-reveal" data-delay="250">
                                 <?php echo wp_kses_post($section['additional_content']); ?>
                             </div>
                         <?php endif; ?>
                         <?php if (!empty($section['table_rows'])) : ?>
                             <div
-                                class="m-privacy-content__table"
+                                class="m-privacy-content__table e-reveal"
+                                data-delay="250"
                                 role="region"
                                 aria-label="<?php echo esc_attr($section['title']); ?>"
                                 tabindex="0"
@@ -127,7 +129,7 @@ $link     = get_field('privacy_settings_link');
                     </div>
                 <?php endforeach; ?>
                 <?php if ($email || !empty($link['url'])) : ?>
-                    <div class="m-privacy-content__contact">
+                    <div class="m-privacy-content__contact e-reveal">
                         <div>
                             <h2 class="a-heading a-heading--h6 h-semibold">
                                 <?php echo esc_html(get_field('privacy_contact_title') ?: __('Questions about your data?', 'MCA')); ?>

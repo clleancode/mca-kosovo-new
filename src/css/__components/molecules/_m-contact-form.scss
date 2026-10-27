@@ -76,6 +76,15 @@
         color: var(--dark-blue);
         font-family: var(--gellix);
         font-size: 18px;
+        transition: box-shadow var(--duration-base) var(--ease-out);
+
+        &:focus-visible {
+            box-shadow: inset 0 0 0 1px var(--dark-blue);
+        }
+
+        &.wpcf7-not-valid {
+            box-shadow: inset 0 0 0 1px var(--pink);
+        }
     }
 
     input::placeholder,

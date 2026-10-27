@@ -13,7 +13,7 @@ const zoomIn = image => {
 
 export default function heroSlider() {
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.querySelectorAll('.m-hero-about__image img, [data-hero-slider] .swiper-slide:first-child .m-hero__image img').forEach(zoomIn);
+        document.querySelectorAll('.m-hero-about__image img, .m-small-hero__image img, .m-projects-hero__image img, [data-hero-slider] .swiper-slide:first-child .m-hero__image img').forEach(zoomIn);
     }
 
     document.querySelectorAll('[data-hero-slider]').forEach(element => {

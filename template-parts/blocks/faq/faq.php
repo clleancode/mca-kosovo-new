@@ -59,21 +59,21 @@ $open_first     = get_field('faq_open_first');
             <div class="m-faq__heading">
                 <?php if ($label): ?>
                     <div>
-                        <p class="a-badge h-dark-blue h-semibold">
+                        <p class="a-badge h-dark-blue h-semibold e-reveal e-reveal--text">
                             <?php echo esc_html($label); ?>
                         </p>
                     </div>
                 <?php endif; ?>
 
                 <div>
-                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?>">
+                    <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> h--<?php echo esc_attr($height); ?> e-reveal e-reveal--text" data-delay="100">
                         <?php echo nl2br(esc_html(get_field('faq_title'))); ?>
                     </<?php echo tag_escape($tag); ?>>
                 </div>
 
                 <?php if ($description || $email): ?>
                     <div>
-                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?>">
+                        <p class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?> h--<?php echo esc_attr($text_height); ?> e-reveal e-reveal--text" data-delay="350">
                             <?php echo nl2br(esc_html($description)); ?>
                             <?php if ($email): ?>
                                 <a class="a-text a-text--<?php echo esc_attr($text_size); ?> <?php echo esc_attr($text_color); ?>"
@@ -88,7 +88,8 @@ $open_first     = get_field('faq_open_first');
 
             <div class="m-faq__items">
                 <?php foreach ($items as $index => $item): ?>
-                    <details class="m-faq__item"
+                    <details class="m-faq__item e-reveal"
+                             data-delay="<?php echo esc_attr(150 + min($index, 4) * 100); ?>"
                              name="<?php echo esc_attr($accordion_name); ?>"
                              <?php if ($open_first && $index === 0): ?>open<?php endif; ?>>
                         <summary>

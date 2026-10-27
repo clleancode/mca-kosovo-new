@@ -1,3 +1,5 @@
+import eReveal from './e-reveal';
+
 const vacancies = () => {
     document.querySelectorAll('[data-vacancies-archive]').forEach(section => {
         if (section.dataset.initialized) return;
@@ -18,6 +20,7 @@ const vacancies = () => {
                 const filterHref = focused?.closest('[data-vacancy-filter]')?.href;
                 const searchFocused = focused?.matches('input[type="search"]');
                 section.innerHTML = updated.innerHTML;
+                eReveal();
                 if (updateHistory) window.history.pushState({}, '', url);
                 if (searchFocused) section.querySelector('input[type="search"]')?.focus({ preventScroll: true });
                 else if (filterHref) [...section.querySelectorAll('[data-vacancy-filter]')].find(link => link.href === filterHref)?.focus({ preventScroll: true });
