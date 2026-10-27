@@ -52,6 +52,9 @@
 }
 
 .m-search-results__clear {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
     display: grid;
     width: 44px;
     height: 44px;
@@ -65,7 +68,7 @@
     text-decoration: none;
 }
 
-.m-search-results__input-wrap > button {
+.m-search-results__input-wrap > button[type="submit"] {
     height: 60px;
     flex: 0 0 auto;
     padding: 18px 32px;
@@ -106,7 +109,7 @@
         font-size: 16px;
     }
 
-    .m-search-results__input-wrap > button {
+    .m-search-results__input-wrap > button[type="submit"] {
         height: 40px;
         padding: 8px 18px;
         font-size: 14px;
@@ -192,6 +195,7 @@
 }
 
 .m-search-results__media {
+    flex-shrink: 0;
     display: grid;
     width: 120px;
     height: 90px;
@@ -249,6 +253,15 @@
     color: var(--dark-blue);
 }
 
+.m-search-results__copy > .a-heading,
+.m-search-results__copy > .a-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+
 .m-search-results__copy > .a-text {
     overflow: hidden;
     color: #28344d;
@@ -297,6 +310,44 @@
     background: var(--dark-blue);
 }
 
+.o-search-results .m-search-results__pagination .m-search-results__next {
+    border-radius: 20px;
+    padding: 0 16px;
+    white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+    .m-search-results__item-link {
+        height: auto;
+        min-height: 120px;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .m-search-results__media {
+        width: 72px;
+        height: 90px;
+    }
+
+    .m-search-results__media > .a-text {
+        font-size: 11px;
+    }
+
+    .m-search-results__copy {
+        gap: 6px;
+    }
+
+    .m-search-results__copy > .a-heading {
+        font-size: 18px;
+        line-height: 1.2;
+    }
+
+    .m-search-results__copy > .a-text {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+}
+
 .o-search-results [data-search-content] {
     transition: opacity .2s ease;
 }
@@ -329,6 +380,6 @@
     }
 }
 
-.m-search-results__input-wrap > button {
+.m-search-results__input-wrap > button[type="submit"] {
     @include button.surface-hover(var(--white), var(--dark-blue), var(--dark-blue));
 }

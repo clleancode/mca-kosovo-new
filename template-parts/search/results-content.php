@@ -47,6 +47,7 @@ if (!$query instanceof WP_Query) {
             if (!$excerpt && !$is_attachment) {
                 $excerpt = wp_trim_words(wp_strip_all_tags(get_post_field('post_content', $result_id)), 22);
             }
+            $excerpt = wp_html_excerpt(wp_strip_all_tags($excerpt), 140, '…');
 
             $placeholder = $result_type === 'procurement'
                 ? __('Notice', 'mca-kosovo')
@@ -82,7 +83,15 @@ if (!$query instanceof WP_Query) {
                     <?php $previous_url = add_query_arg(['s' => $term, 'search_type' => $type, 'paged' => $page - 1], home_url('/')); ?>
                     <li><a href="<?php echo esc_url($previous_url); ?>" aria-label="<?php esc_attr_e('Previous page', 'mca-kosovo'); ?>">&laquo;</a></li>
                 <?php endif; ?>
-                <?php for ($page_number = 1; $page_number <= (int) $query->max_num_pages; $page_number++) : ?>
+                <?php
+                $pagination_pages = array_unique([1, $page, (int) $query->max_num_pages]);
+                sort($pagination_pages, SORT_NUMERIC);
+                $previous_page_number = 0;
+                ?>
+                <?php foreach ($pagination_pages as $page_number) : ?>
+                    <?php if ($previous_page_number && $page_number - $previous_page_number > 1) : ?>
+                        <li><span class="dots" aria-hidden="true">&hellip;</span></li>
+                    <?php endif; ?>
                     <?php $page_url = add_query_arg(['s' => $term, 'search_type' => $type, 'paged' => $page_number], home_url('/')); ?>
                     <li>
                         <?php if ($page_number === $page) : ?>
@@ -91,10 +100,11 @@ if (!$query instanceof WP_Query) {
                             <a href="<?php echo esc_url($page_url); ?>" aria-label="<?php echo esc_attr(sprintf(__('Page %s', 'mca-kosovo'), $page_number)); ?>"><?php echo esc_html(number_format_i18n($page_number)); ?></a>
                         <?php endif; ?>
                     </li>
-                <?php endfor; ?>
+                    <?php $previous_page_number = $page_number; ?>
+                <?php endforeach; ?>
                 <?php if ($page < (int) $query->max_num_pages) : ?>
                     <?php $next_url = add_query_arg(['s' => $term, 'search_type' => $type, 'paged' => $page + 1], home_url('/')); ?>
-                    <li><a href="<?php echo esc_url($next_url); ?>" aria-label="<?php esc_attr_e('Next page', 'mca-kosovo'); ?>"><?php esc_html_e('Next', 'mca-kosovo'); ?> &raquo;</a></li>
+                    <li><a class="m-search-results__next" href="<?php echo esc_url($next_url); ?>" aria-label="<?php esc_attr_e('Next page', 'mca-kosovo'); ?>"><?php esc_html_e('Next', 'mca-kosovo'); ?>&nbsp;&raquo;</a></li>
                 <?php endif; ?>
             </ul>
         </nav>

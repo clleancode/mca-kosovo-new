@@ -44,7 +44,7 @@ $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_ty
                 <label class="a-text a-text--s e-reveal e-reveal--text" for="search-results-query"><?php esc_html_e('Search', 'mca-kosovo'); ?></label>
                 <div class="m-search-results__input-wrap e-reveal" data-delay="100">
                     <input class="a-heading a-heading--h6" id="search-results-query" type="search" name="s" value="<?php echo esc_attr($search_term); ?>" required>
-                    <a class="m-search-results__clear" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('Clear search', 'mca-kosovo'); ?>">&times;</a>
+                    <button class="m-search-results__clear" type="button" aria-label="<?php esc_attr_e('Clear search', 'mca-kosovo'); ?>">&times;</button>
                     <button class="a-text a-text--m" type="submit"><?php esc_html_e('Search', 'mca-kosovo'); ?></button>
                 </div>
                 <?php if ($search_term) : ?>
@@ -87,6 +87,13 @@ $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_ty
     const content = root?.querySelector('[data-search-content]');
     const errorMessage = root?.querySelector('[data-search-error]');
     if (!root || !content || !errorMessage) return;
+
+    root.querySelector('.m-search-results__clear')?.addEventListener('click', () => {
+        const input = root.querySelector('#search-results-query');
+        input.value = '';
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.focus({ preventScroll: true });
+    });
 
     const loadPage = async (url, updateHistory = true) => {
         const target = new URL(url, window.location.href);
