@@ -57,12 +57,13 @@ if ($other_positions) {
         'post_status' => 'publish',
         'posts_per_page' => 3,
         'post__not_in' => $current_job ? [$current_job] : [],
-        'orderby' => ['date' => 'DESC', 'ID' => 'DESC'],
         'no_found_rows' => true,
     ];
     if ($job_selection) {
         $other_args['post__in'] = $job_selection;
         $other_args['orderby'] = 'post__in';
+    } else {
+        $other_args['orderby'] = ['date' => 'DESC', 'ID' => 'DESC'];
     }
     $other_jobs = get_posts($other_args);
 }

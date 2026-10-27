@@ -19,8 +19,10 @@ foreach (get_posts(['post_type' => 'job', 'post_status' => 'publish', 'posts_per
 }
 natcasesort($teams);
 $archive_args = [
-    'post_type' => 'job', 'post_status' => 'publish',
-    's' => $search, 'search_columns' => ['post_title'],
+    'post_type' => 'job',
+    'post_status' => 'publish',
+    's' => $search,
+    'search_columns' => ['post_title'],
     'orderby' => ['date' => 'DESC', 'ID' => 'DESC'],
 ];
 if ($team !== '') $archive_args['meta_query'] = [['key' => 'job_department', 'value' => $team, 'compare' => '=']];

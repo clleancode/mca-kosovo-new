@@ -83,6 +83,12 @@ if (class_exists(FieldsBuilder::class)) {
 
     $details
         ->setLocation('post_type', '==', 'procurement')
+        ->addTrueFalse('procurement_pinned', [
+            'label' => 'Pin procurement',
+            'instructions' => 'Pinned procurements appear first in notice lists, current calls and opportunities.',
+            'ui' => 1,
+            'default_value' => 0,
+        ])
         ->addText('procurement_method', ['label' => 'Procurement method badge', 'instructions' => 'For example Shopping · RFQ. Shown in the single procurement hero.'])
         ->addText('procurement_reference', ['label' => 'Reference number'])
         ->addPostObject('procurement_project', ['label' => 'Related project', 'post_type' => ['project'], 'return_format' => 'id', 'allow_null' => 1])

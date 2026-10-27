@@ -2,6 +2,7 @@
 
 use MCA\Helpers;
 use MCA\Notices;
+use MCA\Procurements;
 
 $visibility = Helpers\mca_get_device_visibility();
 
@@ -51,6 +52,7 @@ if ($query->max_num_pages && $filters['page'] > $query->max_num_pages) {
     $query           = new WP_Query($args);
 }
 
+$query->posts = Procurements\unique_posts( $query->posts );
 $total_pages = max(1, (int) $query->max_num_pages);
 $featured = !$compact && get_field('notices_featured');
 $base_url    = remove_query_arg('notice_page');

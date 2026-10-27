@@ -59,6 +59,9 @@ require_once get_template_directory() . '/inc/form-submissions.php';
 // Theme taxonomies.
 require_once get_template_directory() . '/inc/taxonomies.php';
 
+// Procurement queries (pin / sort).
+require_once get_template_directory() . '/inc/procurements.php';
+
 // Theme helpers.
 require_once get_template_directory() . '/inc/helpers.php'; 
 

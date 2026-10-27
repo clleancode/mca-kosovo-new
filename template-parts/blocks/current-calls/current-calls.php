@@ -2,6 +2,7 @@
 
 use MCA\Helpers;
 use MCA\Notices;
+use MCA\Procurements;
 
 require_once get_template_directory() . '/inc/procurement-notices.php';
 
@@ -68,12 +69,11 @@ foreach ($statuses as $status => $config) {
     wp_reset_postdata();
 }
 
-$query = new WP_Query([
+$query = new WP_Query(Procurements\with_pinned_first([
     'post_type'      => 'procurement',
     'post_status'    => 'publish',
     'posts_per_page' => 1,
     'no_found_rows'  => true,
-    'orderby'        => ['date' => 'DESC', 'ID' => 'DESC'],
     'tax_query'      => [[
         'taxonomy'         => 'procurement_status',
         'field'            => 'slug',
@@ -81,7 +81,7 @@ $query = new WP_Query([
         'operator'         => 'IN',
         'include_children' => false,
     ]],
-]);
+]));
 
 $notify_link = get_field('current_calls_notify_link') ?: [];
 ?>

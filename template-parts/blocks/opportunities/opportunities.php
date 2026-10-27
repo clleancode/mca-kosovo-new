@@ -1,5 +1,6 @@
 <?php
 use MCA\Helpers;
+use MCA\Procurements;
 
 $visibility = Helpers\mca_get_device_visibility();
 
@@ -35,14 +36,13 @@ foreach (['mobile' => 'm', 'desktop' => 'd'] as $device => $prefix) {
 
 $cards = array_slice(get_field('opportunities_cards') ?: [], 0, 4);
 
-$query = new WP_Query([
+$query = new WP_Query(Procurements\with_pinned_first([
     'post_type'      => 'procurement',
     'post_status'    => 'publish',
     'posts_per_page' => 3,
     'no_found_rows'  => true,
-    'orderby'        => 'date',
-    'order'          => 'DESC',
-]);
+]));
+$query->posts = Procurements\unique_posts( $query->posts );
 
 $archive     = get_field('opportunities_procurement_link') ?: [];
 $archive_url = $archive['url'] ?? '';

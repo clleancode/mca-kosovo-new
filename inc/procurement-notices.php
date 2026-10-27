@@ -1,6 +1,8 @@
 <?php
 namespace MCA\Notices;
 
+use MCA\Procurements;
+
 function find_join_block(array $blocks, array $visited = []) {
     foreach ($blocks as $block) {
         if (($block['blockName'] ?? '') === 'acf/join') return $block;
@@ -61,7 +63,13 @@ function get_filters() {
 }
 
 function query_args(array $filters, $per_page) {
-    $args = ['post_type' => 'procurement', 'post_status' => 'publish', 'posts_per_page' => $per_page, 'paged' => $filters['page'], 'orderby' => ['date' => $filters['sort'] === 'oldest' ? 'ASC' : 'DESC', 'ID' => 'DESC']];
+    $date_order = $filters['sort'] === 'oldest' ? 'ASC' : 'DESC';
+    $args = Procurements\with_pinned_first([
+        'post_type' => 'procurement',
+        'post_status' => 'publish',
+        'posts_per_page' => $per_page,
+        'paged' => $filters['page'],
+    ], $date_order);
     if ($filters['search'] !== '') {
         $args['s'] = $filters['search'];
         $args['mca_notice_search'] = $filters['search'];

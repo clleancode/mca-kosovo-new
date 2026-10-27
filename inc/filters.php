@@ -200,6 +200,31 @@ function mca_jobs_admin_columns_content($column, $post_id) {
 }
 add_action('manage_job_posts_custom_column', __NAMESPACE__ . '\\mca_jobs_admin_columns_content', 10, 2);
 
+/**
+ * Admin columns: pinned flag for Procurements list table.
+ */
+function mca_procurements_admin_columns($cols) {
+    $new = [];
+    foreach ($cols as $key => $label) {
+        $new[$key] = $label;
+        if ($key === 'title') {
+            $new['mca_pinned'] = __('Pinned', 'MCA');
+        }
+    }
+    return $new;
+}
+add_filter('manage_edit-procurement_columns', __NAMESPACE__ . '\\mca_procurements_admin_columns');
+
+function mca_procurements_admin_columns_content($column, $post_id) {
+    if ($column !== 'mca_pinned') {
+        return;
+    }
+    echo \MCA\Procurements\is_pinned($post_id)
+        ? '<span class="dashicons dashicons-star-filled" aria-hidden="true"></span> ' . esc_html__('Yes', 'MCA')
+        : '&mdash;';
+}
+add_action('manage_procurement_posts_custom_column', __NAMESPACE__ . '\\mca_procurements_admin_columns_content', 10, 2);
+
 // Disable CF7 styles & scripts globally
 add_filter( 'wpcf7_load_js', '__return_false' );
 add_filter( 'wpcf7_load_css', '__return_false' );
