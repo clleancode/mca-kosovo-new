@@ -70,7 +70,8 @@
 }
 
 .m-publications-banner__actions>a,
-.m-publications-banner__share>summary {
+.m-publications-banner__share>summary,
+.m-publications-banner__share>div>a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -80,6 +81,7 @@
     border-radius: 99px;
     text-decoration: none;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .m-publications-banner__actions>a {
@@ -101,7 +103,22 @@
     }
 }
 
-.m-publications-banner__share>summary {
+.m-publications-banner__share {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+
+    > div {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+    }
+}
+
+.m-publications-banner__share>summary,
+.m-publications-banner__share>div>a {
     background: transparent;
     color: var(--white);
     @include button.fill-hover(var(--white), var(--dark-blue), var(--dark-blue));
