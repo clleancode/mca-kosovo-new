@@ -47,6 +47,22 @@ $type_options = [
     'specific' => 'Specific notice',
     'award'    => 'Award notice',
 ];
+
+$filter_defaults = [
+    'notice_search'  => '',
+    'notice_status'  => 'all',
+    'notice_type'    => 'all',
+    'notice_project' => '',
+    'notice_sort'    => 'newest',
+];
+$has_active_filters = false;
+foreach ($filter_defaults as $param => $default) {
+    $value = isset($_GET[$param]) && is_scalar($_GET[$param]) ? sanitize_text_field(wp_unslash($_GET[$param])) : '';
+    if ($value !== '' && $value !== $default) {
+        $has_active_filters = true;
+        break;
+    }
+}
 ?>
 <section
     <?php if (!empty($block['anchor'])) : ?>id="<?php echo esc_attr($block['anchor']); ?>"<?php endif; ?>
@@ -174,7 +190,7 @@ $type_options = [
                     <?php endforeach; ?>
                 </div>
 
-                <button class="a-text a-text--l e-reveal" data-delay="<?php echo esc_attr(100 + count($links) * 100); ?>" type="reset">
+                <button class="a-text a-text--l e-reveal" data-delay="<?php echo esc_attr(100 + count($links) * 100); ?>" type="reset"<?php echo $has_active_filters ? '' : ' hidden'; ?>>
                     <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/close.svg')); ?>" alt="" aria-hidden="true">
                     Reset filters
                 </button>

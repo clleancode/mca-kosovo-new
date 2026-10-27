@@ -30,9 +30,6 @@ function theme_setup() {
     // Add support for editor styles (for Gutenberg editor). - CHECK
     add_theme_support( 'editor-styles' );
 
-    // Add editor stylesheet - now that we've created it, it should always load
-    add_editor_style( '/assets/css/editor-style.css' );
-
     // Add support for responsive embeds. - CHECK
     add_theme_support( 'responsive-embeds' );
 
@@ -51,23 +48,26 @@ function theme_setup() {
 add_action( 'after_setup_theme', __NAMESPACE__ . '\\theme_setup' );
 
 /**
- * Enqueue editor assets for Gutenberg
+ * Load the compiled theme + block styles inside the (iframed) block editor.
+ * `enqueue_block_assets` also fires on the front end, where inc/assets.php already enqueues them.
  */
 function enqueue_editor_assets() {
-    // Enqueue the main theme styles for the editor
-    wp_enqueue_style( 
+    if ( ! is_admin() ) {
+        return;
+    }
+
+    wp_enqueue_style(
         'mca-editor-style',
-        get_theme_file_uri( '/assets/css/style.css' ), 
-        [], 
-        wp_get_theme()->get( 'Version' )
+        get_theme_file_uri( '/assets/css/style.min.css' ),
+        [],
+        \MCA\Assets\mca_asset_ver( '/assets/css/style.min.css' )
     );
 
-    // Enqueue additional editor-specific styles if needed
-    wp_enqueue_style( 
+    wp_enqueue_style(
         'mca-editor-custom',
-        get_theme_file_uri( '/assets/css/editor-style.css' ), 
-        ['mca-editor-style'],
-        wp_get_theme()->get( 'Version' )
+        get_theme_file_uri( '/assets/css/editor-style.css' ),
+        [ 'mca-editor-style' ],
+        \MCA\Assets\mca_asset_ver( '/assets/css/editor-style.css' )
     );
 }
-add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\\enqueue_editor_assets' );
+add_action( 'enqueue_block_assets', __NAMESPACE__ . '\\enqueue_editor_assets' );
