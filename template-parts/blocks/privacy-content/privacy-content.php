@@ -142,7 +142,7 @@ $link     = get_field('privacy_settings_link');
                         </div>
                         <?php if (!empty($link['url'])) : ?>
                             <?php if ($link['url'] === '#') : ?>
-                            <button type="button" class="a-text a-text--m h-semibold" data-cookie-action="preferences"><?php echo esc_html($link['title'] ?: __('Cookie settings', 'MCA')); ?></button>
+                            <button type="button" class="a-text a-text--m h-semibold h-white" data-cookie-action="preferences"><?php echo esc_html($link['title'] ?: __('Cookie settings', 'MCA')); ?></button>
                             <?php else : ?>
                             <a
                                 class="a-text a-text--m h-semibold"
