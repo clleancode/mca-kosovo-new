@@ -51,6 +51,10 @@ export default function heroSlider() {
             }
             if (image) zoomIn(image);
         };
+        const cardsRoot = element.querySelector('[data-hero-cards]');
+        let cardsSwiper = null;
+        let syncingCards = false;
+
         const sync = swiper => {
             elapsed = 0;
             previousTime = null;
@@ -61,7 +65,13 @@ export default function heroSlider() {
                 if (index === swiper.realIndex) link.setAttribute('aria-current', 'true');
                 else link.removeAttribute('aria-current');
             });
+            if (cardsSwiper && !cardsSwiper.destroyed && cardsSwiper.activeIndex !== swiper.realIndex) {
+                syncingCards = true;
+                cardsSwiper.slideTo(swiper.realIndex);
+                syncingCards = false;
+            }
         };
+
         const swiper = new Swiper(element, {
             modules: [Navigation, EffectFade],
             slidesPerView: 1,
@@ -77,6 +87,29 @@ export default function heroSlider() {
                 destroy() { cancelAnimationFrame(frame); },
             },
         });
+
+        if (cardsRoot && cards.length > 1) {
+            cardsSwiper = new Swiper(cardsRoot, {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                speed: reducedMotion ? 0 : 600,
+                watchOverflow: true,
+                slideToClickedSlide: true,
+                breakpoints: {
+                    768: {
+                        slidesPerView: 3,
+                        allowTouchMove: false,
+                    },
+                },
+                on: {
+                    slideChange(instance) {
+                        if (syncingCards || instance.destroyed) return;
+                        swiper.slideTo(instance.activeIndex);
+                    },
+                },
+            });
+            sync(swiper);
+        }
         const tick = time => {
             if (swiper.destroyed) return;
             if (!paused && !document.hidden) {
@@ -104,6 +137,12 @@ export default function heroSlider() {
             link.addEventListener('click', event => event.preventDefault());
             link.addEventListener('keydown', event => {
                 if (event.code === 'Space') { event.preventDefault(); link.click(); }
+            });
+        });
+        cards.forEach((link, index) => {
+            link.addEventListener('click', event => {
+                event.preventDefault();
+                swiper.slideTo(index);
             });
         });
         frame = requestAnimationFrame(tick);

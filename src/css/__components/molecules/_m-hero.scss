@@ -234,31 +234,21 @@
 }
 
 .m-hero__cards {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 20px;
     overflow: hidden;
 }
 
-.m-hero__cards > .m-hero__card {
-    grid-area: 1 / 1;
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(20px);
-    transition: opacity .4s ease, transform .4s ease, visibility .4s, background-color .5s ease, border-color .5s ease;
+.m-hero__cards > .swiper-wrapper {
+    align-items: stretch;
 }
 
-.m-hero__cards > .m-hero__card.is-active {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0);
+.m-hero__cards > .swiper-wrapper > .swiper-slide {
+    height: auto;
 }
 
 .m-hero__card {
     position: relative;
     overflow: hidden;
+    height: 100%;
     border-radius: 20px;
     border: 1px solid transparent;
     background: rgba(0, 13, 41, .25);
@@ -373,22 +363,6 @@
 
     .m-hero__copy {
         width: 70%;
-    }
-
-    .m-hero__cards {
-        grid-template-columns: none;
-        grid-auto-flow: column;
-        grid-auto-columns: calc((100% - 40px) / 3);
-        overflow-x: auto;
-    }
-
-    .m-hero__cards > .m-hero__card {
-        grid-area: auto;
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
-        transform: none;
-        transition: background-color .5s ease, border-color .5s ease;
     }
 
     .m-hero__footer {

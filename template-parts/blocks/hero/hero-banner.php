@@ -255,31 +255,35 @@ $type = Helpers\get_block_typography([
                     </a>
                 </div>
 
-                <div class="m-hero__cards">
-                    <?php foreach ($items as $index => $project) : ?>
-                        <div class="m-hero__card<?php echo $index === 0 ? ' is-active' : ''; ?> e-reveal" data-offset="0" data-delay="<?php echo esc_attr(720 + $index * 100); ?>">
-                            <a
-                                href="<?php echo esc_url(get_permalink($project)); ?>"
-                                data-hero-slide="<?php echo esc_attr($index); ?>"
-                                <?php if ($index === 0) : ?>aria-current="true"<?php endif; ?>
-                                aria-label="<?php echo esc_attr(get_the_title($project)); ?>"
-                            >
-                                <div class="m-hero__thumbnail">
-                                    <?php echo get_the_post_thumbnail($project, 'thumbnail', ['loading' => 'lazy', 'alt' => '']); ?>
-                                </div>
+                <div class="swiper m-hero__cards" data-hero-cards>
+                    <div class="swiper-wrapper">
+                        <?php foreach ($items as $index => $project) : ?>
+                            <div class="swiper-slide">
+                                <div class="m-hero__card<?php echo $index === 0 ? ' is-active' : ''; ?> e-reveal" data-offset="0" data-delay="<?php echo esc_attr(720 + $index * 100); ?>">
+                                    <a
+                                        href="<?php echo esc_url(get_permalink($project)); ?>"
+                                        data-hero-slide="<?php echo esc_attr($index); ?>"
+                                        <?php if ($index === 0) : ?>aria-current="true"<?php endif; ?>
+                                        aria-label="<?php echo esc_attr(get_the_title($project)); ?>"
+                                    >
+                                        <div class="m-hero__thumbnail">
+                                            <?php echo get_the_post_thumbnail($project, 'thumbnail', ['loading' => 'lazy', 'alt' => '']); ?>
+                                        </div>
 
-                                <div class="m-hero__card-copy h-semibold">
-                                    <p class="a-text a-text--xs h-uppercase">
-                                        <span class="a-text a-text--s h-semibold"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
-                                        <?php echo esc_html($slide_labels[$project->ID]); ?>
-                                    </p>
-                                    <p class="a-text a-text--xl h-semibold">
-                                        <?php echo esc_html(wp_html_excerpt($summaries[$project->ID] ?: get_the_title($project), 110, '…')); ?>
-                                    </p>
+                                        <div class="m-hero__card-copy h-semibold">
+                                            <p class="a-text a-text--xs h-uppercase">
+                                                <span class="a-text a-text--s h-semibold"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
+                                                <?php echo esc_html($slide_labels[$project->ID]); ?>
+                                            </p>
+                                            <p class="a-text a-text--xl h-semibold">
+                                                <?php echo esc_html(wp_html_excerpt($summaries[$project->ID] ?: get_the_title($project), 110, '…')); ?>
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
-                    <?php endforeach; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </div>
         </div>
