@@ -443,8 +443,49 @@
 
 @media (max-width: 767px) {
     .m-compact-projects__grid:not(.m-compact-projects__grid--two) {
+        flex-direction: column;
+        overflow-anchor: none;
+        gap: 12px;
         height: auto;
+        min-height: 0;
         align-items: stretch;
+
+        > .m-compact-projects__card {
+            flex: 0 0 auto;
+            width: 100%;
+            min-height: 0;
+            height: auto;
+        }
+
+        > .m-compact-projects__card--compact {
+            min-height: 96px;
+            height: 96px;
+        }
+
+        .a-compact-projects__side-title {
+            top: 50%;
+            left: 52px;
+            right: 64px;
+            max-width: none;
+            transform: translateY(-50%);
+            font-size: 24px;
+            text-align: left;
+            white-space: normal;
+        }
+
+        .m-compact-projects__card--compact .m-compact-projects__number {
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%);
+        }
+
+        .m-compact-projects__open {
+            top: 50%;
+            right: 16px;
+            width: 34px;
+            height: 34px;
+            transform: translateY(-50%);
+        }
     }
 
     .m-compact-projects__card--compact > p:last-child {
