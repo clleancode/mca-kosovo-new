@@ -59,7 +59,7 @@ if (!$query instanceof WP_Query) {
                         <?php if (has_post_thumbnail($result_id)) : ?>
                             <?php echo get_the_post_thumbnail($result_id, 'thumbnail', ['loading' => 'lazy', 'decoding' => 'async']); ?>
                         <?php else : ?>
-                            <span class="a-text a-text--m"><?php echo esc_html($placeholder); ?></span>
+                            <span class="a-heading a-heading--h6 h-pink h-semibold"><?php echo esc_html($placeholder); ?></span>
                         <?php endif; ?>
                     </span>
                     <span class="m-search-results__copy">
@@ -104,7 +104,7 @@ if (!$query instanceof WP_Query) {
                 <?php endforeach; ?>
                 <?php if ($page < (int) $query->max_num_pages) : ?>
                     <?php $next_url = add_query_arg(['s' => $term, 'search_type' => $type, 'paged' => $page + 1], home_url('/')); ?>
-                    <li><a class="m-search-results__next" href="<?php echo esc_url($next_url); ?>" aria-label="<?php esc_attr_e('Next page', 'mca-kosovo'); ?>"><?php esc_html_e('Next', 'mca-kosovo'); ?>&nbsp;&raquo;</a></li>
+                    <li><a class="m-search-results__next" href="<?php echo esc_url($next_url); ?>" aria-label="<?php esc_attr_e('Next page', 'mca-kosovo'); ?>">&rarr;</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
