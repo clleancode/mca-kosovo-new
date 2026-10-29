@@ -320,6 +320,10 @@ button {
 }
 
 .h-breadcrumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    min-width: 24px;
     color: inherit;
     text-decoration: none;
 }
