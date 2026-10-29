@@ -42,7 +42,7 @@ $section_title = get_field('newsletter_subscribe_title');
                     <?php if ($label = get_field('newsletter_subscribe_label')) : ?>
                         <div class="m-newsletter-subscribe__label e-reveal"><span class="a-text a-text--xs"><?php echo esc_html($label); ?></span></div>
                     <?php endif; ?>
-                    <?php if ($section_title) : ?><h2 class="a-heading a-heading--h3 e-reveal e-reveal--text" data-delay="100"><?php echo nl2br(esc_html($section_title)); ?></h2><?php endif; ?>
+                    <?php if ($section_title) : ?><h1 class="a-heading a-heading--h3 e-reveal e-reveal--text" data-delay="100"><?php echo nl2br(esc_html($section_title)); ?></h1><?php endif; ?>
                     <?php if ($description = get_field('newsletter_subscribe_description')) : ?><p class="a-text a-text--xl e-reveal e-reveal--text" data-delay="350"><?php echo nl2br(esc_html($description)); ?></p><?php endif; ?>
 
                     <?php if ($benefits) : ?>

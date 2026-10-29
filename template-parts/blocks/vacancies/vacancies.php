@@ -144,11 +144,11 @@ $render_cards = static function ($jobs, $state) use ($get_job_state) {
                 </div>
 
                 <div class="m-vacancies__card-title">
-                    <h3 class="a-heading a-heading--h6 h-dark-blue h-semibold">
+                    <h2 class="a-heading a-heading--h6 h-dark-blue h-semibold">
                         <a class="a-vacancies-title" href="<?php echo esc_url($url); ?>">
                             <?php echo esc_html(get_the_title($job)); ?>
                         </a>
-                    </h3>
+                    </h2>
                 </div>
 
                 <div class="m-vacancies__card-footer s-d-t-xs s-m-t-xs">
