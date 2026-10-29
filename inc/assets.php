@@ -17,13 +17,20 @@ function register_assets() {
     );
 
     wp_register_style(
+        'mca-fonts',
+        $theme_uri . '/assets/css/red-hat-display.css',
+        [],
+        mca_asset_ver('/assets/css/red-hat-display.css')
+    );
+
+    wp_register_style(
         'mca-main-style',
         $theme_uri . '/assets/css/style.min.css',
-        [],
+        ['mca-fonts'],
         mca_asset_ver('/assets/css/style.min.css')
     );
 
-    wp_register_script('mca-fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.js', [], '4.0.31', true);
+    wp_register_script('mca-fancybox', $theme_uri . '/assets/js/vendor/fancybox-4.0.31.umd.js', [], '4.0.31', true);
 
     wp_register_script(
         'mca-main-script',
