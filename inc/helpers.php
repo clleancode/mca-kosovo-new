@@ -182,8 +182,7 @@ function mca_faq_category_sidebar($parent = 0, $current_term = '') {
  * FAQ Category Topbar
  */
 function mca_faq_category_topbar($current = 0) {
-	$cats = mca_get_saved_cat_ids(true);
-	$ids = array();
+	$cats = mca_get_saved_cat_ids();
 
 	if ($cats) {
 		echo '<div class="m-faq m-faq--menu">';
@@ -208,15 +207,16 @@ function mca_faq_category_topbar($current = 0) {
  * FAQ Category Boxes
  */
 function mca_faq_category_boxes($current = 0) {
-	$cats = mca_get_saved_cat_ids(true);
-	$ids = array();
+	$cats = mca_get_saved_cat_ids();
+	$excluded = function_exists('get_field') ? get_field('faq_category_box_exclusions', 'option') : [];
+	$excluded = is_array($excluded) ? array_map('absint', $excluded) : [];
 	if ($cats) {
 		echo '<ul class="faq_category_boxes">';
 		foreach ($cats as $group_id => $post_id) {
 			$title = get_the_title($post_id);
 			$active = $current == $post_id ? 'active' : '';
 			$url = get_the_permalink($post_id);
-			if($post_id != 2699 && $post_id != 2700 && $post_id != 10732) {
+			if (!in_array((int) $post_id, $excluded, true)) {
 				echo sprintf('<li class="%s" data-id="%d"><a href="%s"><span>%s</span></a></li>', esc_attr($active), absint($post_id), esc_url($url), esc_html(ucwords($title)));
 			}
 		}
@@ -225,34 +225,35 @@ function mca_faq_category_boxes($current = 0) {
 }
 
 /**
- * Function to get saved categories from database
+ * Published FAQ category IDs, bounded and cached per request and page.
  */
-function mca_get_saved_cat_ids($associative = false, $parent = 0, $all = false) {
-    $args = array(
+function mca_get_saved_cat_ids($parent = 0, $all = false, $page = 1) {
+    static $cache = [];
+    $parent = absint($parent);
+    $page = max(1, absint($page));
+    $key = get_current_blog_id() . ':' . get_locale() . ':' . ($all ? 'all' : $parent) . ':' . $page;
+    if (isset($cache[$key])) return $cache[$key];
+    if (!post_type_exists('faq')) return $cache[$key] = [];
+
+    $args = [
         'post_type' => 'faq',
-        'posts_per_page' => -1,
-        'order' => 'ASC',
+        'post_status' => 'publish',
+        'posts_per_page' => 200,
+        'paged' => $page,
+        'fields' => 'ids',
+        'orderby' => ['date' => 'ASC', 'ID' => 'ASC'],
         'post_parent' => $parent,
-    );
+        'no_found_rows' => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+        'suppress_filters' => false,
+    ];
 
     if ($all) {
         unset($args['post_parent']);
     }
 
-    $cats = new WP_Query($args);
-
-    $ids = array();
-
-    if ($cats->have_posts()) {
-        while ($cats->have_posts()) {
-            $cats->the_post();
-            $id = get_the_ID();
-            $ids[] = $id;
-        }
-        wp_reset_postdata();
-    }
-
-    return $ids;
+    return $cache[$key] = array_map('absint', get_posts($args));
 }
 
 /**************************************************
