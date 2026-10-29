@@ -60,24 +60,13 @@ function sanitize_svg_upload( $file ) {
 add_filter( 'wp_handle_upload_prefilter', __NAMESPACE__ . '\\sanitize_svg_upload' );
 
 /**
- * Convert JPEG and PNG images to WebP format during processing. - CHECK
+ * Generate WebP versions of JPEGs when supported, retaining plugin mappings.
+ * Leave PNGs unchanged and use WordPress's default compression quality.
  */
-// add_filter( 'image_editor_output_format', function ( $formats ) {
-//     $formats['image/jpeg'] = 'image/webp';
-//     $formats['image/png']  = 'image/webp';
-//     return $formats;
-// });
-
-/**
- * Set maximum quality for JPEG images.
- */
-add_filter( 'jpeg_quality', function () {
-    return 100; // Maximum quality for JPEG images.
-});
-
-/**
- * Set maximum quality for all images edited within WordPress.
- */
-add_filter( 'wp_editor_set_quality', function () {
-    return 100; // Maximum quality for images in the WordPress editor.
-});
+add_filter( 'image_editor_output_format', function ( $formats ) {
+    if ( ! isset( $formats['image/jpeg'] )
+        && wp_image_editor_supports( [ 'mime_type' => 'image/webp' ] ) ) {
+        $formats['image/jpeg'] = 'image/webp';
+    }
+    return $formats;
+} );

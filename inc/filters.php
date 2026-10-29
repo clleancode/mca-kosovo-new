@@ -170,11 +170,6 @@ function mca_procurement_filter_link($label, $value, $current) {
 }
 
 /**
- * Disable big image size threshold
- */
-add_filter('big_image_size_threshold', '__return_false');
-
-/**
  * Admin columns: ACF Deadline for Jobs list table
  */
 function mca_jobs_admin_columns($cols) {
