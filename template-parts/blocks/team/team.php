@@ -158,17 +158,17 @@ if ($layout === 'board') {
 
                             <?php if ($show_filters) : ?>
                                 <div class="m-team__filters" aria-label="Filter members by department">
-                                    <a class="a-text a-text--s h-semibold e-reveal" data-delay="100" href="#" data-team-department="" aria-current="true">All</a>
+                                    <button type="button" class="a-text a-text--s h-semibold e-reveal" data-delay="100" data-team-department="" aria-current="true">All</button>
                                     <?php foreach (array_keys($departments) as $department_index => $department) : ?>
-                                        <a
+                                        <button
+                                            type="button"
                                             class="a-text a-text--m h-semibold e-reveal"
                                             data-delay="<?php echo esc_attr(180 + $department_index * 80); ?>"
-                                            href="#"
                                             data-team-department="<?php echo esc_attr($department); ?>"
                                             aria-current="false"
                                         >
                                             <?php echo esc_html($department); ?>
-                                        </a>
+                                        </button>
                                     <?php endforeach; ?>
                                 </div>
                             <?php endif; ?>

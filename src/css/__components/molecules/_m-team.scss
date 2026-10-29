@@ -279,7 +279,7 @@
     }
 }
 
-.m-team__filters>a {
+.m-team__filters>button {
     text-decoration: none;
     padding: 9px 16px;
     border: 0;
@@ -289,12 +289,12 @@
     cursor: pointer;
 }
 
-.m-team__filters>a[aria-current="true"] {
+.m-team__filters>button[aria-current="true"] {
     color: var(--white);
     background: var(--dark-blue);
 }
 
-.m-team__filters>a:focus-visible {
+.m-team__filters>button:focus-visible {
     outline: 2px solid var(--blue);
     outline-offset: 3px;
 }

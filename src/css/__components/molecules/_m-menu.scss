@@ -55,16 +55,13 @@
                 }
             }
 
-            @media (hover: hover) {
-                &.is-submenu-open,
-                &:focus-within {
-                    > .m-sub-menu {
-                        opacity: 1;
-                        visibility: visible;
-                        pointer-events: auto;
-                        translate: none;
-                        transition: opacity var(--duration-base) var(--ease-out) .1s, translate .45s var(--ease-out) .1s, visibility 0s linear .1s;
-                    }
+            &.is-submenu-open {
+                > .m-sub-menu {
+                    opacity: 1;
+                    visibility: visible;
+                    pointer-events: auto;
+                    translate: none;
+                    transition: opacity var(--duration-base) var(--ease-out) .1s, translate .45s var(--ease-out) .1s, visibility 0s linear .1s;
                 }
             }
         }
@@ -471,7 +468,7 @@
         transition: opacity var(--duration-base) var(--ease-out), translate .5s var(--ease-out);
     }
 
-    .m-menu > ul > li:is(.is-submenu-open, :focus-within) > .m-sub-menu {
+    .m-menu > ul > li.is-submenu-open > .m-sub-menu {
         .m-sub-menu__intro,
         .m-sub-menu__project-list > li,
         .m-sub-menu__resources-groups > section,

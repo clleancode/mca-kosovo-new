@@ -133,12 +133,6 @@ export default function heroSlider() {
             event.preventDefault();
             if (cards.length > 1) setPaused(!paused);
         });
-        element.querySelectorAll('.m-hero__controls > a').forEach(link => {
-            link.addEventListener('click', event => event.preventDefault());
-            link.addEventListener('keydown', event => {
-                if (event.code === 'Space') { event.preventDefault(); link.click(); }
-            });
-        });
         cards.forEach((link, index) => {
             link.addEventListener('click', event => {
                 event.preventDefault();
