@@ -128,32 +128,40 @@ add_filter( 'protected_title_format', __NAMESPACE__ . '\\remove_private_protecte
  */
 
 /**
- * Add container wrapper to columns block
+ * Mark nested blocks so theme containers are applied only at the top level.
+ */
+function mark_nested_content_block($parsed_block, $source_block, $parent_block = null) {
+    $parsed_block['_mca_has_parent'] = $parent_block !== null;
+    return $parsed_block;
+}
+add_filter('render_block_data', __NAMESPACE__ . '\\mark_nested_content_block', 10, 3);
+
+/**
+ * Add theme containers only to top-level blocks in the main frontend loop.
  * 
  * @param string $block_content The block content.
  * @param array  $block        The full block, including name and attributes.
  * @return string Modified block content.
  */
 function add_container_wrapper($block_content, $block) {
+    if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST)
+        || !in_the_loop() || !is_main_query() || !empty($block['_mca_has_parent'])) {
+        return $block_content;
+    }
     if (isset($block['blockName']) && $block['blockName'] === 'core/columns') {
         // Only wrap if not already wrapped (prevent double wrapping)
         if (strpos($block_content, 'wp-block-columns-wrapper') === false) {
             $block_content = '<section class="wp-block-columns-wrapper"><div class="container">' . $block_content . '</div></section>';
         }
     } else if (isset($block['blockName']) && $block['blockName'] === 'core/heading') {
+        if (strpos($block_content, 'wp-block-heading-wrapper') !== false) return $block_content;
+        $tag = 'h' . max(1, min(6, (int) ($block['attrs']['level'] ?? 2)));
+        $block_content = \MCA\Helpers\apply_element_classes($block_content, 'a-heading a-heading--2xs s-m-b-xs s-d-b-xs', $tag);
         $block_content = '<section class="wp-block-heading-wrapper"><div class="container">' . $block_content . '</div></section>';
-        $block_content = str_replace(
-            'class="wp-block-heading"',
-            'class="wp-block-heading a-heading a-heading--2xs s-m-b-xs s-d-b-xs"',
-            $block_content
-        );
     } else if (isset($block['blockName']) && $block['blockName'] === 'core/paragraph') {
+        if (strpos($block_content, 'wp-block-paragraph-wrapper') !== false) return $block_content;
+        $block_content = \MCA\Helpers\apply_paragraph_classes($block_content, 'a-text a-text--m h-white-600 h-text-lh--m');
         $block_content = '<section class="wp-block-paragraph-wrapper s-m-b-xs s-d-b-xs"><div class="container">' . $block_content . '</div></section>';
-        $block_content = str_replace(
-            '<p>',
-            '<p class="a-text a-text--m h-white-600 h-text-lh--m">',
-            $block_content
-        );
     }
     return $block_content;
 }

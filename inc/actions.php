@@ -204,11 +204,11 @@ function rel_next_prev() {
 	global $paged;
 
 	if ( get_previous_posts_link() ) {
-		echo '<link rel="prev" href="'.get_pagenum_link( $paged - 1 ).'" />';
+		echo '<link rel="prev" href="' . esc_url(get_pagenum_link( $paged - 1 )) . '" />';
 	}
 
 	if ( get_next_posts_link(null, 9) ) {
-		echo '<link rel="next" href="'.get_pagenum_link( $paged + 1 ).'" />';
+		echo '<link rel="next" href="' . esc_url(get_pagenum_link( $paged + 1 )) . '" />';
 	}
 }
 
@@ -303,26 +303,6 @@ add_action( 'template_redirect', __NAMESPACE__ . '\\mca_handle_legacy_404_redire
         
 // }
 // add_action('template_redirect', __NAMESPACE__ . '\\redirect_paged_to_404');
-
-/**
- * Remove Gutenberg styles from the frontend
- * but keep them in the editor.
- */
-function remove_gutenberg_frontend_styles() {
-
-    // Dequeue core block library CSS
-    wp_dequeue_style('wp-block-library');
-    wp_dequeue_style('wp-block-library-theme');
-    wp_dequeue_style('global-styles'); // removes theme.json inline styles
-    wp_dequeue_style('classic-theme-styles'); // for classic themes
-
-    // Optional: Also deregister to prevent re-adding by other plugins
-    wp_deregister_style('wp-block-library');
-    wp_deregister_style('wp-block-library-theme');
-    wp_deregister_style('global-styles');
-    wp_deregister_style('classic-theme-styles');
-}
-add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\remove_gutenberg_frontend_styles', 100);
 
 /**
  * Remove jQuery & jQuery Migrate from frontend

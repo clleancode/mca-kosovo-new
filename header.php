@@ -30,8 +30,15 @@ if (get_post_type($current_post_id) === 'project') {
         $button_color = $color_from_acf;
     }
 }
+$extra_body_classes = [];
+if (is_singular('project') && is_string($button_color)) {
+    $project_color_class = sanitize_html_class($button_color);
+    if ($project_color_class !== '') {
+        $extra_body_classes[] = 'h-' . $project_color_class;
+    }
+}
 ?>
-<body class="h-<?php echo is_singular('project') ? esc_attr($button_color) : ''; ?>">
+<body <?php body_class($extra_body_classes); ?>>
 	<a class="skip-link" href="#main-content"><?php esc_html_e( 'Skip to content', 'mca' ); ?></a>
 	<?php wp_body_open(); ?>
 	<header class="o-header">
