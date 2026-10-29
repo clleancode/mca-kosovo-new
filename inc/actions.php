@@ -106,80 +106,85 @@ add_action( 'pre_get_posts', __NAMESPACE__ . '\\configure_shared_archive_query',
  * Get AJAX Search Suggestions
  */
 function ajax_search_suggestions() {
-	// First check the nonce, if it fails the function will break
-	check_ajax_referer('mca-search-form', 'security');
-	
-	$parentCategory = isset($_POST['cat_id']) ? $_POST['cat_id'] : '';
-	$keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
-	
-	$args = array(
+	if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) {
+		wp_send_json_error( [ 'message' => __( 'Please use POST for search suggestions.', 'mca' ) ], 405 );
+	}
+	if ( ! isset( $_POST['security'], $_REQUEST['security'] )
+		|| ! is_string( $_POST['security'] ) || ! is_string( $_REQUEST['security'] )
+		|| ! check_ajax_referer( 'mca-search-form', 'security', false ) ) {
+		wp_send_json_error( [ 'message' => __( 'Security check failed. Please refresh the page and try again.', 'mca' ) ], 403 );
+	}
+
+	$peer = $_SERVER['REMOTE_ADDR'] ?? '';
+	$peer = filter_var( $peer, FILTER_VALIDATE_IP ) ? inet_ntop( inet_pton( $peer ) ) : 'unknown';
+	if ( ! \MCA\FormSubmissions\consume_submission_attempt( 'search_suggestions_ip', $peer, 120 ) ) {
+		header( 'Retry-After: 900' );
+		wp_send_json_error( [ 'message' => __( 'Too many searches. Please wait 15 minutes and try again.', 'mca' ) ], 429 );
+	}
+
+	if ( ( isset( $_POST['cat_id'] ) && ! is_string( $_POST['cat_id'] ) )
+		|| ( isset( $_POST['keyword'] ) && ! is_string( $_POST['keyword'] ) ) ) {
+		wp_send_json_error( [ 'message' => __( 'Invalid search request.', 'mca' ) ], 400 );
+	}
+	if ( isset( $_POST['keyword'] ) && strlen( $_POST['keyword'] ) > 800 ) {
+		wp_send_json_error( [ 'message' => __( 'Please use a search term of 200 characters or fewer.', 'mca' ) ], 400 );
+	}
+	$parentCategory = isset( $_POST['cat_id'] ) ? absint( wp_unslash( $_POST['cat_id'] ) ) : 0;
+	$keyword = isset( $_POST['keyword'] ) ? sanitize_text_field( wp_unslash( $_POST['keyword'] ) ) : '';
+	if ( title_strlen( $keyword ) > 200 ) {
+		wp_send_json_error( [ 'message' => __( 'Please use a search term of 200 characters or fewer.', 'mca' ) ], 400 );
+	}
+
+	$args = [
 		'post_type' => 'faq',
 		'post_status' => 'publish',
 		'posts_per_page' => 10,
-		's'=> $keyword
-	);
-	if (!empty($parentCategory)) {
-		$args['meta_query'] = array(
-			array(
-				'key' => 'parent_cateogry',
+		'no_found_rows' => true,
+		's' => $keyword,
+	];
+	if ( $parentCategory ) {
+		$args['meta_query'] = [
+			[
+				'key' => 'parent_category',
 				'value' => $parentCategory,
-				'compare' => '='
-			)
-		);
-	} else {
-		// $args['meta_query'] = array(
-		// 	array(
-		// 		'key' => 'freshdesk_faq_id',
-		// 		'compare' => 'EXISTS',
-		// 	)
-		// );
+				'compare' => '=',
+				'type' => 'NUMERIC',
+			],
+		];
 	}
-	
+
+	$items = '';
 	try {
-		$faqs = new \WP_Query($args);
-	} catch (\Throwable $e) {
-		echo 'Query Exception: ' . $e->getMessage();
-		wp_die();
-	}
-
-	if ($faqs->have_posts()) {
-		while ($faqs->have_posts()) {
+		$faqs = new \WP_Query( $args );
+		while ( $faqs->have_posts() ) {
 			$faqs->the_post();
-
-			$id = get_the_id();
-
-			$parentId = wp_get_post_parent_id($id);
-			$grandParentId = wp_get_post_parent_id($parentId );
-			$text = ' - <span>'.get_the_title($parentId ).' ('.get_the_title($grandParentId).')</span>';
-?>
-			<li>
-				<a href="<?php echo esc_url(get_the_permalink($id));?>"><?php echo esc_html(get_the_title($id)).''.$text; ?></a>
-			</li>
-<?php
+			$id = get_the_ID();
+			$parentId = wp_get_post_parent_id( $id );
+			$grandParentId = $parentId ? wp_get_post_parent_id( $parentId ) : 0;
+			$text = '';
+			if ( $parentId ) {
+				$text = ' - <span>' . esc_html( get_the_title( $parentId ) );
+				if ( $grandParentId ) {
+					$text .= ' (' . esc_html( get_the_title( $grandParentId ) ) . ')';
+				}
+				$text .= '</span>';
+			}
+			$items .= '<li><a href="' . esc_url( get_the_permalink( $id ) ) . '">'
+				. esc_html( get_the_title( $id ) ) . $text . '</a></li>';
 		}
+	} catch ( \Throwable $e ) {
 		wp_reset_postdata();
-	} else {
-		echo '<li>Any Suggested Articles not found</li>';
+		error_log( 'MCA search suggestions failed: ' . $e->getMessage() );
+		wp_send_json_error( [ 'message' => __( 'Search suggestions are temporarily unavailable. Please try again.', 'mca' ) ], 500 );
 	}
+	wp_reset_postdata();
+
+	echo $items ?: '<li>' . esc_html__( 'No suggested articles found.', 'mca' ) . '</li>';
 	wp_die();
 }
 
 add_action('wp_ajax_ajax_search_suggestions', __NAMESPACE__ . '\\ajax_search_suggestions');
 add_action('wp_ajax_nopriv_ajax_search_suggestions', __NAMESPACE__ . '\\ajax_search_suggestions');
-
-/**
- * Get the phone extensions from JSON file
- */
-function get_phone_extensions() {
-	check_ajax_referer('phone_extensions_nonce', 'security_nonce');
-
-    $phone_extensions = json_decode(file_get_contents(get_template_directory() . '/assets/js/phone-extension.json'), true);
-    wp_send_json($phone_extensions);
-    wp_die();
-}
-
-add_action('wp_ajax_get_phone_extensions', __NAMESPACE__ . '\\get_phone_extensions');
-add_action('wp_ajax_nopriv_get_phone_extensions', __NAMESPACE__ . '\\get_phone_extensions');
 
 /**
  * Surfcamp menu register
@@ -193,7 +198,6 @@ add_action('wp_ajax_nopriv_get_phone_extensions', __NAMESPACE__ . '\\get_phone_e
 // 		}
 // 	}
 // }
-
 // add_action('after_setup_theme', __NAMESPACE__ . '\\surfcamp_menu_register');
 
 /**
@@ -286,23 +290,6 @@ function mca_handle_legacy_404_redirects() {
 // Run before WordPress's canonical guessing can send /news/ to /newsletter/.
 add_action( 'template_redirect', __NAMESPACE__ . '\\mca_handle_legacy_404_redirects', 9 );
 
-// /**
-//  * Redirect paged to 404
-//  */
-// function redirect_paged_to_404() {
-// 	if(strpos($_SERVER['REQUEST_URI'], '/blog/') === false) {
-// 		if (strpos($_SERVER['REQUEST_URI'], '/page/') !== false) {
-// 			global $wp_query;
-// 			$wp_query->set_404();
-// 			status_header(404);
-// 			nocache_headers();
-// 			include(get_query_template('404'));
-// 			exit();
-// 		}
-// 	}
-        
-// }
-// add_action('template_redirect', __NAMESPACE__ . '\\redirect_paged_to_404');
 
 /**
  * Remove Gutenberg styles from the frontend
