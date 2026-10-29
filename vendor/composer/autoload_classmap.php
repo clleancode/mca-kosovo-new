@@ -7,13 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'Detection\\Cache\\Cache' => $vendorDir . '/mobiledetect/mobiledetectlib/src/Cache/Cache.php',
-    'Detection\\Cache\\CacheException' => $vendorDir . '/mobiledetect/mobiledetectlib/src/Cache/CacheException.php',
-    'Detection\\Cache\\CacheInvalidArgumentException' => $vendorDir . '/mobiledetect/mobiledetectlib/src/Cache/CacheInvalidArgumentException.php',
-    'Detection\\Exception\\MobileDetectException' => $vendorDir . '/mobiledetect/mobiledetectlib/src/Exception/MobileDetectException.php',
-    'Detection\\Exception\\MobileDetectExceptionCode' => $vendorDir . '/mobiledetect/mobiledetectlib/src/Exception/MobileDetectExceptionCode.php',
-    'Detection\\MobileDetect' => $vendorDir . '/mobiledetect/mobiledetectlib/src/MobileDetect.php',
-    'Detection\\MobileDetectStandalone' => $vendorDir . '/mobiledetect/mobiledetectlib/src/MobileDetectStandalone.php',
     'Doctrine\\Inflector\\CachedWordInflector' => $vendorDir . '/doctrine/inflector/src/CachedWordInflector.php',
     'Doctrine\\Inflector\\GenericLanguageInflectorFactory' => $vendorDir . '/doctrine/inflector/src/GenericLanguageInflectorFactory.php',
     'Doctrine\\Inflector\\Inflector' => $vendorDir . '/doctrine/inflector/src/Inflector.php',
@@ -63,9 +56,6 @@ return array(
     'Doctrine\\Inflector\\Rules\\Word' => $vendorDir . '/doctrine/inflector/src/Rules/Word.php',
     'Doctrine\\Inflector\\RulesetInflector' => $vendorDir . '/doctrine/inflector/src/RulesetInflector.php',
     'Doctrine\\Inflector\\WordInflector' => $vendorDir . '/doctrine/inflector/src/WordInflector.php',
-    'Psr\\SimpleCache\\CacheException' => $vendorDir . '/psr/simple-cache/src/CacheException.php',
-    'Psr\\SimpleCache\\CacheInterface' => $vendorDir . '/psr/simple-cache/src/CacheInterface.php',
-    'Psr\\SimpleCache\\InvalidArgumentException' => $vendorDir . '/psr/simple-cache/src/InvalidArgumentException.php',
     'StoutLogic\\AcfBuilder\\AccordionBuilder' => $vendorDir . '/stoutlogic/acf-builder/src/AccordionBuilder.php',
     'StoutLogic\\AcfBuilder\\Builder' => $vendorDir . '/stoutlogic/acf-builder/src/Builder.php',
     'StoutLogic\\AcfBuilder\\ChoiceFieldBuilder' => $vendorDir . '/stoutlogic/acf-builder/src/ChoiceFieldBuilder.php',

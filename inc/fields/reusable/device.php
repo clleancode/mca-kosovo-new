@@ -17,7 +17,7 @@ if ( class_exists( 'StoutLogic\AcfBuilder\FieldsBuilder' ) ) {
 			->addTab( 'Device' )
             ->addTrueFalse( 'desktop', [
                 'label' => 'Desktop',
-                'instructions' => 'Enable desktop visibility up to 1024px.',
+                'instructions' => 'Show above 1024px viewport width using CSS.',
                 'required' => false,
                 'default_value' => true,
                 'ui' => 1,
@@ -27,7 +27,7 @@ if ( class_exists( 'StoutLogic\AcfBuilder\FieldsBuilder' ) ) {
             ] )
             ->addTrueFalse( 'tablet', [
                 'label' => 'Tablet',
-                'instructions' => 'Enable tablet visibility from 768px to 1024px.',
+                'instructions' => 'Show from 768px to 1024px viewport width using CSS.',
                 'required' => false,
                 'default_value' => true,
                 'ui' => 1,
@@ -37,7 +37,7 @@ if ( class_exists( 'StoutLogic\AcfBuilder\FieldsBuilder' ) ) {
             ] )
             ->addTrueFalse( 'mobile', [
                 'label' => 'Mobile',
-                'instructions' => 'Enable mobile visibility below 768px.',
+                'instructions' => 'Show below 768px viewport width using CSS.',
                 'required' => false,
                 'default_value' => true,
                 'ui' => 1,

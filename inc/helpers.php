@@ -7,7 +7,6 @@
 
 namespace MCA\Helpers;
 use WP_Query;
-use Detection\MobileDetect;
 
 function mca_get_album_photos($album_id, array $visited = []) {
     $album_id = absint($album_id);
@@ -487,12 +486,12 @@ function mca_get_current_request_url($query_args = []) {
 }
 
 /**
- * Device detection and visibility helper for blocks
+ * Viewport visibility classes for blocks, independent of the User-Agent.
  * 
  * @param string $desktop_field ACF field name for desktop visibility (default: 'desktop')
  * @param string $tablet_field ACF field name for tablet visibility (default: 'tablet') 
  * @param string $mobile_field ACF field name for mobile visibility (default: 'mobile')
- * @return array Returns array with 'show' boolean and 'visibility_classes' string
+ * @return array 'show' skips blocks disabled for every viewport; CSS handles the rest.
  */
 function mca_get_device_visibility($desktop_field = 'desktop', $tablet_field = 'tablet', $mobile_field = 'mobile') {
 	$desktop = get_field($desktop_field);
@@ -503,17 +502,6 @@ function mca_get_device_visibility($desktop_field = 'desktop', $tablet_field = '
 	$tablet  = $tablet  === null ? true : $tablet;
 	$mobile  = $mobile  === null ? true : $mobile;
 
-	$detect = new MobileDetect();
-	$is_mobile = $detect->isMobile();
-	$is_tablet = $detect->isTablet();
-	$is_desktop = !$is_mobile && !$is_tablet;
-
-	$show = false;
-
-	if ($desktop && $is_desktop) $show = true;
-	if ($tablet && $is_tablet) $show = true;
-	if ($mobile && $is_mobile && !$is_tablet) $show = true;
-
 	// Build visibility classes for responsive handling
 	$visibility_classes = [];
 	if (!$desktop) $visibility_classes[] = 'h-hide-desktop';
@@ -522,13 +510,8 @@ function mca_get_device_visibility($desktop_field = 'desktop', $tablet_field = '
 	$visibility_class_string = implode(' ', $visibility_classes);
 
 	return [
-		'show' => $show,
+		'show' => (bool) ($desktop || $tablet || $mobile),
 		'visibility_classes' => $visibility_class_string,
-		'device_states' => [
-			'is_desktop' => $is_desktop,
-			'is_tablet' => $is_tablet,
-			'is_mobile' => $is_mobile
-		]
 	];
 }
 
@@ -536,19 +519,11 @@ function mca_get_device_visibility($desktop_field = 'desktop', $tablet_field = '
  * Get notification visibility
  */
 function mca_get_notification_visibility() {
-    $detect = new MobileDetect();
-    $is_tablet = $detect->isTablet();
-    $is_mobile = $detect->isMobile() || $is_tablet;
     $result = [
         'show' => false,
         'visibility_classes' => '',
         'notification_text' => '',
         'book_link' => '',
-        'device_states' => [
-            'is_desktop' => !$is_mobile,
-            'is_tablet' => $is_tablet,
-            'is_mobile' => $is_mobile,
-        ],
     ];
     if (!function_exists('get_field')) return $result;
 
@@ -566,7 +541,7 @@ function mca_get_notification_visibility() {
         // Notifications have two device options; tablets follow the mobile option.
         $desktop = $location['notification_desktop_active'] ?? true;
         $mobile = $location['notification_mobile_active'] ?? true;
-        $result['show'] = (bool) ($is_mobile ? $mobile : $desktop);
+        $result['show'] = (bool) ($desktop || $mobile);
         $result['visibility_classes'] = implode(' ', array_filter([
             !$desktop ? 'h-hide-desktop' : '',
             !$mobile ? 'h-hide-mobile h-hide-tablet' : '',

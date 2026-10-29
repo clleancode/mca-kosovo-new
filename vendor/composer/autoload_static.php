@@ -11,10 +11,6 @@ class ComposerStaticInitf17eb6282b39f622766ba4e85902559c
         array (
             'StoutLogic\\AcfBuilder\\' => 22,
         ),
-        'P' => 
-        array (
-            'Psr\\SimpleCache\\' => 16,
-        ),
         'M' => 
         array (
             'MCA\\' => 4,
@@ -22,7 +18,6 @@ class ComposerStaticInitf17eb6282b39f622766ba4e85902559c
         'D' => 
         array (
             'Doctrine\\Inflector\\' => 19,
-            'Detection\\' => 10,
         ),
     );
 
@@ -30,10 +25,6 @@ class ComposerStaticInitf17eb6282b39f622766ba4e85902559c
         'StoutLogic\\AcfBuilder\\' => 
         array (
             0 => __DIR__ . '/..' . '/stoutlogic/acf-builder/src',
-        ),
-        'Psr\\SimpleCache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
         'MCA\\' => 
         array (
@@ -43,21 +34,10 @@ class ComposerStaticInitf17eb6282b39f622766ba4e85902559c
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/src',
         ),
-        'Detection\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src',
-        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Detection\\Cache\\Cache' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src/Cache/Cache.php',
-        'Detection\\Cache\\CacheException' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src/Cache/CacheException.php',
-        'Detection\\Cache\\CacheInvalidArgumentException' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src/Cache/CacheInvalidArgumentException.php',
-        'Detection\\Exception\\MobileDetectException' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src/Exception/MobileDetectException.php',
-        'Detection\\Exception\\MobileDetectExceptionCode' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src/Exception/MobileDetectExceptionCode.php',
-        'Detection\\MobileDetect' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src/MobileDetect.php',
-        'Detection\\MobileDetectStandalone' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src/MobileDetectStandalone.php',
         'Doctrine\\Inflector\\CachedWordInflector' => __DIR__ . '/..' . '/doctrine/inflector/src/CachedWordInflector.php',
         'Doctrine\\Inflector\\GenericLanguageInflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/GenericLanguageInflectorFactory.php',
         'Doctrine\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/src/Inflector.php',
@@ -107,9 +87,6 @@ class ComposerStaticInitf17eb6282b39f622766ba4e85902559c
         'Doctrine\\Inflector\\Rules\\Word' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Word.php',
         'Doctrine\\Inflector\\RulesetInflector' => __DIR__ . '/..' . '/doctrine/inflector/src/RulesetInflector.php',
         'Doctrine\\Inflector\\WordInflector' => __DIR__ . '/..' . '/doctrine/inflector/src/WordInflector.php',
-        'Psr\\SimpleCache\\CacheException' => __DIR__ . '/..' . '/psr/simple-cache/src/CacheException.php',
-        'Psr\\SimpleCache\\CacheInterface' => __DIR__ . '/..' . '/psr/simple-cache/src/CacheInterface.php',
-        'Psr\\SimpleCache\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/simple-cache/src/InvalidArgumentException.php',
         'StoutLogic\\AcfBuilder\\AccordionBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/AccordionBuilder.php',
         'StoutLogic\\AcfBuilder\\Builder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/Builder.php',
         'StoutLogic\\AcfBuilder\\ChoiceFieldBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/ChoiceFieldBuilder.php',

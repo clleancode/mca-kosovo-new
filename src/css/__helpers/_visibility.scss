@@ -1,0 +1,18 @@
+// Keep the same HTML for every device; visibility follows viewport width.
+@media (width < 768px) {
+    .h-hide-mobile {
+        display: none !important;
+    }
+}
+
+@media (768px <= width <= 1024px) {
+    .h-hide-tablet {
+        display: none !important;
+    }
+}
+
+@media (width > 1024px) {
+    .h-hide-desktop {
+        display: none !important;
+    }
+}
