@@ -8,56 +8,42 @@
 namespace MCA\Media;
 
 /**
- * Add SVG MIME type support.
+ * SVG Support owns MIME handling and content sanitization.
+ * Keep SVG uploads restricted even if the plugin settings are relaxed.
  */
-function add_svg_support( $mimes ) {
-    $mimes['svg'] = 'image/svg+xml'; // Add SVG support
+function restrict_svg_upload_mimes( $mimes ) {
+    if ( ! current_user_can( 'manage_options' ) || ! function_exists( 'bodhi_svgs_sanitize_svg' ) ) {
+        unset( $mimes['svg'], $mimes['svgz'] );
+    }
     return $mimes;
 }
-add_filter( 'upload_mimes', __NAMESPACE__ . '\\add_svg_support' );
+add_filter( 'upload_mimes', __NAMESPACE__ . '\\restrict_svg_upload_mimes', 100 );
 
 /**
- * Check and set the file type for SVG uploads.
+ * Require the plugin's validation and sanitization for every SVG upload.
  */
-function check_filetype_and_ext( $data, $file, $filename, $mimes ) {
-    $filetype = wp_check_filetype( $filename, $mimes );
-
-    if ( $filetype['ext'] === 'svg' ) {
-        $data['ext']  = 'svg';
-        $data['type'] = 'image/svg+xml';
+function guard_svg_upload( $file ) {
+    $extension = strtolower( pathinfo( $file['name'] ?? '', PATHINFO_EXTENSION ) );
+    if ( ! in_array( $extension, [ 'svg', 'svgz' ], true )
+        && ! in_array( $file['type'] ?? '', [ 'image/svg+xml', 'image/svg' ], true ) ) {
+        return $file;
     }
 
-    return $data;
-}
-add_filter( 'wp_check_filetype_and_ext', __NAMESPACE__ . '\\check_filetype_and_ext', 10, 4 );
-
-/**
- * Sanitize SVG uploads for security.
- */
-function sanitize_svg_upload( $file ) {
-    if ( isset( $file['type'] ) && $file['type'] === 'image/svg+xml' ) {
-        $file_path = $file['tmp_name'];
-
-        // Load and sanitize the SVG file
-        $svg = file_get_contents( $file_path );
-
-        // Check if SVG-Sanitizer is available
-        if ( class_exists( '\enshrined\svgSanitize\Sanitizer' ) ) {
-            $sanitizer = new \enshrined\svgSanitize\Sanitizer();
-            $sanitized_svg = $sanitizer->sanitize( $svg );
-
-            if ( $sanitized_svg ) {
-                file_put_contents( $file_path, $sanitized_svg );
-            } else {
-                $file['error'] = __( 'The SVG file contains invalid or unsafe content.', 'mca' );
-            }
-        } else {
-            $file['error'] = __( 'SVG-Sanitizer library not found. SVG uploads are disabled.', 'mca' );
-        }
+    if ( ! current_user_can( 'manage_options' ) ) {
+        $file['error'] = __( 'Only administrators can upload SVG files.', 'mca' );
+    } elseif ( ! function_exists( 'bodhi_svgs_sanitize_svg' )
+        || ! has_filter( current_filter(), 'bodhi_svgs_sanitize_svg' ) ) {
+        $file['error'] = __( 'SVG uploads require the SVG Support plugin.', 'mca' );
+    } else {
+        // The plugin reads this array when deciding whether to skip sanitization.
+        global $bodhi_svgs_options;
+        $bodhi_svgs_options['sanitize_on_upload_roles'] = [];
     }
+
     return $file;
 }
-add_filter( 'wp_handle_upload_prefilter', __NAMESPACE__ . '\\sanitize_svg_upload' );
+add_filter( 'wp_handle_upload_prefilter', __NAMESPACE__ . '\\guard_svg_upload', 9 );
+add_filter( 'wp_handle_sideload_prefilter', __NAMESPACE__ . '\\guard_svg_upload', 9 );
 
 /**
  * Convert JPEG and PNG images to WebP format during processing. - CHECK
