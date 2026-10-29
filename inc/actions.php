@@ -6,7 +6,6 @@
  */
 
 namespace MCA\Actions;
-use function MCA\Helpers\getMCALocations;
 
 /**
  * Clean up <head> output and remove unnecessary actions.
@@ -62,14 +61,9 @@ function wpb_widgets_init() {
 add_action( 'widgets_init', __NAMESPACE__ . '\\wpb_widgets_init' );
 
 /**
- * Change surfcamp query
+ * Configure FAQ archives and the main site search.
  */
-function change_surfcamp_query($query){
-	if(($query->is_main_query()) && (is_post_type_archive('surfcamp')) && !is_admin()):
-		$query->set( 'post_parent', 0 );
-		$query->set( 'posts_per_page', -1);
-	endif;
-
+function configure_main_content_query($query){
 	if(($query->is_main_query()) && ($query->is_tax('faq-location') || is_post_type_archive( 'faq' )) && !is_admin()):
 		$query->set( 'posts_per_page', -1);
 	endif;
@@ -79,7 +73,7 @@ function change_surfcamp_query($query){
 		$query->set('post_type', [ 'post', 'page', 'project', 'procurement', 'job', 'gallery' ]);
 	endif;
 };
-add_action( 'pre_get_posts', __NAMESPACE__ . '\\change_surfcamp_query');
+add_action( 'pre_get_posts', __NAMESPACE__ . '\\configure_main_content_query');
 
 function configure_shared_archive_query( $query ) {
     if ( is_admin() || ! $query->is_main_query() || ! $query->is_archive()
@@ -182,21 +176,6 @@ add_action('wp_ajax_get_phone_extensions', __NAMESPACE__ . '\\get_phone_extensio
 add_action('wp_ajax_nopriv_get_phone_extensions', __NAMESPACE__ . '\\get_phone_extensions');
 
 /**
- * Surfcamp menu register
- */
-// function surfcamp_menu_register() {
-// 	foreach(getMCALocations() as $id=>$camp) {
-// 		$post_language_information = apply_filters( 'wpml_post_language_details', null, $id);
-
-// 		if ($post_language_information["language_code"]=="en") {
-// 			register_nav_menu("${id}-surfcamp-header", $camp." Surfcamp Header");
-// 		}
-// 	}
-// }
-
-// add_action('after_setup_theme', __NAMESPACE__ . '\\surfcamp_menu_register');
-
-/**
  * Related posts next and prev
  * SEO Functionality to add prev and next links to the head
  */
@@ -286,24 +265,6 @@ function mca_handle_legacy_404_redirects() {
 // Run before WordPress's canonical guessing can send /news/ to /newsletter/.
 add_action( 'template_redirect', __NAMESPACE__ . '\\mca_handle_legacy_404_redirects', 9 );
 
-// /**
-//  * Redirect paged to 404
-//  */
-// function redirect_paged_to_404() {
-// 	if(strpos($_SERVER['REQUEST_URI'], '/blog/') === false) {
-// 		if (strpos($_SERVER['REQUEST_URI'], '/page/') !== false) {
-// 			global $wp_query;
-// 			$wp_query->set_404();
-// 			status_header(404);
-// 			nocache_headers();
-// 			include(get_query_template('404'));
-// 			exit();
-// 		}
-// 	}
-        
-// }
-// add_action('template_redirect', __NAMESPACE__ . '\\redirect_paged_to_404');
-
 /**
  * Remove Gutenberg styles from the frontend
  * but keep them in the editor.
@@ -388,24 +349,6 @@ function load_cf7_scripts_and_styles() {
     }
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\load_cf7_scripts_and_styles', 20 );
-
-/** Route this Local site's test emails to Mailpit instead of the PHP FastCGI port. */
-function configure_local_application_mail( $mailer ) {
-    if ( wp_get_environment_type() !== 'local'
-        || wp_parse_url( home_url(), PHP_URL_HOST ) !== 'mca-new.local' ) {
-        return;
-    }
-
-    $mailer->isSMTP();
-    $mailer->Host = '127.0.0.1';
-    $mailer->Port = defined( 'MCA_LOCAL_SMTP_PORT' ) ? (int) MCA_LOCAL_SMTP_PORT : 10286;
-    $mailer->SMTPAuth = false;
-    $mailer->SMTPSecure = '';
-    $mailer->SMTPAutoTLS = false;
-    $mailer->Timeout = 10;
-}
-add_action( 'phpmailer_init', __NAMESPACE__ . '\\configure_local_application_mail', 100 );
-
 
 function mca_submit_contact_form() {
 	if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) {

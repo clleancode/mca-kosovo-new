@@ -54,7 +54,7 @@
 	            <div class="a-seperator"></div>
 				<?php
 					$description = get_the_archive_description();
-					echo \MCA\Helpers\mca_format_recipe_text($description, 'h-white-600');
+					echo \MCA\Helpers\mca_format_rich_text($description, 'h-white-600');
 				?>
 	        </div>
 	    </div>
