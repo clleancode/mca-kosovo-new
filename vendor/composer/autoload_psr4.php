@@ -7,8 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'StoutLogic\\AcfBuilder\\' => array($vendorDir . '/stoutlogic/acf-builder/src'),
-    'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'MCA\\' => array($baseDir . '/inc'),
     'Doctrine\\Inflector\\' => array($vendorDir . '/doctrine/inflector/src'),
-    'Detection\\' => array($vendorDir . '/mobiledetect/mobiledetectlib/src'),
 );
