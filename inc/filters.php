@@ -36,58 +36,6 @@ add_filter('mca_projects_hero_breadcrumbs', function ($items, $post_id) {
     ];
 }, 10, 2);
 
-// add_filter( 'allowed_block_types_all', function( $allowed_blocks, $block_editor_context ) {
-//     // Allow only ACF Averitas blocks
-//     $averitas_blocks = [
-//         'acf/mca-article',
-//         'acf/mca-breadcrumb',
-//         'acf/mca-cards-filter',
-//         'acf/mca-carousel',
-//         'acf/mca-content',
-//         'acf/mca-featured',
-//         'acf/mca-footnotes',
-//         'acf/mca-heading',
-//         'acf/mca-information',
-//         'acf/mca-card-icon',
-//         'acf/mca-newsletter',
-//         'acf/mca-related',
-//         'acf/mca-slider',
-//         'acf/mca-summary',
-//         'acf/mca-tabs',
-//         'acf/mca-highlight',
-//         'acf/mca-text',
-//         'acf/mca-image',
-//         'acf/mca-separator',
-//         'acf/mca-content-icon',
-//         'acf/mca-publication-card',
-//         'acf/mca-card-promo',
-//         'acf/mca-program',
-//         'acf/mca-video',
-//         'acf/mca-iframe',
-//         'acf/mca-pdf',
-//         'acf/mca-card',
-//         'acf/mca-events-filter',
-//         'acf/mca-accordion',
-//         'acf/mca-icon',
-//         'acf/mca-spacing',
-//         'acf/mca-buttons',
-//         'acf/mca-info-box',
-//         'acf/mca-shortcode',
-//         'acf/mca-navigation',
-//         // Add other ACF Averitas block names here
-
-//         // Add support for the WordPress Grid and related blocks
-//         'core/group',
-//         'core/columns',
-//         'core/column',
-//         'core/row',
-//         'core/grid',
-//         'core/paragraph',
-//     ];
-
-//     return $averitas_blocks;
-// }, 10, 2 );
-
 /**
  * Hide WordPress Version Info
  */
@@ -95,17 +43,6 @@ function hide_wordpress_version() {
 	return '';
 }
 add_filter('the_generator', __NAMESPACE__ . '\\hide_wordpress_version');
-
-/**
- * Remove WordPress Version Number In URL Parameters From JS/CSS
- */
-// function hide_wordpress_version_in_script($src, $handle) {
-// 	$src = remove_query_arg('ver', $src);
-// 	return $src;
-// }
-// add_filter( 'style_loader_src', __NAMESPACE__ . '\\hide_wordpress_version_in_script', 10, 2 );
-// add_filter( 'script_loader_src', __NAMESPACE__ . '\\hide_wordpress_version_in_script', 10, 2 );
-
 
 /**
  * Remove "Private" and "Protected" prefixes from post titles.
@@ -121,11 +58,6 @@ function remove_private_protected_prefix( $format ) {
 add_filter( 'private_title_format', __NAMESPACE__ . '\\remove_private_protected_prefix' );
 add_filter( 'protected_title_format', __NAMESPACE__ . '\\remove_private_protected_prefix' );
 
-
-/**
- * Populate select field using filter
- * This function is not used anywhere - ACF field 'surfcamp_menu' doesn't exist in templates
- */
 
 /**
  * Add container wrapper to columns block

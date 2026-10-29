@@ -94,19 +94,6 @@ function get_block_typography(array $defaults = []) {
 }
 
 /**
- * Get child count for FAQ post
- */
-// function mca_get_child_count($post_id) {
-// 	$args = array(
-// 		'post_type' => 'faq',
-// 		'posts_per_page' => -1,
-// 		'post_parent' => $post_id,
-// 	);
-// 	$posts = new WP_Query($args);
-// 	return $posts->found_posts;
-// }
-
-/**
  * FAQ Category sidebar listing
  */
 /**
@@ -255,20 +242,10 @@ function mca_get_saved_cat_ids($associative = false, $parent = 0, $all = false) 
     return $ids;
 }
 
-/**************************************************
- NEED TO CHECK
-**************************************************/
-
-
 /**
- * Get MCA Locations based on posts
+ * Style and sanitize rich text for theme content.
  */
-
-
-/**
- * Format recipe text
- */
-function mca_format_recipe_text($text, $textColorClass = 'h-dune', $textTypeClass = 'a-text--m', $textLineHeightClass = 'h-text-l h--l') {
+function mca_format_rich_text($text, $textColorClass = 'h-dune', $textTypeClass = 'a-text--m', $textLineHeightClass = 'h-text-l h--l') {
 	if (strpos($text, '<ul') !== false) {
 		$dom = new \DOMDocument();
 		@$dom->loadHTML('<?xml encoding="UTF-8"><div>' . $text . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
@@ -597,20 +574,3 @@ function mca_get_notification_visibility() {
 
 //contact form to not insert <p>
 add_filter('wpcf7_autop_or_not', '__return_false');
-
-
-// // Disable emojis
-// \remove_action('wp_head', 'print_emoji_detection_script', 7);
-// \remove_action('wp_print_styles', 'print_emoji_styles');
-
-// // Disable embeds
-// function disable_embeds_code_init() {
-//     \remove_action('rest_api_init', 'wp_oembed_register_route');
-//     \remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
-//     \remove_action('wp_head', 'wp_oembed_add_discovery_links');
-//     \remove_action('wp_head', 'wp_oembed_add_host_js');
-// }
-// \add_action('init', __NAMESPACE__ . '\\disable_embeds_code_init', 9999);
-
-// // Disable WP Heartbeat (optional)
-// \add_filter('heartbeat_send', '__return_false');

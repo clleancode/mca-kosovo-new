@@ -2,10 +2,10 @@
 /**
  * Admin functionality for duplicating posts.
  *
- * @package Medical_Averitas
+ * @package MCA
  */
 
-namespace MedicalAveritas\Admin;
+namespace MCA\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

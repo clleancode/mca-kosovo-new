@@ -6,7 +6,7 @@
  * @package MCA
  */
 
-namespace AngleVjosa;
+namespace MCA;
 
 /**
  * define constant
@@ -48,9 +48,6 @@ require_once get_template_directory() . '/inc/taxonomies.php';
 
 // Theme helpers.
 require_once get_template_directory() . '/inc/helpers.php'; 
-
-// ACF setup.
-require_once get_template_directory() . '/inc/acf.php'; 
 
 // Theme options (ACF settings).
 require_once get_template_directory() . '/inc/options.php';

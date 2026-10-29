@@ -18,7 +18,6 @@ function theme_setup() {
     add_theme_support( 'title-tag' );
 
     // Add support for post thumbnails.
-    //add_theme_support( 'post-thumbnails', [ 'post', 'page', 'surfcamp' ] );
     add_theme_support( 'post-thumbnails' );
 
     // Register custom image sizes.
