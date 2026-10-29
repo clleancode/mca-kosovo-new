@@ -293,8 +293,8 @@ function mca_format_recipe_text($text, $textColorClass = 'h-dune', $textTypeClas
 	$classAttr     = trim("a-text $textTypeClass $textColorClass $textLineHeightClass");
 	$classListAttr = trim("a-list-item $textTypeClass $textColorClass");
 
-	$text = preg_replace('/<p([^>]*)>/', '<p$1 class="' . esc_attr($classAttr) . '">', $text);
-	$text = preg_replace('/<li([^>]*)>/', '<li$1 class="' . esc_attr($classListAttr) . '">', $text);
+	$text = apply_paragraph_classes($text, $classAttr);
+	$text = apply_element_classes($text, $classListAttr, 'li');
 
 	// Allowed tags
 	$allowed_tags = [
@@ -321,23 +321,40 @@ function mca_format_recipe_text($text, $textColorClass = 'h-dune', $textTypeClas
  * @return string Modified HTML.
  */
 function apply_paragraph_classes($html, $classAttr) {
-    if (empty($html)) {
+    return apply_element_classes($html, $classAttr, 'p');
+}
+
+/** Add classes without duplicating attributes; retain support for WordPress 6.0/6.1. */
+function apply_element_classes($html, $classAttr, $tag = 'p') {
+    if (empty($html) || trim($classAttr) === '') {
         return $html;
     }
-    $classAttr = trim($classAttr);
-
-    $html = preg_replace_callback('/<p(\s[^>]*)?>/i', function($matches) use ($classAttr) {
-        $attrs = isset($matches[1]) ? $matches[1] : '';
-        if (preg_match('/class=(\"|\')(.*?)(\"|\')/i', $attrs, $classMatch)) {
-            $newClasses = trim($classMatch[2] . ' ' . $classAttr);
-            $attrs = preg_replace('/class=(\"|\').*?(\"|\')/i', 'class="' . $newClasses . '"', $attrs);
-        } else {
-            $attrs .= ' class="' . $classAttr . '"';
+    if (!preg_match('/^[a-z][a-z0-9-]*$/i', $tag)) {
+        return $html;
+    }
+    $classes = preg_split('/\s+/', trim($classAttr));
+    if (class_exists('WP_HTML_Tag_Processor')) {
+        $processor = new \WP_HTML_Tag_Processor($html);
+        while ($processor->next_tag(['tag_name' => strtoupper($tag)])) {
+            foreach ($classes as $class) $processor->add_class($class);
         }
-        return '<p' . $attrs . '>';
-    }, $html);
+        return $processor->get_updated_html();
+    }
 
-    return $html;
+    // The fallback reads whole quoted attributes so class-like text in another
+    // attribute value is not mistaken for an actual class attribute.
+    $pattern = '~<' . preg_quote($tag, '~') . '(?=[\s/>])((?:"[^"]*"|\'[^\']*\'|[^\'">])*)>~i';
+    return preg_replace_callback($pattern, function($matches) use ($classAttr, $tag) {
+        $existing = [];
+        $attrs = preg_replace_callback('~\s+([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|\'([^\']*)\'|([^\s>]+)))?~', function($attribute) use (&$existing) {
+            if (strtolower($attribute[1]) !== 'class') return $attribute[0];
+            $existing[] = ($attribute[2] ?? '') ?: (($attribute[3] ?? '') ?: ($attribute[4] ?? ''));
+            return '';
+        }, $matches[1]);
+        $merged = preg_split('/\s+/', trim(html_entity_decode(implode(' ', $existing), ENT_QUOTES, 'UTF-8') . ' ' . $classAttr));
+        $merged = array_unique(array_filter($merged, 'strlen'));
+        return '<' . $tag . $attrs . ' class="' . esc_attr(implode(' ', $merged)) . '">';
+    }, $html);
 }
 
 /**
@@ -350,7 +367,7 @@ function mca_format_text_with_breaks($text, $class = 'a-text a-text--m') {
 	$text = nl2br($text);
 
 	// Add classes to paragraphs
-	$text = preg_replace('/<p([^>]*)>/', '<p$1 class="' . esc_attr($class) . '">', $text);
+	$text = apply_paragraph_classes($text, $class);
 
 	// Allowed tags
 	$allowed_tags = [

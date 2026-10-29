@@ -14,9 +14,9 @@
 		<form role="search" method="get" class="m-input m-faq-search" action="<?php echo esc_url(home_url('/')); ?>">
 			<input autocomplete="off" type="search" class="a-input--search" placeholder="<?php echo esc_attr_x('Type in your question...', 'placeholder', 'mca'); ?>" value="<?php echo get_search_query(); ?>" name="s" />
 			<input type="hidden" value="faq" name="post_type" id="post_type" />
-			<input type="hidden" value="<?php echo $faq_parent_cat;?>" name="faq_cat" id="faq_cat"  data-security="<?php echo wp_create_nonce('mca-search-form'); ?>"/>
-			<button type="submit" class="a-icon" aria-label="<?php echo _x('Search', 'submit button', 'mca'); ?>">
-				<span class="screen-reader-text"><?php echo _x('Search', 'submit button', 'mca'); ?></span>
+			<input type="hidden" value="<?php echo esc_attr($faq_parent_cat); ?>" name="faq_cat" id="faq_cat"  data-security="<?php echo esc_attr(wp_create_nonce('mca-search-form')); ?>"/>
+			<button type="submit" class="a-icon" aria-label="<?php echo esc_attr_x('Search', 'submit button', 'mca'); ?>">
+				<span class="screen-reader-text"><?php echo esc_html_x('Search', 'submit button', 'mca'); ?></span>
 			</button>    
 		</form>
 		<ul class="m-suggestions" id="ajax-faq_suggestion"></ul>

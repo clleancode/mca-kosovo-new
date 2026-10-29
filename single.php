@@ -60,7 +60,9 @@ get_header();
 <?php endif; ?>
 
 <?php while (have_posts()) : the_post(); ?>
-    <?php the_content(); ?>
+    <article <?php post_class(); ?>>
+        <?php the_content(); ?>
+    </article>
 <?php endwhile; ?>
 
 

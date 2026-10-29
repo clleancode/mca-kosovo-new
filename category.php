@@ -96,7 +96,7 @@
                                 $category_link = !empty($categories) ? get_category_link($categories[0]->term_id) : '';
                                 $category_name = !empty($categories) ? $categories[0]->name : '';
                         ?>
-                                <article class="m-card-news e-reveal" data-delay="150" itemscope itemtype="https://schema.org/BlogPosting">
+                                <article <?php post_class('m-card-news e-reveal'); ?> data-delay="150" itemscope itemtype="https://schema.org/BlogPosting">
                                     <a href="<?php echo esc_url($link); ?>" class="m-card-news__img" itemprop="url">
                                         <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($alt_text ?: $title); ?>" class="a-img" loading="lazy" decoding="async" itemprop="image">
                                     </a>

@@ -44,7 +44,7 @@ if (!isset($sort_options[$sort])) { $sort = 'most_recent'; }
         <?php if (have_posts()): ?>
             <div class="o-cards--inner row--1-3 s-m-t-m s-d-t-m">
                 <?php while (have_posts()): the_post(); ?>
-                    <article class="m-archive-card e-reveal" data-delay="150" data-post-type="<?php echo esc_attr(get_post_type()); ?>">
+                    <article <?php post_class('m-archive-card e-reveal'); ?> data-delay="150" data-post-type="<?php echo esc_attr(get_post_type()); ?>">
                         <a href="<?php the_permalink(); ?>">
                             <?php if (has_post_thumbnail()): ?>
                                 <?php the_post_thumbnail('medium_large', ['loading' => 'lazy', 'decoding' => 'async']); ?>

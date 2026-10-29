@@ -53,7 +53,7 @@ if (!$query instanceof WP_Query) {
                 ? __('Notice', 'mca-kosovo')
                 : ($is_attachment && $mime_type === 'application/pdf' ? __('PDF', 'mca-kosovo') : $type_label);
             ?>
-            <article class="m-search-results__item e-reveal" data-delay="150">
+            <article <?php post_class('m-search-results__item e-reveal', $result_id); ?> data-delay="150">
                 <a class="m-search-results__item-link" href="<?php echo esc_url($result_url); ?>">
                     <span class="m-search-results__media">
                         <?php if (has_post_thumbnail($result_id)) : ?>
