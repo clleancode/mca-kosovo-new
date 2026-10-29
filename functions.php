@@ -15,10 +15,7 @@ define('THEME_DIR', get_template_directory());
 define('THEME_URL', get_template_directory_uri());
 define('THEME_VERSION', wp_get_theme()->get( 'Version' ));
 
-// Google Maps API key
-if ( ! defined( 'GOOGLE_MAPS_API_KEY' ) ) {
-    define( 'GOOGLE_MAPS_API_KEY', 'AIzaSyBOw0IEzU8HdOCx79Q42f79tTHIiYqBD2U' );
-}
+// Configure GOOGLE_MAPS_API_KEY in wp-config.php, outside the theme repository.
 
 
 if ( ! defined( 'MCA_FORM_PDF_URL' ) ) {
