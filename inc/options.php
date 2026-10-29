@@ -151,6 +151,17 @@ add_action( 'acf/init', function () {
             'preview_size'  => 'medium',
         ] );
 
+    $themeSettings
+        ->addTab( 'FAQ' )
+        ->addPostObject( 'faq_category_box_exclusions', [
+            'label'         => 'Hide categories from FAQ boxes',
+            'instructions'  => 'Choose categories to hide from the FAQ category boxes. The top menu is not affected.',
+            'post_type'     => [ 'faq' ],
+            'multiple'      => 1,
+            'allow_null'    => 1,
+            'return_format' => 'id',
+        ] );
+
     // Cookie banner
     $themeSettings
         ->addTab( 'Cookie banner' )

@@ -62,20 +62,25 @@ function wpb_widgets_init() {
 add_action( 'widgets_init', __NAMESPACE__ . '\\wpb_widgets_init' );
 
 /**
- * Change surfcamp query
+ * Keep legacy archives paginated and configure the main search query.
  */
 function change_surfcamp_query($query){
-	if(($query->is_main_query()) && (is_post_type_archive('surfcamp')) && !is_admin()):
-		$query->set( 'post_parent', 0 );
-		$query->set( 'posts_per_page', -1);
-	endif;
+	if (is_admin() || !$query->is_main_query()) return;
 
-	if(($query->is_main_query()) && ($query->is_tax('faq-location') || is_post_type_archive( 'faq' )) && !is_admin()):
-		$query->set( 'posts_per_page', -1);
-	endif;
+	if ($query->is_post_type_archive('surfcamp')) {
+		$query->set( 'post_parent', 0 );
+	}
+
+	// These post types may be supplied by a plugin; retain normal pagination.
+	if ($query->is_post_type_archive(['surfcamp', 'faq']) || $query->is_tax('faq-location')) {
+		$query->set('posts_per_page', 12);
+		$query->set('posts_per_archive_page', 12);
+		$query->set('nopaging', false);
+		$query->set('no_found_rows', false);
+	}
 
 	// Ensure global search includes all public post types we care about
-	if (($query->is_main_query()) && $query->is_search() && !is_admin()) :
+	if ($query->is_search()) :
 		$query->set('post_type', [ 'post', 'page', 'project', 'procurement', 'job', 'gallery' ]);
 	endif;
 };
