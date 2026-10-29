@@ -33,8 +33,9 @@ The installation directory remains `mca-kosovo-new`.
   folders, and Composer dependencies installed from composer.lock.
 - Clear site/CDN caches; check pages, Search, 404, configured forms and PHP logs.
 - Test keyboard navigation, validation, success and failure responses.
-- The former header Open Chat placeholder was removed. Only add a new chat action
-  for an approved destination/service with tested keyboard and focus behavior.
+- The header Open Chat placeholder is intentionally retained. It currently links
+  to `#` and has no chat handler. Connect it only to an approved destination/service
+  with tested keyboard and focus behavior.
 - Changing metadata does not rename the installed theme directory.
 
 Support and maintenance: https://www.clleancode.com/
