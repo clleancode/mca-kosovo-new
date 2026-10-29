@@ -254,7 +254,7 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
             }
 
             $output .= '<div class="m-content">';
-            $output .= '<h1 id="project-title-' . $item->ID . '" class="a-heading a-heading--h4 h-uppercase h-semibold">' . wp_kses_post($item->title) . '</h1>';
+            $output .= '<p id="project-title-' . $item->ID . '" class="a-heading a-heading--h4 h-uppercase h-semibold">' . wp_kses_post($item->title) . '</p>';
 
             if (!empty($item->description)) {
                 $output .= '<p class="a-text a-text--l">' . esc_html($item->description) . '</p>';
@@ -269,10 +269,10 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
         }
         else {
             if ($this->projects_menu) {
-                $output .= '<button type="button" class="a-list-item a-list-item--m" aria-haspopup="true" aria-controls="projects-sub-menu">' . esc_html($item->title) . '</button>';
+                $output .= '<button type="button" class="a-list-item a-list-item--m" aria-haspopup="true" aria-expanded="false" aria-controls="projects-sub-menu">' . esc_html($item->title) . '</button>';
                 $output .= $this->projects_dropdown();
             } elseif ($this->resources_menu) {
-                $output .= '<a href="' . esc_url($item->url) . '" class="a-list-item a-list-item--m" aria-haspopup="true" aria-controls="resources-sub-menu">' . esc_html($item->title) . '</a>';
+                $output .= '<a href="' . esc_url($item->url) . '" class="a-list-item a-list-item--m" aria-haspopup="true" aria-expanded="false" aria-controls="resources-sub-menu">' . esc_html($item->title) . '</a>';
                 $output .= $this->resources_dropdown();
             } else {
                 $output .= '<a href="' . esc_url($item->url) . '" class="a-list-item a-list-item--m">' . esc_html($item->title) . '</a>';
@@ -310,7 +310,7 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
 class Custom_Main_Menu_Mobile_Walker extends \Walker_Nav_Menu {
     public function start_lvl(&$output, $depth = 0, $args = null) {
         $output .= '<nav class="m-header__sub-menu" inert>';
-        $output .= '<a href="#" class="m-header__submenu-back h-semibold"><span aria-hidden="true">&larr;</span> ' . esc_html__('Back', 'MCA') . '</a><ul>';
+        $output .= '<button type="button" class="m-header__submenu-back h-semibold"><span aria-hidden="true">&larr;</span> ' . esc_html__('Back', 'MCA') . '</button><ul>';
     }
 
     public function end_lvl(&$output, $depth = 0, $args = null) {

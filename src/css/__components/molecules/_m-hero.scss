@@ -222,11 +222,12 @@
     align-items: center;
 }
 
-.m-hero__controls>a {
+.m-hero__controls>button {
     display: grid;
     place-items: center;
     width: 48px;
     height: 48px;
+    padding: 0;
     border: 1px solid #ffffff45;
     border-radius: 50%;
     background: #ffffff18;
@@ -234,12 +235,13 @@
     cursor: pointer;
 }
 
-.m-hero__controls>a>img {
+.m-hero__controls>button>img {
     width: 18px;
     height: 18px;
 }
 
-.m-hero__controls>a[aria-disabled="true"] {
+.m-hero__controls>button[aria-disabled="true"],
+.m-hero__controls>button:disabled {
     opacity: .4;
     cursor: default;
 }
@@ -444,7 +446,7 @@
     }
 }
 
-.m-hero__controls>a {
+.m-hero__controls>button {
     text-decoration: none;
 }
 

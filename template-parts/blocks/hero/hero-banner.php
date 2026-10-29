@@ -240,19 +240,19 @@ $type = Helpers\get_block_typography([
                         <span class="a-text a-text--s"><?php echo esc_html(sprintf('%02d', count($items))); ?></span>
                     </div>
 
-                    <a class="e-reveal" data-offset="0" data-delay="730" href="#" role="button" data-hero-pause aria-label="Pause slideshow" aria-pressed="false">
+                    <button type="button" class="e-reveal" data-offset="0" data-delay="730" data-hero-pause aria-label="Pause slideshow" aria-pressed="false">
                         <span data-hero-pause-icon aria-hidden="true">
                             <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/stop.svg')); ?>" alt="">
                         </span>
-                    </a>
+                    </button>
 
-                    <a class="e-reveal" data-offset="0" data-delay="810" href="#" role="button" data-hero-prev aria-label="Previous slide">
+                    <button type="button" class="e-reveal" data-offset="0" data-delay="810" data-hero-prev aria-label="Previous slide">
                         <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/left-hero.svg')); ?>" alt="">
-                    </a>
+                    </button>
 
-                    <a class="e-reveal" data-offset="0" data-delay="890" href="#" role="button" data-hero-next aria-label="Next slide">
+                    <button type="button" class="e-reveal" data-offset="0" data-delay="890" data-hero-next aria-label="Next slide">
                         <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/right-hero.svg')); ?>" alt="">
-                    </a>
+                    </button>
                 </div>
 
                 <div class="swiper m-hero__cards" data-hero-cards>

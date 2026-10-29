@@ -2,26 +2,72 @@ const header = () => {
     const desktopItems = [...document.querySelectorAll('.m-header__inner .m-menu > ul > li')];
     const desktopHover = window.matchMedia('(min-width: 1200px) and (hover: hover)');
     let closeDropdownTimer;
-    const closeDesktopDropdowns = () => {
+    let restoringDesktopFocus = false;
+    const setDesktopDropdown = (item, open) => {
+        const dropdown = item.querySelector(':scope > .m-sub-menu');
+        if (!dropdown) return;
+        item.classList.toggle('is-submenu-open', open);
+        item.querySelector(':scope > a, :scope > button')?.setAttribute('aria-expanded', String(open));
+        dropdown.inert = !open;
+    };
+    const closeDesktopDropdowns = (except = null) => {
         clearTimeout(closeDropdownTimer);
-        desktopItems.forEach(item => item.classList.remove('is-submenu-open'));
+        desktopItems.forEach(item => { if (item !== except) setDesktopDropdown(item, false); });
     };
     desktopItems.forEach(item => {
         const trigger = item.querySelector(':scope > a, :scope > button');
         const dropdown = item.querySelector(':scope > .m-sub-menu');
+        if (!trigger || !dropdown) return;
+        setDesktopDropdown(item, false);
+        const open = () => {
+            closeDesktopDropdowns(item);
+            setDesktopDropdown(item, true);
+        };
         trigger?.addEventListener('pointerenter', () => {
             if (!desktopHover.matches) return;
-            closeDesktopDropdowns();
-            if (dropdown) item.classList.add('is-submenu-open');
+            open();
         });
         dropdown?.addEventListener('pointerenter', () => clearTimeout(closeDropdownTimer));
         item.addEventListener('pointerleave', () => {
             if (!desktopHover.matches || !item.classList.contains('is-submenu-open')) return;
             clearTimeout(closeDropdownTimer);
-            closeDropdownTimer = setTimeout(closeDesktopDropdowns, 350);
+            closeDropdownTimer = setTimeout(() => {
+                if (!item.contains(document.activeElement)) setDesktopDropdown(item, false);
+            }, 350);
+        });
+        trigger.addEventListener('click', () => {
+            if (trigger.tagName !== 'BUTTON') return;
+            if (trigger.getAttribute('aria-expanded') === 'true') closeDesktopDropdowns();
+            else open();
+        });
+        item.addEventListener('focusin', event => {
+            if (restoringDesktopFocus) return;
+            closeDesktopDropdowns(item);
+            // Native buttons open on activation; navigation links retain focus-to-open.
+            if (event.target !== trigger || trigger.tagName !== 'BUTTON') open();
+        });
+        item.addEventListener('focusout', event => {
+            if (!item.contains(event.relatedTarget)) setDesktopDropdown(item, false);
+        });
+        item.addEventListener('keydown', event => {
+            if (event.key === 'ArrowDown' && event.target === trigger) {
+                event.preventDefault();
+                open();
+                dropdown.querySelector('a[href], button:not(:disabled)')?.focus();
+            }
+            if (event.key === 'Escape' && item.classList.contains('is-submenu-open')) {
+                event.preventDefault();
+                closeDesktopDropdowns();
+                restoringDesktopFocus = true;
+                trigger.focus();
+                restoringDesktopFocus = false;
+            }
         });
     });
-    desktopHover.addEventListener('change', closeDesktopDropdowns);
+    desktopHover.addEventListener('change', () => closeDesktopDropdowns());
+    document.addEventListener('click', event => {
+        if (!desktopItems.some(item => item.contains(event.target))) closeDesktopDropdowns();
+    });
     const headerBurger = document.querySelector('.m-header__burger');
     const menu = document.querySelector('.m-header__menu-mobile');
     const searchForm = document.querySelector(".m-search--form");
