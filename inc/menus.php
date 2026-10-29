@@ -9,14 +9,14 @@ namespace MCA\Menus;
 
 function register_menus() {
     register_nav_menus( [
-        'primary_navigation' => esc_html__('Primary Navigation', 'MCA'),
-		'resources_documents' => esc_html__('Resources - Documents', 'MCA'),
-		'resources_media' => esc_html__('Resources - Media', 'MCA'),
-		'resources_navigation' => esc_html__('Resources - Transparency', 'MCA'),
-		'footer_navigation' => esc_html__('Footer Legal Links', 'MCA'),
-        'footer_projects' => esc_html__('Footer - Projects', 'MCA'),
-        'footer_work_with_us' => esc_html__('Footer - Work with us', 'MCA'),
-        'footer_organization' => esc_html__('Footer - Organization', 'MCA'),
+        'primary_navigation' => esc_html__('Primary Navigation', 'mca'),
+		'resources_documents' => esc_html__('Resources - Documents', 'mca'),
+		'resources_media' => esc_html__('Resources - Media', 'mca'),
+		'resources_navigation' => esc_html__('Resources - Transparency', 'mca'),
+		'footer_navigation' => esc_html__('Footer Legal Links', 'mca'),
+        'footer_projects' => esc_html__('Footer - Projects', 'mca'),
+        'footer_work_with_us' => esc_html__('Footer - Work with us', 'mca'),
+        'footer_organization' => esc_html__('Footer - Organization', 'mca'),
     ] );
 }
 add_action( 'init', __NAMESPACE__ . '\\register_menus' );
@@ -310,7 +310,7 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
 class Custom_Main_Menu_Mobile_Walker extends \Walker_Nav_Menu {
     public function start_lvl(&$output, $depth = 0, $args = null) {
         $output .= '<nav class="m-header__sub-menu" inert>';
-        $output .= '<a href="#" class="m-header__submenu-back h-semibold"><span aria-hidden="true">&larr;</span> ' . esc_html__('Back', 'MCA') . '</a><ul>';
+        $output .= '<a href="#" class="m-header__submenu-back h-semibold"><span aria-hidden="true">&larr;</span> ' . esc_html__('Back', 'mca') . '</a><ul>';
     }
 
     public function end_lvl(&$output, $depth = 0, $args = null) {

@@ -41,14 +41,14 @@ $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_ty
         <div class="container">
             <form class="m-search-results__form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
                 <input type="hidden" name="search_type" value="<?php echo esc_attr($selected_type); ?>">
-                <label class="a-text a-text--s e-reveal e-reveal--text" for="search-results-query"><?php esc_html_e('Search', 'mca-kosovo'); ?></label>
+                <label class="a-text a-text--s e-reveal e-reveal--text" for="search-results-query"><?php esc_html_e('Search', 'mca'); ?></label>
                 <div class="m-search-results__input-wrap e-reveal" data-delay="100">
                     <input class="a-heading a-heading--h6" id="search-results-query" type="search" name="s" value="<?php echo esc_attr($search_term); ?>" required>
-                    <button class="m-search-results__clear" type="button" aria-label="<?php esc_attr_e('Clear search', 'mca-kosovo'); ?>">&times;</button>
-                    <button class="a-text a-text--m" type="submit"><?php esc_html_e('Search', 'mca-kosovo'); ?></button>
+                    <button class="m-search-results__clear" type="button" aria-label="<?php esc_attr_e('Clear search', 'mca'); ?>">&times;</button>
+                    <button class="a-text a-text--m" type="submit"><?php esc_html_e('Search', 'mca'); ?></button>
                 </div>
                 <?php if ($search_term) : ?>
-                    <p class="a-text a-text--l e-reveal e-reveal--text" data-delay="350"><?php printf(esc_html__('Showing results for “%s”', 'mca-kosovo'), esc_html($search_term)); ?></p>
+                    <p class="a-text a-text--l e-reveal e-reveal--text" data-delay="350"><?php printf(esc_html__('Showing results for “%s”', 'mca'), esc_html($search_term)); ?></p>
                 <?php endif; ?>
             </form>
         </div>
@@ -56,7 +56,7 @@ $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_ty
 
     <section class="m-search-results">
         <div class="container">
-            <nav class="m-search-results__filters" aria-label="<?php esc_attr_e('Filter search results', 'mca-kosovo'); ?>">
+            <nav class="m-search-results__filters" aria-label="<?php esc_attr_e('Filter search results', 'mca'); ?>">
                 <?php $filter_index = 0; ?>
                 <?php foreach ($search_types as $type_key => $type_data) : ?>
                     <?php $filter_url = add_query_arg(['s' => $search_term, 'search_type' => $type_key], home_url('/')); ?>
@@ -76,7 +76,7 @@ $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_ty
                     'page' => $paged,
                 ]); ?>
             </div>
-            <p class="a-text a-text--s" data-search-error hidden><?php esc_html_e('Search results could not be loaded. Please try again.', 'mca-kosovo'); ?></p>
+            <p class="a-text a-text--s" data-search-error hidden><?php esc_html_e('Search results could not be loaded. Please try again.', 'mca'); ?></p>
         </div>
     </section>
 </div>

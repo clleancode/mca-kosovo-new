@@ -8,8 +8,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'hero-collection',
-        'title' => __('MCA - Hero Collection', 'MCA'),
-        'description' => __('One hero block with selectable layouts for albums, vacancies, integrity, policy and job archives.', 'MCA'),
+        'title' => __('MCA - Hero Collection', 'mca'),
+        'description' => __('One hero block with selectable layouts for albums, vacancies, integrity, policy and job archives.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/hero-collection/hero-collection.php',
         'category' => 'formatting',
         'icon' => 'cover-image',

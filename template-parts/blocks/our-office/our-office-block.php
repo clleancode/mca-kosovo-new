@@ -9,8 +9,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'our-office',
-        'title' => __('MCA - Our Office', 'MCA'),
-        'description' => __('Office information with a location map.', 'MCA'),
+        'title' => __('MCA - Our Office', 'mca'),
+        'description' => __('Office information with a location map.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/our-office/our-office.php',
         'category' => 'formatting',
         'icon' => 'location-alt',

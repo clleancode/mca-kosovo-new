@@ -150,7 +150,7 @@ function insert_submission( $full_name, $email, $industry ) {
 	if ( false === $result ) {
 		return new \WP_Error(
 			'mca_form_submission_insert_failed',
-			__( 'Something went wrong while saving your submission. Please try again.', 'MCA' ),
+			__( 'Something went wrong while saving your submission. Please try again.', 'mca' ),
 			array( 'db_error' => $wpdb->last_error )
 		);
 	}
@@ -163,8 +163,8 @@ function insert_submission( $full_name, $email, $industry ) {
  */
 function register_admin_menu() {
 	add_menu_page(
-		__( 'Form Submissions', 'MCA' ),
-		__( 'Form Submissions', 'MCA' ),
+		__( 'Form Submissions', 'mca' ),
+		__( 'Form Submissions', 'mca' ),
 		MANAGE_CAPABILITY,
 		'mca-form-submissions',
 		__NAMESPACE__ . '\\render_admin_page',
@@ -179,7 +179,7 @@ add_action( 'admin_menu', __NAMESPACE__ . '\\register_admin_menu' );
  */
 function render_admin_page() {
 	if ( ! current_user_can( MANAGE_CAPABILITY ) ) {
-		wp_die( esc_html__( 'You do not have permission to view submissions.', 'MCA' ), '', array( 'response' => 403 ) );
+		wp_die( esc_html__( 'You do not have permission to view submissions.', 'mca' ), '', array( 'response' => 403 ) );
 	}
 
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
@@ -201,16 +201,16 @@ function render_admin_page() {
 	);
 	?>
 	<div class="wrap">
-		<h1 class="wp-heading-inline"><?php esc_html_e( 'Form Submissions', 'MCA' ); ?></h1>
+		<h1 class="wp-heading-inline"><?php esc_html_e( 'Form Submissions', 'mca' ); ?></h1>
 		<a href="<?php echo esc_url( $export_url ); ?>" class="page-title-action">
-			<?php esc_html_e( 'Export CSV / Excel', 'MCA' ); ?>
+			<?php esc_html_e( 'Export CSV / Excel', 'mca' ); ?>
 		</a>
 		<hr class="wp-header-end">
 
 		<form method="get">
 			<input type="hidden" name="page" value="mca-form-submissions" />
 			<?php
-			$table->search_box( __( 'Search by email', 'MCA' ), 'mca-form-submission' );
+			$table->search_box( __( 'Search by email', 'mca' ), 'mca-form-submission' );
 			$table->display();
 			?>
 		</form>
@@ -223,7 +223,7 @@ function render_admin_page() {
  */
 function export_csv() {
 	if ( ! current_user_can( MANAGE_CAPABILITY ) ) {
-		wp_die( esc_html__( 'You do not have permission to export submissions.', 'MCA' ), '', array( 'response' => 403 ) );
+		wp_die( esc_html__( 'You do not have permission to export submissions.', 'mca' ), '', array( 'response' => 403 ) );
 	}
 
 	check_admin_referer( 'mca_export_form_submissions' );
@@ -257,8 +257,8 @@ function export_csv() {
 	fwrite( $output, "\xEF\xBB\xBF" );
 
 	fputcsv( $output, array(
-		__( 'Email', 'MCA' ),
-		__( 'Submitted', 'MCA' ),
+		__( 'Email', 'mca' ),
+		__( 'Submitted', 'mca' ),
 	), ',', '"', '' );
 
 	if ( $rows ) {
@@ -302,15 +302,15 @@ function save_cf7_newsletter( $form, &$abort, $submission ) {
 	$email = is_string( $value ) ? sanitize_email( $value ) : '';
 	$error = '';
 	if ( ! is_string( $value ) || strlen( $value ) > 254 || ! is_email( $email ) || empty( $consent ) ) {
-		$error = __( 'Please enter a valid email and accept the privacy notice.', 'MCA' );
+		$error = __( 'Please enter a valid email and accept the privacy notice.', 'mca' );
 	} else {
 		$peer = $_SERVER['REMOTE_ADDR'] ?? '';
 		$peer = filter_var( $peer, FILTER_VALIDATE_IP ) ? inet_ntop( inet_pton( $peer ) ) : 'unknown';
 		if ( ! consume_submission_attempt( 'ip', $peer, 10 )
 			|| ! consume_submission_attempt( 'email', strtolower( $email ), 3 ) ) {
-			$error = __( 'Too many attempts. Please wait 15 minutes and try again.', 'MCA' );
+			$error = __( 'Too many attempts. Please wait 15 minutes and try again.', 'mca' );
 		} elseif ( is_wp_error( insert_submission( '', $email, '' ) ) ) {
-			$error = __( 'Your subscription could not be saved. Please try again.', 'MCA' );
+			$error = __( 'Your subscription could not be saved. Please try again.', 'mca' );
 		}
 	}
 	if ( $error ) {

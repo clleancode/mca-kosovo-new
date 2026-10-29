@@ -9,8 +9,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'single-hero',
-        'title' => __('MCA - Single Hero', 'MCA'),
-        'description' => __('News article hero with metadata, sharing and featured image.', 'MCA'),
+        'title' => __('MCA - Single Hero', 'mca'),
+        'description' => __('News article hero with metadata, sharing and featured image.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/single-hero/single-hero.php',
         'category' => 'formatting',
         'icon' => 'format-image',

@@ -20,7 +20,7 @@ get_header();
     if ($deadline) {
         $closed = $deadline < new DateTimeImmutable('today', wp_timezone());
         $status_slug = $closed ? 'closed' : 'ongoing';
-        $status_label = $closed ? __('Closed', 'MCA') : __('Open', 'MCA');
+        $status_label = $closed ? __('Closed', 'mca') : __('Open', 'mca');
     }
 ?>
 

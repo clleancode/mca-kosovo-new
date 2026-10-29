@@ -72,7 +72,7 @@ $icon_url = get_template_directory_uri() . '/assets/img/pics/icons/album.svg';
                     <div class="m-more-albums__card e-reveal e-reveal--image" data-delay="<?php echo esc_attr(150 + ($album_index % 2) * 120); ?>">
                         <a
                             href="<?php echo esc_url(get_permalink($album)); ?>"
-                            aria-label="<?php echo esc_attr(sprintf(__('View album: %s', 'MCA'), get_the_title($album))); ?>"
+                            aria-label="<?php echo esc_attr(sprintf(__('View album: %s', 'mca'), get_the_title($album))); ?>"
                         >
                             <?php
                             if ($cover) {
@@ -87,7 +87,7 @@ $icon_url = get_template_directory_uri() . '/assets/img/pics/icons/album.svg';
                                     alt=""
                                     aria-hidden="true"
                                 >
-                                <?php esc_html_e('Album', 'MCA'); ?>
+                                <?php esc_html_e('Album', 'mca'); ?>
                             </span>
                         </a>
                     </div>

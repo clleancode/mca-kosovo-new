@@ -66,7 +66,7 @@ if (!$photos && empty($is_preview)) {
                         }
 
                         $photo_caption  = '<span>' . esc_html(wp_get_attachment_caption($photo) ?: $caption) . '</span>';
-                        $photo_caption .= '<a href="' . esc_url($full) . '" download>' . esc_html__('Download', 'MCA') . '</a>';
+                        $photo_caption .= '<a href="' . esc_url($full) . '" download>' . esc_html__('Download', 'mca') . '</a>';
                         ?>
                         <div class="m-gallery__photo e-reveal e-reveal--image">
                             <a

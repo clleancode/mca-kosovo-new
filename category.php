@@ -6,7 +6,7 @@
 	$cat_id = get_queried_object_id();
 	$posts_page_id = (int) get_option('page_for_posts');
 	$archive_parent_url = $posts_page_id ? get_permalink($posts_page_id) : home_url('/');
-	$archive_parent_title = $posts_page_id ? get_the_title($posts_page_id) : __('News', 'MCA');
+	$archive_parent_title = $posts_page_id ? get_the_title($posts_page_id) : __('News', 'mca');
 ?>
 	<div class="o-hero o-hero--image">
 	    <div class="container">
@@ -127,8 +127,8 @@
                                         'current'   => max( 1, $paged ),
                                         'total'     => $total_pages,
                                         'mid_size'  => 2,
-                                        'prev_text' => __('<'),
-                                        'next_text' => __('>'),
+                                        'prev_text' => __('<', 'mca'),
+                                        'next_text' => __('>', 'mca'),
                                     ) );
 
                                     if ( $pagination_links ) {
@@ -210,8 +210,8 @@
 								'current' => $paged,
 								'total'   => $wp_query->max_num_pages,
 								'mid_size'        => 2,
-								'prev_text'       => __('<'),
-								'next_text'       => __('>')
+								'prev_text'       => __('<', 'mca'),
+								'next_text'       => __('>', 'mca')
 							) );
 						?>
 					</div>

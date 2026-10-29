@@ -58,7 +58,7 @@ $page_id = wp_unique_id('document-page-');
             <div class="m-document-preview__viewer">
                 <div class="m-document-preview__toolbar">
                     <h2 class="a-text a-text--m h-semibold e-reveal e-reveal--text">
-                        <?php echo esc_html(get_field('dp_title') ?: __('Document preview', 'MCA')); ?>
+                        <?php echo esc_html(get_field('dp_title') ?: __('Document preview', 'mca')); ?>
                     </h2>
                     <?php if ($is_pdf || $cover) : ?>
                         <div class="m-document-preview__controls e-reveal" data-delay="200">
@@ -92,7 +92,7 @@ $page_id = wp_unique_id('document-page-');
                                 data-document-pdf="<?php echo esc_url($file_url); ?>"
                                 hidden
                                 role="img"
-                                aria-label="<?php echo esc_attr(sprintf(__('Document preview: %s', 'MCA'), get_the_title($id))); ?>"
+                                aria-label="<?php echo esc_attr(sprintf(__('Document preview: %s', 'mca'), get_the_title($id))); ?>"
                             ></div>
                             <p class="a-text a-text--m" data-document-status role="status">Loading document…</p>
                         </div>
@@ -101,13 +101,13 @@ $page_id = wp_unique_id('document-page-');
                             <?php echo wp_get_attachment_image($cover, 'large'); ?>
                         </div>
                     <?php else : ?>
-                        <p class="a-text a-text--m"><?php esc_html_e('Preview unavailable.', 'MCA'); ?></p>
+                        <p class="a-text a-text--m"><?php esc_html_e('Preview unavailable.', 'mca'); ?></p>
                     <?php endif; ?>
                 </div>
             </div>
             <aside class="m-document-preview__aside">
                 <div class="m-document-preview__details">
-                    <h2 class="a-heading a-heading--h6 h-semibold e-reveal e-reveal--text" data-delay="150"><?php esc_html_e('Details', 'MCA'); ?></h2>
+                    <h2 class="a-heading a-heading--h6 h-semibold e-reveal e-reveal--text" data-delay="150"><?php esc_html_e('Details', 'mca'); ?></h2>
                     <dl>
                         <?php
                         $detail_index = 0;
@@ -127,7 +127,7 @@ $page_id = wp_unique_id('document-page-');
                 <?php if ($email) : ?>
                     <div class="m-document-preview__contact">
                         <h2 class="a-text a-text--xxl h-semibold e-reveal e-reveal--text">
-                            <?php echo esc_html(get_field('dp_contact_title') ?: __('Questions about this document?', 'MCA')); ?>
+                            <?php echo esc_html(get_field('dp_contact_title') ?: __('Questions about this document?', 'mca')); ?>
                         </h2>
                         <p class="a-text a-text--m e-reveal e-reveal--text" data-delay="250">
                             Contact <a href="<?php echo esc_url('mailto:' . $email); ?>"><?php echo esc_html($email); ?></a>

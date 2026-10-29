@@ -6,8 +6,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'storage',
-        'title' => __('Storage', 'MCA'),
-        'description' => __('Energy storage capacity and locations across Kosovo.', 'MCA'),
+        'title' => __('Storage', 'mca'),
+        'description' => __('Energy storage capacity and locations across Kosovo.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/storage/storage.php',
         'category' => 'formatting',
         'icon' => 'chart-area',

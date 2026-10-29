@@ -40,9 +40,9 @@ add_action( 'init', __NAMESPACE__ . '\\clean_up_head' );
  */
 function wpb_widgets_init() {
 	register_sidebar( array(
-		'name' => __( 'Footer', 'angel vjosa' ),
+		'name' => __( 'Footer', 'mca' ),
 		'id' => 'footer',
-		'description' => __( 'The main sidebar appears on the right on each page except the front page template', 'angel vjosa' ),
+		'description' => __( 'The main sidebar appears on the right on each page except the front page template', 'mca' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s col-sm-3">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h5 class="widget-title">',
@@ -50,9 +50,9 @@ function wpb_widgets_init() {
 	) );
 
 	register_sidebar( array(
-		'name' =>__( 'Category Sidebar', 'angel vjosa'),
+		'name' =>__( 'Category Sidebar', 'mca'),
 		'id' => 'category_sidebar',
-		'description' => __( 'This sidebar is for Journal Post Category Listing', 'angel vjosa' ),
+		'description' => __( 'This sidebar is for Journal Post Category Listing', 'mca' ),
 		'before_widget' => '<aside class="m-menu m-menu--categories %2$s">',
 		'after_widget' => '</aside>',
 		'before_title' => '<p class="a-text a-text--m a-categories">',
@@ -159,7 +159,7 @@ function ajax_search_suggestions() {
 		}
 		wp_reset_postdata();
 	} else {
-		echo '<li>Any Suggested Articles not found</li>';
+		echo '<li>' . esc_html__('Any Suggested Articles not found', 'mca') . '</li>';
 	}
 	wp_die();
 }
@@ -409,13 +409,13 @@ add_action( 'phpmailer_init', __NAMESPACE__ . '\\configure_local_application_mai
 
 function mca_submit_contact_form() {
 	if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) {
-		wp_send_json_error( [ 'message' => __( 'Please submit the form using POST.', 'MCA' ) ], 405 );
+		wp_send_json_error( [ 'message' => __( 'Please submit the form using POST.', 'mca' ) ], 405 );
 	}
 	if ( ! isset( $_POST['security'] ) || ! is_string( $_POST['security'] )
 		|| ! check_ajax_referer( 'mca_contact_form', 'security', false ) ) {
 		wp_send_json_error(
 			[
-				'message' => __( 'Security check failed. Please refresh the page and try again.', 'MCA' ),
+				'message' => __( 'Security check failed. Please refresh the page and try again.', 'mca' ),
 			],
 			403
 		);
@@ -425,7 +425,7 @@ function mca_submit_contact_form() {
 	$peer = filter_var( $peer, FILTER_VALIDATE_IP ) ? inet_ntop( inet_pton( $peer ) ) : 'unknown';
 	if ( ! \MCA\FormSubmissions\consume_submission_attempt( 'ip', $peer, 10 ) ) {
 		header( 'Retry-After: 900' );
-		wp_send_json_error( [ 'message' => __( 'Too many attempts. Please wait 15 minutes and try again.', 'MCA' ) ], 429 );
+		wp_send_json_error( [ 'message' => __( 'Too many attempts. Please wait 15 minutes and try again.', 'mca' ) ], 429 );
 	}
 
 	$errors = [];
@@ -433,11 +433,11 @@ function mca_submit_contact_form() {
 		if ( isset( $_POST[ $field ] ) && ( ! is_string( $_POST[ $field ] )
 			|| strlen( $_POST[ $field ] ) > $max_length * 4
 			|| title_strlen( wp_unslash( $_POST[ $field ] ) ) > $max_length ) ) {
-			$errors[ $field ] = sprintf( __( 'Please enter text no longer than %d characters.', 'MCA' ), $max_length );
+			$errors[ $field ] = sprintf( __( 'Please enter text no longer than %d characters.', 'mca' ), $max_length );
 		}
 	}
 	if ( $errors ) {
-		wp_send_json_error( [ 'message' => __( 'Please correct the highlighted fields.', 'MCA' ), 'errors' => $errors ], 422 );
+		wp_send_json_error( [ 'message' => __( 'Please correct the highlighted fields.', 'mca' ), 'errors' => $errors ], 422 );
 	}
 
 	$full_name = isset( $_POST['full_name'] ) ? sanitize_text_field( wp_unslash( $_POST['full_name'] ) ) : '';
@@ -448,25 +448,25 @@ function mca_submit_contact_form() {
 	$errors = [];
 
 	if ( '' === $full_name ) {
-		$errors['full_name'] = __( 'Name Surname is required.', 'MCA' );
+		$errors['full_name'] = __( 'Name Surname is required.', 'mca' );
 	}
 
 	if ( '' === $email || ! is_email( $email ) ) {
-		$errors['email'] = __( 'A valid email address is required.', 'MCA' );
+		$errors['email'] = __( 'A valid email address is required.', 'mca' );
 	}
 
 	if ( '' === $industry ) {
-		$errors['industry'] = __( 'Industry is required.', 'MCA' );
+		$errors['industry'] = __( 'Industry is required.', 'mca' );
 	}
 
 	if ( ! $privacy ) {
-		$errors['privacy'] = __( 'You must accept the Privacy Notice.', 'MCA' );
+		$errors['privacy'] = __( 'You must accept the Privacy Notice.', 'mca' );
 	}
 
 	if ( ! empty( $errors ) ) {
 		wp_send_json_error(
 			[
-				'message' => __( 'Please correct the highlighted fields.', 'MCA' ),
+				'message' => __( 'Please correct the highlighted fields.', 'mca' ),
 				'errors'  => $errors,
 			],
 			422
@@ -474,11 +474,11 @@ function mca_submit_contact_form() {
 	}
 
 	if ( wp_check_comment_disallowed_list( $full_name, $email, '', $industry, $peer, '' ) ) {
-		wp_send_json_error( [ 'message' => __( 'Your submission could not be accepted. Please contact us for assistance.', 'MCA' ) ], 422 );
+		wp_send_json_error( [ 'message' => __( 'Your submission could not be accepted. Please contact us for assistance.', 'mca' ) ], 422 );
 	}
 	if ( ! \MCA\FormSubmissions\consume_submission_attempt( 'email', strtolower( $email ), 3 ) ) {
 		header( 'Retry-After: 900' );
-		wp_send_json_error( [ 'message' => __( 'Too many attempts for this email address. Please wait 15 minutes and try again.', 'MCA' ) ], 429 );
+		wp_send_json_error( [ 'message' => __( 'Too many attempts for this email address. Please wait 15 minutes and try again.', 'mca' ) ], 429 );
 	}
 
 	$inserted = \MCA\FormSubmissions\insert_submission( $full_name, $email, $industry );
@@ -486,7 +486,7 @@ function mca_submit_contact_form() {
 	if ( is_wp_error( $inserted ) ) {
 		wp_send_json_error(
 			[
-				'message' => __( 'Something went wrong while saving your submission. Please try again.', 'MCA' ),
+				'message' => __( 'Something went wrong while saving your submission. Please try again.', 'mca' ),
 			],
 			500
 		);
@@ -499,7 +499,7 @@ function mca_submit_contact_form() {
 
 	wp_send_json_success(
 		[
-			'message' => __( 'Thank you! Your submission has been received.', 'MCA' ),
+			'message' => __( 'Thank you! Your submission has been received.', 'mca' ),
 			'pdf_url' => $pdf_url,
 		]
 	);
@@ -671,7 +671,7 @@ add_filter('wpcf7_validate', function ($result, $tags) {
         if ($tag->type !== 'file*' || !in_array($tag->name, ['application-resume', 'application-form'], true)) continue;
         $file = $_FILES[$tag->name] ?? null;
         if (!$file || empty($file['name']) || ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
-            $result->invalidate($tag, __('Please upload the required document.', 'MCA'));
+            $result->invalidate($tag, __('Please upload the required document.', 'mca'));
         }
     }
     return $result;

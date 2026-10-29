@@ -6,8 +6,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'current-calls',
-        'title' => __('MCA - Current Calls', 'MCA'),
-        'description' => __('Current procurement calls with status filters.', 'MCA'),
+        'title' => __('MCA - Current Calls', 'mca'),
+        'description' => __('Current procurement calls with status filters.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/current-calls/current-calls.php',
         'category' => 'formatting',
         'icon' => 'megaphone',

@@ -56,7 +56,7 @@ $url         = get_permalink($id);
                     <div class="m-publications-banner__back e-reveal" data-offset="0" data-delay="150">
                         <a class="a-text a-text--m h-semibold" href="<?php echo esc_url($back_url); ?>">
                             <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/left-arrow.svg')); ?>" alt="" aria-hidden="true">
-                            <?php echo esc_html($back['title'] ?? __('All resources', 'MCA')); ?>
+                            <?php echo esc_html($back['title'] ?? __('All resources', 'mca')); ?>
                         </a>
                     </div>
                 <?php endif; ?>

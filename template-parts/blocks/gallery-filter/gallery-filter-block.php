@@ -6,8 +6,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name'            => 'gallery-filter',
-        'title'           => __('MCA - Gallery Filter', 'MCA'),
-        'description'     => __('Featured media story with category and date.', 'MCA'),
+        'title'           => __('MCA - Gallery Filter', 'mca'),
+        'description'     => __('Featured media story with category and date.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/gallery-filter/gallery-filter.php',
         'category'        => 'formatting',
         'icon'            => 'format-gallery',

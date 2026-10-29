@@ -73,7 +73,7 @@ foreach ($project_posts as $project_post) {
         'short_description' => wp_trim_words($summary, 12, '…'),
         'category' => $block_labels[$project_post->ID] ?? '',
         'tone' => $hero['projects_hero_tone'] ?? 'blue',
-        'link' => ['url' => get_permalink($project_post), 'title' => __('Explore the project', 'MCA')],
+        'link' => ['url' => get_permalink($project_post), 'title' => __('Explore the project', 'mca')],
         'tags' => array_slice($block_tags[$project_post->ID] ?? $card_tags, 0, 3),
     ];
 }

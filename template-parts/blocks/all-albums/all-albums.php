@@ -198,7 +198,7 @@ $icon_url   = get_template_directory_uri() . '/assets/img/pics/icons/album.svg';
                                         alt=""
                                         aria-hidden="true"
                                     >
-                                    <?php esc_html_e('Album', 'MCA'); ?>
+                                    <?php esc_html_e('Album', 'mca'); ?>
                                 </span>
                             </span>
                         </div>
@@ -213,7 +213,7 @@ $icon_url   = get_template_directory_uri() . '/assets/img/pics/icons/album.svg';
                         <div class="m-all-albums__arrow">
                             <a
                                 href="<?php echo esc_url(get_permalink($album)); ?>"
-                                aria-label="<?php echo esc_attr(sprintf(__('View album: %s', 'MCA'), get_the_title($album))); ?>"
+                                aria-label="<?php echo esc_attr(sprintf(__('View album: %s', 'mca'), get_the_title($album))); ?>"
                             >
                                 <i class="icon-arrow-right-up a-icon" aria-hidden="true"></i>
                             </a>

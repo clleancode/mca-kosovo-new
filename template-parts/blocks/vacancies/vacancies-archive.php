@@ -58,18 +58,18 @@ $archive_title = get_field('vacancies_title');
                         <?php endforeach; ?>
                         <input type="hidden" name="<?php echo esc_attr($status_key); ?>" value="<?php echo esc_attr($selected); ?>">
                         <input type="hidden" name="<?php echo esc_attr($team_key); ?>" value="<?php echo esc_attr($team); ?>">
-                        <input class="a-text a-text--m" type="search" name="<?php echo esc_attr($search_key); ?>" value="<?php echo esc_attr($search); ?>" placeholder="<?php esc_attr_e('Search by job title', 'MCA'); ?>" aria-label="<?php esc_attr_e('Search by job title', 'MCA'); ?>">
-                        <button class="a-btn a-btn--blue a-btn--smallest" type="submit"><span><?php esc_html_e('Search', 'MCA'); ?></span></button>
+                        <input class="a-text a-text--m" type="search" name="<?php echo esc_attr($search_key); ?>" value="<?php echo esc_attr($search); ?>" placeholder="<?php esc_attr_e('Search by job title', 'mca'); ?>" aria-label="<?php esc_attr_e('Search by job title', 'mca'); ?>">
+                        <button class="a-btn a-btn--blue a-btn--smallest" type="submit"><span><?php esc_html_e('Search', 'mca'); ?></span></button>
                     </form>
-                    <nav class="m-vacancies__tabs e-reveal" data-delay="270" aria-label="<?php esc_attr_e('Vacancy status', 'MCA'); ?>">
+                    <nav class="m-vacancies__tabs e-reveal" data-delay="270" aria-label="<?php esc_attr_e('Vacancy status', 'mca'); ?>">
                         <?php foreach (['all' => 'All', 'ongoing' => 'Ongoing', 'closed' => 'Closed'] as $state => $label) : ?>
                             <a class="a-text a-text--m" data-vacancy-filter href="<?php echo esc_url(add_query_arg($status_key, $state, $archive_base)); ?>"<?php if ($selected === $state) : ?> aria-current="true"<?php endif; ?>><?php echo esc_html($label); ?> <span class="a-text a-text--xs"><?php echo esc_html($counts[$state]); ?></span></a>
                         <?php endforeach; ?>
                     </nav>
                 </div>
-                <nav class="m-vacancies__teams" aria-label="<?php esc_attr_e('Filter by team', 'MCA'); ?>">
+                <nav class="m-vacancies__teams" aria-label="<?php esc_attr_e('Filter by team', 'mca'); ?>">
                     <?php $team_index = 0; ?>
-                    <?php foreach (['' => __('All teams', 'MCA')] + $teams as $value => $label) : ?>
+                    <?php foreach (['' => __('All teams', 'mca')] + $teams as $value => $label) : ?>
                         <a class="a-text a-text--m e-reveal" data-delay="<?php echo esc_attr(350 + $team_index++ * 80); ?>" data-vacancy-filter href="<?php echo esc_url(add_query_arg($team_key, $value, $archive_base)); ?>"<?php if ($team === (string) $value) : ?> aria-current="true"<?php endif; ?>><?php echo esc_html($label); ?></a>
                     <?php endforeach; ?>
                 </nav>
@@ -78,17 +78,17 @@ $archive_title = get_field('vacancies_title');
                 <div class="m-vacancies__notice e-reveal" data-delay="300">
                     <p class="a-text a-text--m"><?php echo esc_html(get_field('vacancies_archive_notice')); ?></p>
                     <?php if (!empty($alerts_link['url'])) : ?>
-                        <a class="a-text a-text--m" href="<?php echo esc_url($alerts_link['url']); ?>"<?php if (($alerts_link['target'] ?? '') === '_blank') : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($alerts_link['title'] ?: __('Get job alerts', 'MCA')); ?> <i class="icon-arrow-right-up a-icon a-icon--xs" aria-hidden="true"></i></a>
+                        <a class="a-text a-text--m" href="<?php echo esc_url($alerts_link['url']); ?>"<?php if (($alerts_link['target'] ?? '') === '_blank') : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($alerts_link['title'] ?: __('Get job alerts', 'mca')); ?> <i class="icon-arrow-right-up a-icon a-icon--xs" aria-hidden="true"></i></a>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
             <div class="m-vacancies__results" aria-live="polite">
                 <?php if ($archive_query->posts) : $render_cards($archive_query->posts, $selected === 'all' ? null : $selected); else : ?>
-                    <p class="a-text a-text--l e-reveal e-reveal--text"><?php esc_html_e('No positions match your search and filters.', 'MCA'); ?></p>
+                    <p class="a-text a-text--l e-reveal e-reveal--text"><?php esc_html_e('No positions match your search and filters.', 'mca'); ?></p>
                 <?php endif; ?>
             </div>
             <?php if ($archive_query->max_num_pages > 1) : ?>
-                <nav class="m-vacancies__pagination e-reveal" data-delay="150" aria-label="<?php esc_attr_e('Vacancy pages', 'MCA'); ?>">
+                <nav class="m-vacancies__pagination e-reveal" data-delay="150" aria-label="<?php esc_attr_e('Vacancy pages', 'mca'); ?>">
                     <?php echo paginate_links(['base' => str_replace('999999999', '%#%', add_query_arg($page_key, 999999999, $archive_base)), 'format' => '', 'current' => $page, 'total' => $archive_query->max_num_pages, 'prev_text' => '&larr;', 'next_text' => '&rarr;']); ?>
                 </nav>
             <?php endif; ?>

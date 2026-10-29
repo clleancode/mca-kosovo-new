@@ -6,8 +6,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'compact',
-        'title' => __('MCA - Compact', 'MCA'),
-        'description' => __('Compact investment, milestones and countdown.', 'MCA'),
+        'title' => __('MCA - Compact', 'mca'),
+        'description' => __('Compact investment, milestones and countdown.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/compact/compact.php',
         'category' => 'formatting',
         'icon' => 'chart-bar',

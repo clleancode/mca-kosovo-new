@@ -5,8 +5,8 @@ add_action('acf/init', function () {
     if (!function_exists('acf_register_block_type')) return;
     acf_register_block_type([
         'name' => 'impact',
-        'title' => __('MCA - Impact', 'MCA'),
-        'description' => __('Four ways the Compact benefits Kosovo.', 'MCA'),
+        'title' => __('MCA - Impact', 'mca'),
+        'description' => __('Four ways the Compact benefits Kosovo.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/impact/impact.php',
         'category' => 'formatting',
         'icon' => 'chart-bar',

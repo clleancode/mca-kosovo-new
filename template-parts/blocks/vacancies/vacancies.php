@@ -186,7 +186,7 @@ if ($archive_search) {
 
             <div class="m-vacancies__header">
                 <<?php echo tag_escape($tag); ?> class="a-heading a-heading--<?php echo esc_attr($size); ?> <?php echo esc_attr($color); ?> e-reveal e-reveal--text">
-                    <?php echo esc_html(get_field('vacancies_title') ?: ($other_positions ? __('Other positions', 'MCA') : '')); ?>
+                    <?php echo esc_html(get_field('vacancies_title') ?: ($other_positions ? __('Other positions', 'mca') : '')); ?>
                 </<?php echo tag_escape($tag); ?>>
 
                 <?php if (!$other_positions): ?>
@@ -210,7 +210,7 @@ if ($archive_search) {
 
             <?php if ($other_positions): ?>
                 <?php if ($other_jobs): $render_cards($other_jobs, null); else: ?>
-                    <p class="a-text a-text--l e-reveal e-reveal--text"><?php esc_html_e('No other positions found.', 'MCA'); ?></p>
+                    <p class="a-text a-text--l e-reveal e-reveal--text"><?php esc_html_e('No other positions found.', 'mca'); ?></p>
                 <?php endif; ?>
             <?php endif; ?>
             <?php foreach ($other_positions ? [] : ['ongoing', 'closed'] as $state) : ?>

@@ -6,8 +6,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name'            => 'gallery-banner',
-        'title'           => __('MCA - Gallery Banner', 'MCA'),
-        'description'     => __('Banner for the media and gallery page.', 'MCA'),
+        'title'           => __('MCA - Gallery Banner', 'mca'),
+        'description'     => __('Banner for the media and gallery page.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/gallery-banner/gallery-banner.php',
         'category'        => 'formatting',
         'icon'            => 'cover-image',

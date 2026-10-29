@@ -39,7 +39,7 @@ if (get_field('header_line_height')) $heading_classes .= ' h--' . $heading['head
             <div class="m-benefit-banner__content">
                 <nav class="m-benefit-banner__breadcrumbs" aria-label="Breadcrumb">
                     <a class="a-text a-text--xs h-uppercase e-reveal" data-offset="0" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                        <?php esc_html_e( 'Home', 'MCA' ); ?>
+                        <?php esc_html_e( 'Home', 'mca' ); ?>
                     </a>
                     <span class="a-text a-text--xs e-reveal" data-offset="0" data-delay="80" aria-hidden="true">/</span>
                     <?php if ( $breadcrumb ) : ?>

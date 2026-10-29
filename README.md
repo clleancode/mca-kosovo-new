@@ -28,6 +28,8 @@ The installation directory remains `mca-kosovo-new`.
 
 ## Release checks
 
+- After changing theme strings, regenerate the translation template with
+  `wp i18n make-pot . languages/mca.pot --domain=mca --exclude=vendor,node_modules,inc/libs,assets`.
 - Keep versions in style.css, readme.txt, package.json and package-lock.json aligned.
 - Deploy changed PHP files, style.css, compiled assets in assets/ and block
   folders, and Composer dependencies installed from composer.lock.

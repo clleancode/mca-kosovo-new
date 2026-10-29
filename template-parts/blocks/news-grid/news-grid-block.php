@@ -6,8 +6,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name'            => 'news-grid',
-        'title'           => __('MCA - News Grid', 'MCA'),
-        'description'     => __('Latest WordPress news cards with pagination.', 'MCA'),
+        'title'           => __('MCA - News Grid', 'mca'),
+        'description'     => __('Latest WordPress news cards with pagination.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/news-grid/news-grid.php',
         'category'        => 'formatting',
         'icon'            => 'grid-view',

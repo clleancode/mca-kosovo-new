@@ -8,8 +8,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'how-to-report',
-        'title' => __('MCA - How to Report', 'MCA'),
-        'description' => __('Hotline reporting options and related anti-fraud resources.', 'MCA'),
+        'title' => __('MCA - How to Report', 'mca'),
+        'description' => __('Hotline reporting options and related anti-fraud resources.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/how-to-report/how-to-report.php',
         'category' => 'formatting',
         'icon' => 'warning',

@@ -37,7 +37,7 @@ if (get_post_type($current_post_id) === 'project') {
 	<header class="o-header">
 	    <div class="m-header__wrapper">
 	        <div class="m-header__inner">
-	            <a href="<?php echo esc_url(home_url('/')); ?>" class="a-logo" rel="home" aria-label="MCA Kosovo - Home">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="a-logo" rel="home" aria-label="<?php esc_attr_e('MCA Kosovo - Home', 'mca'); ?>">
 	                <img src="<?php echo get_template_directory_uri() ?>/assets/img/pics/logo.svg" alt="MCA Kosovo" loading="lazy" decoding="async" class="a-img">
 	            </a>
 	            <nav class="m-menu">
@@ -53,9 +53,9 @@ if (get_post_type($current_post_id) === 'project') {
 	            </nav>
 
 				<div class="m-header__actions">
-					<button type="button" class="icon-search a-icon a-icon--s a-icon--search" aria-label="Open Search"></button>
+					<button type="button" class="icon-search a-icon a-icon--s a-icon--search" aria-label="<?php esc_attr_e('Open Search', 'mca'); ?>"></button>
 
-					<button type="button" class="m-header__burger" aria-label="Open Mobile Navigation" aria-expanded="false" aria-controls="mobile-menu">
+					<button type="button" class="m-header__burger" aria-label="<?php esc_attr_e('Open Mobile Navigation', 'mca'); ?>" aria-expanded="false" aria-controls="mobile-menu">
 						<span class="m-header__line"></span>
 						<span class="m-header__line"></span>
 						<span class="m-header__line"></span>
@@ -63,10 +63,10 @@ if (get_post_type($current_post_id) === 'project') {
 				</div>
 
 				<form class="m-search--form" role="search"  method="get" action="<?php echo esc_url(home_url('/')); ?>">
-					<label class="sr-only" for="site-search"><?php echo esc_attr_x('Search…', 'placeholder', 'mca-kosovo'); ?></label>
-					<input id="site-search" type="search" class="a-input" placeholder="<?php echo esc_attr_x('Search…', 'placeholder', 'mca-kosovo'); ?>" value="<?php echo get_search_query(); ?>" name="s" required aria-required="true">
-					<button type="submit" class="icon-search a-icon a-icon--xs" aria-label="<?php echo esc_attr_x('Search', 'submit button', 'mca-kosovo'); ?>"></button>
-					<button type="button" class="icon-close a-icon a-icon--xs a-icon--close" aria-label="Close Search"></button>
+					<label class="sr-only" for="site-search"><?php echo esc_attr_x('Search…', 'placeholder', 'mca'); ?></label>
+					<input id="site-search" type="search" class="a-input" placeholder="<?php echo esc_attr_x('Search…', 'placeholder', 'mca'); ?>" value="<?php echo get_search_query(); ?>" name="s" required aria-required="true">
+					<button type="submit" class="icon-search a-icon a-icon--xs" aria-label="<?php echo esc_attr_x('Search', 'submit button', 'mca'); ?>"></button>
+					<button type="button" class="icon-close a-icon a-icon--xs a-icon--close" aria-label="<?php esc_attr_e('Close Search', 'mca'); ?>"></button>
 				</form>
 	        </div>
 	    </div>
@@ -77,7 +77,7 @@ if (get_post_type($current_post_id) === 'project') {
     <?php endif; ?>
 
 
-	<nav class="m-header__menu-mobile" id="mobile-menu" aria-label="Primary Mobile Navigation">
+	<nav class="m-header__menu-mobile" id="mobile-menu" aria-label="<?php esc_attr_e('Primary Mobile Navigation', 'mca'); ?>">
 		<img src="<?php echo get_template_directory_uri() ?>/assets/img/pics/lines.png" alt="Lines" role="presentation" loading="lazy" decoding="async" class="a-img">
 
 		<?php wp_nav_menu([
@@ -92,12 +92,12 @@ if (get_post_type($current_post_id) === 'project') {
 <a href="#"
    class="icon-message a-icon a-icon--circle a-icon--bg-blue a-icon--fixed"
    style="background-color: var(--<?php echo esc_attr($icon_color); ?>)"
-   aria-label="Open Chat"></a>
+   aria-label="<?php esc_attr_e('Open Chat', 'mca'); ?>"></a>
 <a href="<?php echo esc_url(home_url('/report-fraud-corruption/')); ?>"
    class="a-btn a-btn--fixed-left"
    style="background-color: var(--<?php echo esc_attr($button_color); ?>); border-color: var(--<?php echo esc_attr($button_color); ?>)">
     <i class="a-icon" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z"/><path d="M12 8v5m0 3v1"/></svg></i>
-    <span>Report fraud</span>
+    <span><?php esc_html_e('Report fraud', 'mca'); ?></span>
 </a>
 
 

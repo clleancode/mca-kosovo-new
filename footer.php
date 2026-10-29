@@ -3,11 +3,11 @@
 $footer_logo = get_field('footer_logo', 'option');
 $description = get_field('footer_description', 'option');
 $columns = [
-    'footer_projects' => 'Projects',
-    'footer_work_with_us' => 'Work with us',
-    'footer_organization' => 'Organization',
+    'footer_projects' => __('Projects', 'mca'),
+    'footer_work_with_us' => __('Work with us', 'mca'),
+    'footer_organization' => __('Organization', 'mca'),
 ];
-$contact_title = get_field('contact_us_title', 'option') ?: 'Contact';
+$contact_title = get_field('contact_us_title', 'option') ?: __('Contact', 'mca');
 $address = get_field('contact_address', 'option');
 $address_link = get_field('footer_address_link', 'option') ?: [];
 $email = get_field('contact_email', 'option');
@@ -64,7 +64,7 @@ $render_menu = static function ($menu, $reveal_delay = null) use ($menu_link_cla
         <div class="m-footer__main s-d-b-l s-m-b-s">
             <div class="m-footer__brand">
                 <?php if ($footer_logo): ?>
-                    <a class="a-footer-logo e-reveal" href="<?php echo esc_url(home_url('/')); ?>" aria-label="MCA Kosovo home">
+                    <a class="a-footer-logo e-reveal" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('MCA Kosovo home', 'mca'); ?>">
                         <?php if (is_array($footer_logo) && !empty($footer_logo['url'])): ?>
                             <img src="<?php echo esc_url($footer_logo['url']); ?>" alt="<?php echo esc_attr(($footer_logo['alt'] ?? '') ?: 'MCA Kosovo'); ?>" loading="lazy" decoding="async">
                         <?php else: echo wp_get_attachment_image(is_array($footer_logo) ? ($footer_logo['ID'] ?? 0) : $footer_logo, 'medium', false, ['loading' => 'lazy', 'decoding' => 'async']); endif; ?>
@@ -72,11 +72,11 @@ $render_menu = static function ($menu, $reveal_delay = null) use ($menu_link_cla
                 <?php endif; ?>
                 <?php if ($description): ?><div class="m-footer__description s-d-t-s s-d-b-s s-m-t-xs s-m-b-xs"><p class="a-text a-text--l e-reveal e-reveal--text" data-delay="100"><?php echo nl2br(esc_html($description)); ?></p></div><?php endif; ?>
                 <?php if ($socials): ?>
-                    <nav class="m-footer__socials" aria-label="Social media">
+                    <nav class="m-footer__socials" aria-label="<?php esc_attr_e('Social media', 'mca'); ?>">
                         <ul>
                             <?php $social_index = 0; ?>
                             <?php foreach ($socials as $social): if (empty($social['url'])) continue; ?>
-                                <li class="e-reveal" data-delay="<?php echo esc_attr(300 + $social_index++ * 100); ?>"><a class="a-footer-social" href="<?php echo esc_url($social['url']); ?>" aria-label="<?php echo esc_attr(($social['icon_text'] ?? '') ?: ucwords(str_replace(['icon-', '-'], ['', ' '], $social['icon'] ?? 'Social media'))); ?>">
+                                <li class="e-reveal" data-delay="<?php echo esc_attr(300 + $social_index++ * 100); ?>"><a class="a-footer-social" href="<?php echo esc_url($social['url']); ?>" aria-label="<?php echo esc_attr(($social['icon_text'] ?? '') ?: ucwords(str_replace(['icon-', '-'], ['', ' '], $social['icon'] ?? __('Social media', 'mca')))); ?>">
                                     <?php
                                     $icon_name = str_replace('icon-', '', $social['icon'] ?? '');
                                     $social_icon_files = [
@@ -91,7 +91,7 @@ $render_menu = static function ($menu, $reveal_delay = null) use ($menu_link_cla
                                     <?php elseif (!empty($social['icon'])): ?>
                                         <i class="a-icon <?php echo esc_attr($social['icon']); ?>" aria-hidden="true"></i>
                                     <?php else: ?>
-                                        <span class="a-text a-text--xs"><?php echo esc_html($social['icon_text'] ?? 'Social'); ?></span>
+                                        <span class="a-text a-text--xs"><?php echo esc_html($social['icon_text'] ?? __('Social', 'mca')); ?></span>
                                     <?php endif; ?>
                                 </a></li>
                             <?php endforeach; ?>
@@ -125,17 +125,20 @@ $render_menu = static function ($menu, $reveal_delay = null) use ($menu_link_cla
                         </div>
                     <?php endif; ?>
                 </address>
-                <?php if (!empty($report['url'])): ?><a class="a-footer-report a-text a-text--xs e-reveal" data-delay="<?php echo esc_attr($contact_delay); ?>" href="<?php echo esc_url($report['url']); ?>" target="<?php echo esc_attr(($report['target'] ?? '') ?: '_self'); ?>"<?php if (($report['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html(($report['title'] ?? '') ?: 'Report fraud & corruption'); ?> <span aria-hidden="true">&rarr;</span></a><?php endif; ?>
+                <?php if (!empty($report['url'])): ?><a class="a-footer-report a-text a-text--xs e-reveal" data-delay="<?php echo esc_attr($contact_delay); ?>" href="<?php echo esc_url($report['url']); ?>" target="<?php echo esc_attr(($report['target'] ?? '') ?: '_self'); ?>"<?php if (($report['target'] ?? '') === '_blank'): ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html(($report['title'] ?? '') ?: __('Report fraud & corruption', 'mca')); ?> <span aria-hidden="true">&rarr;</span></a><?php endif; ?>
             </div>
         </div>
         <div class="m-footer__bottom s-d-t-s s-m-t-xs">
             <span class="m-footer__divider e-reveal e-reveal--clip" aria-hidden="true"></span>
             <?php if ($disclaimer): ?><div class="m-footer__disclaimer"><p class="a-text a-text--m e-reveal e-reveal--text" data-delay="150"><?php echo nl2br(esc_html(wp_strip_all_tags($disclaimer))); ?></p></div><?php endif; ?>
             <div class="m-footer__legal-row">
-                <div class="m-footer__copyright"><p class="a-text a-text--xs h-semibold e-reveal e-reveal--text" data-delay="300"><?php echo $copyright ? esc_html(wp_strip_all_tags($copyright)) : esc_html(sprintf('© %s MCA Kosovo. All rights reserved.', wp_date('Y'))); ?></p></div>
-                <nav class="m-footer__legal e-reveal" data-delay="450" aria-label="Legal and privacy">
+                <div class="m-footer__copyright"><p class="a-text a-text--xs h-semibold e-reveal e-reveal--text" data-delay="300"><?php
+                    /* translators: %s: Current year. */
+                    echo $copyright ? esc_html(wp_strip_all_tags($copyright)) : esc_html(sprintf(__('© %s MCA Kosovo. All rights reserved.', 'mca'), wp_date('Y')));
+                ?></p></div>
+                <nav class="m-footer__legal e-reveal" data-delay="450" aria-label="<?php esc_attr_e('Legal and privacy', 'mca'); ?>">
                     <?php $render_menu($legal_menu); ?>
-                    <button type="button" class="a-footer-link a-text a-text--xs" data-cookie-settings><?php echo esc_html(get_field('footer_cookie_settings_label', 'option') ?: 'Cookie settings'); ?></button>
+                    <button type="button" class="a-footer-link a-text a-text--xs" data-cookie-settings><?php echo esc_html(get_field('footer_cookie_settings_label', 'option') ?: __('Cookie settings', 'mca')); ?></button>
                 </nav>
             </div>
         </div>

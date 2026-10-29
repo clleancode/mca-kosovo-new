@@ -127,8 +127,8 @@ $render_documents = static function (array $items) {
                                     <?php $render_documents(array_slice($documents, $limit)); ?>
                                 </ul>
                                 <button type="button" class="a-text a-text--l" hidden
-                                        data-more="<?php echo esc_attr($view_all['title'] ?? __('View All', 'MCA')); ?>"
-                                        data-less="<?php echo esc_attr__('View Less', 'MCA'); ?>">
+                                        data-more="<?php echo esc_attr($view_all['title'] ?? __('View All', 'mca')); ?>"
+                                        data-less="<?php echo esc_attr__('View Less', 'mca'); ?>">
                                     <span data-toggle-label></span> <span aria-hidden="true">&rarr;</span>
                                 </button>
                             </div>
