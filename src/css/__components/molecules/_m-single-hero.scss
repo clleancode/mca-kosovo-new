@@ -50,6 +50,9 @@
 
     a,
     span {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
         color: rgba(255, 255, 255, .8);
         text-decoration: none;
         text-transform: uppercase;

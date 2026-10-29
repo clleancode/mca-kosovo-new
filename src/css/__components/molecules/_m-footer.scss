@@ -68,6 +68,10 @@
 }
 
 .a-footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    min-width: 24px;
     color: var(--dark-blue);
     text-decoration: underline;
     text-decoration-color: transparent;

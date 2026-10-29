@@ -50,6 +50,11 @@
 }
 
 .m-small-hero__link-card>a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    min-height: 24px;
     flex-shrink: 0;
     color: var(--white);
     text-decoration: none;

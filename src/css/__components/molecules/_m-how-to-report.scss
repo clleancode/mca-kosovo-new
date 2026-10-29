@@ -198,6 +198,10 @@
 }
 
 .m-how-to-report__option > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    min-width: 24px;
     color: var(--white);
     text-decoration: none;
     transition: color .3s ease-in-out;
@@ -231,6 +235,8 @@
 .m-how-to-report__cta > a {
     display: inline-flex;
     align-items: center;
+    min-height: 24px;
+    min-width: 24px;
     gap: 6px;
     color: inherit;
     text-decoration: none;
@@ -337,6 +343,10 @@
 }
 
 .m-how-to-report__resource-link > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    min-width: 24px;
     color: inherit;
     text-decoration: none;
 }

@@ -147,8 +147,16 @@
     .m-contact-form__topics input[type='checkbox'] {
         width: 0;
         height: 0;
+        min-width: 0;
+        min-height: 0;
         margin: 0;
         opacity: 0;
+    }
+
+    .m-contact-form__topics .wpcf7-list-item:has(input:focus-visible) {
+        outline: 2px solid var(--blue);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--dark-blue);
     }
 
     .m-contact-form__topics .wpcf7-list-item:has(input:checked) {
@@ -428,6 +436,10 @@
 }
 .m-contact-form__directions > a,
 .m-contact-form__panel-copy > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    min-width: 24px;
     width: fit-content;
     max-width: 100%;
     text-decoration: none;

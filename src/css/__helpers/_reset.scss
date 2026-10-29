@@ -41,3 +41,9 @@ fieldset {
 	-webkit-padding-after: 0;
 	min-width: auto;
 }
+
+:focus-visible {
+	outline: 2px solid var(--blue);
+	outline-offset: 2px;
+	box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--dark-blue);
+}
