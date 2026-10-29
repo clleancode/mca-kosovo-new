@@ -298,3 +298,100 @@ if ( ! function_exists( 'mca_acf_expanded_editor_button_text' ) ) {
     }
 }
 add_filter( 'acf/blocks/default_expanded_editor_button_text', 'MCA\Filters\mca_acf_expanded_editor_button_text', 10, 2 );
+
+function mca_normalize_legacy_internal_url( $url ) {
+    if ( ! is_string( $url ) || '' === $url || '#' === $url[0] ) {
+        return $url;
+    }
+
+    $home_host = wp_parse_url( home_url( '/' ), PHP_URL_HOST );
+    $url_host  = wp_parse_url( $url, PHP_URL_HOST );
+
+    if ( $url_host && $home_host && strtolower( $url_host ) !== strtolower( $home_host ) ) {
+        return $url;
+    }
+
+    $path = wp_parse_url( $url, PHP_URL_PATH );
+    if ( ! is_string( $path ) || '' === $path ) {
+        return $url;
+    }
+
+    $base = rtrim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+    $norm = '/' . trim( $path, '/' );
+    if ( $base && 0 === strpos( $norm, $base . '/' ) ) {
+        $norm = substr( $norm, strlen( $base ) );
+    }
+    $norm = rtrim( $norm, '/' );
+
+    $replacement_path = null;
+    if ( '/media' === $norm ) {
+        $replacement_path = '/media-news/';
+    } elseif ( '/news' === $norm ) {
+        $replacement_path = '/newsletter/';
+    } elseif ( '/project/acfg' === $norm ) {
+        $replacement_path = '/project/acfd/';
+    } elseif ( 0 === strpos( $norm, '/invitation-to-public-hearing-' ) && false !== strpos( $norm, 'ferizaj-battery-site' ) ) {
+        $replacement_path = '/public-hearing/';
+    }
+
+    if ( null === $replacement_path ) {
+        return $url;
+    }
+
+    $new_url  = home_url( $replacement_path );
+    $query    = wp_parse_url( $url, PHP_URL_QUERY );
+    $fragment = wp_parse_url( $url, PHP_URL_FRAGMENT );
+
+    if ( $query ) {
+        $new_url .= '?' . $query;
+    }
+    if ( $fragment ) {
+        $new_url .= '#' . $fragment;
+    }
+
+    return $new_url;
+}
+
+add_filter( 'wp_nav_menu_objects', function ( $items ) {
+    if ( ! is_array( $items ) ) {
+        return $items;
+    }
+    foreach ( $items as $item ) {
+        if ( isset( $item->url ) && is_string( $item->url ) ) {
+            $item->url = mca_normalize_legacy_internal_url( $item->url );
+        }
+    }
+    return $items;
+}, 20 );
+
+add_filter( 'acf/format_value/type=link', function ( $value ) {
+    if ( is_array( $value ) && ! empty( $value['url'] ) && is_string( $value['url'] ) ) {
+        $value['url'] = mca_normalize_legacy_internal_url( $value['url'] );
+    } elseif ( is_string( $value ) && '' !== $value ) {
+        $value = mca_normalize_legacy_internal_url( $value );
+    }
+    return $value;
+}, 20 );
+
+add_filter( 'acf/format_value/type=url', function ( $value ) {
+    if ( is_string( $value ) && '' !== $value ) {
+        return mca_normalize_legacy_internal_url( $value );
+    }
+    return $value;
+}, 20 );
+
+add_filter( 'render_block', function ( $block_content ) {
+    if ( ! is_string( $block_content ) || '' === $block_content || false === strpos( $block_content, 'href=' ) ) {
+        return $block_content;
+    }
+
+    return preg_replace_callback(
+        '/\bhref=(["\'])([^"\']+)\1/i',
+        function ( $matches ) {
+            $normalized = mca_normalize_legacy_internal_url( $matches[2] );
+            return 'href=' . $matches[1] . esc_url( $normalized ) . $matches[1];
+        },
+        $block_content
+    );
+}, 20 );
+

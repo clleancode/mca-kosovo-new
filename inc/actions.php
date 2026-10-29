@@ -232,15 +232,25 @@ function mca_handle_legacy_404_redirects() {
     }
     $path = rtrim( $path, '/' );
 
-    // 1) Redirect legacy /news/ URL to the news category archive.
     if ( $path === '/news' ) {
-        $news_category = get_category_by_slug( 'news' );
-        if ( $news_category ) {
-            $target = get_category_link( $news_category->term_id );
-        } else {
-            // Fallback to home if category is missing.
-            $target = home_url( '/' );
-        }
+        $newsletter_page = get_page_by_path( 'newsletter' );
+        $target          = $newsletter_page ? get_permalink( $newsletter_page ) : home_url( '/newsletter/' );
+
+        wp_safe_redirect( $target, 301 );
+        exit;
+    }
+
+    if ( $path === '/project/acfg' ) {
+        $acfd_project = get_page_by_path( 'acfd', OBJECT, 'project' );
+        $target       = $acfd_project ? get_permalink( $acfd_project ) : home_url( '/project/acfd/' );
+
+        wp_safe_redirect( $target, 301 );
+        exit;
+    }
+
+    if ( 0 === strpos( $path, '/invitation-to-public-hearing-' ) && false !== strpos( $path, 'ferizaj-battery-site' ) ) {
+        $hearing_page = get_page_by_path( 'public-hearing' ) ?: get_page_by_path( 'public-hearing', OBJECT, 'post' );
+        $target       = $hearing_page ? get_permalink( $hearing_page ) : home_url( '/public-hearing/' );
 
         wp_safe_redirect( $target, 301 );
         exit;
