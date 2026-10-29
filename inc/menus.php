@@ -93,7 +93,7 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
 
         $output = '<div id="projects-sub-menu" class="m-sub-menu m-sub-menu--projects"><div class="m-sub-menu__intro">';
         $output .= '<p class="a-text a-text--s h-semibol">Compact projects</p>';
-        $output .= '<h2 class="a-heading a-heading--h5">Three projects.<br>One Compact.</h2>';
+        $output .= '<p class="a-heading a-heading--h5">Three projects.<br>One Compact.</p>';
         $output .= '<a class="a-text a-text--m h-semibold" href="' . esc_url($this->projects_url) . '">Compact overview <span class="icon-arrow-right-up a-icon" aria-hidden="true"></span></a>';
         $output .= '</div><ul class="m-sub-menu__project-list">';
 
@@ -140,7 +140,7 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
                 'decoding' => 'async',
             ]);
             $output .= '<div class="m-content"><p class="a-text a-text--xs">' . esc_html($project_number) . '</p>';
-            $output .= '<h2 class="a-heading a-heading--h5">' . esc_html($project_title) . '</h2>';
+            $output .= '<p class="a-heading a-heading--h5">' . esc_html($project_title) . '</p>';
             if ($description) {
                 $output .= '<p class="a-text a-text--m">' . esc_html($description) . '</p>';
             }
@@ -163,7 +163,7 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
 
         foreach ($columns as $heading => $menu_id) {
             $menu_items = $menu_id ? wp_get_nav_menu_items($menu_id) : [];
-            $output .= '<section><h2 class="a-text a-text--xs">' . esc_html($heading) . '</h2><ul>';
+            $output .= '<section><p class="a-text a-text--xs">' . esc_html($heading) . '</p><ul>';
 
             foreach ((array) $menu_items as $menu_item) {
                 $output .= '<li><a class="a-text a-text--xxl" href="' . esc_url($menu_item->url) . '">';
@@ -194,7 +194,7 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
                 ]);
             }
             $output .= '<div><p class="a-text a-text--xs">Featured</p>';
-            $output .= '<h2 class="a-heading a-heading--h6">' . esc_html($document_title) . '</h2>';
+            $output .= '<p class="a-heading a-heading--h6">' . esc_html($document_title) . '</p>';
             $output .= '<p class="a-text a-text--m">Download PDF</p></div></a>';
         }
 
@@ -254,7 +254,7 @@ class Custom_Main_Menu_Walker extends \Walker_Nav_Menu {
             }
 
             $output .= '<div class="m-content">';
-            $output .= '<h1 id="project-title-' . $item->ID . '" class="a-heading a-heading--h4 h-uppercase h-semibold">' . wp_kses_post($item->title) . '</h1>';
+            $output .= '<p id="project-title-' . $item->ID . '" class="a-heading a-heading--h4 h-uppercase h-semibold">' . wp_kses_post($item->title) . '</p>';
 
             if (!empty($item->description)) {
                 $output .= '<p class="a-text a-text--l">' . esc_html($item->description) . '</p>';

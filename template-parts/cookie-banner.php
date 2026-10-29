@@ -31,7 +31,7 @@ foreach ($categories as $key => [$label, $description]) {
         </div>
 
         <div class="m-cookie-banner__content">
-            <h2 class="a-heading a-heading--h6"><?php echo esc_html($cookie_text('title', 'We use cookies')); ?></h2>
+            <p class="a-heading a-heading--h6"><?php echo esc_html($cookie_text('title', 'We use cookies')); ?></p>
             <p class="a-text a-text--m h-regular">
                 <?php echo nl2br(esc_html($cookie_text('description', 'We use cookies to improve your experience on this website, for traffic analysis and for digital marketing. You can accept all cookies, refuse them or manage your preferences.'))); ?>
                 <?php echo esc_html($cookie_text('policy_intro', 'Read our')); ?> <a href="<?php echo esc_url($privacy_url); ?>" target="<?php echo esc_attr($privacy_target); ?>"<?php if ($privacy_target === '_blank') : ?> rel="noopener noreferrer"<?php endif; ?>><?php echo esc_html($privacy_title); ?></a>.
@@ -48,7 +48,7 @@ foreach ($categories as $key => [$label, $description]) {
     <div class="m-cookie-banner__overlay" data-cookie-overlay hidden>
     <div role="dialog" aria-modal="true" tabindex="-1" data-cookie-panel class="m-cookie-banner__dialog s-m-t-xs s-m-b-xs s-d-t-s s-d-b-s" aria-labelledby="cookie-consent-title">
         <div class="m-cookie-banner__heading">
-            <h2 class="a-heading a-heading--h5" id="cookie-consent-title"><?php echo esc_html($cookie_text('panel_title', 'Manage consent')); ?></h2>
+            <p class="a-heading a-heading--h5" id="cookie-consent-title"><?php echo esc_html($cookie_text('panel_title', 'Manage consent')); ?></p>
             <button
                 class="a-text a-text--xxl"
                 type="button"
