@@ -2378,7 +2378,7 @@ body[data-aos-easing=ease-in-out-quart] [data-aos] {
 
 @font-face {
     font-family: Gellix;
-    src: url(../fonts/Gellix-Regular.eot?#iefix) format("embedded-opentype"), url(../fonts/Gellix-Regular.woff2) format("woff2"), url(../fonts/Gellix-Regular.woff) format("woff"), url(../fonts/Gellix-Regular.ttf) format("truetype");
+    src: url(../fonts/Gellix-Regular.woff2) format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap
@@ -2386,7 +2386,7 @@ body[data-aos-easing=ease-in-out-quart] [data-aos] {
 
 @font-face {
     font-family: Gellix-Semibold;
-    src: url(../fonts/Gellix-SemiBold.eot?#iefix) format("embedded-opentype"), url(../fonts/Gellix-SemiBold.woff2) format("woff2"), url(../fonts/Gellix-SemiBold.woff) format("woff"), url(../fonts/Gellix-SemiBold.ttf) format("truetype");
+    src: url(../fonts/Gellix-SemiBold.woff2) format('woff2');
     font-weight: 600;
     font-style: normal;
     font-display: swap
@@ -2394,7 +2394,7 @@ body[data-aos-easing=ease-in-out-quart] [data-aos] {
 
 @font-face {
     font-family: Britanica;
-    src: url(../fonts/Britanica-BlackExpanded.eot?#iefix) format("embedded-opentype"), url(../fonts/Britanica-BlackExpanded.woff2) format("woff2"), url(../fonts/Britanica-BlackExpanded.woff) format("woff"), url(../fonts/Britanica-BlackExpanded.ttf) format("truetype");
+    src: url(../fonts/Britanica-BlackExpanded.woff2) format('woff2');
     font-weight: 900;
     font-style: normal;
     font-display: swap
@@ -2402,7 +2402,7 @@ body[data-aos-easing=ease-in-out-quart] [data-aos] {
 
 @font-face {
     font-family: PP Neue Montreal;
-    src: url(../fonts/PPNeueMontreal-Bold.eot?#iefix) format("embedded-opentype"), url(../fonts/PPNeueMontreal-Bold.woff2) format("woff2"), url(../fonts/PPNeueMontreal-Bold.woff) format("woff"), url(../fonts/PPNeueMontreal-Bold.ttf) format("truetype");
+    src: url(../fonts/PPNeueMontreal-Bold.woff2) format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap
@@ -2410,8 +2410,8 @@ body[data-aos-easing=ease-in-out-quart] [data-aos] {
 
 @font-face {
     font-family: icomoon;
-    src: url(../icons/icomoon.eot?tj3clo);
-    src: url(../icons/icomoon.eot?tj3clo#iefix) format("embedded-opentype"), url(../icons/icomoon.ttf?tj3clo) format("truetype"), url(../icons/icomoon.woff?tj3clo) format("woff"), url(../icons/icomoon.svg?tj3clo#icomoon) format("svg");
+    src: url('../icons/icomoon.woff2') format('woff2');
+
     font-weight: 400;
     font-style: normal;
     font-display: swap
