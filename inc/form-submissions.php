@@ -16,6 +16,74 @@ const DB_VERSION_OPTION = 'mca_form_submissions_db_version';
 const MANAGE_CAPABILITY = 'mca_manage_form_submissions';
 const CAPABILITY_VERSION_OPTION = 'mca_form_submissions_capability_version';
 
+function register_privacy_exporter( $exporters ) {
+	$exporters['mca-form-submissions'] = array(
+		'exporter_friendly_name' => __( 'MCA form submissions', 'mca' ),
+		'callback' => __NAMESPACE__ . '\\export_personal_data',
+	);
+	return $exporters;
+}
+add_filter( 'wp_privacy_personal_data_exporters', __NAMESPACE__ . '\\register_privacy_exporter' );
+
+function register_privacy_eraser( $erasers ) {
+	$erasers['mca-form-submissions'] = array(
+		'eraser_friendly_name' => __( 'MCA form submissions', 'mca' ),
+		'callback' => __NAMESPACE__ . '\\erase_personal_data',
+	);
+	return $erasers;
+}
+add_filter( 'wp_privacy_personal_data_erasers', __NAMESPACE__ . '\\register_privacy_eraser' );
+
+function export_personal_data( $email_address, $page = 1 ) {
+	global $wpdb;
+	if ( ! is_email( $email_address ) ) {
+		return array( 'data' => array(), 'done' => true );
+	}
+	$table = table_name();
+	$limit = 100;
+	$offset = ( max( 1, (int) $page ) - 1 ) * $limit;
+	$rows = $wpdb->get_results( $wpdb->prepare(
+		"SELECT id, full_name, email, industry, created_at FROM {$table} WHERE email = %s ORDER BY id ASC LIMIT %d OFFSET %d",
+		$email_address, $limit, $offset
+	), ARRAY_A );
+	if ( $wpdb->last_error ) {
+		return new \WP_Error( 'mca_privacy_export_failed', __( 'MCA form submissions could not be exported. Please retry.', 'mca' ) );
+	}
+	$data = array();
+	foreach ( $rows as $row ) {
+		$data[] = array(
+			'group_id' => 'mca-form-submissions',
+			'group_label' => __( 'MCA form submissions', 'mca' ),
+			'item_id' => 'mca-form-submission-' . $row['id'],
+			'data' => array(
+				array( 'name' => __( 'Full name', 'mca' ), 'value' => $row['full_name'] ),
+				array( 'name' => __( 'Email', 'mca' ), 'value' => $row['email'] ),
+				array( 'name' => __( 'Industry', 'mca' ), 'value' => $row['industry'] ),
+				array( 'name' => __( 'Submitted', 'mca' ), 'value' => $row['created_at'] ),
+			),
+		);
+	}
+	return array( 'data' => $data, 'done' => count( $rows ) < $limit );
+}
+
+function erase_personal_data( $email_address, $page = 1 ) {
+	global $wpdb;
+	$response = array( 'items_removed' => false, 'items_retained' => false, 'messages' => array(), 'done' => true );
+	if ( ! is_email( $email_address ) ) {
+		return $response;
+	}
+	$table = table_name();
+	$deleted = $wpdb->query( $wpdb->prepare(
+		"DELETE FROM {$table} WHERE email = %s ORDER BY id ASC LIMIT 100", $email_address
+	) );
+	if ( false === $deleted ) {
+		return new \WP_Error( 'mca_privacy_erasure_failed', __( 'MCA form submissions could not be erased. Please retry.', 'mca' ) );
+	}
+	$response['items_removed'] = $deleted > 0;
+	$response['done'] = $deleted < 100;
+	return $response;
+}
+
 function maybe_install_capability() {
 	if ( '1' === get_option( CAPABILITY_VERSION_OPTION ) ) {
 		return;

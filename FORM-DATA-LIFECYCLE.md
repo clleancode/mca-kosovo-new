@@ -113,9 +113,16 @@ delivery testing are outside the completed local-only verification.
 
 ## Retention, deletion and privacy ownership
 
-- No scheduled deletion, retention interval, custom deletion UI or WordPress
-  personal-data eraser integration was found for the submission table. Rows have
-  no automatic expiry in the theme.
+- WordPress Tools > Export/Erase Personal Data now includes the submissions
+  table, matched by email, in batches of 100 rows. The export includes full name,
+  email, industry and submission date; erasure deletes matching table rows.
+  These callbacks use WordPress's existing privacy request workflow and are
+  available while this theme is active. No automatic deletion on theme switch
+  is performed.
+- No scheduled deletion or approved retention interval exists. Rows have no
+  automatic expiry; implementation awaits MCA's approved period and owner.
+- This integration does not erase recipient mail, downloaded CSVs, backups or
+  records held by external newsletter services. Those need separate handling.
 - Exported CSVs, recipient email/attachments and backups need separate deletion
   handling. Local backup plugins include UpdraftPlus and Duplicator; their
   schedules, off-site copies and retention policies were not inspected.
@@ -140,7 +147,7 @@ delivery testing are outside the completed local-only verification.
 4. Implement an approved deletion policy only after these decisions; do not infer
    a period or delete records as part of this verification.
 
-Local verification and documentation are complete. No functional code changes
-were required for this verification task. Operational ownership, staging parity
+The earlier verification required no functional code changes; the subsequent
+privacy integration above adds export and erasure callbacks. Operational ownership, staging parity
 after CF7 reactivation, and production server-side enforcement remain unconfirmed;
 the full cross-environment V-02 acceptance is not claimed as complete.
