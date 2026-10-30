@@ -5,7 +5,9 @@ const zoomIn = image => {
         scale: 1,
         duration: 2.2,
         ease: 'expo.out',
-        clearProps: 'scale,transition',
+        overwrite: 'auto',
+        force3D: true,
+        clearProps: 'transition',
     });
 };
 
@@ -24,7 +26,7 @@ export default async function heroSlider() {
         const pause = element.querySelector('[data-hero-pause]');
         const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
         const footer = element.querySelector('.m-hero__footer');
-        const reserveFooterSpace = () => element.style.setProperty('--hero-footer-height', `${Math.ceil(footer.getBoundingClientRect().height)}px`);
+        const reserveFooterSpace = () => element.style.setProperty('--hero-footer-height', `${footer.offsetHeight}px`);
         reserveFooterSpace();
         if (window.ResizeObserver) new ResizeObserver(reserveFooterSpace).observe(footer);
         else window.addEventListener('resize', reserveFooterSpace);
