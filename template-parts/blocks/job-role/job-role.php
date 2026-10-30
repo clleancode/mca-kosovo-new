@@ -59,15 +59,15 @@ $apply  = get_field('jr_apply_link');
 $alerts = get_field('jr_alerts_link');
 
 if ($closed) {
-    $application_title = __('This vacancy is closed', 'MCA');
+    $application_title = __('This vacancy is closed', 'mca');
     $application_text  = $deadline
         ? sprintf(
-            __('Applications closed on %s. Subscribe to job alerts to hear about new roles.', 'MCA'),
+            __('Applications closed on %s. Subscribe to job alerts to hear about new roles.', 'mca'),
             wp_date('j F Y', $deadline->getTimestamp())
         )
-        : __('Subscribe to job alerts to hear about new roles.', 'MCA');
+        : __('Subscribe to job alerts to hear about new roles.', 'mca');
 } else {
-    $application_title = __('Apply for this role', 'MCA');
+    $application_title = __('Apply for this role', 'mca');
     $application_text  = get_field('jr_apply_intro');
 }
 ?>
@@ -148,7 +148,7 @@ if ($closed) {
                         <div class="m-job-role__actions">
                             <?php if ($closed) : ?>
                                 <button class="a-text a-text--m h-semibold" type="button" disabled>
-                                    <?php esc_html_e('Apply now', 'MCA'); ?>
+                                    <?php esc_html_e('Apply now', 'mca'); ?>
                                 </button>
                             <?php elseif (!empty($apply['url'])) : ?>
                                 <a
@@ -173,7 +173,7 @@ if ($closed) {
                     <?php $documents = get_field('jr_documents'); ?>
                     <?php if ($documents) : ?>
                         <div class="m-job-role__card e-reveal" data-delay="300">
-                            <h2 class="h-semibold a-heading a-heading--h6"><?php esc_html_e('Documents', 'MCA'); ?></h2>
+                            <h2 class="h-semibold a-heading a-heading--h6"><?php esc_html_e('Documents', 'mca'); ?></h2>
                             <?php
                             foreach ($documents as $document) :
                                 $file = $document['file'] ?? [];
@@ -203,7 +203,7 @@ if ($closed) {
                         </div>
                     <?php endif; ?>
                     <div class="m-job-role__card e-reveal" data-delay="400">
-                        <h2 class="h-semibold a-heading a-heading--h6"><?php esc_html_e('Share this vacancy', 'MCA'); ?></h2>
+                        <h2 class="h-semibold a-heading a-heading--h6"><?php esc_html_e('Share this vacancy', 'mca'); ?></h2>
                         <div class="m-job-role__share">
                             <a
                                 class="a-text a-text--m"

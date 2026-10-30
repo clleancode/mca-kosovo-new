@@ -15,19 +15,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function register_job_status_taxonomy() {
     $labels = [
-        'name'                       => _x( 'Job Statuses', 'taxonomy general name', 'MCA' ),
-        'singular_name'              => _x( 'Job Status', 'taxonomy singular name', 'MCA' ),
-        'search_items'               => __( 'Search Job Statuses', 'MCA' ),
-        'popular_items'              => __( 'Popular Job Statuses', 'MCA' ),
-        'all_items'                  => __( 'All Job Statuses', 'MCA' ),
-        'edit_item'                  => __( 'Edit Job Status', 'MCA' ),
-        'update_item'                => __( 'Update Job Status', 'MCA' ),
-        'add_new_item'               => __( 'Add New Job Status', 'MCA' ),
-        'new_item_name'              => __( 'New Job Status Name', 'MCA' ),
-        'separate_items_with_commas' => __( 'Separate statuses with commas', 'MCA' ),
-        'add_or_remove_items'        => __( 'Add or remove statuses', 'MCA' ),
-        'choose_from_most_used'      => __( 'Choose from the most used statuses', 'MCA' ),
-        'menu_name'                  => __( 'Job Status', 'MCA' ),
+        'name'                       => _x( 'Job Statuses', 'taxonomy general name', 'mca' ),
+        'singular_name'              => _x( 'Job Status', 'taxonomy singular name', 'mca' ),
+        'search_items'               => __( 'Search Job Statuses', 'mca' ),
+        'popular_items'              => __( 'Popular Job Statuses', 'mca' ),
+        'all_items'                  => __( 'All Job Statuses', 'mca' ),
+        'edit_item'                  => __( 'Edit Job Status', 'mca' ),
+        'update_item'                => __( 'Update Job Status', 'mca' ),
+        'add_new_item'               => __( 'Add New Job Status', 'mca' ),
+        'new_item_name'              => __( 'New Job Status Name', 'mca' ),
+        'separate_items_with_commas' => __( 'Separate statuses with commas', 'mca' ),
+        'add_or_remove_items'        => __( 'Add or remove statuses', 'mca' ),
+        'choose_from_most_used'      => __( 'Choose from the most used statuses', 'mca' ),
+        'menu_name'                  => __( 'Job Status', 'mca' ),
     ];
 
     $args = [
@@ -45,8 +45,8 @@ function register_job_status_taxonomy() {
 
     // Ensure default terms exist
     $default_terms = [
-        'ongoing' => __( 'Ongoing', 'MCA' ),
-        'closed'  => __( 'Closed', 'MCA' ),
+        'ongoing' => __( 'Ongoing', 'mca' ),
+        'closed'  => __( 'Closed', 'mca' ),
     ];
 
     foreach ( $default_terms as $slug => $name ) {
@@ -62,19 +62,19 @@ add_action( 'init', __NAMESPACE__ . '\\register_job_status_taxonomy' );
  */
 function register_procurement_status_taxonomy() {
     $labels = [
-        'name'                       => _x( 'Procurement Statuses', 'taxonomy general name', 'MCA' ),
-        'singular_name'              => _x( 'Procurement Status', 'taxonomy singular name', 'MCA' ),
-        'search_items'               => __( 'Search Procurement Statuses', 'MCA' ),
-        'popular_items'              => __( 'Popular Procurement Statuses', 'MCA' ),
-        'all_items'                  => __( 'All Procurement Statuses', 'MCA' ),
-        'edit_item'                  => __( 'Edit Procurement Status', 'MCA' ),
-        'update_item'                => __( 'Update Procurement Status', 'MCA' ),
-        'add_new_item'               => __( 'Add New Procurement Status', 'MCA' ),
-        'new_item_name'              => __( 'New Procurement Status Name', 'MCA' ),
-        'separate_items_with_commas' => __( 'Separate statuses with commas', 'MCA' ),
-        'add_or_remove_items'        => __( 'Add or remove statuses', 'MCA' ),
-        'choose_from_most_used'      => __( 'Choose from the most used statuses', 'MCA' ),
-        'menu_name'                  => __( 'Procurement Status', 'MCA' ),
+        'name'                       => _x( 'Procurement Statuses', 'taxonomy general name', 'mca' ),
+        'singular_name'              => _x( 'Procurement Status', 'taxonomy singular name', 'mca' ),
+        'search_items'               => __( 'Search Procurement Statuses', 'mca' ),
+        'popular_items'              => __( 'Popular Procurement Statuses', 'mca' ),
+        'all_items'                  => __( 'All Procurement Statuses', 'mca' ),
+        'edit_item'                  => __( 'Edit Procurement Status', 'mca' ),
+        'update_item'                => __( 'Update Procurement Status', 'mca' ),
+        'add_new_item'               => __( 'Add New Procurement Status', 'mca' ),
+        'new_item_name'              => __( 'New Procurement Status Name', 'mca' ),
+        'separate_items_with_commas' => __( 'Separate statuses with commas', 'mca' ),
+        'add_or_remove_items'        => __( 'Add or remove statuses', 'mca' ),
+        'choose_from_most_used'      => __( 'Choose from the most used statuses', 'mca' ),
+        'menu_name'                  => __( 'Procurement Status', 'mca' ),
     ];
 
     $args = [
@@ -92,17 +92,17 @@ function register_procurement_status_taxonomy() {
 
     // Ensure default terms exist
     $default_terms = [
-        'ongoing'                    => __( 'Ongoing', 'MCA' ),
-        'upcoming'                   => __( 'Upcoming', 'MCA' ),
-        'closing-soon'               => __('Closing soon', 'MCA'),
-        'in-evaluation'              => __('In evaluation', 'MCA'),
-        'specific-procurement-notice' => __('Specific Procurement Notice', 'MCA'),
-        'closed'                     => __( 'Closed', 'MCA' ),
-        'general-procurement-notice' => __( 'General Procurement Notice', 'MCA' ),
-        'procurement-guidelines'     => __( 'Procurement Guidelines', 'MCA' ),
-        'bidchallenge-system'        => __( 'Bidchallenge System', 'MCA' ),
-        'award-notice'               => __( 'Award notice', 'MCA' ),
-        'funding-opportunities'      => __( 'Funding opportunities', 'MCA' ),
+        'ongoing'                    => __( 'Ongoing', 'mca' ),
+        'upcoming'                   => __( 'Upcoming', 'mca' ),
+        'closing-soon'               => __('Closing soon', 'mca'),
+        'in-evaluation'              => __('In evaluation', 'mca'),
+        'specific-procurement-notice' => __('Specific Procurement Notice', 'mca'),
+        'closed'                     => __( 'Closed', 'mca' ),
+        'general-procurement-notice' => __( 'General Procurement Notice', 'mca' ),
+        'procurement-guidelines'     => __( 'Procurement Guidelines', 'mca' ),
+        'bidchallenge-system'        => __( 'Bidchallenge System', 'mca' ),
+        'award-notice'               => __( 'Award notice', 'mca' ),
+        'funding-opportunities'      => __( 'Funding opportunities', 'mca' ),
     ];
 
     foreach ( $default_terms as $slug => $name ) {
@@ -118,19 +118,19 @@ add_action( 'init', __NAMESPACE__ . '\\register_procurement_status_taxonomy' );
  */
 function register_publication_type_taxonomy() {
     $labels = [
-        'name'                       => _x( 'Publication Types', 'taxonomy general name', 'MCA' ),
-        'singular_name'              => _x( 'Publication Type', 'taxonomy singular name', 'MCA' ),
-        'search_items'               => __( 'Search Publication Types', 'MCA' ),
-        'popular_items'              => __( 'Popular Publication Types', 'MCA' ),
-        'all_items'                  => __( 'All Publication Types', 'MCA' ),
-        'edit_item'                  => __( 'Edit Publication Type', 'MCA' ),
-        'update_item'                => __( 'Update Publication Type', 'MCA' ),
-        'add_new_item'               => __( 'Add New Publication Type', 'MCA' ),
-        'new_item_name'              => __( 'New Publication Type Name', 'MCA' ),
-        'separate_items_with_commas' => __( 'Separate types with commas', 'MCA' ),
-        'add_or_remove_items'        => __( 'Add or remove types', 'MCA' ),
-        'choose_from_most_used'      => __( 'Choose from the most used types', 'MCA' ),
-        'menu_name'                  => __( 'Publication Type', 'MCA' ),
+        'name'                       => _x( 'Publication Types', 'taxonomy general name', 'mca' ),
+        'singular_name'              => _x( 'Publication Type', 'taxonomy singular name', 'mca' ),
+        'search_items'               => __( 'Search Publication Types', 'mca' ),
+        'popular_items'              => __( 'Popular Publication Types', 'mca' ),
+        'all_items'                  => __( 'All Publication Types', 'mca' ),
+        'edit_item'                  => __( 'Edit Publication Type', 'mca' ),
+        'update_item'                => __( 'Update Publication Type', 'mca' ),
+        'add_new_item'               => __( 'Add New Publication Type', 'mca' ),
+        'new_item_name'              => __( 'New Publication Type Name', 'mca' ),
+        'separate_items_with_commas' => __( 'Separate types with commas', 'mca' ),
+        'add_or_remove_items'        => __( 'Add or remove types', 'mca' ),
+        'choose_from_most_used'      => __( 'Choose from the most used types', 'mca' ),
+        'menu_name'                  => __( 'Publication Type', 'mca' ),
     ];
 
     $args = [
@@ -148,11 +148,11 @@ function register_publication_type_taxonomy() {
 
     // Optionally, add some default terms
     $default_terms = [
-        'publications' => __('Publications', 'MCA'),
-        'project-documents' => __('Project documents', 'MCA'),
-        'legal-framework' => __('Legal framework', 'MCA'),
-        'policies' => __('Policies', 'MCA'),
-        'board-records' => __('Board records', 'MCA'),
+        'publications' => __('Publications', 'mca'),
+        'project-documents' => __('Project documents', 'mca'),
+        'legal-framework' => __('Legal framework', 'mca'),
+        'policies' => __('Policies', 'mca'),
+        'board-records' => __('Board records', 'mca'),
     ];
 
     foreach ( $default_terms as $slug => $name ) {
@@ -166,7 +166,7 @@ add_action( 'init', __NAMESPACE__ . '\\register_publication_type_taxonomy' );
 // Album categories for the All Albums filters.
 add_action('init', function () {
     register_taxonomy('gallery_category', ['gallery'], [
-        'label' => __('Album categories', 'MCA'),
+        'label' => __('Album categories', 'mca'),
         'public' => true, 'hierarchical' => true, 'show_in_rest' => true,
         'show_admin_column' => true, 'rewrite' => ['slug' => 'album-category'],
     ]);

@@ -6,8 +6,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'contact-form',
-        'title' => __('MCA - Contact Form', 'MCA'),
-        'description' => __('Contact form and contact information panels.', 'MCA'),
+        'title' => __('MCA - Contact Form', 'mca'),
+        'description' => __('Contact form and contact information panels.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/contact-form/contact-form.php',
         'category' => 'formatting',
         'icon' => 'email-alt',

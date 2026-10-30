@@ -65,7 +65,7 @@ $upload_fields = [
     <?php endif; ?>
     class="<?php echo esc_attr(implode(' ', array_filter($classes))); ?>"
     data-application
-    data-application-error="<?php echo esc_attr__('The application could not be sent because the connection or server failed. Please try again. If the problem continues, contact us using the email beside this form.', 'MCA'); ?>"
+    data-application-error="<?php echo esc_attr__('The application could not be sent because the connection or server failed. Please try again. If the problem continues, contact us using the email beside this form.', 'mca'); ?>"
 >
     <div class="container">
         <div class="m-application">

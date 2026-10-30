@@ -6,8 +6,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'gallery',
-        'title' => __('MCA - Gallery', 'MCA'),
-        'description' => __('Photo gallery with an album lightbox.', 'MCA'),
+        'title' => __('MCA - Gallery', 'mca'),
+        'description' => __('Photo gallery with an album lightbox.', 'mca'),
         'category' => 'formatting',
         'icon' => 'format-gallery',
         'mode' => 'preview',

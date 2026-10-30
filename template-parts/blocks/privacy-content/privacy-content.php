@@ -43,9 +43,9 @@ $link     = get_field('privacy_settings_link');
 >
     <div class="container">
         <div class="m-privacy-content" data-privacy-content>
-            <nav class="m-privacy-content__contents" aria-label="<?php esc_attr_e('Privacy policy contents', 'MCA'); ?>">
+            <nav class="m-privacy-content__contents" aria-label="<?php esc_attr_e('Privacy policy contents', 'mca'); ?>">
                 <h2 class="a-text a-text--m h-semibold h-uppercase e-reveal e-reveal--text">
-                    <?php echo esc_html(get_field('privacy_contents_title') ?: __('Contents', 'MCA')); ?>
+                    <?php echo esc_html(get_field('privacy_contents_title') ?: __('Contents', 'mca')); ?>
                 </h2>
                 <?php foreach ($sections as $index => $section) : ?>
                     <a
@@ -132,7 +132,7 @@ $link     = get_field('privacy_settings_link');
                     <div class="m-privacy-content__contact e-reveal">
                         <div>
                             <h2 class="a-heading a-heading--h6 h-semibold">
-                                <?php echo esc_html(get_field('privacy_contact_title') ?: __('Questions about your data?', 'MCA')); ?>
+                                <?php echo esc_html(get_field('privacy_contact_title') ?: __('Questions about your data?', 'mca')); ?>
                             </h2>
                             <?php if ($email) : ?>
                                 <p class="a-text a-text--m">
@@ -142,14 +142,14 @@ $link     = get_field('privacy_settings_link');
                         </div>
                         <?php if (!empty($link['url'])) : ?>
                             <?php if ($link['url'] === '#') : ?>
-                            <button type="button" class="a-text a-text--m h-semibold h-white" data-cookie-action="preferences"><?php echo esc_html($link['title'] ?: __('Cookie settings', 'MCA')); ?></button>
+                            <button type="button" class="a-text a-text--m h-semibold h-white" data-cookie-action="preferences"><?php echo esc_html($link['title'] ?: __('Cookie settings', 'mca')); ?></button>
                             <?php else : ?>
                             <a
                                 class="a-text a-text--m h-semibold"
                                 href="<?php echo esc_url($link['url']); ?>"
                                 <?php if (($link['target'] ?? '') === '_blank') : ?>target="_blank" rel="noopener noreferrer"<?php endif; ?>
                             >
-                                <?php echo esc_html($link['title'] ?: __('Cookie settings', 'MCA')); ?>
+                                <?php echo esc_html($link['title'] ?: __('Cookie settings', 'mca')); ?>
                             </a>
                             <?php endif; ?>
                         <?php endif; ?>

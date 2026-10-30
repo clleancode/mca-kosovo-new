@@ -6,8 +6,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'related-programs',
-        'title' => __('MCA - Related Programs', 'MCA'),
-        'description' => __('Displays the three latest programs.', 'MCA'),
+        'title' => __('MCA - Related Programs', 'mca'),
+        'description' => __('Displays the three latest programs.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/related-programs/related-programs.php',
         'category' => 'formatting',
         'icon' => 'welcome-learn-more',

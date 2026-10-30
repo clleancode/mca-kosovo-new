@@ -6,8 +6,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name'            => 'how-to-apply',
-        'title'           => __('MCA - How to Apply', 'MCA'),
-        'description'     => __('Application steps displayed as numbered cards.', 'MCA'),
+        'title'           => __('MCA - How to Apply', 'mca'),
+        'description'     => __('Application steps displayed as numbered cards.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/how-to-apply/how-to-apply.php',
         'category'        => 'formatting',
         'icon'            => 'list-view',

@@ -18,12 +18,12 @@ if (!$query instanceof WP_Query) {
             $mime_type = $is_attachment ? get_post_mime_type($result_id) : '';
             $result_url = $is_attachment ? wp_get_attachment_url($result_id) : get_permalink($result_id);
             $type_labels = [
-                'post' => __('News', 'mca-kosovo'),
-                'procurement' => __('Procurement', 'mca-kosovo'),
-                'publication' => __('Document', 'mca-kosovo'),
-                'attachment' => __('Document', 'mca-kosovo'),
-                'page' => __('Page', 'mca-kosovo'),
-                'project' => __('Page', 'mca-kosovo'),
+                'post' => __('News', 'mca'),
+                'procurement' => __('Procurement', 'mca'),
+                'publication' => __('Document', 'mca'),
+                'attachment' => __('Document', 'mca'),
+                'page' => __('Page', 'mca'),
+                'project' => __('Page', 'mca'),
             ];
             $post_type_object = get_post_type_object($result_type);
             $type_label = $type_labels[$result_type] ?? ($post_type_object ? $post_type_object->labels->singular_name : '');
@@ -36,8 +36,8 @@ if (!$query instanceof WP_Query) {
                 $metadata = get_field('procurement_notice_type', $result_id) ?: get_the_date('M Y', $result_id);
             } elseif ($result_type === 'publication' || $is_attachment) {
                 $metadata = $is_attachment && $mime_type === 'application/pdf'
-                    ? __('Publication · PDF', 'mca-kosovo')
-                    : __('Publication', 'mca-kosovo');
+                    ? __('Publication · PDF', 'mca')
+                    : __('Publication', 'mca');
             } else {
                 $metadata = wp_parse_url(get_permalink($result_id), PHP_URL_PATH);
                 $metadata = trim((string) $metadata, '/');
@@ -50,8 +50,8 @@ if (!$query instanceof WP_Query) {
             $excerpt = wp_html_excerpt(wp_strip_all_tags($excerpt), 140, '…');
 
             $placeholder = $result_type === 'procurement'
-                ? __('Notice', 'mca-kosovo')
-                : ($is_attachment && $mime_type === 'application/pdf' ? __('PDF', 'mca-kosovo') : $type_label);
+                ? __('Notice', 'mca')
+                : ($is_attachment && $mime_type === 'application/pdf' ? __('PDF', 'mca') : $type_label);
             ?>
             <article class="m-search-results__item e-reveal" data-delay="150">
                 <a class="m-search-results__item-link" href="<?php echo esc_url($result_url); ?>">
@@ -77,11 +77,11 @@ if (!$query instanceof WP_Query) {
     </div>
 
     <?php if ($query->max_num_pages > 1) : ?>
-        <nav class="m-search-results__pagination e-reveal" aria-label="<?php esc_attr_e('Search results pages', 'mca-kosovo'); ?>">
+        <nav class="m-search-results__pagination e-reveal" aria-label="<?php esc_attr_e('Search results pages', 'mca'); ?>">
             <ul>
                 <?php if ($page > 1) : ?>
                     <?php $previous_url = add_query_arg(['s' => $term, 'search_type' => $type, 'paged' => $page - 1], home_url('/')); ?>
-                    <li><a href="<?php echo esc_url($previous_url); ?>" aria-label="<?php esc_attr_e('Previous page', 'mca-kosovo'); ?>">&laquo;</a></li>
+                    <li><a href="<?php echo esc_url($previous_url); ?>" aria-label="<?php esc_attr_e('Previous page', 'mca'); ?>">&laquo;</a></li>
                 <?php endif; ?>
                 <?php
                 $pagination_pages = array_unique([1, $page, (int) $query->max_num_pages]);
@@ -97,18 +97,18 @@ if (!$query instanceof WP_Query) {
                         <?php if ($page_number === $page) : ?>
                             <span class="current" aria-current="page"><?php echo esc_html(number_format_i18n($page_number)); ?></span>
                         <?php else : ?>
-                            <a href="<?php echo esc_url($page_url); ?>" aria-label="<?php echo esc_attr(sprintf(__('Page %s', 'mca-kosovo'), $page_number)); ?>"><?php echo esc_html(number_format_i18n($page_number)); ?></a>
+                            <a href="<?php echo esc_url($page_url); ?>" aria-label="<?php echo esc_attr(sprintf(__('Page %s', 'mca'), $page_number)); ?>"><?php echo esc_html(number_format_i18n($page_number)); ?></a>
                         <?php endif; ?>
                     </li>
                     <?php $previous_page_number = $page_number; ?>
                 <?php endforeach; ?>
                 <?php if ($page < (int) $query->max_num_pages) : ?>
                     <?php $next_url = add_query_arg(['s' => $term, 'search_type' => $type, 'paged' => $page + 1], home_url('/')); ?>
-                    <li><a class="m-search-results__next" href="<?php echo esc_url($next_url); ?>" aria-label="<?php esc_attr_e('Next page', 'mca-kosovo'); ?>">&rarr;</a></li>
+                    <li><a class="m-search-results__next" href="<?php echo esc_url($next_url); ?>" aria-label="<?php esc_attr_e('Next page', 'mca'); ?>">&rarr;</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
     <?php endif; ?>
 <?php else : ?>
-    <p class="a-text a-text--m e-reveal e-reveal--text"><?php esc_html_e('No results found. Please try a different search.', 'mca-kosovo'); ?></p>
+    <p class="a-text a-text--m e-reveal e-reveal--text"><?php esc_html_e('No results found. Please try a different search.', 'mca'); ?></p>
 <?php endif; ?>

@@ -52,7 +52,7 @@ $render_breadcrumbs = static function () use ($link_markup, $page_id) {
     ?>
     <nav class="m-hero-collection__breadcrumbs e-reveal" data-offset="0" aria-label="Breadcrumb">
         <ol>
-            <li><?php $link_markup(['url' => home_url('/'), 'title' => __('Home', 'MCA')]); ?></li>
+            <li><?php $link_markup(['url' => home_url('/'), 'title' => __('Home', 'mca')]); ?></li>
             <?php foreach ($ancestors as $ancestor_id) : ?>
                 <li><?php $link_markup(['url' => get_permalink($ancestor_id), 'title' => get_the_title($ancestor_id)]); ?></li>
             <?php endforeach; ?>
@@ -112,7 +112,7 @@ $render_breadcrumbs = static function () use ($link_markup, $page_id) {
                 $vacancy_is_closed = $vacancy_deadline
                     ? $vacancy_deadline < new DateTimeImmutable('today', wp_timezone())
                     : ($vacancy_id ? has_term('closed', 'job_status', $vacancy_id) : false);
-                $vacancy_status = $vacancy_id ? ($vacancy_is_closed ? __('Closed', 'MCA') : __('Ongoing', 'MCA')) : '';
+                $vacancy_status = $vacancy_id ? ($vacancy_is_closed ? __('Closed', 'mca') : __('Ongoing', 'mca')) : '';
                 $vacancy_notice = get_field('hero_vacancy_notice');
                 $vacancy_project = $vacancy_id ? get_field('job_department', $vacancy_id) : '';
                 ?>

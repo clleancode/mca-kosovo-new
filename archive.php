@@ -7,9 +7,9 @@ $object = get_queried_object();
 $title = is_post_type_archive() && $object instanceof WP_Post_Type ? $object->labels->name : get_the_archive_title();
 $sort = isset($_GET['sorting']) && is_string($_GET['sorting']) ? sanitize_key(wp_unslash($_GET['sorting'])) : 'most_recent';
 $sort_options = [
-    'most_recent' => __('Most recent', 'MCA'),
-    'less_recent' => __('Less recent', 'MCA'),
-    'alphabetical_order' => __('Alphabetical order', 'MCA'),
+    'most_recent' => __('Most recent', 'mca'),
+    'less_recent' => __('Less recent', 'mca'),
+    'alphabetical_order' => __('Alphabetical order', 'mca'),
 ];
 if (!isset($sort_options[$sort])) { $sort = 'most_recent'; }
 ?>
@@ -18,7 +18,7 @@ if (!isset($sort_options[$sort])) { $sort = 'most_recent'; }
         <div class="flex grid--span-3 s-m-b-s s-d-b-s">
             <div>
                 <h1 class="a-heading a-heading--h2 h-green e-reveal e-reveal--text" data-delay="100"><?php echo esc_html(wp_strip_all_tags($title)); ?></h1>
-                <p class="a-text a-text--l e-reveal e-reveal--text" data-delay="350"><?php printf(esc_html(_n('%s result found', '%s results found', $total, 'MCA')), esc_html(number_format_i18n($total))); ?></p>
+                <p class="a-text a-text--l e-reveal e-reveal--text" data-delay="350"><?php printf(esc_html(_n('%s result found', '%s results found', $total, 'mca')), esc_html(number_format_i18n($total))); ?></p>
             </div>
             <?php if ($total > 1): ?>
                 <form class="o-filter flex e-reveal" data-delay="500" method="get" action="<?php echo esc_url(get_pagenum_link(1, false)); ?>">
@@ -30,13 +30,13 @@ if (!isset($sort_options[$sort])) { $sort = 'most_recent'; }
                         }
                     }
                     ?>
-                    <label class="a-text" for="archive-sort"><?php esc_html_e('Sort by', 'MCA'); ?></label>
+                    <label class="a-text" for="archive-sort"><?php esc_html_e('Sort by', 'mca'); ?></label>
                     <select name="sorting" id="archive-sort" class="a-dropdown">
                         <?php foreach ($sort_options as $value => $label): ?>
                             <option value="<?php echo esc_attr($value); ?>" <?php selected($sort, $value); ?>><?php echo esc_html($label); ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <button type="submit" class="a-btn"><?php esc_html_e('Apply', 'MCA'); ?></button>
+                    <button type="submit" class="a-btn"><?php esc_html_e('Apply', 'mca'); ?></button>
                 </form>
             <?php endif; ?>
         </div>
@@ -57,12 +57,12 @@ if (!isset($sort_options[$sort])) { $sort = 'most_recent'; }
             </div>
             <?php the_posts_pagination([
                 'mid_size' => 2,
-                'prev_text' => __('Previous', 'MCA'),
-                'next_text' => __('Next', 'MCA'),
+                'prev_text' => __('Previous', 'mca'),
+                'next_text' => __('Next', 'mca'),
                 'add_args' => isset($_GET['sorting']) ? ['sorting' => $sort] : false,
             ]); ?>
         <?php else: ?>
-            <p class="no-results a-text a-text--m e-reveal e-reveal--text"><?php esc_html_e('No records found in this archive.', 'MCA'); ?></p>
+            <p class="no-results a-text a-text--m e-reveal e-reveal--text"><?php esc_html_e('No records found in this archive.', 'mca'); ?></p>
         <?php endif; ?>
     </div>
 </div>

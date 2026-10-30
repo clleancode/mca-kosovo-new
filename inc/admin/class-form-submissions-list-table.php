@@ -19,8 +19,8 @@ class Form_Submissions_List_Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 		return array(
-			'email'      => __( 'Email', 'MCA' ),
-			'created_at' => __( 'Submitted', 'MCA' ),
+			'email'      => __( 'Email', 'mca' ),
+			'created_at' => __( 'Submitted', 'mca' ),
 		);
 	}
 
@@ -86,6 +86,6 @@ class Form_Submissions_List_Table extends \WP_List_Table {
 	 * Message shown when no submissions match.
 	 */
 	public function no_items() {
-		esc_html_e( 'No form submissions found.', 'MCA' );
+		esc_html_e( 'No form submissions found.', 'mca' );
 	}
 }

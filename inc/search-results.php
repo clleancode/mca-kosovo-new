@@ -4,7 +4,7 @@ namespace MCA\SearchResults;
 function get_types(): array {
     return [
         'all' => [
-            'label' => __('All', 'mca-kosovo'),
+            'label' => __('All', 'mca'),
             'args' => [
                 'post_type' => ['post', 'procurement', 'publication', 'page', 'project', 'attachment'],
                 'post_status' => ['publish', 'inherit'],
@@ -12,19 +12,19 @@ function get_types(): array {
             ],
         ],
         'news' => [
-            'label' => __('News', 'mca-kosovo'),
+            'label' => __('News', 'mca'),
             'args' => ['post_type' => 'post', 'post_status' => 'publish'],
         ],
         'procurement' => [
-            'label' => __('Procurement', 'mca-kosovo'),
+            'label' => __('Procurement', 'mca'),
             'args' => ['post_type' => 'procurement', 'post_status' => 'publish'],
         ],
         'documents' => [
-            'label' => __('Documents', 'mca-kosovo'),
+            'label' => __('Documents', 'mca'),
             'args' => \MCA\Helpers\get_document_search_args(),
         ],
         'pages' => [
-            'label' => __('Pages', 'mca-kosovo'),
+            'label' => __('Pages', 'mca'),
             'args' => ['post_type' => ['page', 'project'], 'post_status' => 'publish'],
         ],
     ];
@@ -53,12 +53,12 @@ function ajax_pagination(): void {
     $types = get_types();
 
     if (!$term || !isset($types[$type])) {
-        wp_send_json_error(['message' => __('The requested search page is not available.', 'mca-kosovo')], 400);
+        wp_send_json_error(['message' => __('The requested search page is not available.', 'mca')], 400);
     }
 
     $query = get_results_query($term, $type, $page);
     if ($page > max(1, (int) $query->max_num_pages)) {
-        wp_send_json_error(['message' => __('The requested search page is not available.', 'mca-kosovo')], 404);
+        wp_send_json_error(['message' => __('The requested search page is not available.', 'mca')], 404);
     }
 
     ob_start();

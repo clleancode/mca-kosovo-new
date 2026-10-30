@@ -58,7 +58,7 @@ $button_background = get_field('overview_button_background');
 $navigation_pills = $button_background === 'white'
     || (!in_array($button_background, ['white', 'transparent'], true) && $navigation_white);
 $show_sort = (bool) get_field('overview_show_sort');
-$sort_label = get_field('overview_sort_label') ?: 'Sort: Newest first';
+$sort_label = get_field('overview_sort_label') ?: __('Sort: Newest first', 'mca');
 $factsheet = get_field('overview_factsheet') ?: [];
 $factsheet_target = $factsheet['target'] ?? '';
 $benefits = array_slice(get_field('overview_benefits') ?: [], 0, 3);
@@ -121,10 +121,10 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                 <?php if ($show_sort) : ?>
                     <?php if (is_page('media-news')) : ?>
                     <label class="a-overview-factsheet a-overview-factsheet--sort a-text a-text--m h-semibold e-reveal" data-delay="<?php echo esc_attr(max(500, 230 + count($links) * 80)); ?>">
-                        <span>Sort:</span>
-                        <select data-news-sort aria-label="Sort news">
-                            <option value="newest"<?php selected($_GET['news_sort'] ?? 'newest', 'newest'); ?>>Newest first</option>
-                            <option value="oldest"<?php selected($_GET['news_sort'] ?? 'newest', 'oldest'); ?>>Oldest first</option>
+                        <span><?php esc_html_e('Sort:', 'mca'); ?></span>
+                        <select data-news-sort aria-label="<?php esc_attr_e('Sort news', 'mca'); ?>">
+                            <option value="newest"<?php selected($_GET['news_sort'] ?? 'newest', 'newest'); ?>><?php esc_html_e('Newest first', 'mca'); ?></option>
+                            <option value="oldest"<?php selected($_GET['news_sort'] ?? 'newest', 'oldest'); ?>><?php esc_html_e('Oldest first', 'mca'); ?></option>
                         </select>
                     </label>
                     <?php else : ?>
@@ -172,7 +172,7 @@ $has_content = trim((string) get_field('overview_title')) !== ''
                     <div class="m-overview__actions s-d-t-s s-m-t-xs">
                         <?php if (!empty($download['url'])) : ?>
                             <a class="a-btn a-btn--blue e-reveal" data-delay="500" href="<?php echo esc_url($download['url']); ?>"<?php if (($download['target'] ?? '') === '_blank') : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>>
-                                <span><?php echo esc_html($download['title'] ?: __('Download', 'MCA')); ?> <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/white-download.svg')); ?>" width="18" height="18" alt="" aria-hidden="true"></span>
+                                <span><?php echo esc_html($download['title'] ?: __('Download', 'mca')); ?> <img src="<?php echo esc_url(get_theme_file_uri('/assets/img/pics/icons/white-download.svg')); ?>" width="18" height="18" alt="" aria-hidden="true"></span>
                             </a>
                         <?php endif; ?>
                         <?php if (!empty($content_link['url'])) : ?>

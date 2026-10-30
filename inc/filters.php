@@ -30,8 +30,8 @@ add_filter('posts_where', function ($where, $query) {
 add_filter('mca_projects_hero_breadcrumbs', function ($items, $post_id) {
     $projects_page = get_page_by_path('projects');
     return [
-        ['title' => __('Home', 'MCA'), 'url' => home_url('/')],
-        ['title' => __('Projects', 'MCA'), 'url' => $projects_page ? get_permalink($projects_page) : get_post_type_archive_link('project')],
+        ['title' => __('Home', 'mca'), 'url' => home_url('/')],
+        ['title' => __('Projects', 'mca'), 'url' => $projects_page ? get_permalink($projects_page) : get_post_type_archive_link('project')],
         ['title' => get_the_title($post_id), 'url' => ''],
     ];
 }, 10, 2);
@@ -208,7 +208,7 @@ function mca_procurements_admin_columns($cols) {
     foreach ($cols as $key => $label) {
         $new[$key] = $label;
         if ($key === 'title') {
-            $new['mca_pinned'] = __('Pinned', 'MCA');
+            $new['mca_pinned'] = __('Pinned', 'mca');
         }
     }
     return $new;
@@ -220,7 +220,7 @@ function mca_procurements_admin_columns_content($column, $post_id) {
         return;
     }
     echo \MCA\Procurements\is_pinned($post_id)
-        ? '<span class="dashicons dashicons-star-filled" aria-hidden="true"></span> ' . esc_html__('Yes', 'MCA')
+        ? '<span class="dashicons dashicons-star-filled" aria-hidden="true"></span> ' . esc_html__('Yes', 'mca')
         : '&mdash;';
 }
 add_action('manage_procurement_posts_custom_column', __NAMESPACE__ . '\\mca_procurements_admin_columns_content', 10, 2);

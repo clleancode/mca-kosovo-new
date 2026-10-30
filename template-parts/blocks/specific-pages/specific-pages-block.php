@@ -9,8 +9,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name' => 'specific-pages',
-        'title' => __('MCA - Specific Pages', 'MCA'),
-        'description' => __('Displays manually configured image cards.', 'MCA'),
+        'title' => __('MCA - Specific Pages', 'mca'),
+        'description' => __('Displays manually configured image cards.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/specific-pages/specific-pages.php',
         'category' => 'formatting',
         'icon' => 'screenoptions',

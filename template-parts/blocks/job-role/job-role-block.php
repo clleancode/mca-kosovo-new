@@ -9,7 +9,7 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name'            => 'job-role',
-        'title'           => __('MCA - Job Role', 'MCA'),
+        'title'           => __('MCA - Job Role', 'mca'),
         'category'        => 'formatting',
         'icon'            => 'businessperson',
         'mode'            => 'preview',

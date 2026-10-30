@@ -287,7 +287,7 @@ $x_url = 'https://twitter.com/intent/tweet?url=' . rawurlencode($post_url) . '&t
 $copy_id = 'single-content-copy-' . sanitize_html_class($block['id'] ?? wp_unique_id());
 if (!$toc_items && get_post_type($post_id) === 'post' && trim(wp_strip_all_tags($article_markup)) !== '') {
     $overview_id = 'article-overview-' . sanitize_html_class($block['id'] ?? (string) $post_id);
-    $toc_items[] = ['id' => $overview_id, 'title' => __('Overview', 'MCA')];
+    $toc_items[] = ['id' => $overview_id, 'title' => __('Overview', 'mca')];
     $article_markup = '<div id="' . esc_attr($overview_id) . '">' . $article_markup . '</div>';
 }
 ?>

@@ -8,8 +8,8 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name'            => 'vacancies',
-        'title'           => __('MCA - Vacancies', 'MCA'),
-        'description'     => __('Open and closed job vacancies.', 'MCA'),
+        'title'           => __('MCA - Vacancies', 'mca'),
+        'description'     => __('Open and closed job vacancies.', 'mca'),
         'render_template' => get_template_directory() . '/template-parts/blocks/vacancies/vacancies.php',
         'category'        => 'formatting',
         'icon'            => 'businessperson',

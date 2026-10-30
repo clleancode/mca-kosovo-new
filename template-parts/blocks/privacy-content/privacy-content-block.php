@@ -9,7 +9,7 @@ add_action('acf/init', function () {
 
     acf_register_block_type([
         'name'            => 'privacy-content',
-        'title'           => __('MCA - Privacy Content', 'MCA'),
+        'title'           => __('MCA - Privacy Content', 'mca'),
         'category'        => 'formatting',
         'icon'            => 'privacy',
         'mode'            => 'preview',

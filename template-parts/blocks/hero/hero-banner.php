@@ -220,7 +220,7 @@ $type = Helpers\get_block_typography([
                             <div class="m-hero__action e-reveal" data-offset="0" data-delay="560">
                                 <a class="a-text a-text--m h-semibold" href="<?php echo esc_url(get_permalink($project)); ?>">
                                     <span>
-                                        <?php echo esc_html($project->post_type === 'project' ? __('Explore project', 'MCA') : __('Read the story', 'MCA')); ?>
+                                        <?php echo esc_html($project->post_type === 'project' ? __('Explore project', 'mca') : __('Read the story', 'mca')); ?>
                                     </span>
                                     <span aria-hidden="true"><i class="icon-arrow-right-up a-icon"></i></span>
                                 </a>

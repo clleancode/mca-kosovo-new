@@ -11,8 +11,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 if ( function_exists( 'acf_add_options_page' ) ) {
     acf_add_options_page( [
-        'page_title' => __( 'Theme General Settings', 'MCA' ),
-        'menu_title' => __( 'Theme Settings', 'MCA' ),
+        'page_title' => __( 'Theme General Settings', 'mca' ),
+        'menu_title' => __( 'Theme Settings', 'mca' ),
         'menu_slug'  => 'theme-general-settings',
         'capability' => 'edit_posts',
         'redirect'   => false,

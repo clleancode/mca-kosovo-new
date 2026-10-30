@@ -1,0 +1,2032 @@
+# Copyright (C) 2026 Clleancode
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: MCA Kosovo 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mca-kosovo-new\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-30T12:00:22+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: mca\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "MCA Kosovo"
+msgstr ""
+
+#. Theme URI of the theme
+#: style.css
+msgid "https://www.mcakosovo.org/"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "MCA brings your site to life with immersive visuals, custom layouts, and performance-focused design by Clleancode."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Clleancode"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://www.clleancode.com"
+msgstr ""
+
+#: 404.php:16
+msgid "Error 404"
+msgstr ""
+
+#: 404.php:17
+msgid "This page is off the grid"
+msgstr ""
+
+#: 404.php:18
+msgid "The page you’re looking for may have moved or no longer exists. Try searching, or head to one of these:"
+msgstr ""
+
+#: 404.php:20
+msgid "Back to homepage"
+msgstr ""
+
+#: 404.php:21
+#: footer.php:6
+#: inc/filters.php:34
+#: inc/post-types/projects.php:19
+msgid "Projects"
+msgstr ""
+
+#: 404.php:22
+#: inc/post-types/procurements.php:20
+#: inc/search-results.php:19
+#: template-parts/search/results-content.php:22
+msgid "Procurement"
+msgstr ""
+
+#: 404.php:23
+#: footer.php:10
+msgid "Contact"
+msgstr ""
+
+#: archive.php:10
+msgid "Most recent"
+msgstr ""
+
+#: archive.php:11
+msgid "Less recent"
+msgstr ""
+
+#: archive.php:12
+msgid "Alphabetical order"
+msgstr ""
+
+#: archive.php:21
+msgid "%s result found"
+msgid_plural "%s results found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: archive.php:33
+msgid "Sort by"
+msgstr ""
+
+#: archive.php:39
+msgid "Apply"
+msgstr ""
+
+#: archive.php:60
+msgid "Previous"
+msgstr ""
+
+#: archive.php:61
+msgid "Next"
+msgstr ""
+
+#: archive.php:65
+msgid "No records found in this archive."
+msgstr ""
+
+#: category.php:9
+#: inc/search-results.php:15
+#: template-parts/search/results-content.php:21
+msgid "News"
+msgstr ""
+
+#: category.php:130
+#: category.php:213
+msgid "<"
+msgstr ""
+
+#: category.php:131
+#: category.php:214
+msgid ">"
+msgstr ""
+
+#: footer.php:7
+msgid "Work with us"
+msgstr ""
+
+#: footer.php:8
+msgid "Organization"
+msgstr ""
+
+#: footer.php:67
+msgid "MCA Kosovo home"
+msgstr ""
+
+#: footer.php:75
+#: footer.php:79
+msgid "Social media"
+msgstr ""
+
+#: footer.php:94
+msgid "Social"
+msgstr ""
+
+#: footer.php:128
+msgid "Report fraud & corruption"
+msgstr ""
+
+#. translators: %s: Current year.
+#: footer.php:137
+msgid "© %s MCA Kosovo. All rights reserved."
+msgstr ""
+
+#: footer.php:139
+msgid "Legal and privacy"
+msgstr ""
+
+#: footer.php:141
+#: template-parts/blocks/privacy-content/privacy-content.php:145
+#: template-parts/blocks/privacy-content/privacy-content.php:152
+msgid "Cookie settings"
+msgstr ""
+
+#: header.php:35
+msgid "Skip to content"
+msgstr ""
+
+#: header.php:40
+msgid "MCA Kosovo - Home"
+msgstr ""
+
+#: header.php:56
+msgid "Open Search"
+msgstr ""
+
+#: header.php:58
+msgid "Open Mobile Navigation"
+msgstr ""
+
+#: header.php:66
+#: header.php:67
+msgctxt "placeholder"
+msgid "Search…"
+msgstr ""
+
+#: header.php:68
+#: searchform.php:18
+#: searchform.php:19
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
+
+#: header.php:69
+msgid "Close Search"
+msgstr ""
+
+#: header.php:80
+msgid "Primary Mobile Navigation"
+msgstr ""
+
+#: header.php:95
+msgid "Open Chat"
+msgstr ""
+
+#: header.php:100
+msgid "Report fraud"
+msgstr ""
+
+#: inc/actions.php:43
+msgid "Footer"
+msgstr ""
+
+#: inc/actions.php:45
+msgid "The main sidebar appears on the right on each page except the front page template"
+msgstr ""
+
+#: inc/actions.php:53
+msgid "Category Sidebar"
+msgstr ""
+
+#: inc/actions.php:55
+msgid "This sidebar is for Journal Post Category Listing"
+msgstr ""
+
+#: inc/actions.php:162
+msgid "Any Suggested Articles not found"
+msgstr ""
+
+#: inc/actions.php:412
+msgid "Please submit the form using POST."
+msgstr ""
+
+#: inc/actions.php:418
+msgid "Security check failed. Please refresh the page and try again."
+msgstr ""
+
+#: inc/actions.php:428
+#: inc/form-submissions.php:311
+msgid "Too many attempts. Please wait 15 minutes and try again."
+msgstr ""
+
+#: inc/actions.php:436
+msgid "Please enter text no longer than %d characters."
+msgstr ""
+
+#: inc/actions.php:440
+#: inc/actions.php:469
+msgid "Please correct the highlighted fields."
+msgstr ""
+
+#: inc/actions.php:451
+msgid "Name Surname is required."
+msgstr ""
+
+#: inc/actions.php:455
+msgid "A valid email address is required."
+msgstr ""
+
+#: inc/actions.php:459
+msgid "Industry is required."
+msgstr ""
+
+#: inc/actions.php:463
+msgid "You must accept the Privacy Notice."
+msgstr ""
+
+#: inc/actions.php:477
+msgid "Your submission could not be accepted. Please contact us for assistance."
+msgstr ""
+
+#: inc/actions.php:481
+msgid "Too many attempts for this email address. Please wait 15 minutes and try again."
+msgstr ""
+
+#: inc/actions.php:489
+#: inc/form-submissions.php:153
+msgid "Something went wrong while saving your submission. Please try again."
+msgstr ""
+
+#: inc/actions.php:502
+msgid "Thank you! Your submission has been received."
+msgstr ""
+
+#: inc/actions.php:674
+msgid "Please upload the required document."
+msgstr ""
+
+#: inc/admin/admin-functions.php:22
+msgid "No post to duplicate has been supplied!"
+msgstr ""
+
+#: inc/admin/admin-functions.php:27
+msgid "Invalid nonce. Action not allowed."
+msgstr ""
+
+#: inc/admin/admin-functions.php:35
+msgid "Post creation failed. Could not find the original post."
+msgstr ""
+
+#: inc/admin/admin-functions.php:44
+msgid "You are not allowed to duplicate this post."
+msgstr ""
+
+#: inc/admin/admin-functions.php:69
+msgid "Post creation failed. Could not duplicate the original post."
+msgstr ""
+
+#: inc/admin/admin-functions.php:110
+msgid "Duplicate this post"
+msgstr ""
+
+#: inc/admin/admin-functions.php:110
+msgid "Duplicate"
+msgstr ""
+
+#: inc/admin/class-form-submissions-list-table.php:22
+#: inc/form-submissions.php:260
+msgid "Email"
+msgstr ""
+
+#: inc/admin/class-form-submissions-list-table.php:23
+#: inc/form-submissions.php:261
+msgid "Submitted"
+msgstr ""
+
+#: inc/admin/class-form-submissions-list-table.php:89
+msgid "No form submissions found."
+msgstr ""
+
+#: inc/filters.php:33
+#: template-parts/blocks/benefit-banner/benefit-banner.php:42
+#: template-parts/blocks/hero-collection/hero-collection.php:55
+msgid "Home"
+msgstr ""
+
+#: inc/filters.php:186
+msgid "Deadline"
+msgstr ""
+
+#: inc/filters.php:211
+msgid "Pinned"
+msgstr ""
+
+#: inc/filters.php:223
+msgid "Yes"
+msgstr ""
+
+#: inc/filters.php:297
+msgid "Open Expanded Editor"
+msgstr ""
+
+#: inc/form-submissions.php:166
+#: inc/form-submissions.php:167
+#: inc/form-submissions.php:204
+msgid "Form Submissions"
+msgstr ""
+
+#: inc/form-submissions.php:182
+msgid "You do not have permission to view submissions."
+msgstr ""
+
+#: inc/form-submissions.php:206
+msgid "Export CSV / Excel"
+msgstr ""
+
+#: inc/form-submissions.php:213
+msgid "Search by email"
+msgstr ""
+
+#: inc/form-submissions.php:226
+msgid "You do not have permission to export submissions."
+msgstr ""
+
+#: inc/form-submissions.php:305
+msgid "Please enter a valid email and accept the privacy notice."
+msgstr ""
+
+#: inc/form-submissions.php:313
+msgid "Your subscription could not be saved. Please try again."
+msgstr ""
+
+#: inc/helpers.php:157
+msgid "Category"
+msgstr ""
+
+#: inc/media.php:52
+msgid "The SVG file contains invalid or unsafe content."
+msgstr ""
+
+#: inc/media.php:55
+msgid "SVG-Sanitizer library not found. SVG uploads are disabled."
+msgstr ""
+
+#: inc/menus.php:12
+msgid "Primary Navigation"
+msgstr ""
+
+#: inc/menus.php:13
+msgid "Resources - Documents"
+msgstr ""
+
+#: inc/menus.php:14
+msgid "Resources - Media"
+msgstr ""
+
+#: inc/menus.php:15
+msgid "Resources - Transparency"
+msgstr ""
+
+#: inc/menus.php:16
+msgid "Footer Legal Links"
+msgstr ""
+
+#: inc/menus.php:17
+msgid "Footer - Projects"
+msgstr ""
+
+#: inc/menus.php:18
+msgid "Footer - Work with us"
+msgstr ""
+
+#: inc/menus.php:19
+msgid "Footer - Organization"
+msgstr ""
+
+#: inc/menus.php:313
+msgid "Back"
+msgstr ""
+
+#: inc/options.php:14
+msgid "Theme General Settings"
+msgstr ""
+
+#: inc/options.php:15
+msgid "Theme Settings"
+msgstr ""
+
+#: inc/post-types/galleries.php:17
+msgctxt "Post Type General Name"
+msgid "Galleries"
+msgstr ""
+
+#: inc/post-types/galleries.php:18
+msgctxt "Post Type Singular Name"
+msgid "Gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:19
+msgid "Galleries"
+msgstr ""
+
+#: inc/post-types/galleries.php:20
+msgid "Gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:21
+msgid "Gallery Archives"
+msgstr ""
+
+#: inc/post-types/galleries.php:22
+msgid "Gallery Attributes"
+msgstr ""
+
+#: inc/post-types/galleries.php:23
+msgid "Parent Gallery:"
+msgstr ""
+
+#: inc/post-types/galleries.php:24
+msgid "All Galleries"
+msgstr ""
+
+#: inc/post-types/galleries.php:25
+msgid "Add New Gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:26
+msgid "Add Gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:27
+msgid "New Gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:28
+msgid "Edit Gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:29
+msgid "Update Gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:30
+msgid "View Gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:31
+msgid "View Galleries"
+msgstr ""
+
+#: inc/post-types/galleries.php:32
+msgid "Search Galleries"
+msgstr ""
+
+#: inc/post-types/galleries.php:33
+#: inc/post-types/jobs.php:33
+#: inc/post-types/procurements.php:33
+#: inc/post-types/projects.php:33
+#: inc/post-types/publications.php:33
+msgid "Not found"
+msgstr ""
+
+#: inc/post-types/galleries.php:34
+#: inc/post-types/jobs.php:34
+#: inc/post-types/procurements.php:34
+#: inc/post-types/projects.php:34
+#: inc/post-types/publications.php:34
+msgid "Not found in Trash"
+msgstr ""
+
+#: inc/post-types/galleries.php:35
+#: inc/post-types/jobs.php:35
+#: inc/post-types/procurements.php:35
+#: inc/post-types/programs.php:30
+#: inc/post-types/projects.php:35
+#: inc/post-types/publications.php:35
+msgid "Featured Image"
+msgstr ""
+
+#: inc/post-types/galleries.php:36
+#: inc/post-types/jobs.php:36
+#: inc/post-types/procurements.php:36
+#: inc/post-types/programs.php:31
+#: inc/post-types/projects.php:36
+#: inc/post-types/publications.php:36
+msgid "Set featured image"
+msgstr ""
+
+#: inc/post-types/galleries.php:37
+#: inc/post-types/jobs.php:37
+#: inc/post-types/procurements.php:37
+#: inc/post-types/programs.php:32
+#: inc/post-types/projects.php:37
+#: inc/post-types/publications.php:37
+msgid "Remove featured image"
+msgstr ""
+
+#: inc/post-types/galleries.php:38
+#: inc/post-types/jobs.php:38
+#: inc/post-types/procurements.php:38
+#: inc/post-types/programs.php:33
+#: inc/post-types/projects.php:38
+#: inc/post-types/publications.php:38
+msgid "Use as featured image"
+msgstr ""
+
+#: inc/post-types/galleries.php:39
+msgid "Insert into gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:40
+msgid "Uploaded to this gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:41
+msgid "Galleries list"
+msgstr ""
+
+#: inc/post-types/galleries.php:42
+msgid "Galleries list navigation"
+msgstr ""
+
+#: inc/post-types/galleries.php:43
+msgid "Filter galleries list"
+msgstr ""
+
+#: inc/post-types/galleries.php:47
+msgid "gallery"
+msgstr ""
+
+#: inc/post-types/galleries.php:48
+msgid "Custom post type for image galleries."
+msgstr ""
+
+#: inc/post-types/jobs.php:17
+msgctxt "Post Type General Name"
+msgid "Jobs"
+msgstr ""
+
+#: inc/post-types/jobs.php:18
+msgctxt "Post Type Singular Name"
+msgid "Job"
+msgstr ""
+
+#: inc/post-types/jobs.php:19
+msgid "Jobs"
+msgstr ""
+
+#: inc/post-types/jobs.php:20
+msgid "Job"
+msgstr ""
+
+#: inc/post-types/jobs.php:21
+msgid "Job Archives"
+msgstr ""
+
+#: inc/post-types/jobs.php:22
+msgid "Job Attributes"
+msgstr ""
+
+#: inc/post-types/jobs.php:23
+msgid "Parent Job:"
+msgstr ""
+
+#: inc/post-types/jobs.php:24
+msgid "All Jobs"
+msgstr ""
+
+#: inc/post-types/jobs.php:25
+msgid "Add New Job"
+msgstr ""
+
+#: inc/post-types/jobs.php:26
+msgid "Add Job"
+msgstr ""
+
+#: inc/post-types/jobs.php:27
+msgid "New Job"
+msgstr ""
+
+#: inc/post-types/jobs.php:28
+msgid "Edit Job"
+msgstr ""
+
+#: inc/post-types/jobs.php:29
+msgid "Update Job"
+msgstr ""
+
+#: inc/post-types/jobs.php:30
+msgid "View Job"
+msgstr ""
+
+#: inc/post-types/jobs.php:31
+msgid "View Jobs"
+msgstr ""
+
+#: inc/post-types/jobs.php:32
+msgid "Search Jobs"
+msgstr ""
+
+#: inc/post-types/jobs.php:39
+msgid "Insert into job"
+msgstr ""
+
+#: inc/post-types/jobs.php:40
+msgid "Uploaded to this job"
+msgstr ""
+
+#: inc/post-types/jobs.php:41
+msgid "Jobs list"
+msgstr ""
+
+#: inc/post-types/jobs.php:42
+msgid "Jobs list navigation"
+msgstr ""
+
+#: inc/post-types/jobs.php:43
+msgid "Filter jobs list"
+msgstr ""
+
+#: inc/post-types/jobs.php:47
+msgid "job"
+msgstr ""
+
+#: inc/post-types/jobs.php:48
+msgid "Custom post type for jobs."
+msgstr ""
+
+#: inc/post-types/persons.php:17
+#: inc/post-types/persons.php:19
+msgid "Persons"
+msgstr ""
+
+#: inc/post-types/persons.php:18
+msgid "Person"
+msgstr ""
+
+#: inc/post-types/persons.php:20
+msgid "All Persons"
+msgstr ""
+
+#: inc/post-types/persons.php:21
+msgid "Add New Person"
+msgstr ""
+
+#: inc/post-types/persons.php:22
+msgid "Edit Person"
+msgstr ""
+
+#: inc/post-types/persons.php:23
+msgid "Search Persons"
+msgstr ""
+
+#: inc/post-types/persons.php:24
+msgid "No persons found"
+msgstr ""
+
+#: inc/post-types/persons.php:25
+msgid "No persons found in Trash"
+msgstr ""
+
+#: inc/post-types/persons.php:26
+msgid "Person photo"
+msgstr ""
+
+#: inc/post-types/persons.php:27
+msgid "Set person photo"
+msgstr ""
+
+#: inc/post-types/persons.php:28
+msgid "Remove person photo"
+msgstr ""
+
+#: inc/post-types/persons.php:29
+msgid "Use as person photo"
+msgstr ""
+
+#: inc/post-types/persons.php:31
+msgid "Publish persons with a photo to include them in the careers hero."
+msgstr ""
+
+#: inc/post-types/procurements.php:17
+msgctxt "Post Type General Name"
+msgid "Procurements"
+msgstr ""
+
+#: inc/post-types/procurements.php:18
+msgctxt "Post Type Singular Name"
+msgid "Procurement"
+msgstr ""
+
+#: inc/post-types/procurements.php:19
+msgid "Procurements"
+msgstr ""
+
+#: inc/post-types/procurements.php:21
+msgid "Procurement Archives"
+msgstr ""
+
+#: inc/post-types/procurements.php:22
+msgid "Procurement Attributes"
+msgstr ""
+
+#: inc/post-types/procurements.php:23
+msgid "Parent Procurement:"
+msgstr ""
+
+#: inc/post-types/procurements.php:24
+msgid "All Procurements"
+msgstr ""
+
+#: inc/post-types/procurements.php:25
+msgid "Add New Procurement"
+msgstr ""
+
+#: inc/post-types/procurements.php:26
+msgid "Add Procurement"
+msgstr ""
+
+#: inc/post-types/procurements.php:27
+msgid "New Procurement"
+msgstr ""
+
+#: inc/post-types/procurements.php:28
+msgid "Edit Procurement"
+msgstr ""
+
+#: inc/post-types/procurements.php:29
+msgid "Update Procurement"
+msgstr ""
+
+#: inc/post-types/procurements.php:30
+msgid "View Procurement"
+msgstr ""
+
+#: inc/post-types/procurements.php:31
+msgid "View Procurements"
+msgstr ""
+
+#: inc/post-types/procurements.php:32
+msgid "Search Procurements"
+msgstr ""
+
+#: inc/post-types/procurements.php:39
+msgid "Insert into procurement"
+msgstr ""
+
+#: inc/post-types/procurements.php:40
+msgid "Uploaded to this procurement"
+msgstr ""
+
+#: inc/post-types/procurements.php:41
+msgid "Procurements list"
+msgstr ""
+
+#: inc/post-types/procurements.php:42
+msgid "Procurements list navigation"
+msgstr ""
+
+#: inc/post-types/procurements.php:43
+msgid "Filter procurements list"
+msgstr ""
+
+#: inc/post-types/procurements.php:47
+msgid "procurement"
+msgstr ""
+
+#: inc/post-types/procurements.php:48
+msgid "Custom post type for procurements."
+msgstr ""
+
+#: inc/post-types/programs.php:16
+msgctxt "Post Type General Name"
+msgid "Programs"
+msgstr ""
+
+#: inc/post-types/programs.php:17
+msgctxt "Post Type Singular Name"
+msgid "Program"
+msgstr ""
+
+#: inc/post-types/programs.php:18
+#: inc/post-types/programs.php:39
+msgid "Programs"
+msgstr ""
+
+#: inc/post-types/programs.php:19
+msgid "Program"
+msgstr ""
+
+#: inc/post-types/programs.php:20
+msgid "All Programs"
+msgstr ""
+
+#: inc/post-types/programs.php:21
+msgid "Add New Program"
+msgstr ""
+
+#: inc/post-types/programs.php:22
+msgid "Add Program"
+msgstr ""
+
+#: inc/post-types/programs.php:23
+msgid "New Program"
+msgstr ""
+
+#: inc/post-types/programs.php:24
+msgid "Edit Program"
+msgstr ""
+
+#: inc/post-types/programs.php:25
+msgid "Update Program"
+msgstr ""
+
+#: inc/post-types/programs.php:26
+msgid "View Program"
+msgstr ""
+
+#: inc/post-types/programs.php:27
+msgid "Search Programs"
+msgstr ""
+
+#: inc/post-types/programs.php:28
+msgid "No programs found"
+msgstr ""
+
+#: inc/post-types/programs.php:29
+msgid "No programs found in Trash"
+msgstr ""
+
+#: inc/post-types/programs.php:34
+msgid "Programs list"
+msgstr ""
+
+#: inc/post-types/programs.php:35
+msgid "Programs list navigation"
+msgstr ""
+
+#: inc/post-types/programs.php:40
+msgid "Programs associated with MCA projects."
+msgstr ""
+
+#: inc/post-types/projects.php:17
+msgctxt "Post Type General Name"
+msgid "Projects"
+msgstr ""
+
+#: inc/post-types/projects.php:18
+msgctxt "Post Type Singular Name"
+msgid "Project"
+msgstr ""
+
+#: inc/post-types/projects.php:20
+msgid "Project"
+msgstr ""
+
+#: inc/post-types/projects.php:21
+msgid "Project Archives"
+msgstr ""
+
+#: inc/post-types/projects.php:22
+msgid "Project Attributes"
+msgstr ""
+
+#: inc/post-types/projects.php:23
+msgid "Parent Project:"
+msgstr ""
+
+#: inc/post-types/projects.php:24
+msgid "All Projects"
+msgstr ""
+
+#: inc/post-types/projects.php:25
+msgid "Add New Project"
+msgstr ""
+
+#: inc/post-types/projects.php:26
+msgid "Add Project"
+msgstr ""
+
+#: inc/post-types/projects.php:27
+msgid "New Project"
+msgstr ""
+
+#: inc/post-types/projects.php:28
+msgid "Edit Project"
+msgstr ""
+
+#: inc/post-types/projects.php:29
+msgid "Update Project"
+msgstr ""
+
+#: inc/post-types/projects.php:30
+msgid "View Project"
+msgstr ""
+
+#: inc/post-types/projects.php:31
+msgid "View Projects"
+msgstr ""
+
+#: inc/post-types/projects.php:32
+msgid "Search Projects"
+msgstr ""
+
+#: inc/post-types/projects.php:39
+msgid "Insert into project"
+msgstr ""
+
+#: inc/post-types/projects.php:40
+msgid "Uploaded to this project"
+msgstr ""
+
+#: inc/post-types/projects.php:41
+msgid "Projects list"
+msgstr ""
+
+#: inc/post-types/projects.php:42
+msgid "Projects list navigation"
+msgstr ""
+
+#: inc/post-types/projects.php:43
+msgid "Filter projects list"
+msgstr ""
+
+#: inc/post-types/projects.php:47
+msgid "project"
+msgstr ""
+
+#: inc/post-types/projects.php:48
+msgid "Custom post type for projects."
+msgstr ""
+
+#: inc/post-types/publications.php:17
+msgctxt "Post Type General Name"
+msgid "Publications"
+msgstr ""
+
+#: inc/post-types/publications.php:18
+msgctxt "Post Type Singular Name"
+msgid "Publication"
+msgstr ""
+
+#: inc/post-types/publications.php:19
+#: inc/taxonomies.php:151
+msgid "Publications"
+msgstr ""
+
+#: inc/post-types/publications.php:20
+#: template-parts/search/results-content.php:40
+msgid "Publication"
+msgstr ""
+
+#: inc/post-types/publications.php:21
+msgid "Publication Archives"
+msgstr ""
+
+#: inc/post-types/publications.php:22
+msgid "Publication Attributes"
+msgstr ""
+
+#: inc/post-types/publications.php:23
+msgid "Parent Publication:"
+msgstr ""
+
+#: inc/post-types/publications.php:24
+msgid "All Publications"
+msgstr ""
+
+#: inc/post-types/publications.php:25
+msgid "Add New Publication"
+msgstr ""
+
+#: inc/post-types/publications.php:26
+msgid "Add Publication"
+msgstr ""
+
+#: inc/post-types/publications.php:27
+msgid "New Publication"
+msgstr ""
+
+#: inc/post-types/publications.php:28
+msgid "Edit Publication"
+msgstr ""
+
+#: inc/post-types/publications.php:29
+msgid "Update Publication"
+msgstr ""
+
+#: inc/post-types/publications.php:30
+msgid "View Publication"
+msgstr ""
+
+#: inc/post-types/publications.php:31
+msgid "View Publications"
+msgstr ""
+
+#: inc/post-types/publications.php:32
+msgid "Search Publications"
+msgstr ""
+
+#: inc/post-types/publications.php:39
+msgid "Insert into publication"
+msgstr ""
+
+#: inc/post-types/publications.php:40
+msgid "Uploaded to this publication"
+msgstr ""
+
+#: inc/post-types/publications.php:41
+msgid "Publications list"
+msgstr ""
+
+#: inc/post-types/publications.php:42
+msgid "Publications list navigation"
+msgstr ""
+
+#: inc/post-types/publications.php:43
+msgid "Filter publications list"
+msgstr ""
+
+#: inc/post-types/publications.php:47
+msgid "publication"
+msgstr ""
+
+#: inc/post-types/publications.php:48
+msgid "Custom post type for publications."
+msgstr ""
+
+#: inc/search-results.php:7
+msgid "All"
+msgstr ""
+
+#: inc/search-results.php:23
+#: template-parts/blocks/job-role/job-role.php:176
+msgid "Documents"
+msgstr ""
+
+#: inc/search-results.php:27
+msgid "Pages"
+msgstr ""
+
+#: inc/search-results.php:56
+#: inc/search-results.php:61
+msgid "The requested search page is not available."
+msgstr ""
+
+#: inc/taxonomies.php:18
+msgctxt "taxonomy general name"
+msgid "Job Statuses"
+msgstr ""
+
+#: inc/taxonomies.php:19
+msgctxt "taxonomy singular name"
+msgid "Job Status"
+msgstr ""
+
+#: inc/taxonomies.php:20
+msgid "Search Job Statuses"
+msgstr ""
+
+#: inc/taxonomies.php:21
+msgid "Popular Job Statuses"
+msgstr ""
+
+#: inc/taxonomies.php:22
+msgid "All Job Statuses"
+msgstr ""
+
+#: inc/taxonomies.php:23
+msgid "Edit Job Status"
+msgstr ""
+
+#: inc/taxonomies.php:24
+msgid "Update Job Status"
+msgstr ""
+
+#: inc/taxonomies.php:25
+msgid "Add New Job Status"
+msgstr ""
+
+#: inc/taxonomies.php:26
+msgid "New Job Status Name"
+msgstr ""
+
+#: inc/taxonomies.php:27
+#: inc/taxonomies.php:74
+msgid "Separate statuses with commas"
+msgstr ""
+
+#: inc/taxonomies.php:28
+#: inc/taxonomies.php:75
+msgid "Add or remove statuses"
+msgstr ""
+
+#: inc/taxonomies.php:29
+#: inc/taxonomies.php:76
+msgid "Choose from the most used statuses"
+msgstr ""
+
+#: inc/taxonomies.php:30
+msgid "Job Status"
+msgstr ""
+
+#: inc/taxonomies.php:48
+#: inc/taxonomies.php:95
+#: template-parts/blocks/hero-collection/hero-collection.php:115
+msgid "Ongoing"
+msgstr ""
+
+#: inc/taxonomies.php:49
+#: inc/taxonomies.php:100
+#: single-job.php:23
+#: template-parts/blocks/hero-collection/hero-collection.php:115
+msgid "Closed"
+msgstr ""
+
+#: inc/taxonomies.php:65
+msgctxt "taxonomy general name"
+msgid "Procurement Statuses"
+msgstr ""
+
+#: inc/taxonomies.php:66
+msgctxt "taxonomy singular name"
+msgid "Procurement Status"
+msgstr ""
+
+#: inc/taxonomies.php:67
+msgid "Search Procurement Statuses"
+msgstr ""
+
+#: inc/taxonomies.php:68
+msgid "Popular Procurement Statuses"
+msgstr ""
+
+#: inc/taxonomies.php:69
+msgid "All Procurement Statuses"
+msgstr ""
+
+#: inc/taxonomies.php:70
+msgid "Edit Procurement Status"
+msgstr ""
+
+#: inc/taxonomies.php:71
+msgid "Update Procurement Status"
+msgstr ""
+
+#: inc/taxonomies.php:72
+msgid "Add New Procurement Status"
+msgstr ""
+
+#: inc/taxonomies.php:73
+msgid "New Procurement Status Name"
+msgstr ""
+
+#: inc/taxonomies.php:77
+msgid "Procurement Status"
+msgstr ""
+
+#: inc/taxonomies.php:96
+msgid "Upcoming"
+msgstr ""
+
+#: inc/taxonomies.php:97
+msgid "Closing soon"
+msgstr ""
+
+#: inc/taxonomies.php:98
+msgid "In evaluation"
+msgstr ""
+
+#: inc/taxonomies.php:99
+msgid "Specific Procurement Notice"
+msgstr ""
+
+#: inc/taxonomies.php:101
+msgid "General Procurement Notice"
+msgstr ""
+
+#: inc/taxonomies.php:102
+msgid "Procurement Guidelines"
+msgstr ""
+
+#: inc/taxonomies.php:103
+msgid "Bidchallenge System"
+msgstr ""
+
+#: inc/taxonomies.php:104
+msgid "Award notice"
+msgstr ""
+
+#: inc/taxonomies.php:105
+msgid "Funding opportunities"
+msgstr ""
+
+#: inc/taxonomies.php:121
+msgctxt "taxonomy general name"
+msgid "Publication Types"
+msgstr ""
+
+#: inc/taxonomies.php:122
+msgctxt "taxonomy singular name"
+msgid "Publication Type"
+msgstr ""
+
+#: inc/taxonomies.php:123
+msgid "Search Publication Types"
+msgstr ""
+
+#: inc/taxonomies.php:124
+msgid "Popular Publication Types"
+msgstr ""
+
+#: inc/taxonomies.php:125
+msgid "All Publication Types"
+msgstr ""
+
+#: inc/taxonomies.php:126
+msgid "Edit Publication Type"
+msgstr ""
+
+#: inc/taxonomies.php:127
+msgid "Update Publication Type"
+msgstr ""
+
+#: inc/taxonomies.php:128
+msgid "Add New Publication Type"
+msgstr ""
+
+#: inc/taxonomies.php:129
+msgid "New Publication Type Name"
+msgstr ""
+
+#: inc/taxonomies.php:130
+msgid "Separate types with commas"
+msgstr ""
+
+#: inc/taxonomies.php:131
+msgid "Add or remove types"
+msgstr ""
+
+#: inc/taxonomies.php:132
+msgid "Choose from the most used types"
+msgstr ""
+
+#: inc/taxonomies.php:133
+msgid "Publication Type"
+msgstr ""
+
+#: inc/taxonomies.php:152
+msgid "Project documents"
+msgstr ""
+
+#: inc/taxonomies.php:153
+msgid "Legal framework"
+msgstr ""
+
+#: inc/taxonomies.php:154
+msgid "Policies"
+msgstr ""
+
+#: inc/taxonomies.php:155
+msgid "Board records"
+msgstr ""
+
+#: inc/taxonomies.php:169
+msgid "Album categories"
+msgstr ""
+
+#: search.php:44
+#: search.php:48
+#: template-parts/blocks/vacancies/vacancies-archive.php:62
+msgid "Search"
+msgstr ""
+
+#: search.php:47
+msgid "Clear search"
+msgstr ""
+
+#: search.php:51
+msgid "Showing results for “%s”"
+msgstr ""
+
+#: search.php:59
+msgid "Filter search results"
+msgstr ""
+
+#: search.php:79
+msgid "Search results could not be loaded. Please try again."
+msgstr ""
+
+#: searchform.php:15
+msgctxt "placeholder"
+msgid "Type in your question..."
+msgstr ""
+
+#: single-job.php:23
+msgid "Open"
+msgstr ""
+
+#: template-parts/blocks/about-procurement/about-procurement-block.php:6
+msgid "MCA - About Procurement"
+msgstr ""
+
+#: template-parts/blocks/about-procurement/about-procurement-block.php:7
+msgid "Procurement facts, documents, application steps and contact."
+msgstr ""
+
+#: template-parts/blocks/activities/activities-block.php:6
+msgid "MCA - Activities"
+msgstr ""
+
+#: template-parts/blocks/activities/activities-block.php:7
+msgid "Two or three project activity cards."
+msgstr ""
+
+#: template-parts/blocks/all-albums/all-albums-block.php:12
+msgid "MCA - Albums"
+msgstr ""
+
+#: template-parts/blocks/all-albums/all-albums.php:201
+#: template-parts/blocks/more-albums/more-albums.php:90
+msgid "Album"
+msgstr ""
+
+#: template-parts/blocks/all-albums/all-albums.php:216
+#: template-parts/blocks/more-albums/more-albums.php:75
+msgid "View album: %s"
+msgstr ""
+
+#: template-parts/blocks/all-documents/all-documents-block.php:6
+msgid "MCA - All Documents"
+msgstr ""
+
+#: template-parts/blocks/all-documents/all-documents-block.php:7
+msgid "Filterable publication documents with downloads and load more."
+msgstr ""
+
+#: template-parts/blocks/application/application-block.php:6
+msgid "MCA - Job Application"
+msgstr ""
+
+#: template-parts/blocks/application/application-block.php:7
+msgid "Job application form layout with team photos and HR contact."
+msgstr ""
+
+#: template-parts/blocks/application/application.php:68
+msgid "The application could not be sent because the connection or server failed. Please try again. If the problem continues, contact us using the email beside this form."
+msgstr ""
+
+#: template-parts/blocks/benefit-banner/benefit-banner-block.php:6
+msgid "MCA - Benefit Banner"
+msgstr ""
+
+#: template-parts/blocks/benefits/benefits-block.php:6
+msgid "MCA - Benefits"
+msgstr ""
+
+#: template-parts/blocks/careers-hero/careers-hero-block.php:6
+msgid "MCA - Careers Hero"
+msgstr ""
+
+#: template-parts/blocks/careers-hero/careers-hero-block.php:7
+msgid "Careers introduction with a six-photo team collage."
+msgstr ""
+
+#: template-parts/blocks/category/category-block.php:6
+msgid "MCA - Categories"
+msgstr ""
+
+#: template-parts/blocks/category/category-block.php:7
+msgid "Browse publications by document category."
+msgstr ""
+
+#: template-parts/blocks/compact-projects/compact-projects-block.php:9
+msgid "MCA - Compact Projects"
+msgstr ""
+
+#: template-parts/blocks/compact-projects/compact-projects-block.php:10
+msgid "Showcase the three projects included in the MCC-Kosovo Compact."
+msgstr ""
+
+#: template-parts/blocks/compact-projects/compact-projects.php:76
+msgid "Explore the project"
+msgstr ""
+
+#: template-parts/blocks/compact/compact-block.php:9
+msgid "MCA - Compact"
+msgstr ""
+
+#: template-parts/blocks/compact/compact-block.php:10
+msgid "Compact investment, milestones and countdown."
+msgstr ""
+
+#: template-parts/blocks/contact-form/contact-form-block.php:9
+msgid "MCA - Contact Form"
+msgstr ""
+
+#: template-parts/blocks/contact-form/contact-form-block.php:10
+msgid "Contact form and contact information panels."
+msgstr ""
+
+#: template-parts/blocks/current-calls/current-calls-block.php:9
+msgid "MCA - Current Calls"
+msgstr ""
+
+#: template-parts/blocks/current-calls/current-calls-block.php:10
+msgid "Current procurement calls with status filters."
+msgstr ""
+
+#: template-parts/blocks/document-preview/document-preview-block.php:6
+msgid "MCA - Document Preview"
+msgstr ""
+
+#: template-parts/blocks/document-preview/document-preview.php:61
+msgid "Document preview"
+msgstr ""
+
+#: template-parts/blocks/document-preview/document-preview.php:95
+msgid "Document preview: %s"
+msgstr ""
+
+#: template-parts/blocks/document-preview/document-preview.php:104
+msgid "Preview unavailable."
+msgstr ""
+
+#: template-parts/blocks/document-preview/document-preview.php:110
+msgid "Details"
+msgstr ""
+
+#: template-parts/blocks/document-preview/document-preview.php:130
+msgid "Questions about this document?"
+msgstr ""
+
+#: template-parts/blocks/documents/documents-block.php:6
+msgid "MCA - Documents"
+msgstr ""
+
+#: template-parts/blocks/documents/documents-block.php:7
+msgid "Downloadable project documents."
+msgstr ""
+
+#: template-parts/blocks/expected/expected-block.php:11
+msgid "MCA - Expected Impact"
+msgstr ""
+
+#: template-parts/blocks/expected/expected-block.php:12
+msgid "Expected project impact with a background image and four cards."
+msgstr ""
+
+#: template-parts/blocks/faq/faq-block.php:6
+msgid "MCA - FAQ"
+msgstr ""
+
+#: template-parts/blocks/faq/faq-block.php:7
+msgid "Frequently asked questions with an accessible accordion."
+msgstr ""
+
+#: template-parts/blocks/featured-programs/featured-programs-block.php:6
+msgid "MCA - Featured Programs"
+msgstr ""
+
+#: template-parts/blocks/featured-programs/featured-programs-block.php:7
+msgid "Featured story and four program cards."
+msgstr ""
+
+#: template-parts/blocks/filter/filter-block.php:6
+msgid "MCA - Procurement Filter"
+msgstr ""
+
+#: template-parts/blocks/filter/filter-block.php:7
+msgid "Search and filter controls for procurement notices."
+msgstr ""
+
+#: template-parts/blocks/gallery-banner/gallery-banner-block.php:9
+msgid "MCA - Gallery Banner"
+msgstr ""
+
+#: template-parts/blocks/gallery-banner/gallery-banner-block.php:10
+msgid "Banner for the media and gallery page."
+msgstr ""
+
+#: template-parts/blocks/gallery-filter/gallery-filter-block.php:9
+msgid "MCA - Gallery Filter"
+msgstr ""
+
+#: template-parts/blocks/gallery-filter/gallery-filter-block.php:10
+msgid "Featured media story with category and date."
+msgstr ""
+
+#: template-parts/blocks/gallery-slider/gallery-slider-block.php:6
+msgid "MCA - Gallery Slider"
+msgstr ""
+
+#: template-parts/blocks/gallery-slider/gallery-slider-block.php:7
+msgid "A draggable gallery of Compact images."
+msgstr ""
+
+#: template-parts/blocks/gallery/gallery-block.php:9
+msgid "MCA - Gallery"
+msgstr ""
+
+#: template-parts/blocks/gallery/gallery-block.php:10
+msgid "Photo gallery with an album lightbox."
+msgstr ""
+
+#: template-parts/blocks/gallery/gallery.php:69
+#: template-parts/blocks/overview/overview.php:175
+msgid "Download"
+msgstr ""
+
+#: template-parts/blocks/hero-collection/hero-collection-block.php:11
+msgid "MCA - Hero Collection"
+msgstr ""
+
+#: template-parts/blocks/hero-collection/hero-collection-block.php:12
+msgid "One hero block with selectable layouts for albums, vacancies, integrity, policy and job archives."
+msgstr ""
+
+#: template-parts/blocks/hero/hero-banner.php:223
+msgid "Explore project"
+msgstr ""
+
+#: template-parts/blocks/hero/hero-banner.php:223
+msgid "Read the story"
+msgstr ""
+
+#: template-parts/blocks/hero/hero-block.php:15
+msgid "MCA - Hero Banner"
+msgstr ""
+
+#: template-parts/blocks/hero/hero-block.php:16
+msgid "A custom MCA theme hero banner block with swiper slider."
+msgstr ""
+
+#: template-parts/blocks/how-to-apply/how-to-apply-block.php:9
+msgid "MCA - How to Apply"
+msgstr ""
+
+#: template-parts/blocks/how-to-apply/how-to-apply-block.php:10
+msgid "Application steps displayed as numbered cards."
+msgstr ""
+
+#: template-parts/blocks/how-to-report/how-to-report-block.php:11
+msgid "MCA - How to Report"
+msgstr ""
+
+#: template-parts/blocks/how-to-report/how-to-report-block.php:12
+msgid "Hotline reporting options and related anti-fraud resources."
+msgstr ""
+
+#: template-parts/blocks/impact/impact-block.php:8
+msgid "MCA - Impact"
+msgstr ""
+
+#: template-parts/blocks/impact/impact-block.php:9
+msgid "Four ways the Compact benefits Kosovo."
+msgstr ""
+
+#: template-parts/blocks/implementing/implementing-block.php:6
+msgid "MCA - Implementing"
+msgstr ""
+
+#: template-parts/blocks/implementing/implementing-block.php:7
+msgid "Implementation panels or media resource cards."
+msgstr ""
+
+#: template-parts/blocks/job-role/job-role-block.php:12
+msgid "MCA - Job Role"
+msgstr ""
+
+#: template-parts/blocks/job-role/job-role.php:62
+msgid "This vacancy is closed"
+msgstr ""
+
+#: template-parts/blocks/job-role/job-role.php:65
+msgid "Applications closed on %s. Subscribe to job alerts to hear about new roles."
+msgstr ""
+
+#: template-parts/blocks/job-role/job-role.php:68
+msgid "Subscribe to job alerts to hear about new roles."
+msgstr ""
+
+#: template-parts/blocks/job-role/job-role.php:70
+msgid "Apply for this role"
+msgstr ""
+
+#: template-parts/blocks/job-role/job-role.php:151
+msgid "Apply now"
+msgstr ""
+
+#: template-parts/blocks/job-role/job-role.php:206
+msgid "Share this vacancy"
+msgstr ""
+
+#: template-parts/blocks/join/join-block.php:6
+msgid "MCA - Join"
+msgstr ""
+
+#: template-parts/blocks/join/join-block.php:7
+msgid "Image banner with contact and subscription links."
+msgstr ""
+
+#: template-parts/blocks/mission/mission-block.php:6
+msgid "MCA - Mission"
+msgstr ""
+
+#: template-parts/blocks/mission/mission-block.php:7
+msgid "Mission cards or compact project news links."
+msgstr ""
+
+#: template-parts/blocks/more-albums/more-albums-block.php:8
+msgid "MCA - More Albums"
+msgstr ""
+
+#: template-parts/blocks/news-grid/news-grid-block.php:9
+msgid "MCA - News Grid"
+msgstr ""
+
+#: template-parts/blocks/news-grid/news-grid-block.php:10
+msgid "Latest WordPress news cards with pagination."
+msgstr ""
+
+#: template-parts/blocks/news/news-block.php:6
+msgid "MCA - News"
+msgstr ""
+
+#: template-parts/blocks/news/news-block.php:7
+msgid "Latest WordPress news with category filters."
+msgstr ""
+
+#: template-parts/blocks/newsletter-subscribe/newsletter-subscribe-block.php:11
+msgid "MCA - Newsletter Subscribe"
+msgstr ""
+
+#: template-parts/blocks/newsletter-subscribe/newsletter-subscribe-block.php:12
+msgid "Newsletter signup section with an editorial preview card."
+msgstr ""
+
+#: template-parts/blocks/notices/notices-block.php:7
+msgid "MCA - Latest Notices"
+msgstr ""
+
+#: template-parts/blocks/notices/notices-block.php:8
+msgid "Filterable procurement notices with pagination."
+msgstr ""
+
+#: template-parts/blocks/opportunities/opportunities-block.php:6
+msgid "MCA - Opportunities"
+msgstr ""
+
+#: template-parts/blocks/opportunities/opportunities-block.php:7
+msgid "Opportunity cards and latest procurements."
+msgstr ""
+
+#: template-parts/blocks/our-office/our-office-block.php:12
+msgid "MCA - Our Office"
+msgstr ""
+
+#: template-parts/blocks/our-office/our-office-block.php:13
+msgid "Office information with a location map."
+msgstr ""
+
+#: template-parts/blocks/overview/overview-block.php:6
+msgid "MCA - Overview"
+msgstr ""
+
+#: template-parts/blocks/overview/overview-block.php:7
+msgid "Project navigation, overview and key benefits."
+msgstr ""
+
+#: template-parts/blocks/overview/overview.php:61
+msgid "Sort: Newest first"
+msgstr ""
+
+#: template-parts/blocks/overview/overview.php:124
+msgid "Sort:"
+msgstr ""
+
+#: template-parts/blocks/overview/overview.php:125
+msgid "Sort news"
+msgstr ""
+
+#: template-parts/blocks/overview/overview.php:126
+msgid "Newest first"
+msgstr ""
+
+#: template-parts/blocks/overview/overview.php:127
+msgid "Oldest first"
+msgstr ""
+
+#: template-parts/blocks/partnership/partnership-block.php:7
+msgid "MCA - Partnership"
+msgstr ""
+
+#: template-parts/blocks/partnership/partnership-block.php:8
+msgid "Compact funding and implementing partners."
+msgstr ""
+
+#: template-parts/blocks/privacy-content/privacy-content-block.php:12
+msgid "MCA - Privacy Content"
+msgstr ""
+
+#: template-parts/blocks/privacy-content/privacy-content.php:46
+msgid "Privacy policy contents"
+msgstr ""
+
+#: template-parts/blocks/privacy-content/privacy-content.php:48
+msgid "Contents"
+msgstr ""
+
+#: template-parts/blocks/privacy-content/privacy-content.php:135
+msgid "Questions about your data?"
+msgstr ""
+
+#: template-parts/blocks/procurement-resources/procurement-resources-block.php:6
+msgid "MCA - Procurement Resources"
+msgstr ""
+
+#: template-parts/blocks/procurement-resources/procurement-resources-block.php:7
+msgid "Procurement resource cards and newsletter signup."
+msgstr ""
+
+#: template-parts/blocks/progress/progress-block.php:6
+msgid "MCA - Progress"
+msgstr ""
+
+#: template-parts/blocks/progress/progress-block.php:7
+msgid "Project phase and milestone progress."
+msgstr ""
+
+#: template-parts/blocks/project-updates/project-updates-block.php:6
+msgid "MCA - Project Updates"
+msgstr ""
+
+#: template-parts/blocks/project-updates/project-updates-block.php:7
+msgid "Project procurement updates and downloadable documents."
+msgstr ""
+
+#: template-parts/blocks/projects-hero/projects-hero-block.php:6
+msgid "MCA - Projects Hero"
+msgstr ""
+
+#: template-parts/blocks/projects-hero/projects-hero-block.php:7
+msgid "Project hero with links and statistics."
+msgstr ""
+
+#: template-parts/blocks/publications-banner/publications-banner-block.php:6
+msgid "MCA - Publications Banner"
+msgstr ""
+
+#: template-parts/blocks/publications-banner/publications-banner.php:59
+msgid "All resources"
+msgstr ""
+
+#: template-parts/blocks/related-programs/related-programs-block.php:9
+msgid "MCA - Related Programs"
+msgstr ""
+
+#: template-parts/blocks/related-programs/related-programs-block.php:10
+msgid "Displays the three latest programs."
+msgstr ""
+
+#: template-parts/blocks/single-content/single-content-block.php:12
+msgid "MCA - Single Content"
+msgstr ""
+
+#: template-parts/blocks/single-content/single-content-block.php:13
+msgid "Build the full article in this block, with share links, an automatic table of contents and a related project."
+msgstr ""
+
+#: template-parts/blocks/single-content/single-content.php:290
+msgid "Overview"
+msgstr ""
+
+#: template-parts/blocks/single-hero/single-hero-block.php:12
+msgid "MCA - Single Hero"
+msgstr ""
+
+#: template-parts/blocks/single-hero/single-hero-block.php:13
+msgid "News article hero with metadata, sharing and featured image."
+msgstr ""
+
+#: template-parts/blocks/small-hero/small-hero-block.php:6
+msgid "MCA - Small Hero"
+msgstr ""
+
+#: template-parts/blocks/small-hero/small-hero-block.php:7
+msgid "Page hero with three useful links."
+msgstr ""
+
+#: template-parts/blocks/specific-pages/specific-pages-block.php:12
+msgid "MCA - Specific Pages"
+msgstr ""
+
+#: template-parts/blocks/specific-pages/specific-pages-block.php:13
+msgid "Displays manually configured image cards."
+msgstr ""
+
+#: template-parts/blocks/spotlight/spotlight-block.php:6
+msgid "MCA - Spotlight"
+msgstr ""
+
+#: template-parts/blocks/spotlight/spotlight-block.php:7
+msgid "Purple or green spotlight banner with image and links."
+msgstr ""
+
+#: template-parts/blocks/storage/storage-block.php:9
+msgid "Storage"
+msgstr ""
+
+#: template-parts/blocks/storage/storage-block.php:10
+msgid "Energy storage capacity and locations across Kosovo."
+msgstr ""
+
+#: template-parts/blocks/team/team-block.php:6
+msgid "MCA - Team / Board"
+msgstr ""
+
+#: template-parts/blocks/team/team-block.php:7
+msgid "Grouped board members or staff cards with tabs."
+msgstr ""
+
+#: template-parts/blocks/timeline/timeline-block.php:11
+msgid "MCA - Compact Timeline"
+msgstr ""
+
+#: template-parts/blocks/timeline/timeline-block.php:12
+msgid "Custom project milestones with dates and progress statuses."
+msgstr ""
+
+#: template-parts/blocks/transparency/transparency-block.php:6
+msgid "MCA - Transparency"
+msgstr ""
+
+#: template-parts/blocks/transparency/transparency-block.php:7
+msgid "Governance and legal document collections."
+msgstr ""
+
+#: template-parts/blocks/transparency/transparency.php:130
+msgid "View All"
+msgstr ""
+
+#: template-parts/blocks/transparency/transparency.php:131
+msgid "View Less"
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies-archive.php:61
+msgid "Search by job title"
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies-archive.php:64
+msgid "Vacancy status"
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies-archive.php:70
+msgid "Filter by team"
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies-archive.php:72
+msgid "All teams"
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies-archive.php:81
+msgid "Get job alerts"
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies-archive.php:87
+msgid "No positions match your search and filters."
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies-archive.php:91
+msgid "Vacancy pages"
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies-block.php:11
+msgid "MCA - Vacancies"
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies-block.php:12
+msgid "Open and closed job vacancies."
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies.php:189
+msgid "Other positions"
+msgstr ""
+
+#: template-parts/blocks/vacancies/vacancies.php:213
+msgid "No other positions found."
+msgstr ""
+
+#: template-parts/search/results-content.php:23
+#: template-parts/search/results-content.php:24
+msgid "Document"
+msgstr ""
+
+#: template-parts/search/results-content.php:25
+#: template-parts/search/results-content.php:26
+msgid "Page"
+msgstr ""
+
+#: template-parts/search/results-content.php:39
+msgid "Publication · PDF"
+msgstr ""
+
+#: template-parts/search/results-content.php:53
+msgid "Notice"
+msgstr ""
+
+#: template-parts/search/results-content.php:54
+msgid "PDF"
+msgstr ""
+
+#: template-parts/search/results-content.php:80
+msgid "Search results pages"
+msgstr ""
+
+#: template-parts/search/results-content.php:84
+msgid "Previous page"
+msgstr ""
+
+#: template-parts/search/results-content.php:100
+msgid "Page %s"
+msgstr ""
+
+#: template-parts/search/results-content.php:107
+msgid "Next page"
+msgstr ""
+
+#: template-parts/search/results-content.php:113
+msgid "No results found. Please try a different search."
+msgstr ""
+
+#: theme.json
+msgctxt "Style variation name"
+msgid "Medical Averitas"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Black"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Green Cyan"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Blue"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Dark Blue"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Green"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Dark Green"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Dark Blue 100"
+msgstr ""

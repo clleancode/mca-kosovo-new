@@ -12,8 +12,8 @@ add_action( 'acf/init', function () {
 
 	acf_register_block_type( [
 		'name'            => 'hero-banner',
-		'title'           => __( 'MCA - Hero Banner', 'MCA' ),
-		'description'     => __( 'A custom MCA theme hero banner block with swiper slider.', 'MCA' ),
+		'title'           => __( 'MCA - Hero Banner', 'mca' ),
+		'description'     => __( 'A custom MCA theme hero banner block with swiper slider.', 'mca' ),
 		'render_template' => get_template_directory() . '/template-parts/blocks/hero/hero-banner.php',
 		'category'        => 'formatting',
 		'icon'            => 'format-image',
