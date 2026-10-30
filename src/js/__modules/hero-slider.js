@@ -1,5 +1,3 @@
-import Swiper from 'swiper';
-import { Navigation, EffectFade } from 'swiper/modules';
 import gsap from 'gsap';
 
 const zoomIn = image => {
@@ -7,22 +5,28 @@ const zoomIn = image => {
         scale: 1,
         duration: 2.2,
         ease: 'expo.out',
-        clearProps: 'scale,transition',
+        overwrite: 'auto',
+        force3D: true,
+        clearProps: 'transition',
     });
 };
 
-export default function heroSlider() {
+export default async function heroSlider() {
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.querySelectorAll('.m-hero-about__image img, .m-small-hero__image img, .m-projects-hero__image img, [data-hero-slider] .swiper-slide:first-child .m-hero__image img').forEach(zoomIn);
     }
 
-    document.querySelectorAll('[data-hero-slider]').forEach(element => {
+    const sliders = document.querySelectorAll('[data-hero-slider]');
+    if (!sliders.length) return;
+    const { Swiper, Navigation, EffectFade } = await import('./swiper-vendor');
+
+    sliders.forEach(element => {
         if (element.swiper) return;
         const cards = [...element.querySelectorAll('[data-hero-slide]')];
         const pause = element.querySelector('[data-hero-pause]');
         const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
         const footer = element.querySelector('.m-hero__footer');
-        const reserveFooterSpace = () => element.style.setProperty('--hero-footer-height', `${Math.ceil(footer.getBoundingClientRect().height)}px`);
+        const reserveFooterSpace = () => element.style.setProperty('--hero-footer-height', `${footer.offsetHeight}px`);
         reserveFooterSpace();
         if (window.ResizeObserver) new ResizeObserver(reserveFooterSpace).observe(footer);
         else window.addEventListener('resize', reserveFooterSpace);

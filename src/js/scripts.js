@@ -1,7 +1,6 @@
 import heroSlider from "./__modules/hero-slider";
 import transparency from "./__modules/transparency";
 import header from "./__modules/header";
-import slider from "./__modules/slider";
 import countdown from "./__modules/countdown";
 import cookieBanner from "./__modules/cookie-banner";
 import compact from "./__modules/compact";
@@ -43,36 +42,86 @@ document.addEventListener("DOMContentLoaded", () => {
     else window.addEventListener("scroll", updateHeaderScroll, { passive: true });
     updateHeaderScroll();
 
-    transparency();
-    compact();
-    compactProjects();
-    news();
-    gallerySlider();
-    overview();
-    filter();
-    notices();
-    currentCalls();
-    team();
-    faq();
-    smallHero();
-    application();
-    vacancies();
-    category();
-    allDocuments();
-    allAlbums();
-    aboutProcurement();
-    jobRole();
-    documentPreview();
-    privacyContent();
-    singleHero();
-    singleContent();
-    newsletterSubscribe();
+    if (document.querySelector('[data-transparency-toggle]')) {
+        transparency();
+    }
+    if (document.querySelector('[data-compact-end]')) {
+        compact();
+    }
+    if (document.querySelector('.m-compact-projects__grid')) {
+        compactProjects();
+    }
+    if (document.querySelector('[data-news]')) {
+        news();
+    }
+    if (document.querySelector('[data-gallery-slider]')) {
+        gallerySlider().catch(error => console.error('Gallery slider could not initialize:', error));
+    }
+    if (document.querySelector('[data-overview]')) {
+        overview();
+    }
+    if (document.querySelector('[data-procurement-filter]')) {
+        filter();
+    }
+    if (document.querySelector('[data-notices]')) {
+        notices();
+    }
+    if (document.querySelector('[data-current-calls]')) {
+        currentCalls();
+    }
+    if (document.querySelector('[data-team]')) {
+        team();
+    }
+    if (document.querySelector('.m-faq__items')) {
+        faq();
+    }
+    if (document.querySelector('[data-document-search]')) {
+        smallHero();
+    }
+    if (document.querySelector('[data-application]')) {
+        application();
+    }
+    if (document.querySelector('[data-vacancies-archive], [data-vacancies]')) {
+        vacancies();
+    }
+    if (document.querySelector('[data-resource-category]')) {
+        category();
+    }
+    if (document.querySelector('[data-all-documents]')) {
+        allDocuments();
+    }
+    if (document.querySelector('[data-all-albums]')) {
+        allAlbums();
+    }
+    if (document.querySelector('[data-procurement-copy]')) {
+        aboutProcurement();
+    }
+    if (document.querySelector('[data-job-copy]')) {
+        jobRole();
+    }
+    if (document.querySelector('[data-document-preview]')) {
+        documentPreview();
+    }
+    if (document.querySelector('[data-privacy-content]')) {
+        privacyContent();
+    }
+    if (document.querySelector('[data-single-hero-copy]')) {
+        singleHero();
+    }
+    if (document.querySelector('.m-single-content__toc, [data-single-content-copy]')) {
+        singleContent();
+    }
+    if (document.querySelector('[data-newsletter-subscribe]')) {
+        newsletterSubscribe();
+    }
 
 	if (document.querySelector(".o-header")) {
 		header();
 	}
 
-    heroSlider();
+    if (document.querySelector('[data-hero-slider], .m-hero-about__image img, .m-small-hero__image img, .m-projects-hero__image img')) {
+        heroSlider().catch(error => console.error('Hero slider could not initialize:', error));
+    }
 
 	if (document.querySelector("#a-countdown")) {
 		countdown();

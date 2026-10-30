@@ -1,8 +1,9 @@
-import Swiper from 'swiper';
-import { Navigation, A11y, Keyboard } from 'swiper/modules';
+const gallerySlider = async () => {
+    const sections = document.querySelectorAll('[data-gallery-slider]');
+    if (!sections.length) return;
+    const { Swiper, Navigation, A11y, Keyboard } = await import('./swiper-vendor');
 
-const gallerySlider = () => {
-    document.querySelectorAll('[data-gallery-slider]').forEach(section => {
+    sections.forEach(section => {
         const element = section.querySelector('.m-gallery-slider__swiper');
         if (!element || element.swiper) return;
         const container = section.querySelector('.container');

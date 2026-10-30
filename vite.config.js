@@ -344,7 +344,7 @@ export default defineConfig(({ mode }) => {
 				},
 				output: {
 					entryFileNames: jsEntryFileName,
-					chunkFileNames: 'js/[name].js',
+					chunkFileNames: 'js/chunks/[name]-[hash].js',
 					assetFileNames: cssAssetFileName,
 				},
 			},
