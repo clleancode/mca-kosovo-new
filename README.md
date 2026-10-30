@@ -57,8 +57,16 @@ Support and maintenance: https://www.clleancode.com/
 
 - `acf-json/` is the theme's Local JSON save/load directory. Commit exported
   field groups with their stable ACF keys after reviewing changes.
+- The directory is included through `acf-json/index.php`, even when no
+  database-defined field groups exist. Keep it writable by the web server.
 - Field groups registered by `inc/fields/` and `inc/options.php` already live in
   version-controlled PHP. Keep those PHP definitions as their source of truth.
 - Database-defined groups must be exported from the running site's ACF Tools
   before deployment. Importing or syncing on the destination is a separate
   admin action; saving JSON does not migrate existing field values or content.
+- For existing database-defined groups, open each group in Custom Fields and
+  click Update to generate its individual Local JSON file in `acf-json/`.
+  Review and commit those files before deployment. Sync reads existing JSON;
+  it does not export database groups. Do not duplicate PHP-defined groups as JSON.
+- Before release, check the target site's database-defined groups as well:
+  a local database with no groups does not prove the live database has none.
