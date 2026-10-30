@@ -85,7 +85,7 @@ add_filter('script_loader_tag', function($tag, $handle) {
 // Scroll reveals hide content only under `has-js`; if the main bundle never starts, the class is removed again.
 add_action('wp_head', function () {
     ?>
-    <script>
+    <script nonce="<?php echo esc_attr(\MCA\Security\csp_nonce()); ?>">
     (function (root) {
       root.classList.add('has-js');
       setTimeout(function () {
@@ -98,7 +98,7 @@ add_action('wp_head', function () {
 
 add_action('wp_head', function () {
     ?>
-    <script>
+    <script nonce="<?php echo esc_attr(\MCA\Security\csp_nonce()); ?>">
 window.dataLayer = window.dataLayer || [];
     function gtag() { window.dataLayer.push(arguments); }
 

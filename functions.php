@@ -30,6 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Enqueue assets.
+require_once get_template_directory() . '/inc/security.php';
 require_once get_template_directory() . '/inc/assets.php';
 
 // Remove comments.

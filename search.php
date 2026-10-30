@@ -81,7 +81,7 @@ $results_query = \MCA\SearchResults\get_results_query($search_term, $selected_ty
     </section>
 </div>
 
-<script>
+<script nonce="<?php echo esc_attr(\MCA\Security\csp_nonce()); ?>">
 (() => {
     const root = document.querySelector('[data-search-results]');
     const content = root?.querySelector('[data-search-content]');
