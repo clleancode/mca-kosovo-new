@@ -324,10 +324,6 @@ button {
     text-decoration: none;
 }
 
-.h-breadcrumbs a:hover {
-    text-decoration: underline;
-}
-
 .h-breadcrumbs a:focus-visible {
     outline: 2px solid var(--blue);
     outline-offset: 4px;
@@ -494,14 +490,40 @@ nav[aria-label="Breadcrumb"] [aria-current="page"] {
     text-decoration-thickness: 1px;
 }
 
-nav[aria-label="Breadcrumb"] a:hover,
-nav[aria-label="Breadcrumb"] a:focus-visible {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1px;
+nav[aria-label="Breadcrumb"] a {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 0% 1px;
+    transition: background-size .25s ease;
+
+    &:hover,
+    &:focus-visible {
+        text-decoration: none;
+        background-size: 100% 1px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 }
-.wpcf7-list-item-label a:hover,
-.wpcf7-list-item-label a:focus-visible {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+.wpcf7 .wpcf7-list-item-label a,
+.wpcf7 .wpcf7-acceptance a {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 0% 1px;
+    transition: background-size .25s ease;
+
+    &:hover,
+    &:focus-visible {
+        text-decoration: none;
+        background-size: 100% 1px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 }

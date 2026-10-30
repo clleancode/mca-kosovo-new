@@ -133,3 +133,23 @@
         order: 0;
     }
 }
+
+.m-publications-banner--no-cover {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+}
+
+.m-publications-banner--no-cover .m-publications-banner__content {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    justify-self: stretch;
+    grid-template-columns: minmax(0, 1fr);
+
+    >.a-heading,
+    >.a-text {
+        width: 100%;
+        max-width: none;
+        text-wrap: wrap;
+    }
+}

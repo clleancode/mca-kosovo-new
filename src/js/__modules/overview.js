@@ -6,7 +6,10 @@ const overview = () => {
         if (section.dataset.overviewInitialized) return;
         section.dataset.overviewInitialized = 'true';
         const bar = section.querySelector('.m-overview__navigation');
-        if (bar) {
+        const stickyEnabled = !section.classList.contains('o-overview--no-sticky');
+        const overHeader = section.classList.contains('o-overview--over-header');
+        const adminTop = () => Math.max(0, document.querySelector('#wpadminbar')?.getBoundingClientRect().bottom ?? 0);
+        if (bar && stickyEnabled) {
             // A placeholder keeps the original position even when this short
             // block's navigation follows the rest of the page.
             const placeholder = document.createElement('div');
@@ -17,7 +20,7 @@ const overview = () => {
             const updateSticky = () => {
                 scheduled = false;
                 const header = document.querySelector('.o-header');
-                const top = Math.max(0, header?.getBoundingClientRect().bottom ?? 0);
+                const top = overHeader ? adminTop() : Math.max(0, header?.getBoundingClientRect().bottom ?? 0);
                 const rect = placeholder.getBoundingClientRect();
                 const stuck = window.scrollY > 0 && rect.top < top;
                 if (stuck) {
@@ -57,7 +60,8 @@ const overview = () => {
             project.before(projectPosition);
             projectSlot = document.createElement('div');
             projectSlot.className = 'm-overview__mobile-project container';
-            bar.parentElement.before(projectSlot);
+            if (stickyEnabled) bar.parentElement.before(projectSlot);
+            else bar.before(projectSlot);
         }
         const setOpen = open => {
             section.classList.toggle('is-mobile-overview', !desktop.matches);
@@ -151,8 +155,8 @@ const overview = () => {
             const top = element => element.getBoundingClientRect().top + window.scrollY;
             return top(a.target) - top(b.target);
         });
-        const offset = () => Math.max(0, document.querySelector('.o-header')?.getBoundingClientRect().bottom ?? 0)
-            + (bar?.getBoundingClientRect().height ?? 0) + 16;
+        const offset = () => (overHeader ? adminTop() : Math.max(0, document.querySelector('.o-header')?.getBoundingClientRect().bottom ?? 0))
+            + (stickyEnabled ? (bar?.getBoundingClientRect().height ?? 0) : 0) + 16;
         const activate = selected => {
             if (currentLabel) currentLabel.textContent = selected.textContent.trim();
             entries.forEach(({ link }) => {

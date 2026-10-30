@@ -46,6 +46,28 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform .6s var(--cubic-bezier);
+}
+
+.m-mission__card:hover .m-mission__image>img,
+.m-mission__card:focus-within .m-mission__image>img {
+    transform: scale(1.08);
+}
+
+.m-mission__link .a-icon {
+    transition: transform .25s var(--cubic-bezier);
+}
+
+.m-mission__card:hover .m-mission__link .a-icon,
+.m-mission__card:focus-within .m-mission__link .a-icon {
+    transform: translateX(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .m-mission__image>img,
+    .m-mission__link .a-icon {
+        transition: none;
+    }
 }
 
 .m-mission__image::after {

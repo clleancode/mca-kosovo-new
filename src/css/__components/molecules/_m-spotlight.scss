@@ -198,6 +198,23 @@
     color: var(--dark-blue);
 }
 
+.m-spotlight__card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+}
+
+.m-spotlight__card-link:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: -3px;
+}
+
+.m-spotlight--featured .m-spotlight__buttons {
+    position: relative;
+    z-index: 3;
+}
+
 .m-spotlight--featured .m-spotlight__image {
     min-height: 240px;
     overflow: hidden;
@@ -211,6 +228,7 @@
 }
 
 .m-spotlight--featured .m-spotlight__content {
+    position: relative;
     align-items: flex-start;
     padding: 32px 24px;
     color: var(--dark-blue);

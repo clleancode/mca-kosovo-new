@@ -14,6 +14,9 @@ $classes = [
 ];
 
 $is_activities = get_field('overview_layout') === 'activities';
+if (is_singular('project')) {
+    $classes[] = 'o-overview--over-header';
+}
 $project_slug = is_singular('project') ? get_post_field('post_name', get_queried_object_id()) : '';
 if ($project_slug === 'jeta') {
     $classes[] = 'o-overview--project-purple';

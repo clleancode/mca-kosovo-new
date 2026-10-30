@@ -77,6 +77,23 @@ const team = () => {
             });
         });
         if (tabs.length) activate(tabs[0]);
+        const activateHash = hash => {
+            let id;
+            try { id = decodeURIComponent(hash.replace(/^#/, '')); }
+            catch { return; }
+            const selected = tabs.find(tab => tab.id === id)
+                || (id === section.id ? tabs[0] : null);
+            if (selected) activate(selected);
+        };
+        activateHash(location.hash);
+        window.addEventListener('hashchange', () => activateHash(location.hash));
+        document.addEventListener('click', event => {
+            const link = event.target.closest('a[href]');
+            if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0 || link.target === '_blank') return;
+            const url = new URL(link.href, location.href);
+            if (url.origin !== location.origin || url.pathname !== location.pathname || !url.hash) return;
+            activateHash(url.hash);
+        }, true);
         panels.forEach(panel => {
             const alternates = [...panel.querySelectorAll('[data-team-alternate]')];
             const button = panel.querySelector('[data-team-toggle]');

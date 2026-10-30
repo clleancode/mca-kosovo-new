@@ -49,6 +49,10 @@
     display: block;
 }
 
+.o-overview--over-header .m-overview__navigation.is-sticky {
+    z-index: 7;
+}
+
 .m-overview__navigation--white {
     background: var(--white);
     border-bottom: 1px solid #e7e7ef;

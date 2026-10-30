@@ -87,7 +87,7 @@ if ($layout === 'board') {
                                 class="a-text a-text--m"
                                 type="button"
                                 role="tab"
-                                id="<?php echo esc_attr($instance . '-tab-' . $key); ?>"
+                                id="<?php echo esc_attr($key === 'mcc' ? 'mcc-kosovo' : $instance . '-tab-' . $key); ?>"
                                 aria-selected="false"
                                 data-team-tab="<?php echo esc_attr($key); ?>"
                             >
@@ -123,6 +123,17 @@ if ($layout === 'board') {
                         if (!$members) {
                             continue;
                         }
+
+                        usort($members, static function ($first, $second) {
+                            $first_name = trim((string) ($first['name'] ?? ''));
+                            $second_name = trim((string) ($second['name'] ?? ''));
+
+                            if ($first_name === '' || $second_name === '') {
+                                return ($first_name === '') <=> ($second_name === '');
+                            }
+
+                            return strnatcasecmp(remove_accents($first_name), remove_accents($second_name));
+                        });
 
                         $alternate      = !empty($group['alternate']);
                         $has_alternates = $has_alternates || $alternate;

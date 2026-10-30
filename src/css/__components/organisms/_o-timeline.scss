@@ -1,5 +1,6 @@
 .o-timeline {
     background: var(--navy);
     color: var(--white);
-    overflow: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
 }

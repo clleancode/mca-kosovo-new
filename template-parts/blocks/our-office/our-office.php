@@ -29,6 +29,10 @@ $title = get_field('our_office_title');
 $address = get_field('our_office_address');
 $map_image = get_field('our_office_map_image');
 $map_image_id = is_array($map_image) ? absint($map_image['ID'] ?? $map_image['id'] ?? 0) : absint($map_image);
+$map_metadata = $map_image_id ? wp_get_attachment_metadata($map_image_id) : [];
+$map_ratio = !empty($map_metadata['width']) && !empty($map_metadata['height'])
+    ? $map_metadata['width'] / $map_metadata['height']
+    : 1060 / 620;
 $link = get_field('our_office_link') ?: [];
 ?>
 <section
@@ -60,7 +64,10 @@ $link = get_field('our_office_link') ?: [];
             </div>
             <div class="m-our-office__map e-reveal e-reveal--image" data-delay="250">
                 <?php if ($map_image_id) : ?>
-                    <?php echo wp_get_attachment_image($map_image_id, 'large', false, ['alt' => '', 'aria-hidden' => 'true', 'loading' => 'lazy']); ?>
+                    <div class="m-our-office__map-visual" style="--office-map-ratio: <?php echo esc_attr($map_ratio); ?>;">
+                        <?php echo wp_get_attachment_image($map_image_id, 'large', false, ['alt' => '', 'aria-hidden' => 'true', 'loading' => 'lazy']); ?>
+                        <span class="m-our-office__map-marker" aria-hidden="true"></span>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

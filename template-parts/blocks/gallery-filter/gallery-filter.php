@@ -101,6 +101,9 @@ if (!$link_url) {
             </div>
 
             <div class="m-spotlight__content">
+                <?php if ($link_url) : ?>
+                    <a class="m-spotlight__card-link" href="<?php echo esc_url($link_url); ?>" target="<?php echo esc_attr($link_target); ?>" aria-label="<?php echo esc_attr($title); ?>"<?php if ($link_target === '_blank') : ?> rel="noopener noreferrer"<?php endif; ?>></a>
+                <?php endif; ?>
                 <div class="m-spotlight__label m-spotlight__featured-meta">
                     <?php if ($badge) : ?>
                         <span class="a-spotlight-pill a-text a-text--xs h-semibold e-reveal" data-delay="150"><?php echo esc_html($badge); ?></span>

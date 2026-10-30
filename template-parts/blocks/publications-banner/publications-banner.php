@@ -28,6 +28,7 @@ $id          = absint(get_field('publications_banner_publication')) ?: get_the_I
 $title       = get_field('publications_banner_title') ?: get_the_title($id);
 $description = get_field('publications_banner_description') ?: wp_strip_all_tags(get_the_excerpt($id));
 $cover       = absint(get_field('publications_banner_cover')) ?: get_post_thumbnail_id($id);
+$cover_image = $cover ? wp_get_attachment_image($cover, 'large', false, ['loading' => 'eager']) : '';
 $pdf         = get_field('publication_pdf', $id) ?: [];
 $project     = absint(get_field('publication_project', $id));
 $terms       = get_the_terms($id, 'publication_type');
@@ -43,14 +44,12 @@ $url         = get_permalink($id);
     <?php endif; ?>
 >
     <div class="container">
-        <div class="m-publications-banner">
+        <div class="m-publications-banner<?php echo $cover_image ? '' : ' m-publications-banner--no-cover'; ?>">
+            <?php if ($cover_image) : ?>
             <div class="m-publications-banner__cover e-reveal e-reveal--image" data-offset="0">
-                <?php
-                if ($cover) {
-                    echo wp_get_attachment_image($cover, 'large', false, ['loading' => 'eager']);
-                }
-                ?>
+                <?php echo $cover_image; ?>
             </div>
+            <?php endif; ?>
             <div class="m-publications-banner__content">
                 <?php if ($back_url) : ?>
                     <div class="m-publications-banner__back e-reveal" data-offset="0" data-delay="150">

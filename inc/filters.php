@@ -229,6 +229,28 @@ add_action('manage_procurement_posts_custom_column', __NAMESPACE__ . '\\mca_proc
 add_filter( 'wpcf7_load_js', '__return_false' );
 add_filter( 'wpcf7_load_css', '__return_false' );
 
+add_filter('wpcf7_form_elements', function ($html) {
+    $privacy_url = get_privacy_policy_url();
+    if (!$privacy_url) {
+        $privacy_page = get_page_by_path('privacy-policy');
+        $privacy_url = $privacy_page && get_post_status($privacy_page) === 'publish'
+            ? get_permalink($privacy_page)
+            : home_url('/privacy-policy/');
+    }
+
+    $processor = new \WP_HTML_Tag_Processor($html);
+    while ($processor->next_tag('A')) {
+        $href = $processor->get_attribute('href');
+        if (!is_string($href)) continue;
+        $path = wp_parse_url($href, PHP_URL_PATH);
+        if (!is_string($path) || !preg_match('~/privacy-policy/?$~', $path)) continue;
+        $processor->set_attribute('href', esc_url_raw($privacy_url));
+    }
+
+    return $processor->get_updated_html();
+});
+
+
 /**
  * ACF Local JSON support.
  */
