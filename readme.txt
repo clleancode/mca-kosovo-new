@@ -1,7 +1,7 @@
 === MCA Kosovo ===
 Contributors: Clleancode
 Requires at least: 6.0
-Requires PHP: 7.4
+Requires PHP: 8.0
 Stable tag: 1.0.0
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -11,7 +11,7 @@ WordPress theme for MCA Kosovo, maintained by Clleancode.
 
 == Requirements ==
 WordPress 6.0+ is the declared baseline. Local smoke checks used WordPress 7.1.3.
-The retained PHP declaration permits 7.4 or 8.x, but PHP 7.4 is unverified.
+The theme requires PHP 8.0 or newer.
 Installed Composer dependencies require PHP 8.0+ at runtime; use PHP 8.0+ with
 this dependency set. The declaration does not establish PHP 7.4 compatibility.
 ACF Pro supplies blocks/fields; configured CF7 forms require Contact Form 7.
