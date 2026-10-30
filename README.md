@@ -32,6 +32,9 @@ The installation directory remains `mca-kosovo-new`.
 - Deploy changed PHP files, style.css, compiled assets in assets/ and block
   folders, and Composer dependencies installed from composer.lock.
 - Clear site/CDN caches; check pages, Search, 404, configured forms and PHP logs.
+- Deploy `assets/js/chunks/` together with `assets/js/script.min.js`; sliders load
+  Swiper from this folder on demand. Retain older hashed chunks while cached pages
+  may still reference them. Check hero/gallery controls and a page without sliders.
 - Test keyboard navigation, validation, success and failure responses.
 - The former header Open Chat placeholder was removed. Only add a new chat action
   for an approved destination/service with tested keyboard and focus behavior.

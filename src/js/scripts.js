@@ -1,7 +1,6 @@
 import heroSlider from "./__modules/hero-slider";
 import transparency from "./__modules/transparency";
 import header from "./__modules/header";
-import slider from "./__modules/slider";
 import countdown from "./__modules/countdown";
 import cookieBanner from "./__modules/cookie-banner";
 import compact from "./__modules/compact";
@@ -56,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         news();
     }
     if (document.querySelector('[data-gallery-slider]')) {
-        gallerySlider();
+        gallerySlider().catch(error => console.error('Gallery slider could not initialize:', error));
     }
     if (document.querySelector('[data-overview]')) {
         overview();
@@ -121,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
     if (document.querySelector('[data-hero-slider], .m-hero-about__image img, .m-small-hero__image img, .m-projects-hero__image img')) {
-        heroSlider();
+        heroSlider().catch(error => console.error('Hero slider could not initialize:', error));
     }
 
 	if (document.querySelector("#a-countdown")) {
