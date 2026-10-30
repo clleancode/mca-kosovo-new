@@ -30,9 +30,12 @@ The installation directory remains `mca-kosovo-new`.
 
 - After changing theme strings, regenerate the translation template with
   `wp i18n make-pot . languages/mca.pot --domain=mca --exclude=vendor,node_modules,inc/libs,assets`.
+- Include the updated `languages/mca.pot` in the release. Translators can use it
+  to create locale-specific PO/MO files (for example `languages/sq.po` and
+  `languages/sq.mo` for Albanian). The POT is a template, not a finished translation.
 - Keep versions in style.css, readme.txt, package.json and package-lock.json aligned.
 - Deploy changed PHP files, style.css, compiled assets in assets/ and block
-  folders, and Composer dependencies installed from composer.lock.
+  folders, languages/, and Composer dependencies installed from composer.lock.
 - Clear site/CDN caches; check pages, Search, 404, configured forms and PHP logs.
 - Test keyboard navigation, validation, success and failure responses.
 - The former header Open Chat placeholder was removed. Only add a new chat action
